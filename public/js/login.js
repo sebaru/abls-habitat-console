@@ -1,18 +1,14 @@
- document.addEventListener('DOMContentLoaded', Load_page, false);
+ function Load_login ( )
+  { if (Token !== null) { Redirect ( "/" ); return; }
 
- function Load_page ( )
-  { var token = localStorage.getItem("token");
-    if (token !== null) Redirect ( "/" );
-    else
-     { $('#idLoginContainer').fadeIn("slow");
-       $('#appareil').focus();
-       $('#appareil').on("change", function () { $('#login').focus(); } );
-       $('#login').on("change", function () { $('#password').focus(); } );
-       $('#password').keypress( function(event)
-        { var keycode = (event.keyCode ? event.keyCode : event.which);
-          if(keycode == '13') { Send_credential(); }
-        });
-     }
+    $('#idLoginContainer').fadeIn("slow");
+    $('#appareil').focus();
+    $('#appareil').on("change", function () { $('#login').focus(); } );
+    $('#login').on("change", function () { $('#password').focus(); } );
+    $('#password').keypress( function(event)
+     { var keycode = (event.keyCode ? event.keyCode : event.which);
+       if(keycode == '13') { Send_credential(); }
+     });
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Send_credential ()
@@ -27,10 +23,7 @@
      });
 
     Send_to_API ( 'POST', "/user/register", json_request, function (Response)
-     { localStorage.setItem("login",        Response.login );
-       localStorage.setItem("appareil",     Response.appareil );
-       localStorage.setItem("access_level", Response.access_level );
-       localStorage.setItem("token",        Response.token );
+     { localStorage.setItem("token",        Response.token );
        window.location.replace("/");
      }, function() { $("#idLabel").text ( "Une erreur s'est produite."); } );
   }

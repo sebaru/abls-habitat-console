@@ -1,7 +1,7 @@
  document.addEventListener('DOMContentLoaded', Load_common, false);
 
  var Charts = new Array();
-
+ var Token = null;
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Send_to_API ( method, URL, parametre, fonction_ok, fonction_nok )
   { var xhr = new XMLHttpRequest;
@@ -53,23 +53,18 @@
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_common ()
-  { if (window.location.pathname === "/login") return;
+  { if (window.location.pathname === "/login") { Load_login (); return; }
     if (localStorage.getItem("token") === null) { Redirect ("/login" ); return; }
 
-    if (document.getElementById("idUsername") !== null)
-     { document.getElementById("idUsername").innerHTML = localStorage.getItem("username");
-     }
-    if (localStorage.getItem("access_level")>=6) { $('#idMenuTechnicien').show(); }
-                                            else { $('#idMenuTechnicien').hide(); }
-   /* else
-     { document.getElementById("idUsername").innerHTML = "Se connecter";
-       document.getElementById("idHrefUsername").href = "/login";
-     }
+    Token = JSON.parse(atob(localStorage.getItem("token").split(".")[1]));
+
+    if (Token.username !== null ) $("#idUsername").text(Token.username);
+                             else $("#idUsername").text(Token.email);
     /*$("body").tooltip({ selector: '[data-toggle=tooltip]' });*/
   }
-/********************************************* Chargement du synoptique 1 au démrrage *****************************************/
+/********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()
-  { Send_to_API ( "PUT", "/api/disconnect", null, function() { localStorage.clear(); Redirect("/"); });
+  { Send_to_API ( "PUT", "/user/disconnect", null, function() { localStorage.clear(); Redirect("/"); });
   }
 
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
