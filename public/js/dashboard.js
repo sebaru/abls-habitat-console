@@ -1,10 +1,9 @@
- document.addEventListener('DOMContentLoaded', Load_dashboard, false);
 
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
- function Load_dashboard ()
+ function Load_page ()
   { console.log ("in load dashboard !");
 
-    Send_to_API ( "GET", "/api/status", null, function (Response)
+    Send_to_API ( "POST", "/domain/status", null, function (Response)
      { console.debug(Response);
        document.getElementById("idNbrSyns").innerHTML = Response.nbr_syns;
        document.getElementById("idNbrSynsVisuels").innerHTML = Response.nbr_syns_visuels;

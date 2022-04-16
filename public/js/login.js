@@ -15,15 +15,16 @@
   { var appareil = localStorage.getItem ( "appareil" );
     if (appareil == null) appareil = "New Device";
 
-    var json_request = JSON.stringify(
+    var json_request =
      { login : $('#login').val(),
        appareil : $('#appareil').val(),
        password : $('#password').val(),
        useragent : window.navigator.userAgent
-     });
+     };
 
     Send_to_API ( 'POST', "/user/register", json_request, function (Response)
-     { localStorage.setItem("token",        Response.token );
+     { localStorage.setItem("token", Response.token );
        window.location.replace("/");
      }, function() { $("#idLabel").text ( "Une erreur s'est produite."); } );
   }
+/*----------------------------------------------------------------------------------------------------------------------------*/

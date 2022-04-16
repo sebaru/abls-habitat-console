@@ -6,7 +6,10 @@
  function Send_to_API ( method, URL, parametre, fonction_ok, fonction_nok )
   { var xhr = new XMLHttpRequest;
     $(".ClassLoadingSpinner").show();
-    if (method=="POST" || method=="PUT") { ContentType = 'application/json'; }
+    if (method=="POST" || method=="PUT")
+     { ContentType = 'application/json';
+       if (parametre === null) parametre = new Object();
+     }
     else if (method=="POSTFILE") { ContentType = 'application/octet-stream'; method = "POST"; }
     else ContentType = null;
 
@@ -34,7 +37,12 @@
             }
      }
     xhr.ontimeout = function() { console.log("XHR timeout for "+URL); }
-    xhr.send(parametre);
+    if (parametre)
+     { parametre.token = Token;
+       parametre.domain_uuid = localStorage.getItem("domain_uuid");
+       xhr.send( JSON.stringify(parametre) );
+     }
+    else xhr.send();
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function isNum ( id )
@@ -55,11 +63,12 @@
  function Load_common ()
   { if (window.location.pathname === "/login") { Load_login (); return; }
     if (localStorage.getItem("token") === null) { Redirect ("/login" ); return; }
-
     Token = JSON.parse(atob(localStorage.getItem("token").split(".")[1]));
-
     if (Token.username !== null ) $("#idUsername").text(Token.username);
                              else $("#idUsername").text(Token.email);
+    if (localStorage.getItem("domain_uuid") === null)
+     { localStorage.setItem("domain_uuid", Token.grants[0].domain_uuid); }
+    Load_page();
     /*$("body").tooltip({ selector: '[data-toggle=tooltip]' });*/
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
