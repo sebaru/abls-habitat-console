@@ -53,7 +53,10 @@
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_common ()
-  { if (document.getElementById("idUsername") !== null)
+  { if (window.location.pathname === "/login") return;
+    if (localStorage.getItem("token") === null) { Redirect ("/login" ); return; }
+
+    if (document.getElementById("idUsername") !== null)
      { document.getElementById("idUsername").innerHTML = localStorage.getItem("username");
      }
     if (localStorage.getItem("access_level")>=6) { $('#idMenuTechnicien').show(); }
@@ -73,7 +76,7 @@
  function Show_Error ( message )
   { if (message == "Not Connected") { Logout(); }
     else
-     { $('#idModalDetail').html( "Une erreur s'est produite: "+message );
+     { $('#idModalDetail').html( message );
        $('#idModalError').modal("show");
      }
   }

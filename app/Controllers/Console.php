@@ -19,9 +19,12 @@ class Console extends BaseController
   }
 
  public function index()
+  { return redirect()->to(base_url("/dashboard")); }
+
+ public function login()
  { echo view('login'); }
 
- public function test()
+ public function dashboard()
   { $this->send_page ("dashboard"); }
 
 

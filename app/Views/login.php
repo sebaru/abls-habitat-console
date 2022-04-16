@@ -25,6 +25,7 @@
                 margin-bottom: auto;
                 background-color: rgba(30,28,56,0.5) !important;
                 border-radius: 5px;
+                width:22em;
               }
 
         .wtd_title { color: white; }
@@ -62,30 +63,32 @@
 			<div class="card-header">
      <div class="row">
        <img class="col-4 abls_logo" src="https://static.abls-habitat.fr/img/abls.svg" alt="ABLS Logo">
-       <h4 class="col-8 align-self-center text-center wtd_title">Se connecter</h4>
+       <h4 class="col-8 align-self-center text-center wtd_title">Console ABLS</h4>
      </div>
 			</div>
 			<div class="card-body">
+
+     <div class="text-center"><label id="idLabel" class="text-white">Entrez vos authentifiants</label></div>
 
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-desktop"></i></span>
 						</div>
-						<input id="appareil" name="appareil" type="text" class="form-control" placeholder="Nom de l'appareil">
+						<input id="appareil" name="appareil" type="text" class="form-control" placeholder="Device Name">
 					</div>
 
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input id="username" name="username" type="text" class="form-control" placeholder="Email">
+						<input id="login" name="login" type="text" class="form-control" placeholder="Username or Email">
 					</div>
 
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input id="password" name="password" type="password" class="form-control" placeholder="Mot de passe">
+						<input id="password" name="password" type="password" class="form-control" placeholder="My password">
 					</div>
 
 					<div class="form-group">
