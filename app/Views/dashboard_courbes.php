@@ -1,7 +1,7 @@
     <div class="container">
 
  <div class="row m-2">
-   <h3><i class="fas fa-tachometer-alt text-primary"></i> Courbes de l'instance principale</h3>
+   <h3><i class="fas fa-tachometer-alt text-primary"></i> Courbes de l'agent principale</h3>
  </div>
 
 <hr>

@@ -200,7 +200,7 @@
           <i class="fas fa-crown"></i> Domaine
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
-          <a class="dropdown-item" href="/instance"><i class="fas fa-crown text-danger"></i> <span>Instances</span></a>
+          <a class="dropdown-item" href="/agent"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
           <a class="dropdown-item" href="/process"><i class="fas fa-microchip text-primary"></i> <span>Processus</span></a>
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
           <a class="dropdown-item" href="/dashboard_courbes"> <i class="fas fa-chart-line text-secondary"></i> <span>Courbes</span> </a>
