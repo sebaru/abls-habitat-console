@@ -12,9 +12,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Les I/O Wago</div>
-   <a href="/tech/modbus"><img src="/img/wago_750342.webp" class="card-img-top wtd-img-connecteur" alt="Wago 750-342"></a>
+   <a href="/modbus"><img src="https://static.abls-habitat.fr/img/wago_750342.webp" class="card-img-top wtd-img-connecteur" alt="Wago 750-342"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/modbus')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/modbus')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
    </div>
   </div>
  </div>
@@ -22,9 +22,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Les GSM</div>
-   <a href="/tech/smsg"><img src="/img/sms.jpg" class="card-img-top wtd-img-connecteur" alt="GSM"></a>
+   <a href="/smsg"><img src="https://static.abls-habitat.fr/img/sms.jpg" class="card-img-top wtd-img-connecteur" alt="GSM"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/smsg')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/smsg')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
    </div>
   </div>
  </div>
@@ -32,9 +32,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">La Messagerie XMPP</div>
-   <a href="/tech/imsgs"><img src="/img/imsgs.png" class="card-img-top wtd-img-connecteur" alt="Messagerie XMPP"></a>
+   <a href="/imsgs"><img src="https://static.abls-habitat.fr/img/imsgs.png" class="card-img-top wtd-img-connecteur" alt="Messagerie XMPP"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/imsgs')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/imsgs')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
    </div>
   </div>
  </div>
@@ -42,9 +42,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Diffusion Audio</div>
-   <a href="/tech/audio"><img src="/img/audio.png" class="card-img-top wtd-img-connecteur" alt="Diffusion Audio"></a>
+   <a href="/audio"><img src="https://static.abls-habitat.fr/img/audio.png" class="card-img-top wtd-img-connecteur" alt="Diffusion Audio"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/audio')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/audio')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
    </div>
   </div>
  </div>
@@ -52,9 +52,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Les Onduleurs</div>
-   <a href="/tech/ups"><img src="/img/onduleur.jpg" class="card-img-top wtd-img-connecteur" alt="Onduleurs"></a>
+   <a href="/ups"><img src="https://static.abls-habitat.fr/img/onduleur.jpg" class="card-img-top wtd-img-connecteur" alt="Onduleurs"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/ups')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/ups')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
    </div>
   </div>
  </div>
@@ -62,9 +62,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Les Raspberry PI</div>
-   <a href="/tech/gpiod"><img src="/img/raspberrypi.png" class="card-img-top wtd-img-connecteur" alt="RaspberryPI"></a>
+   <a href="/gpiod"><img src="https://static.abls-habitat.fr/img/raspberrypi.png" class="card-img-top wtd-img-connecteur" alt="RaspberryPI"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/gpiod')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/gpiod')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
    </div>
   </div>
  </div>
@@ -72,9 +72,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Les Compteurs EDF</div>
-   <a href="/tech/teleinfoedf"><img src="/img/linky.jpg" class="card-img-top wtd-img-connecteur" alt="Compteurs EDF"></a>
+   <a href="/teleinfoedf"><img src="https://static.abls-habitat.fr/img/linky.jpg" class="card-img-top wtd-img-connecteur" alt="Compteurs EDF"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/teleinfoedf')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/teleinfoedf')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
    </div>
   </div>
  </div>
@@ -82,9 +82,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Les Radios</div>
-   <a href="/tech/radio"><img src="/img/radio.png" class="card-img-top wtd-img-connecteur" alt="Radio"></a>
+   <a href="/radio"><img src="https://static.abls-habitat.fr/img/radio.png" class="card-img-top wtd-img-connecteur" alt="Radio"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/radio')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/radio')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
    </div>
   </div>
  </div>
@@ -92,9 +92,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">La Méteo</div>
-   <a href="/tech/meteo"><img src="/img/meteo.svg" class="card-img-top wtd-img-connecteur" alt="La météo"></a>
+   <a href="/meteo"><img src="https://static.abls-habitat.fr/img/meteo.svg" class="card-img-top wtd-img-connecteur" alt="La météo"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/meteo')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/meteo')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
    </div>
   </div>
  </div>
@@ -102,10 +102,10 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Les Phidgets</div>
-   <a href="/tech/phidget"><img src="/img/phidget_hub5000.jpg" class="card-img-top wtd-img-connecteur" alt="Phidget"></a>
+   <a href="/phidget"><img src="https://static.abls-habitat.fr/img/phidget_hub5000.jpg" class="card-img-top wtd-img-connecteur" alt="Phidget"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/phidget')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
-        <button type="button" onclick="Redirect('/tech/phidget_map')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-directions"></i> Mapper</button>
+        <button type="button" onclick="Redirect('/phidget')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="Redirect('/phidget_map')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-directions"></i> Mapper</button>
    </div>
   </div>
  </div>
@@ -119,9 +119,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Mappings TEXTE</div>
-   <a href="/tech/command_text"><img src="/img/commande_texte.png" class="card-img-top wtd-img-connecteur" alt="Commandes Text"></a>
+   <a href="/command_text"><img src="https://static.abls-habitat.fr/img/commande_texte.png" class="card-img-top wtd-img-connecteur" alt="Commandes Text"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/command_text')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-directions"></i> Mapper</button>
+        <button type="button" onclick="Redirect('/command_text')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-directions"></i> Mapper</button>
    </div>
   </div>
  </div>
@@ -129,9 +129,9 @@
  <div class="col p-1">
   <div class="card h-100 text-center bg-light">
    <div class="card-header">Les I/O Vocales</div>
-   <a href="/tech/command_voc"><img src="/img/commande_vocale.jpg" class="card-img-top wtd-img-connecteur" alt="Commandes Vocales"></a>
+   <a href="/command_voc"><img src="https://static.abls-habitat.fr/img/commande_vocale.jpg" class="card-img-top wtd-img-connecteur" alt="Commandes Vocales"></a>
    <div class="card-body">
-        <button type="button" onclick="Redirect('/tech/command_vocale')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-directions"></i> Mapper</button>
+        <button type="button" onclick="Redirect('/command_vocale')" class="btn btn-block m-1 btn-primary btn-sm"><i class="fas fa-directions"></i> Mapper</button>
    </div>
   </div>
  </div>

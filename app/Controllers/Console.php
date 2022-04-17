@@ -17,8 +17,8 @@ class Console extends BaseController
  public function login()
  { echo view('login'); }
 
- public function dashboard()
-  { $this->send_page ("dashboard"); }
+ public function dashboard() { $this->send_page ("dashboard"); }
+ public function io_config() { $this->send_page ("io_config"); }
 
 
 }
