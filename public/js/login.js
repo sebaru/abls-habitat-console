@@ -2,7 +2,7 @@
   { if (Token !== null) { Redirect ( "/" ); return; }
 
     $('#idLoginContainer').fadeIn("slow");
-    $('#appareil').focus();
+    $('#appareil').val( localStorage.getItem ( "appareil" ) ).focus();
     $('#appareil').on("change", function () { $('#login').focus(); } );
     $('#login').on("change", function () { $('#password').focus(); } );
     $('#password').keypress( function(event)
@@ -21,6 +21,8 @@
        password : $('#password').val(),
        useragent : window.navigator.userAgent
      };
+
+    localStorage.setItem ( "appareil", json_request.appareil );
 
     Send_to_API ( 'POST', "/user/register", json_request, function (Response)
      { localStorage.setItem("token", Response.token );

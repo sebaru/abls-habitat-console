@@ -37,9 +37,9 @@
             }
      }
     xhr.ontimeout = function() { console.log("XHR timeout for "+URL); }
+    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token") );
     if (parametre)
-     { parametre.token = Token;
-       parametre.domain_uuid = localStorage.getItem("domain_uuid");
+     { parametre.domain_uuid = localStorage.getItem("domain_uuid");
        xhr.send( JSON.stringify(parametre) );
      }
     else xhr.send();
@@ -64,6 +64,16 @@
   { if (window.location.pathname === "/login") { Load_login (); return; }
     if (localStorage.getItem("token") === null) { Redirect ("/login" ); return; }
     Token = JSON.parse(atob(localStorage.getItem("token").split(".")[1]));
+
+    if (Token.iat + Token.exp < Date.now()/1000 )
+     { console.log ("token expired, redirecting to /login");
+       localStorage.removeItem("token");
+       Redirect("/login");
+       return;
+     }
+
+    /* add refresh token */
+
     if (Token.username !== null ) $("#idUsername").text(Token.username);
                              else $("#idUsername").text(Token.email);
     if (localStorage.getItem("domain_uuid") === null)
