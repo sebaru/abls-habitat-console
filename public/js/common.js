@@ -2,13 +2,21 @@
 
  var Charts = new Array();
  var Token = null;
+
+/******************************************************************************************************************************/
+ function Show_toast_ok ( message )
+  { $('#idToastStatusOKLabel').text(" "+message); $('#idToastStatusOK').toast('show'); }
+/******************************************************************************************************************************/
+ function Show_toast_ko ( message )
+  { $('#idToastStatusKOLabel').text(" "+message); $('#idToastStatusKO').toast('show'); }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Send_to_API ( method, URL, parametre, fonction_ok, fonction_nok )
   { var xhr = new XMLHttpRequest;
     $(".ClassLoadingSpinner").show();
-    if (method=="POST" || method=="PUT")
+    if (method=="POST" || method=="PUT" || method=="DELETE")
      { ContentType = 'application/json';
        if (parametre === null) parametre = new Object();
+       parametre.domain_uuid = localStorage.getItem("domain_uuid");
      }
     else if (method=="POSTFILE") { ContentType = 'application/octet-stream'; method = "POST"; }
     else ContentType = null;
@@ -27,22 +35,18 @@
        if (xhr.status == 200)
         { try { var Response = JSON.parse(xhr.responseText); }
           catch (error) { Response=undefined; }
-          if (method=="DELETE" || method=="POST") $('#idToastStatus').toast('show');
-          if (fonction_ok != null) fonction_ok(Response);
+          if (fonction_ok != null) fonction_ok(Response);          /* Si function exist, on l'appelle, sinon on fait un toast */
+                              else { Show_toast_ok("Succès !"); }
         }
-       else { if (xhr.status != 503) Show_Error( xhr.statusText );
-              try { var Response = JSON.parse(xhr.responseText); }
+       else { try { var Response = JSON.parse(xhr.responseText); }
               catch (error) { Response=undefined; }
               if (fonction_nok != null) fonction_nok(Response);
+                                   else { Show_toast_ko( xhr.status ); }
             }
      }
     xhr.ontimeout = function() { console.log("XHR timeout for "+URL); }
     xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token") );
-    if (parametre)
-     { parametre.domain_uuid = localStorage.getItem("domain_uuid");
-       xhr.send( JSON.stringify(parametre) );
-     }
-    else xhr.send();
+    xhr.send( JSON.stringify(parametre) );
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function isNum ( id )
@@ -83,9 +87,12 @@
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()
-  { Send_to_API ( "PUT", "/user/disconnect", null, function() { localStorage.clear(); Redirect("/"); });
+  { Send_to_API ( "POST", "/user/disconnect", null, function()
+     { localStorage.clear();
+       Show_toast_ok ("Vous avez été déconnecté.");
+       setTimeout ( function () { Redirect("/") }, 4000000 );
+     });
   }
-
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Error ( message )
   { if (message == "Not Connected") { Logout(); }
@@ -101,7 +108,7 @@
   }
 /********************************************* Redirige la page ***************************************************************/
  function Redirect ( url )
-  { /*$('body').fadeOut("high", function () { */ window.location = url; /* } );*/
+  { $('body').fadeIn("slow", function () { window.location = url; } );
   }
 
  function Reload_when_ready ( )

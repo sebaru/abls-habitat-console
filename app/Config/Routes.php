@@ -33,7 +33,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/login', 'Console::login');
 $routes->get('/dashboard', 'Console::dashboard');
-$routes->get('/', 'Console::index');
+$routes->get('/', 'Console::dashboard');
 
 /*
  * --------------------------------------------------------------------

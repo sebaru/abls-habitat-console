@@ -1,5 +1,5 @@
  function Load_login ( )
-  { if (Token !== null) { Redirect ( "/" ); return; }
+  { if (localStorage.getItem("token") !== null) { Redirect ( "/" ); return; }
 
     $('#idLoginContainer').fadeIn("slow");
     $('#appareil').val( localStorage.getItem ( "appareil" ) ).focus();

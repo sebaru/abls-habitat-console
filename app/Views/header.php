@@ -19,7 +19,7 @@
 
         .navbar { background-color: rgba(30,28,56,0.8);
                 }
-
+        .toast { transform: translateX(-50%); }
         .nav-link {
                   }
 
@@ -38,23 +38,8 @@
 
     <body>
 
-  <div id="idToastAlert" class="toast" role="status" style="position: absolute; bottom: 50px; right: 50px; z-index: 99">
-   <div class="toast-header">
-     <i class="fas fa-exclamation-circle"></i>
-     <strong class="mr-auto">Bootstrap</strong>
-     <!--<small>11 mins ago</small>-->
-     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-       <span aria-hidden="true">&times;</span>
-     </button>
-   </div>
-   <div class="toast-body">
-     Hello, world! This is a toast message.
-   </div>
-</div>
-
-
-<div class="position-fixed" style="bottom: 3rem; right: 3rem; z-index:9999">
-  <div id="idToastStatus" data-delay="3000" class="toast hide bg-success" role="status">
+<div class="position-fixed" style="top: 3rem; left: 50%; z-index:9999">
+  <div id="idToastStatusOK" data-delay="3000" class="toast hide bg-info" role="status">
    <div class="toast-header">
      <strong class="mr-auto"> Résultat de la commande</strong>
      <!--<small>11 mins ago</small>-->
@@ -62,8 +47,23 @@
        <span aria-hidden="true">&times;</span>
      </button>
    </div>
+   <div class="toast-body text-light">
+     <i class="fas fa-check-circle"></i><span id="idToastStatusOKLabel"> Succès !</span>
+   </div>
+  </div>
+</div>
+
+<div class="position-fixed" style="top: 3rem; left: 50%; z-index:9999">
+  <div id="idToastStatusKO" data-delay="3000" class="toast hide bg-danger" role="status">
    <div class="toast-header">
-     <i class="fas fa-check-circle text-success"></i><span>Succès !</span>
+     <strong class="mr-auto"> Résultat de la commande</strong>
+     <!--<small>11 mins ago</small>-->
+     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="toast-body text-dark">
+     <i class="fas fa-check-circle"></i><span id="idToastStatusKOLabel"> Erreur !</span>
    </div>
   </div>
 </div>
