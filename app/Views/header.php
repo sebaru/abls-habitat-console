@@ -170,6 +170,7 @@
   </div>
 </div>
 
+<?php if ( getenv("CI_ENVIRONMENT") == "development" ) { echo "<div class='alert alert-warning'>Instance de DEV</div>"; } ?>
 <!----------------------------------------------------------------------------------------------------------------------------->
 <header>
  <nav class="navbar navbar-dark  navbar-expand-lg sticky-top shadow mb-2"> <!-- fixed-top -->

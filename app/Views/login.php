@@ -61,6 +61,7 @@
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
+     <?php if ( getenv("CI_ENVIRONMENT") == "development" ) { echo "<div class='alert alert-warning'>Instance de DEV</div>"; } ?>
      <div class="row">
        <img class="col-4 abls_logo" src="https://static.abls-habitat.fr/img/abls.svg" alt="ABLS Logo">
        <h4 class="col-8 align-self-center text-center wtd_title">Console ABLS</h4>
