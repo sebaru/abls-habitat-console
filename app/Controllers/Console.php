@@ -19,7 +19,7 @@ class Console extends BaseController
   }
 
  public function index()
-  { return redirect()->to(base_url("/dashboard")); }
+  { return redirect()->to(base_url("/login")); }
 
  public function login()
  { echo view('login'); }
