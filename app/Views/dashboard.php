@@ -44,9 +44,6 @@
       <li><h6 class="card-text"><span id="idNbrDlsLignes">-</span> Lignes</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsBI">-</span> Bistables</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsMONO">-</span> Monostables</h6></li>
-      <li><h6 class="card-text"><span id="idDlsBitparsec">-</span> bits par seconde</h6></li>
-      <li><h6 class="card-text"><span id="idDlsTourparsec">-</span> tours par seconde</h6></li>
-      <!--<h3 class="card-text text-center"><strong>56</h3>-->
       </ul>
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
@@ -60,19 +57,13 @@
         <div class="col-4">
           <i class="fas fa-2x fa-crown text-info"></i>
         </div>
-        <div class="col-8 mt-1"><h5>Instance</h5></div>
+        <div class="col-8 mt-1"><h5>Agents</h5></div>
       </div>
     </div>
     <div class="card-body">
       <ul>
-      <li><h6 class="card-text">Version: <span id="idConfigVersion">-</span></h6></li>
-      <li><h6 class="card-text">Instance: <span id="idConfigInstance">-</span></h6></li>
-      <li><h6 class="card-text">Master: <span id="idConfigMaster">-</span></h6></li>
-      <li><h6 class="card-text">Master Host: <span id="idConfigMasterHost">-</span></h6></li>
-      <li><h6 class="card-text">Started: <span id="idConfigStarted">-</span></h6></li>
-      <li><h6 class="card-text">Run_as:<span id="idConfigRunAs">-</span></h6></li>
-      <li><h6 class="card-text">Top: <span id="idConfigTop">-</span></h6></li>
-      <!--<h3 class="card-text text-center"><strong>56</h3>-->
+      <li><h6 class="card-text">Nombre d'agent: <span id="idNbrAgent">-</span></h6></li>
+      <li><h6 class="card-text">Nombre de process: <span id="idNbrProcess">-</span></h6></li>
       </ul>
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
@@ -184,7 +175,6 @@
           <li><h6 class="card-text">DB Hostname: <span id="idArchDBHostname">-</span></h6></li>
           <li><h6 class="card-text">DB Port: <span id="idArchDBPort">-</span></h6></li>
           <li><h6 class="card-text">DB Database: <span id="idArchDBDatabase">-</span></h6></li>
-          <li><h6 class="card-text">Nbr Enreg: <span id="idArchDBNbrEnreg">-</span></h6></li>
         </ul>
 <!--<h3 class="card-text text-center"><strong>56</h3>-->
     </div>

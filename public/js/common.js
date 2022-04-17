@@ -88,10 +88,11 @@
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()
   { Send_to_API ( "POST", "/user/disconnect", null, function()
-     { localStorage.clear();
+     { localStorage.removeItem("token");
        Show_toast_ok ("Vous avez été déconnecté.");
-       setTimeout ( function () { Redirect("/") }, 4000000 );
-     });
+       setTimeout ( function () { Redirect("/login") }, 2000 );
+     }, function()
+     { Show_toast_ok ("Déconnexion impossible."); });
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Error ( message )
@@ -108,7 +109,7 @@
   }
 /********************************************* Redirige la page ***************************************************************/
  function Redirect ( url )
-  { $('body').fadeIn("slow", function () { window.location = url; } );
+  { $('body').fadeOut("normal", function () { window.location.replace(url); } );
   }
 
  function Reload_when_ready ( )

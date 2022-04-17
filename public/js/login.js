@@ -26,7 +26,7 @@
 
     Send_to_API ( 'POST', "/user/register", json_request, function (Response)
      { localStorage.setItem("token", Response.token );
-       window.location.replace("/dashboard");
+       Redirect("/dashboard");
      }, function() { $("#idLabel").text ( "Une erreur s'est produite."); } );
   }
 /*----------------------------------------------------------------------------------------------------------------------------*/
