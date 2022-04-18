@@ -4,9 +4,9 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Sauver_parametre ( id )
   { table = $('#idTableAGENT').DataTable();
-    selection = table.ajax.json().agents.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
     var json_request =
-     { agent      : selection.agent,
+     { agent_id   : selection.agent_id,
        description: $("#idAGENTDescription_"+id).val(),
        log_level  : parseInt($("#idAGENTLogLevel_"+id).val()),
        log_msrv   : ($("#idAGENTLogMSRV_"+id).val()=="true" ? true : false),
@@ -14,7 +14,7 @@
        log_bus    : ($("#idAGENTLogBUS_"+id).val()=="true" ? true : false),
        log_trad   : ($("#idAGENTLogTRAD_"+id).val()=="true" ? true : false),
      };
-    Send_to_API ( 'POST', "/agent", json_request, function ()
+    Send_to_API ( 'POST', "/agent/set", json_request, function ()
      { Show_toast_ok ( "Configuration sauvegardée." );
        AGENT_Refresh ();
      }, function ()
@@ -31,7 +31,7 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Reset ( id  )
   { table = $('#idTableAGENT').DataTable();
-    selection = table.ajax.json().agents.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
     Show_modal_del ( "Restarter cet agent "+selection.agent,
                      "Etes-vous sûr de vouloir relancer cet agent ?",
                      selection.agent + " - "+selection.description,
@@ -47,7 +47,7 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Upgrade ( id  )
   { table = $('#idTableAGENT').DataTable();
-    selection = table.ajax.json().agents.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
     Show_modal_del ( "Upgrader cette agent "+selection.agent,
                      "Etes-vous sûr de vouloir upgrader cette agent ?",
                      selection.agent + " - "+selection.description,
@@ -83,20 +83,20 @@
            { "data": "install_time", "title":"Install time",   "className": "align-middle text-center" },
            { "data": null, "title":"Description", "className": "align-middle ",
              "render": function (item)
-              { return( Input ( "text", "idAGENTDescription_"+item.id, "AGENT_Sauver_parametre("+item.id+")",
+              { return( Input ( "text", "idAGENTDescription_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")",
                                 "Description de l'agent", item.description, null ) );
               }
            },
            { "data": null, "title":"Log_MSRV", "className": "align-middle text-center",
              "render": function (item)
               { var choix = [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ];
-                return( Select ( "idAGENTLogMSRV_"+item.id, "AGENT_Sauver_parametre("+item.id+")", choix, item.log_msrv ) );
+                return( Select ( "idAGENTLogMSRV_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")", choix, item.log_msrv ) );
               }
            },
            { "data": null, "title":"Log_BUS", "className": "align-middle text-center",
              "render": function (item)
               { var choix = [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ];
-                return( Select ( "idAGENTLogBUS_"+item.id, "AGENT_Sauver_parametre("+item.id+")", choix, item.log_bus ) );
+                return( Select ( "idAGENTLogBUS_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")", choix, item.log_bus ) );
               }           },
            { "data": null, "title":"Log Level", "className": "align-middle ",
              "render": function (item)
@@ -105,14 +105,14 @@
                               { valeur: 5, texte: "Notice" },
                               { valeur: 4, texte: "Warning" },
                               { valeur: 3, texte: "Error" } ];
-                return( Select ( "idAGENTLogLevel_"+item.id, "AGENT_Sauver_parametre("+item.id+")", choix, item.log_level ) );
+                return( Select ( "idAGENTLogLevel_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")", choix, item.log_level ) );
               }
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "warning", "Upgrade l'agent", "AGENT_Upgrade", item.id, "download", null );
-                 boutons += Bouton_actions_add ( "danger", "Restart l'agent", "AGENT_Reset", item.id, "redo", null );
+                 boutons += Bouton_actions_add ( "warning", "Upgrade l'agent", "AGENT_Upgrade", item.agent_id, "download", null );
+                 boutons += Bouton_actions_add ( "danger", "Restart l'agent", "AGENT_Reset", item.agent_id, "redo", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
