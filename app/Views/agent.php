@@ -22,4 +22,4 @@
 <!-- Container -->
 </div>
 
-<script src="/js/tech/agent.js" type="text/javascript"></script>
+<script src="/js/agent.js" type="text/javascript"></script>

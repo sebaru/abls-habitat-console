@@ -1,12 +1,3 @@
- document.addEventListener('DOMContentLoaded', Load_common_tech, false);
-
-/********************************************* Chargement du synoptique 1 au démrrage *****************************************/
- function Load_common_tech ()
-  { if (localStorage.getItem("instance_is_master")=="true")
-     { $('#idAlertNotMaster').hide(); }
-    else
-     { $('#idAlertNotMaster').show(); }
-  }
 /********************************************* Reload Process *****************************************************************/
  function Process_reload ( uuid )
   { var json_request = { uuid : uuid };
