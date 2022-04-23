@@ -36,7 +36,7 @@
       <script> var $ABLS_API = "<?php echo getenv("ABLS_API"); ?>"; </script>
     </head>
 
-    <body>
+    <body class="d-none">
 
 <div class="position-fixed" style="top: 3rem; left: 50%; z-index:9999">
   <div id="idToastStatusOK" data-delay="3000" class="toast hide bg-primary" role="status">

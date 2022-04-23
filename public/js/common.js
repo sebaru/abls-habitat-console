@@ -65,7 +65,7 @@
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_common ()
-  { if (window.location.pathname === "/login") { Load_login (); return; }
+  { if (window.location.pathname === "/login") { setTimeout ( function () { Load_login (); }, 500 ); return; }
     if (localStorage.getItem("token") === null) { Redirect ("/login" ); return; }
     Token = JSON.parse(atob(localStorage.getItem("token").split(".")[1]));
 
@@ -82,8 +82,8 @@
                              else $("#idUsername").text(Token.email);
     if (localStorage.getItem("domain_uuid") === null)
      { localStorage.setItem("domain_uuid", Token.grants[0].domain_uuid); }
-    Load_page();
-    /*$("body").tooltip({ selector: '[data-toggle=tooltip]' });*/
+    $("body").hide().removeClass("d-none").fadeIn();
+    if (typeof Load_page === 'function') Load_page();
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()

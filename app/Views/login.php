@@ -15,7 +15,7 @@
                     background-size: cover;
                     background-repeat: no-repeat;
                     height: 100%;
-                    background-color: rgba(30,28,56,1.0)
+                    /*background-color: rgba(30,28,56,1.0)*/
                   }
 
         .container { height: 100%;
