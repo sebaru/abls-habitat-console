@@ -34,8 +34,9 @@ $routes->setAutoRoute(true);
 $routes->get('/login', 'Console::login');
 $routes->get('/dashboard', 'Console::dashboard');
 $routes->get('/io_config', 'Console::io_config');
-$routes->get('/agent', 'Console::agent');
-$routes->get('(:any)', 'Console::default');
+$routes->get('/domain',    'Console::domain');
+$routes->get('/agent',     'Console::agent');
+$routes->get('(:any)',     'Console::default');
 
 /*
  * --------------------------------------------------------------------

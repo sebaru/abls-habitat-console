@@ -22,7 +22,6 @@
         .toast { transform: translateX(-50%); }
         .nav-link {
                   }
-
         .nav-link:hover { /*color: white !important; attention, cible aussi les nav-tabs */
                           background-color: #48BBC0;
                         }
@@ -181,6 +180,20 @@
 
   <div class="collapse navbar-collapse" id="navbar-toggled">
     <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item dropdown">
+        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarDOMAINE" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fort-awesome"></i> <span id="idDomainName">Domaine</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
+          <a class="dropdown-item" href="/agent"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
+          <a class="dropdown-item" href="/process"><i class="fas fa-microchip text-primary"></i> <span>Processus</span></a>
+          <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
+          <a class="dropdown-item" href="/dashboard_courbes"> <i class="fas fa-chart-line text-secondary"></i> <span>Courbes</span> </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/domain"> <i class="fas fa-fort-awesome text-primary"></i> <span>Autre domaine</span> </a>
+      </li>
+
       <a class="nav-link rounded" href="/dashboard"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
 
       <li class="nav-item dropdown">
@@ -191,19 +204,6 @@
           <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-danger"></i> <span>Synoptiques</span> </a>
           <a class="dropdown-item" href="/dls"> <i class="fas fa-code text-primary"></i> <span>Modules D.L.S</span> </a>
           <a class="dropdown-item" href="/tableau"> <i class="fas fa-chart-line text-secondary"></i> <span>Tableaux</span> </a>
-        </div>
-      </li>
-
-
-      <li class="nav-item dropdown">
-        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarDOMAINE" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-crown"></i> Domaine
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
-          <a class="dropdown-item" href="/agent"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
-          <a class="dropdown-item" href="/process"><i class="fas fa-microchip text-primary"></i> <span>Processus</span></a>
-          <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
-          <a class="dropdown-item" href="/dashboard_courbes"> <i class="fas fa-chart-line text-secondary"></i> <span>Courbes</span> </a>
         </div>
       </li>
 

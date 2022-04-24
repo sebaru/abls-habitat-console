@@ -20,6 +20,7 @@ class Console extends BaseController
  public function dashboard() { $this->send_page ("dashboard"); }
  public function io_config() { $this->send_page ("io_config"); }
  public function agent()     { $this->send_page ("agent"); }
+ public function domain()    { $this->send_page ("domain"); }
 
 
 }

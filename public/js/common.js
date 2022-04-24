@@ -82,6 +82,9 @@
                              else $("#idUsername").text(Token.email);
     if (localStorage.getItem("domain_uuid") === null)
      { localStorage.setItem("domain_uuid", Token.grants[0].domain_uuid); }
+
+    $("#idDomainName").text( Token.grants[0].description );
+
     $("body").hide().removeClass("d-none").fadeIn();
     if (typeof Load_page === 'function') Load_page();
   }
