@@ -8,7 +8,7 @@
 
        var json_request = { search_domain_uuid: element.domain_uuid };
        Send_to_API ( 'POST', "/domain/image", json_request, function (Response)
-        { let card = $("<div>").addClass("card shadow m-1 bg-highlight");
+        { let card = $("<div>").addClass("card shadow m-1 bg-light");
 
           let header = $("<h4>")
                        .click( function () { Changer_domaine ( element.domain_uuid ); } )
