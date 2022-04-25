@@ -5,22 +5,27 @@
 
     Token.grants.forEach ( function (element, index)
      { console.debug ( element );
-       let card = $("<div>").addClass("card shadow m-1 bg-highlight");
 
-       let header = $("<a>").prop("href","#").prop("role","button")
-                    .click( function () { Changer_domaine ( element.domain_uuid ); } )
-                    .text( element.description );
-       card.append ( $("<div>").addClass("card-header text-center").append(header) );
+       var json_request = { domain_uuid: element.domain_uuid };
+       Send_to_API ( 'POST', "/domain/image", json_request, function (Response)
+        { let card = $("<div>").addClass("card shadow m-1 bg-highlight");
 
-       card.append ( $("<div>").addClass("card-body text-center").text(element.access_level) );
+          let header = $("<h4>")
+                       .click( function () { Changer_domaine ( element.domain_uuid ); } )
+                       .text( element.description );
+          card.append ( $("<div>").addClass("card-header text-center").append(header) );
 
-       let footer = $("<button>").addClass("btn btn-primary")
-                    .click( function () { Changer_domaine ( element.domain_uuid ); } )
-                    .text("Sélectionner");
-       card.append ( $("<div>").addClass("card-footer text-center").append(footer) );
+          let body = $("<img>").css("cursor","pointer").attr ("src", "data:image/png;base64," + Response.image )
+                     .click( function () { Changer_domaine ( element.domain_uuid ); } );
+          card.append ( $("<div>").addClass("card-body text-center").append(body) );
 
-       $("#idCardContainer").append(card);
+          let footer = $("<button>").addClass("btn btn-primary")
+                       .click( function () { Changer_domaine ( element.domain_uuid ); } )
+                       .text("Sélectionner");
+          card.append ( $("<div>").addClass("card-footer text-center").append(footer) );
 
+          $("#idCardContainer").append(card);
+        });
      });
 
 
