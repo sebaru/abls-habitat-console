@@ -2,7 +2,6 @@
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { console.log ("in load domain !");
-
     Token.grants.forEach ( function (element, index)
      { console.debug ( element );
 
@@ -33,5 +32,5 @@
 /******************************************************************************************************************************/
  function Changer_domaine ( domain_uuid )
   { localStorage.setItem ( "domain_uuid", domain_uuid );
-    Load_common();
+    Redirect("/");
   }
