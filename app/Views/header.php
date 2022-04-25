@@ -191,7 +191,7 @@
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
           <a class="dropdown-item" href="/dashboard_courbes"> <i class="fas fa-chart-line text-secondary"></i> <span>Courbes</span> </a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/domain"> <i class="fas fa-fort-awesome text-primary"></i> <span>Autre domaine</span> </a>
+          <a class="dropdown-item" href="/domain"> <i class="fas fa-fort-awesome text-primary"></i> <span>Liste des domaines</span> </a>
       </li>
 
       <a class="nav-link rounded" href="/dashboard"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>

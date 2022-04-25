@@ -20,10 +20,11 @@
                          else body.attr ("src", "https://static.abls-habitat.fr/img/syn_accueil.png" );
           card.append ( $("<div>").addClass("card-body text-center").append(body) );
 
-          let footer = $("<button>").addClass("btn btn-primary")
-                       .click( function () { Changer_domaine ( element.domain_uuid ); } )
-                       .text("Sélectionner");
-          card.append ( $("<div>").addClass("card-footer text-center").append(footer) );
+          let config = $("<button>").addClass("btn btn-primary")
+                         .click( function () { Redirect("/domain/"+ element.domain_uuid ); } )
+                         .text("Configurer");
+
+          card.append ( $("<div>").addClass("card-footer text-center").append( config ) );
 
           $("#idCardContainer").append(card);
         });
