@@ -83,7 +83,7 @@
     if (localStorage.getItem("domain_uuid") === null)
      { localStorage.setItem("domain_uuid", Token.grants[0].domain_uuid); }
 
-    $("#idDomainName").text( Token.grants[0].description );
+    $("#idDomainName").text( Token.grants.filter( function(item) { return item.domain_uuid==localStorage.getItem("domain_uuid") } )[0].description );
 
     $("body").hide().removeClass("d-none").fadeIn();
     if (typeof Load_page === 'function') Load_page();
@@ -95,7 +95,7 @@
        Show_toast_ok ("Vous avez été déconnecté.");
        setTimeout ( function () { Redirect("/login") }, 2000 );
      }, function()
-     { Show_toast_ok ("Déconnexion impossible."); });
+     { Show_toast_ko ("Déconnexion impossible."); });
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Error ( message )

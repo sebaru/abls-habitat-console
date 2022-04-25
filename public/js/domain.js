@@ -29,27 +29,9 @@
           $("#idCardContainer").append(card);
         });
      });
-
-
-/*  <div class="card h-100">
-    <div class="card-header bg-highlight">
-      <div class="row">
-        <div class="col-4">
-          <i class="fas fa-2x fa-image text-danger"></i>
-        </div>
-        <div class="col-8 mt-1"><h5>Synoptiques</h5></div>
-      </div>
-    </div>
-    <div class="card-body">
-      <ul>
-      <li><h6 class="card-text"><span id="idNbrSyns">-</span> Synoptiques</h6></li>
-      <li><h6 class="card-text"><span id="idNbrSynsVisuels">-</span> Motifs</h6></li>
-      <li><h6 class="card-text"><span id="idNbrSynsLiens">-</span> Liens</h6></li>
-      </ul>
-      <!--<h3 class="card-text text-center"><strong>56</h3>-->
-    </div>
-    <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
-  </div>
-</div>
-*/
+  }
+/******************************************************************************************************************************/
+ function Changer_domaine ( domain_uuid )
+  { localStorage.setItem ( "domain_uuid", domain_uuid );
+    Load_common();
   }
