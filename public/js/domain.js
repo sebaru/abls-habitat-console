@@ -6,7 +6,7 @@
     Token.grants.forEach ( function (element, index)
      { console.debug ( element );
 
-       var json_request = { domain_uuid: element.domain_uuid };
+       var json_request = { search_domain_uuid: element.domain_uuid };
        Send_to_API ( 'POST', "/domain/image", json_request, function (Response)
         { let card = $("<div>").addClass("card shadow m-1 bg-highlight");
 
@@ -15,8 +15,10 @@
                        .text( element.description );
           card.append ( $("<div>").addClass("card-header text-center").append(header) );
 
-          let body = $("<img>").css("cursor","pointer").attr ("src", "data:image/png;base64," + Response.image )
+          let body = $("<img>").css("cursor","pointer")
                      .click( function () { Changer_domaine ( element.domain_uuid ); } );
+          if (Response.image) body.attr ("src", "data:image/png;base64," + Response.image );
+                         else body.attr ("src", "https://static.abls-habitat.fr/img/syn_accueil.png" );
           card.append ( $("<div>").addClass("card-body text-center").append(body) );
 
           let footer = $("<button>").addClass("btn btn-primary")
