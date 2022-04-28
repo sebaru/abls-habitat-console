@@ -24,14 +24,7 @@
            <div class="row form-group">
              <div class="input-group">
                <label class="col-4 col-form-label text-right">Description</label>
-               <input id="idDomainDescription" type="text" class="form-control" placeholder="Domain Owner">
-             </div>
-           </div>
-
-           <div class="row form-group">
-             <div class="input-group">
-               <label class="col-4 col-form-label text-right">Owner</label>
-               <input disabled id="idDomainOwner" type="text" class="form-control" placeholder="Domain Owner">
+               <input id="idDomainDescription" type="text" class="form-control" placeholder="Domain Description">
              </div>
            </div>
 
@@ -53,11 +46,11 @@
 
 
          <div class="card-footer d-flex">
-              <button type="button" onclick="Domain_Change_image()" class="btn btn-primary ml-auto">
+              <button id="idDomainChangeImageButton" type="button" class="btn btn-primary ml-auto">
                 <i class="fas fa-image"></i> Change Image
               </button>
 
-              <button type="button" onclick="Domain_save()" class="btn btn-primary ml-1">
+              <button id="idDomainSaveButton" type="button" class="btn btn-primary ml-1">
                 <i class="fas fa-save"></i> Save
               </button>
          </div>
@@ -89,9 +82,17 @@
            </div>
 
            <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Owner<br><small class="text-danger">Cannot be Undone</small></label>
+               <input id="idDomainOwner" type="text" class="form-control" placeholder="Domain Owner">
+               <button id="idDomainTransferButton" class="col-2 ml-1 form-control btn btn-danger">Transfer</button>
+             </div>
+           </div>
+
+           <div class="row form-group">
              <div class="input-group align-items-center">
                <label class="col-4 col-form-label text-right">Delete Domain<br><small class="text-danger">Cannot be Undone</small></label>
-               <input  id="idDomainDeleteText" type="text" class="col-6 form-control" placeholder="put...">
+               <input  id="idDomainDeleteText" type="text" class="col-6 form-control" placeholder="type 'ok to delete ' followed by domain_uuid">
                <button id="idDomainDeleteButton" class="col-2 ml-1 form-control btn btn-danger">Delete</button>
              </div>
            </div>
