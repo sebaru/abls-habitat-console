@@ -34,6 +34,13 @@
            </div>
 
            <div class="row form-group">
+             <div class="input-group align-items-center">
+               <label class="col-4 col-form-label text-right">Domain Secret Key<br><small class="text-danger">Keep it secret</small></label>
+               <input disabled id="idDomainSecret" type="password" class="form-control" placeholder="Domain's Secret Key">
+             </div>
+           </div>
+
+           <div class="row form-group">
              <div class="input-group">
                <label class="col-4 col-form-label text-right">Date création</label>
                <input disabled id="idDomainDateCreate" type="text" class="form-control" placeholder="date de création">
@@ -61,8 +68,6 @@
            <label>Users</label>
          </div>
          <div class="card-body">
-
-
          </div>
        </div>
 
@@ -71,13 +76,6 @@
            <a class="text-danger" data-toggle="collapse" href="#idAdvancedOptions" role="button">Zone de Danger</a>
          </div>
          <div class="card-body collapse" id="idAdvancedOptions">
-
-           <div class="row form-group">
-             <div class="input-group align-items-center">
-               <label class="col-4 col-form-label text-right">Domain Secret Key<br><small class="text-danger">Keep it secret</small></label>
-               <input disabled id="idDomainSecret" type="password" class="form-control" placeholder="Domain's Secret Key">
-             </div>
-           </div>
 
            <div class="row form-group">
              <div class="input-group">
@@ -97,7 +95,6 @@
 
          </div>
        </div>
-
 
 <script src="/js/domain_edit.js" type="text/javascript"></script>
 <!-- Container -->
