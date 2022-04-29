@@ -14,9 +14,9 @@
                        .text( element.description );
           card.append ( $("<div>").addClass("card-header text-center").append(header) );
 
-          let body = $("<img>").css("cursor","pointer")
+          let body = $("<img>").css("cursor","pointer").addClass("wtd-img-card")
                      .click( function () { Changer_domaine ( element.domain_uuid ); } );
-          if (Response.image) body.attr ("src", "data:image/png;base64," + Response.image );
+          if (Response.image) body.attr ("src", Response.image );
                          else body.attr ("src", "https://static.abls-habitat.fr/img/syn_accueil.png" );
           card.append ( $("<div>").addClass("card-body text-center").append(body) );
 

@@ -13,8 +13,7 @@
      };
 
     Send_to_API ( "POST", "/domain/delete", json_request, function(Response)
-     { Load_common();
-       Show_toast_ok ( "Modifications effectuées." );
+     { Redirect("/domain");
      }, function ()
      { Show_toast_ko ( "Erreur, suppression impossible." );
      } );
@@ -28,7 +27,7 @@
 
     Send_to_API ( "POST", "/domain/transfer", json_request, function(Response)
      { Load_common();
-       Show_toast_ok ( "Modifications effectuées." );
+       Show_toast_ok ( "Transfert effectué." );
      }, function ()
      { Show_toast_ko ( "Erreur, transfert impossible." );
      } );
@@ -47,7 +46,7 @@
         };
 
        Send_to_API ( "POST", "/domain/set_image", json_request, function(Response)
-        { Load_common();
+        { Load_page();
           Show_toast_ok ( "Image modifiée." );
         }, function ()
         { Show_toast_ko ( "Erreur, image non sauvegardée." );
@@ -63,8 +62,8 @@
        };
 
     Send_to_API ( "POST", "/domain/set", json_request, function(Response)
-     { Load_common();
-       Show_toast_ok ( "Modifications sauvagardées." );
+     { Load_page();
+       Show_toast_ok ( "Modifications sauvegardées." );
      }, function ()
      { Show_toast_ko ( "Erreur, modifications non sauvegardées" );
      } );
@@ -82,6 +81,11 @@
        $("#idDomainUuid").val( Response.domain_uuid );
        $("#idDomainDateCreate").val( Response.date_create );
        $("#idDomainOwner").val( Response.owner );
+       if (Token.email == Response.owner)
+        { $("#idDomainOwner").prop("disabled", false ); $("#idDomainTransferButton").prop("disabled", false ); }
+       else
+        { $("#idDomainOwner").prop("disabled", true );  $("#idDomainTransferButton").prop("disabled", true );  }
+
        $("#idDomainSecret").val( Response.domain_secret );
        $("#idDomainSecret").off("mouseenter").mouseenter( function () { $("#idDomainSecret").prop("type", "text"); }  );
        $("#idDomainSecret").off("mouseleave").mouseleave( function () { $("#idDomainSecret").prop("type", "password"); }  );
@@ -94,6 +98,11 @@
        $("#idDomainSaveButton")       .off("click").click( function () { Domain_Save( vars[2] ); } );
        $("#idDomainTransferButton")   .off("click").click( function () { Domain_Transfer( vars[2] ); } );
        $("#idDomainDeleteButton")     .off("click").click( function () { Domain_Delete( vars[2] ); } );
+       if (Token.email == Response.owner)
+        { $("#idDomainDeleteText").prop("disabled", false ); $("#idDomainDeleteButton").prop("disabled", false ); }
+       else
+        { $("#idDomainDeleteText").prop("disabled", true );  $("#idDomainDeleteButton").prop("disabled", true );  }
+
        $("#idDomainChangeImageButton").off("click").click( function () { $("#idDomainInputFile").trigger("click"); });
      }, function() { Redirect("/domain"); } );
   }
