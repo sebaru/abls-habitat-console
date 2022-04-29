@@ -1,5 +1,3 @@
- document.addEventListener('DOMContentLoaded', Load_page, false);
-
  function MODBUS_Refresh ( )
   { $('#idTableMODBUS').DataTable().ajax.reload(null, false);
     $('#idTableMODBUS_DI').DataTable().ajax.reload(null, false);
@@ -17,7 +15,7 @@
        id            : selection.id
      };
 
-    Send_to_API ( "POST", "/api/process/config", JSON.stringify(json_request), function(Response)
+    Send_to_API ( "POST", "/api/process/config", json_request, function(Response)
      { Process_reload ( json_request.uuid );                                /* Dans tous les cas, restart du subprocess cible */
        MODBUS_Refresh();
      }, null );
@@ -33,7 +31,7 @@
        id            : selection.id
      };
 
-    Send_to_API ( "POST", "/api/process/config", JSON.stringify(json_request), function(Response)
+    Send_to_API ( "POST", "/api/process/config", json_request, function(Response)
      { Process_reload ( json_request.uuid );                                /* Dans tous les cas, restart du subprocess cible */
        MODBUS_Refresh();
      }, null );
@@ -41,7 +39,7 @@
 /**************************************** Supprime une connexion meteo ********************************************************/
  function MODBUS_Del_Valider ( selection )
   { var json_request = { uuid : selection.uuid, thread_tech_id: selection.thread_tech_id };
-    Send_to_API ( 'DELETE', "/api/process/config", JSON.stringify(json_request), function(Response)
+    Send_to_API ( 'DELETE', "/api/process/config", json_request, function(Response)
      { Process_reload ( json_request.uuid );
        MODBUS_Refresh();
      }, null );
@@ -67,7 +65,7 @@
      };
     if (selection) json_request.id = parseInt(selection.id);                                            /* Ajout ou édition ? */
 
-    Send_to_API ( "POST", "/api/process/config", JSON.stringify(json_request), function(Response)
+    Send_to_API ( "POST", "/api/process/config", json_request, function(Response)
      { if (selection && selection.uuid != json_request.uuid) Process_reload ( selection.uuid );/* Restart de l'ancien subprocess si uuid différent */
        Process_reload ( json_request.uuid );                                /* Dans tous les cas, restart du subprocess cible */
        MODBUS_Refresh();
@@ -167,57 +165,62 @@
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { $('#idTableMODBUS').DataTable(
-       { pageLength : 50,
-         fixedHeader: true,
-         rowId: "id",
-         ajax: {	url : "/api/process/config", type : "GET", data: { name: "modbus" }, dataSrc: "config",
-                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
-               },
-         columns:
-          [ { "data": "instance",   "title":"Instance",   "className": "align-middle text-center" },
-            { "data": null, "title":"Enable", "className": "align-middle text-center",
-               "render": function (item)
-                { if (item.enable==true)
-                  { return( Bouton ( "success", "Désactiver le module", "MODBUS_Disable", item.id, "Actif" ) ); }
-                 else
-                  { return( Bouton ( "outline-secondary", "Activer le module", "MODBUS_Enable", item.id, "Désactivé" ) ); }
-                },
-            },
-            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
-              "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
-            },
-            { "data": "description", "title":"Description", "className": "align-middle text-center " },
-            { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center " },
-            { "data": "hostname", "title":"Hostname", "className": "align-middle text-center " },
-            { "data": "max_request_par_sec", "title":"Max Requete/s", "className": "align-middle text-center " },
-            { "data": null, "title":"IO_COMM", "className": "align-middle text-center",
-              "render": function (item)
-                { if (item.comm==true) { return( Bouton ( "success", "Comm OK", null, null, "1" ) );        }
-                                  else { return( Bouton ( "outline-secondary", "Comm Failed", null, null, "0" ) ); }
-                },
-            },
-            { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer le module", "MODBUS_Edit", item.id, "pen", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer le module", "MODBUS_Del", item.id, "trash", null );
-                  boutons += Bouton_actions_end ();
-                  return(boutons);
-                },
-            }
-          ],
-         /*order: [ [0, "desc"] ],*/
-         responsive: true,
-       }
-     );
+     { pageLength : 50,
+       fixedHeader: true,
+       rowId: "modbus_id",
+       ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "modbus",
+               contentType: "application/json",
+               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "modbus"} ) ); },
+               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+             },
+       columns:
+        [ { "data": "instance",   "title":"Instance",   "className": "align-middle text-center" },
+          { "data": null, "title":"Enable", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.enable==true)
+                { return( Bouton ( "success", "Désactiver le module", "MODBUS_Disable", item.id, "Actif" ) ); }
+               else
+                { return( Bouton ( "outline-secondary", "Activer le module", "MODBUS_Enable", item.id, "Désactivé" ) ); }
+              },
+          },
+          { "data": null, "title":"Tech_id", "className": "align-middle text-center",
+            "render": function (item)
+              { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+          },
+          { "data": "description", "title":"Description", "className": "align-middle text-center " },
+          { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center " },
+          { "data": "hostname", "title":"Hostname", "className": "align-middle text-center " },
+          { "data": "max_request_par_sec", "title":"Max Requete/s", "className": "align-middle text-center " },
+          { "data": null, "title":"IO_COMM", "className": "align-middle text-center",
+            "render": function (item)
+              { if (item.comm==true) { return( Bouton ( "success", "Comm OK", null, null, "1" ) );        }
+                                else { return( Bouton ( "outline-secondary", "Comm Failed", null, null, "0" ) ); }
+              },
+          },
+          { "data": null, "title":"Actions", "orderable": false, "render": function (item)
+              { boutons = Bouton_actions_start ();
+                boutons += Bouton_actions_add ( "outline-primary", "Editer le module", "MODBUS_Edit", item.id, "pen", null );
+                boutons += Bouton_actions_add ( "danger", "Supprimer le module", "MODBUS_Del", item.id, "trash", null );
+                boutons += Bouton_actions_end ();
+                return(boutons);
+              },
+          }
+        ],
+       /*order: [ [0, "desc"] ],*/
+       responsive: true,
+     });
 
     $('#idTableMODBUS_DI').DataTable(
        { pageLength : 50,
          fixedHeader: true,
-         rowId: "id", paging: false,
-         ajax: {	url : "/api/process/config", type : "GET", data: { name: "modbus", classe: "DI" }, dataSrc: "config",
-                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
-               },
+         rowId: "modbus_di_id", paging: false,
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "DI",
+               contentType: "application/json",
+               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "DI"} ) ); },
+               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+             },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
@@ -253,10 +256,13 @@
     $('#idTableMODBUS_DO').DataTable(
        { pageLength : 50,
          fixedHeader: true,
-         rowId: "id", paging: false,
-         ajax: {	url : "/api/process/config", type : "GET", data: { name: "modbus", classe: "DO" }, dataSrc: "config",
-                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
-               },
+         rowId: "modbus_do_id", paging: false,
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "DO",
+               contentType: "application/json",
+               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "DO"} ) ); },
+               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+             },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
@@ -267,7 +273,8 @@
                 { return( item.thread_acronyme ); }
             },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
-              "render": function (item)                { if(item.tech_id)
+              "render": function (item)
+                { if(item.tech_id)
                    { return ( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
@@ -292,10 +299,13 @@
     $('#idTableMODBUS_AI').DataTable(
        { pageLength : 50,
          fixedHeader: true,
-         rowId: "id", paging: false,
-         ajax: {	url : "/api/process/config", type : "GET", data: { name: "modbus", classe: "AI" }, dataSrc: "config",
-                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
-               },
+         rowId: "modbus_ai_id", paging: false,
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "AI",
+               contentType: "application/json",
+               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "AI"} ) ); },
+               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+             },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
@@ -338,43 +348,6 @@
          responsive: true,
        }
      );
-
-/*
-
-
-    $('#idTableMODBUS_AO').DataTable(
-       { pageLength : 50,
-         fixedHeader: true,
-         rowId: "id", paging: false,
-         ajax: {	url : "/api/map/list",	type : "GET", dataSrc: "mappings", data: { "thread": "MODBUS", "classe": "AO" },
-                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
-               },
-         columns:
-          [ { "data": "map_tech_id", "title":"WAGO TechID", "className": "align-middle text-center" },
-            { "data": "map_tag", "title":"WAGO I/O", "className": "align-middle text-center" },
-            { "data": null, "title":"Map", "className": "align-middle text-center",
-              "render": function (item)
-                { return( "<->" ); }
-            },
-            { "data": null, "title":"BIT Tech_id", "className": "align-middle text-center",
-              "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) ); }
-            },
-            { "data": "acronyme", "title":"BIT Acronyme", "className": "align-middle text-center" },
-            { "data": "libelle", "title":"BIT Libelle", "className": "align-middle text-center" },
-            { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_AO", item.id, "pen", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer cet objet", "Show_Modal_Map_Del_AO", item.id, "trash", null );
-                  boutons += Bouton_actions_end ();
-                  return(boutons);
-                },
-            },
-          ],
-
-         responsive: true,
-       }
-     );*/
 
     $('#idTabEntreeTor').tab('show');
   }

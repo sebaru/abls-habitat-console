@@ -22,6 +22,7 @@ class Console extends BaseController
  public function agent()       { $this->send_page ("agent"); }
  public function domain_edit() { $this->send_page ("domain_edit"); }
  public function domain()      { $this->send_page ("domain"); }
+ public function modbus()      { $this->send_page ("modbus"); }
 
 
 }

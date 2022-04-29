@@ -37,6 +37,7 @@ $routes->get('/io_config', 'Console::io_config');
 $routes->get('/domain/(:any)',   'Console::domain_edit');
 $routes->get('/domain',    'Console::domain');
 $routes->get('/agent',     'Console::agent');
+$routes->get('/modbus',    'Console::modbus');
 $routes->get('(:any)',     'Console::default');
 
 /*
