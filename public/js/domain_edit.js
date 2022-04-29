@@ -34,6 +34,28 @@
      } );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
+ function Domain_Change_image ( target_domain_uuid )
+  {
+
+    var reader = new FileReader();
+    reader.readAsDataURL($("#idDomainInputFile")[0].files[0]);
+
+    reader.onload = function ()
+     { var json_request =
+        { target_domain_uuid: target_domain_uuid,
+          image             : reader.result
+        };
+
+       Send_to_API ( "POST", "/domain/set_image", json_request, function(Response)
+        { Load_common();
+          Show_toast_ok ( "Image modifiée." );
+        }, function ()
+        { Show_toast_ko ( "Erreur, image non sauvegardée." );
+        } );
+     };
+   reader.onerror = function (error) { Show_toast_ko ( "Erreur : " + error ); };
+  }
+/************************************ Envoi les infos de modifications synoptique *********************************************/
  function Domain_Save ( target_domain_uuid )
   { var json_request =
        { target_domain_uuid: target_domain_uuid,
@@ -64,12 +86,15 @@
        $("#idDomainSecret").off("mouseenter").mouseenter( function () { $("#idDomainSecret").prop("type", "text"); }  );
        $("#idDomainSecret").off("mouseleave").mouseleave( function () { $("#idDomainSecret").prop("type", "password"); }  );
        $("#idDomainDescription").val( Response.description );
-       if (Response.image) $("#idDomainImage").attr ("src", "data:image/png;base64," + Response.image );
+       $("#idDomainImage").css( "max-width", "256px" );
+       if (Response.image) $("#idDomainImage").attr ("src", Response.image );
                       else $("#idDomainImage").attr ("src", "https://static.abls-habitat.fr/img/syn_accueil.png" );
+       $("#idDomainImage")            .off("click").click( function () { $("#idDomainInputFile").trigger("click"); });
+       $("#idDomainInputFile")        .off("change").change (function () { Domain_Change_image( vars[2] ); } );
        $("#idDomainSaveButton")       .off("click").click( function () { Domain_Save( vars[2] ); } );
        $("#idDomainTransferButton")   .off("click").click( function () { Domain_Transfer( vars[2] ); } );
        $("#idDomainDeleteButton")     .off("click").click( function () { Domain_Delete( vars[2] ); } );
-       $("#idDomainChangeImageButton").off("click").click( function () { Domain_Change_image( vars[2] ); } );
+       $("#idDomainChangeImageButton").off("click").click( function () { $("#idDomainInputFile").trigger("click"); });
      }, function() { Redirect("/domain"); } );
   }
 /******************************************************************************************************************************/

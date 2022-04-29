@@ -14,11 +14,9 @@
          </div>
          <div class="card-body">
 
-           <div class="row form-group">
-             <div class="input-group align-items-center">
-               <label class="col-4 col-form-label  text-right">Image</label>
-               <div style="cursor:pointer" class="text-center mb-1"><img id="idDomainImage" onclick="Domain_Change_image()" src="" /></div>
-             </div>
+           <div class="row d-block form-group ml-auto mx-auto">
+               <div style="cursor:pointer" class="text-center mb-1"><img id="idDomainImage" src="" /></div>
+               <input type="file" class="d-none" id="idDomainInputFile">
            </div>
 
            <div class="row form-group">
@@ -68,7 +66,7 @@
          </div>
        </div>
 
-       <div class="card m-1">
+       <div class="card m-1 border border-danger">
          <div class="card-header">
            <a class="text-danger" data-toggle="collapse" href="#idAdvancedOptions" role="button">Zone de Danger</a>
          </div>
