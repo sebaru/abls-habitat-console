@@ -77,7 +77,7 @@
                  { return( Bouton ( "secondary", "Master is "+item.master_host, null, null, "Slave" ) ); }
               }
            },
-           { "data": "hostname",     "title":"Hostname", "className": "align-middle text-center" },
+           { "data": "agent_hostname", "title":"Hostname", "className": "align-middle text-center" },
            { "data": "version", "title":"Version",   "className": "align-middle text-center" },
            { "data": "start_time", "title":"Start time",   "className": "align-middle text-center" },
            { "data": "install_time", "title":"Install time",   "className": "align-middle text-center" },

@@ -175,7 +175,7 @@
                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
              },
        columns:
-        [ { "data": "instance",   "title":"Instance",   "className": "align-middle text-center" },
+        [ { "data": "agent_hostname",   "title":"Agent", "className": "align-middle text-center" },
           { "data": null, "title":"Enable", "className": "align-middle text-center",
              "render": function (item)
               { if (item.enable==true)
