@@ -119,13 +119,22 @@
   { return("<div class='btn-group btn-block' role='group' aria-label='ButtonGroup'>"); }
 
  function Bouton_actions_add ( color, tooltip, clic_func, key, icone, texte )
-  { return( "<button "+
-            "class='btn btn-"+color+" btn-sm' "+
-            "data-toggle='tooltip' title='"+htmlEncode(tooltip)+"' "+
-            "onclick="+clic_func+"('"+key+"')>"+
-            (icone!==null ? "<i class='fas fa-"+icone+"'></i> " : "") +
-            (texte!==null ? texte : "") +
-            "</button>");
+  { if (clic_func !== null)
+     { result = "<button class='btn btn-"+color+" btn-sm' "+
+                "data-toggle='tooltip' title='"+htmlEncode(tooltip)+"' "+
+                "onclick="+clic_func+"('"+key+"')>"+
+                (icone!==null ? "<i class='fas fa-"+icone+"'></i> " : "") +
+                (texte!==null ? htmlEncode(texte) : "") +
+                "</button>";
+     }
+    else
+     { result = "<button class='btn btn-"+color+" btn-sm' disabled "+
+                "data-toggle='tooltip' title='"+htmlEncode(tooltip)+"'> "+
+                (icone!==null ? "<i class='fas fa-"+icone+"'></i> " : "") +
+                (texte!==null ? htmlEncode(texte) : "") +
+                "</button>";
+     }
+    return(result);
   }
  function Bouton_actions_end ( )
   { return ("</div>"); }
@@ -135,18 +144,18 @@
   { if (clic_func !== null)
      { result = "<button "+
                 "class='btn btn-"+color+" btn-block btn-sm' "+
-                "data-toggle='tooltip' title='"+tooltip+"' "+
+                "data-toggle='tooltip' title='"+htmlEncode(tooltip)+"' "+
                 "onclick="+clic_func+"('"+key+"')>"+
                 "<span id='idButtonSpinner_"+key+"' class='spinner-border spinner-border-sm' style='display:none' "+
                 "role='status' aria-hidden='true'></span> "+
-                texte+
+                htmlEncode(texte)+
                 "</button>";
      }
    else
     { result =  "<button "+
                 "class='btn btn-"+color+" btn-block btn-sm' "+
-                "data-toggle='tooltip' title='"+tooltip+"' "+
-                "disabled>"+texte+
+                "data-toggle='tooltip' title='"+htmlEncode(tooltip)+"' "+
+                "disabled>"+htmlEncode(texte)+
                 "</button>";
     }
    return( result );

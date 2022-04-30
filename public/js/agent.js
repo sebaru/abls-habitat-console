@@ -119,8 +119,10 @@
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "warning", "Upgrade l'agent", "AGENT_Upgrade", item.agent_id, "download", null );
-                 boutons += Bouton_actions_add ( "danger", "Restart l'agent", "AGENT_Reset", item.agent_id, "redo", null );
+                 boutons += Bouton_actions_add ( "warning", "Upgrade l'agent",
+                                                 (item.ws_connected ? "AGENT_Upgrade" : null), item.agent_id, "download", null );
+                 boutons += Bouton_actions_add ( "danger", "Restart l'agent",
+                                                 (item.ws_connected ? "AGENT_Reset" : null), item.agent_id, "redo", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
