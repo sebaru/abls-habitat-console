@@ -34,7 +34,7 @@
  function AGENT_Reset ( id  )
   { table = $('#idTableAGENT').DataTable();
     selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
-    Show_modal_del ( "Restarter cet agent "+selection.agent_hostname,
+    Show_modal_del ( "Restarter l'agent "+selection.agent_hostname,
                      "Etes-vous sûr de vouloir relancer cet agent ?",
                      selection.agent_hostname + " - "+selection.description,
                      function () { AGENT_Reset_Valider( selection ) } ) ;
@@ -52,8 +52,8 @@
  function AGENT_Upgrade ( id  )
   { table = $('#idTableAGENT').DataTable();
     selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
-    Show_modal_del ( "Upgrader cette agent "+selection.agent_hostname,
-                     "Etes-vous sûr de vouloir upgrader cette agent ?",
+    Show_modal_del ( "Upgrader l'agent "+selection.agent_hostname,
+                     "Etes-vous sûr de vouloir upgrader cet agent ?",
                      selection.agent_hostname + " - "+selection.description,
                      function () { AGENT_Upgrade_Valider( selection ) } ) ;
   }
@@ -75,7 +75,7 @@
               { if (item.ws_connected==true)
                  { return( Bouton ( "success", "Agent conneced", null, null, "Yes" ) ); }
                 else
-                 { return( Bouton ( "warning", "Agent disconnected", null, null, "No" ) ); }
+                 { return( Bouton ( "outline-danger", "Agent disconnected", null, null, "No" ) ); }
               }
            },
            { "data": null, "title":"Hostname", "className": "align-middle text-center",
