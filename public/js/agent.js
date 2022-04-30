@@ -70,23 +70,22 @@
              },
        rowId: "agent_id",
        columns:
-         [ { "data": null, "title":"Master", "className": "align-middle text-center",
-             "render": function (item)
-              { if (item.is_master==true)
-                 { return( Bouton ( "success", "Instance is Master", null, null, "Master" ) ); }
-                else
-                 { return( Bouton ( "secondary", "Master is "+item.master_host, null, null, "Slave" ) ); }
-              }
-           },
-           { "data": null, "title":"Connected", "className": "align-middle text-center",
+         [ { "data": null, "title":"Connected", "className": "align-middle text-center",
              "render": function (item)
               { if (item.ws_connected==true)
-                 { return( Bouton ( "success", "Agent connecté", null, null, "Oui" ) ); }
+                 { return( Bouton ( "success", "Agent conneced", null, null, "Yes" ) ); }
                 else
-                 { return( Bouton ( "warning", "Agent déconnecté", null, null, "Non" ) ); }
+                 { return( Bouton ( "warning", "Agent disconnected", null, null, "No" ) ); }
               }
            },
-           { "data": "agent_hostname", "title":"Hostname", "className": "align-middle text-center" },
+           { "data": null, "title":"Hostname", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.is_master==true)
+                 { return( item.agent_hostname + "<br>" + Badge ( "info", "Agent is Master", "Master" ) ); }
+                else
+                 { return( item.agent_hostname + "<br>" + Badge ( "secondary", "Agent is Master", "Slave" ) ); }
+              }
+           },
            { "data": "version", "title":"Version",   "className": "align-middle text-center" },
            { "data": "start_time", "title":"Start time",   "className": "align-middle text-center" },
            { "data": "install_time", "title":"Install time",   "className": "align-middle text-center" },
