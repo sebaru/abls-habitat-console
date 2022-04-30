@@ -6,7 +6,7 @@
   { table = $('#idTableAGENT').DataTable();
     selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
     var json_request =
-     { agent_id   : selection.agent_id,
+     { agent_uuid : selection.agent_uuid,
        description: $("#idAGENTDescription_"+id).val(),
        log_level  : parseInt($("#idAGENTLogLevel_"+id).val()),
        log_msrv   : ($("#idAGENTLogMSRV_"+id).val()=="true" ? true : false),
@@ -22,40 +22,41 @@
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Reset_Valider ( selection )
-  { var json_request = { bus_tag: "AGENT_RESET", thread_tech_id: selection.agent };
-    Send_to_API ( 'POST', "/api/process/send", JSON.stringify(json_request), function ()
-     { Show_Info ( "Attendez le redémarrage" );
-       Reload_when_ready();
-     }, null );
+  { var json_request = { agent_uuid: selection.agent_uuid };
+    Send_to_API ( 'POST', "/agent/reset", json_request, function ()
+     { Show_toast_ok ( "Attendez 10 secondes" );
+       setTimeout ( function () { AGENT_Refresh (); }, 10000 );
+     }, function ()
+     { Show_toast_ko ( "Erreur lors du redemarrage" );
+     });
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Reset ( id  )
   { table = $('#idTableAGENT').DataTable();
     selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
-    Show_modal_del ( "Restarter cet agent "+selection.agent,
+    Show_modal_del ( "Restarter cet agent "+selection.agent_hostname,
                      "Etes-vous sûr de vouloir relancer cet agent ?",
-                     selection.agent + " - "+selection.description,
+                     selection.agent_hostname + " - "+selection.description,
                      function () { AGENT_Reset_Valider( selection ) } ) ;
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Upgrade_Valider ( selection )
-  { var json_request = { bus_tag: "AGENT_UPGRADE", thread_tech_id: selection.agent };
-    Send_to_API ( 'POST', "/api/process/send", JSON.stringify(json_request), function ()
-     { Show_Info ( "Attendez le download et le redémarrage" );
-     }, null );
+  { var json_request = { agent_uuid: selection.agent_uuid };
+    Send_to_API ( 'POST', "/agent/upgrade", json_request, function ()
+     { Show_toast_ok ( "Attendez le download et le redémarrage" );
+     }, function ()
+     { Show_toast_ko ( "Erreur lors de l'uprade" );
+     });
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Upgrade ( id  )
   { table = $('#idTableAGENT').DataTable();
     selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
-    Show_modal_del ( "Upgrader cette agent "+selection.agent,
+    Show_modal_del ( "Upgrader cette agent "+selection.agent_hostname,
                      "Etes-vous sûr de vouloir upgrader cette agent ?",
-                     selection.agent + " - "+selection.description,
+                     selection.agent_hostname + " - "+selection.description,
                      function () { AGENT_Upgrade_Valider( selection ) } ) ;
   }
-/************************************ Envoi les infos de modifications synoptique *********************************************/
- function AGENT_Reload_icons ( )
-  { Send_to_API ( 'POST', "/api/agent/reload_icons", null, null, null ); }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { $('#idTableAGENT').DataTable(
@@ -67,7 +68,7 @@
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
              },
-       rowId: "id",
+       rowId: "agent_id",
        columns:
          [ { "data": null, "title":"Master", "className": "align-middle text-center",
              "render": function (item)
@@ -75,6 +76,14 @@
                  { return( Bouton ( "success", "Instance is Master", null, null, "Master" ) ); }
                 else
                  { return( Bouton ( "secondary", "Master is "+item.master_host, null, null, "Slave" ) ); }
+              }
+           },
+           { "data": null, "title":"Connected", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.ws_connected==true)
+                 { return( Bouton ( "success", "Agent connecté", null, null, "Oui" ) ); }
+                else
+                 { return( Bouton ( "warning", "Agent déconnecté", null, null, "Non" ) ); }
               }
            },
            { "data": "agent_hostname", "title":"Hostname", "className": "align-middle text-center" },

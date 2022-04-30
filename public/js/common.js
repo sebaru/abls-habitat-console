@@ -114,15 +114,6 @@
  function Redirect ( url )
   { $('body').fadeOut("normal", function () { window.location.replace(url); } );
   }
-
- function Reload_when_ready ( )
-  { Send_to_API ( "GET", "/api/ping", null,
-                  function (Response) { if(Response.Thread_run == false) setTimeout ( function () { Reload_when_ready() }, 1000 );
-                                        else window.location.reload(false);
-                                      },
-                  function () { setTimeout ( function () { Reload_when_ready() }, 1000 ); }
-                );
-  }
 /********************************************* Barre de boutons ***************************************************************/
  function Bouton_actions_start ( )
   { return("<div class='btn-group btn-block' role='group' aria-label='ButtonGroup'>"); }
@@ -168,7 +159,7 @@
  function Badge ( color, tooltip, texte )
   { return("<span "+
            "class='badge badge-"+color+"' "+
-           "data-toggle='tooltip' title='"+tooltip+"'>"+texte+
+           "data-toggle='tooltip' title='"+tooltip+"'>"+htmlEncode(texte)+
            "</span>" );
   }
 
