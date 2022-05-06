@@ -56,7 +56,7 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function MODBUS_Set ( selection )
   { var json_request =
-     { uuid:           $('#idTargetProcess').val(),
+     { agent_uuid:     $('#idTargetAgent').val(),
        thread_tech_id: $('#idMODBUSTechID').val(),
        hostname:       $('#idMODBUSHostname').val(),
        description:    $('#idMODBUSDescription').val(),
@@ -65,38 +65,41 @@
      };
     if (selection) json_request.id = parseInt(selection.id);                                            /* Ajout ou édition ? */
 
-    Send_to_API ( "POST", "/api/process/config", json_request, function(Response)
-     { if (selection && selection.uuid != json_request.uuid) Process_reload ( selection.uuid );/* Restart de l'ancien subprocess si uuid différent */
-       Process_reload ( json_request.uuid );                                /* Dans tous les cas, restart du subprocess cible */
-       MODBUS_Refresh();
-     }, null );
+    Send_to_API ( "POST", "/modbus/set", json_request,
+                  (Response) => { Show_toast_ok ("Modifications sauvegardées.");
+                                  MODBUS_Refresh();
+                                }, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Edit ( id )
   { table = $('#idTableMODBUS').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
-    Select_from_api ( "idTargetProcess", "/api/process/list", "name=modbus", "Process", "uuid", function (Response)
-                        { return ( Response.instance ); }, selection.uuid );
+    selection = table.ajax.json().modbus.filter( function(item) { return item.id==id } )[0];
+    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
+                        { return ( Response.agent_hostname ); }, selection.uuid );
     $('#idMODBUSTitre').text("Editer la connexion MODBUS " + selection.thread_tech_id);
     $('#idMODBUSTechID').val( selection.thread_tech_id )
       .off("input").on("input", function () { Controle_tech_id( "idMODBUS", selection.thread_tech_id ); } ).trigger("input");
     $('#idMODBUSHostname').val ( selection.hostname );
     $('#idMODBUSDescription').val( selection.description );
-    $('#idMODBUSWatchdog').val( selection.watchdog );
-    $('#idMODBUSMaxRequestParSec').val( selection.max_request_par_sec );
+    $('#idMODBUSWatchdog').val( selection.watchdog )
+      .off("input").on("input", () => Controle_num( "idMODBUS", "Watchdog" ) ).trigger("input");
+    $('#idMODBUSMaxRequestParSec').val( selection.max_request_par_sec )
+      .off("input").on("input", () => Controle_num( "idMODBUS", "MaxRequestParSec" ) ).trigger("input");
     $('#idMODBUSValider').off("click").on( "click", function () { MODBUS_Set(selection); } );
     $('#idMODBUSEdit').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Add ( )
   { $('#idMODBUSTitre').text("Ajouter un MODBUS");
-    Select_from_api ( "idTargetProcess", "/api/process/list", "name=modbus", "Process", "uuid", function (Response)
-                        { return ( Response.instance ); }, null );
+    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
+                        { return ( Response.agent_hostname ); }, null );
     $('#idMODBUSTechID').val("").off("input").on("input", function () { Controle_tech_id( "idMODBUS", null ); } );
     $('#idMODBUSHostname').val ( "" );
     $('#idMODBUSDescription').val( "" );
-    $('#idMODBUSWatchdog').val( "" );
-    $('#idMODBUSMaxRequestParSec').val( "" );
+    $('#idMODBUSWatchdog').val( "600" )
+      .off("input").on("input", () => Controle_num( "idMODBUS", "Watchdog" ) ).trigger("input");
+    $('#idMODBUSMaxRequestParSec').val( "50" )
+      .off("input").on("input", () => Controle_num( "idMODBUS", "MaxRequestParSec" ) ).trigger("input");
     $('#idMODBUSValider').off("click").on( "click", function () { MODBUS_Set(null); } );
     $('#idMODBUSEdit').modal("show");
   }

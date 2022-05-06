@@ -47,7 +47,7 @@
      </button>
    </div>
    <div class="toast-body text-light">
-     <i class="fas fa-check-circle"></i><span id="idToastStatusOKLabel"> Succès !</span>
+     <i class="fas fa-check-circle"></i> <span id="idToastStatusOKLabel">Succès !</span>
    </div>
   </div>
 </div>
@@ -62,7 +62,7 @@
      </button>
    </div>
    <div class="toast-body text-dark">
-     <i class="fas fa-check-circle"></i><span id="idToastStatusKOLabel"> Erreur !</span>
+     <i class="fas fa-check-circle"></i> <span id="idToastStatusKOLabel">Erreur !</span>
    </div>
   </div>
 </div>

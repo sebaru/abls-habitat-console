@@ -251,7 +251,7 @@
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
-           <select id="idTargetProcess" class="custom-select border-info"></select>
+           <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
@@ -281,7 +281,7 @@
            <label class="col-5 col-sm-4 col-form-label text-right">Watchdog</label>
            <input id="idMODBUSWatchdog" type="number" class="form-control" min=10 max=1200 placeholder="Nombre de 1/10 de secondes avant de couper les sorties">
            <div class="input-group-append">
-            <span class="input-group-text">secondes</span>
+            <span class="input-group-text">1/10 secondes</span>
            </div>
           </div>
         </div>

@@ -36,12 +36,10 @@
         { try { var Response = JSON.parse(xhr.responseText); }
           catch (error) { Response=undefined; }
           if (fonction_ok != null) fonction_ok(Response);          /* Si function exist, on l'appelle, sinon on fait un toast */
-                              else { Show_toast_ok("Succès !"); }
+                              else Show_toast_ok("Succès !");
         }
-       else { try { var Response = JSON.parse(xhr.responseText); }
-              catch (error) { Response=undefined; }
-              if (fonction_nok != null) fonction_nok(Response);
-                                   else { Show_toast_ko( xhr.status ); }
+       else { if (fonction_nok != null) fonction_nok(xhr);
+                                   else Show_toast_ko( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
             }
      }
     xhr.ontimeout = function() { console.log("XHR timeout for "+URL); }
@@ -173,9 +171,9 @@
   }
 
 /*****************************************Peuple un selecten fonction d'un retour API *****************************************/
- function Select_from_api ( id, url, url_parameter, array_out, array_item, to_string, selected )
+ function Select_from_api ( id, url, json_request, array_out, array_item, to_string, selected )
   { $('#'+id).empty();
-    Send_to_API ( "GET", url, url_parameter, function(Response)
+    Send_to_API ( "POST", url, json_request, function(Response)
      { $.each ( Response[array_out], function ( i, item )
         { $('#'+id).append("<option value='"+item[array_item]+"'>"+to_string(item)+"</option>"); } );
        if (selected!=null) $('#'+id).val(selected);

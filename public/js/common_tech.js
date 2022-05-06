@@ -36,13 +36,13 @@
        Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, _ et .' );
      }
     else
-     { Send_to_API ( "GET", "/api/mnemos/tech_id", null, function(Response)
+     { Send_to_API ( "POST", "/mnemos/tech_ids", null, function(Response)
         { tech_id = input.val().toUpperCase();
           if ( Response.tech_ids.map ( function (item) { return(item.tech_id); } ).includes(tech_id) &&
               (tech_id_initial == null || tech_id_initial != tech_id) )
            { input.addClass("bg-danger");
              $('#'+id_modal+'Valider').attr("disabled", true);
-             Popover_show ( input, 'Erreur !', 'Ce nom est déjà pris' );
+             Popover_show ( input, 'Erreur !', 'Ce tech_id est déjà pris' );
            }
           else
            { input.removeClass("bg-danger");
@@ -50,6 +50,22 @@
              Popover_hide(input);
            }
         });
+     }
+  }
+/************************************ Controle de saisie avant envoi **********************************************************/
+ function Controle_num ( id_modal, id_champ )
+  { FormatTag = RegExp(/^[0-9-]+$/);
+    input = $('#'+id_modal+id_champ);
+
+    if ( FormatTag.test(input.val())==false )
+     { input.addClass("bg-danger");
+       $('#'+id_modal+'Valider').attr("disabled", true);
+       Popover_show ( input, 'Attention', 'Ce champ doit être numérique' );
+     }
+    else
+     { input.removeClass("bg-danger");
+       $('#'+id_modal+'Valider').attr("disabled", false);
+       Popover_hide(input);
      }
   }
 /********************************************* Controle du saisie du modal ****************************************************/
