@@ -32,14 +32,15 @@
     xhr.onreadystatechange = function()
      { if ( xhr.readyState != 4 ) return;
        $(".ClassLoadingSpinner").hide();
+
+       try { var Response = JSON.parse(xhr.responseText); }
+       catch (error) { Response=undefined; }
+
        if (xhr.status == 200)
-        { try { var Response = JSON.parse(xhr.responseText); }
-          catch (error) { Response=undefined; }
-          if (fonction_ok != null) fonction_ok(Response);          /* Si function exist, on l'appelle, sinon on fait un toast */
-                              else Show_toast_ok("Succès !");
-        }
-       else { if (fonction_nok != null) fonction_nok(xhr);
-                                   else Show_toast_ko( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
+        { if (fonction_ok != null) fonction_ok(Response); }        /* Si function exist, on l'appelle, sinon on fait un toast */
+       else { if (Response) Show_toast_ko( "Une erreur est survenue: " + Response.api_error );
+                       else Show_toast_ko( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
+              if (fonction_nok != null) fonction_nok(xhr);
             }
      }
     xhr.ontimeout = function() { console.log("XHR timeout for "+URL); }
