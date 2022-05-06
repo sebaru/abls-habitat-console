@@ -73,9 +73,9 @@
          [ { "data": null, "title":"Connected", "className": "align-middle text-center",
              "render": function (item)
               { if (item.ws_connected==true)
-                 { return( Bouton ( "success", "Agent conneced", null, null, "Yes" ) ); }
+                 { return( Bouton ( "success", "Agent connecté", null, null, "Yes" ) ); }
                 else
-                 { return( Bouton ( "outline-danger", "Agent disconnected", null, null, "No" ) ); }
+                 { return( Bouton ( "outline-danger", "Agent déconnecté", null, null, "No" ) ); }
               }
            },
            { "data": null, "title":"Hostname", "className": "align-middle text-center",
