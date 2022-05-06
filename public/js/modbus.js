@@ -5,14 +5,14 @@
     $('#idTableMODBUS_AI').DataTable().ajax.reload(null, false);
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Disable ( id )
+ function MODBUS_Disable (modbus_id)
   { table = $('#idTableMODBUS').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
     var json_request =
      { enable        : false,
-       uuid          : selection.uuid,
+       agent_uuid    : selection.agent_uuid,
        thread_tech_id: selection.thread_tech_id,
-       id            : selection.id
+        modbus_id    : selection.modbus_id
      };
 
     Send_to_API ( "POST", "/api/process/config", json_request, function(Response)
@@ -21,33 +21,33 @@
      }, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Enable ( id )
+ function MODBUS_Enable (modbus_id)
   { table = $('#idTableMODBUS').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
     var json_request =
      { enable        : true,
-       uuid          : selection.uuid,
+       agent_uuid    : selection.agent_uuid,
        thread_tech_id: selection.thread_tech_id,
-       id            : selection.id
+       modbus_id     : selection.modbus_id
      };
 
     Send_to_API ( "POST", "/api/process/config", json_request, function(Response)
-     { Process_reload ( json_request.uuid );                                /* Dans tous les cas, restart du subprocess cible */
+     { Process_reload ( json_request.agent_uuid );                          /* Dans tous les cas, restart du subprocess cible */
        MODBUS_Refresh();
      }, null );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function MODBUS_Del_Valider ( selection )
-  { var json_request = { uuid : selection.uuid, thread_tech_id: selection.thread_tech_id };
-    Send_to_API ( 'DELETE', "/api/process/config", json_request, function(Response)
-     { Process_reload ( json_request.uuid );
+  { var json_request = { thread_tech_id: selection.thread_tech_id };
+    Send_to_API ( 'DELETE', "/subprocess/delete", json_request, function(Response)
+     { Process_reload ( json_request.agent_uuid );
        MODBUS_Refresh();
      }, null );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
- function MODBUS_Del ( id )
+ function MODBUS_Del (modbus_id)
   { table = $('#idTableMODBUS').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
     Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
                      selection.thread_tech_id + " - "+selection.hostname +" - "+ selection.description,
@@ -63,7 +63,7 @@
        watchdog:       parseInt($('#idMODBUSWatchdog').val()),
        max_request_par_sec: parseInt($('#idMODBUSMaxRequestParSec').val()),
      };
-    if (selection) json_request.id = parseInt(selection.id);                                            /* Ajout ou édition ? */
+    if (selection) json_request.modbus_id = parseInt(selection.modbus_id);                              /* Ajout ou édition ? */
 
     Send_to_API ( "POST", "/modbus/set", json_request,
                   (Response) => { Show_toast_ok ("Modifications sauvegardées.");
@@ -71,11 +71,11 @@
                                 }, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Edit ( id )
+ function MODBUS_Edit ( modbus_id )
   { table = $('#idTableMODBUS').DataTable();
-    selection = table.ajax.json().modbus.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
-                        { return ( Response.agent_hostname ); }, selection.uuid );
+                        { return ( Response.agent_hostname ); }, selection.agent_uuid );
     $('#idMODBUSTitre').text("Editer la connexion MODBUS " + selection.thread_tech_id);
     $('#idMODBUSTechID').val( selection.thread_tech_id )
       .off("input").on("input", function () { Controle_tech_id( "idMODBUS", selection.thread_tech_id ); } ).trigger("input");
@@ -93,7 +93,8 @@
   { $('#idMODBUSTitre').text("Ajouter un MODBUS");
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, null );
-    $('#idMODBUSTechID').val("").off("input").on("input", function () { Controle_tech_id( "idMODBUS", null ); } );
+    $('#idMODBUSTechID').val("")
+      .off("input").on("input", function () { Controle_tech_id( "idMODBUS", null ); } ).trigger("input");
     $('#idMODBUSHostname').val ( "" );
     $('#idMODBUSDescription').val( "" );
     $('#idMODBUSWatchdog').val( "600" )
@@ -104,9 +105,9 @@
     $('#idMODBUSEdit').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Map_DI ( id )
+ function MODBUS_Map_DI (modbus_id)
   { table = $('#idTableMODBUS_DI').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().config.filter( function(item) { return item.modbus_id==id } )[0];
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DI" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "DI", selection.tech_id, selection.acronyme );
@@ -120,9 +121,9 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Map_DO ( id )
+ function MODBUS_Map_DO (modbus_id)
   { table = $('#idTableMODBUS_DO').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().config.filter( function(item) { return item.modbus_id==id } )[0];
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DO" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "DO", selection.tech_id, selection.acronyme );
@@ -136,9 +137,9 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Map_AI ( id )
+ function MODBUS_Map_AI (modbus_id)
   { table = $('#idTableMODBUS_AI').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().config.filter( function(item) { return item.modbus_id==id } )[0];
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "AI" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "AI", selection.tech_id, selection.acronyme );
@@ -152,9 +153,9 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Edit_AI ( id )
+ function MODBUS_Edit_AI (modbus_id)
   { table = $('#idTableMODBUS_AI').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+    selection = table.ajax.json().config.filter( function(item) { return item.modbus_id==id } )[0];
     $('#idMODBUSEditAI').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODBUSEditAITypeBorne').val ( selection.type_borne );
     $('#idMODBUSEditAIMin').val ( selection.min );
@@ -182,9 +183,9 @@
           { "data": null, "title":"Enable", "className": "align-middle text-center",
              "render": function (item)
               { if (item.enable==true)
-                { return( Bouton ( "success", "Désactiver le module", "MODBUS_Disable", item.id, "Actif" ) ); }
+                { return( Bouton ( "success", "Désactiver le module", "MODBUS_Disable", item.modbus_id, "Actif" ) ); }
                else
-                { return( Bouton ( "outline-secondary", "Activer le module", "MODBUS_Enable", item.id, "Désactivé" ) ); }
+                { return( Bouton ( "outline-secondary", "Activer le module", "MODBUS_Enable", item.modbus_id, "Désactivé" ) ); }
               },
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
@@ -203,8 +204,8 @@
           },
           { "data": null, "title":"Actions", "orderable": false, "render": function (item)
               { boutons = Bouton_actions_start ();
-                boutons += Bouton_actions_add ( "outline-primary", "Editer le module", "MODBUS_Edit", item.id, "pen", null );
-                boutons += Bouton_actions_add ( "danger", "Supprimer le module", "MODBUS_Del", item.id, "trash", null );
+                boutons += Bouton_actions_add ( "outline-primary", "Editer le module", "MODBUS_Edit", item.modbus_id, "pen", null );
+                boutons += Bouton_actions_add ( "danger", "Supprimer le module", "MODBUS_Del", item.modbus_id, "trash", null );
                 boutons += Bouton_actions_end ();
                 return(boutons);
               },
@@ -245,7 +246,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DI", item.id, "directions", null );
+                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DI", item.modbus_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },
@@ -288,7 +289,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DO", item.id, "directions", null );
+                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DO", item.modbus_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },
@@ -340,8 +341,8 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Editer cet objet", "MODBUS_Edit_AI", item.id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_AI", item.id, "directions", null );
+                  boutons += Bouton_actions_add ( "primary", "Editer cet objet", "MODBUS_Edit_AI", item.modbus_id, "pen", null );
+                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_AI", item.modbus_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },
