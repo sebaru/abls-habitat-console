@@ -6,52 +6,26 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Disable (modbus_id)
-  { table = $('#idTableMODBUS').DataTable();
+  { $("#idButtonSpinner_"+modbus_id).show();
+    table = $('#idTableMODBUS').DataTable();
     selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
-    var json_request =
-     { enable        : false,
-       agent_uuid    : selection.agent_uuid,
-       thread_tech_id: selection.thread_tech_id,
-        modbus_id    : selection.modbus_id
-     };
-
-    Send_to_API ( "POST", "/api/process/config", json_request, function(Response)
-     { Process_reload ( json_request.uuid );                                /* Dans tous les cas, restart du subprocess cible */
-       MODBUS_Refresh();
-     }, null );
+    Thread_enable ( selection.thread_tech_id, false, function(Response) { MODBUS_Refresh(); }, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Enable (modbus_id)
-  { table = $('#idTableMODBUS').DataTable();
+  { $("#idButtonSpinner_"+modbus_id).show();
+    table = $('#idTableMODBUS').DataTable();
     selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
-    var json_request =
-     { enable        : true,
-       agent_uuid    : selection.agent_uuid,
-       thread_tech_id: selection.thread_tech_id,
-       modbus_id     : selection.modbus_id
-     };
-
-    Send_to_API ( "POST", "/api/process/config", json_request, function(Response)
-     { Process_reload ( json_request.agent_uuid );                          /* Dans tous les cas, restart du subprocess cible */
-       MODBUS_Refresh();
-     }, null );
+    Thread_enable ( selection.thread_tech_id, true, function(Response) { MODBUS_Refresh(); }, null );
   }
-/**************************************** Supprime une connexion meteo ********************************************************/
- function MODBUS_Del_Valider ( selection )
-  { var json_request = { thread_tech_id: selection.thread_tech_id };
-    Send_to_API ( 'DELETE', "/subprocess/delete", json_request, function(Response)
-     { Process_reload ( json_request.agent_uuid );
-       MODBUS_Refresh();
-     }, null );
-  }
-/**************************************** Supprime une connexion meteo ********************************************************/
+/**************************************** Supprime une connexion modbus *******************************************************/
  function MODBUS_Del (modbus_id)
   { table = $('#idTableMODBUS').DataTable();
     selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
     Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
                      selection.thread_tech_id + " - "+selection.hostname +" - "+ selection.description,
-                     function () { MODBUS_Del_Valider( selection ) } ) ;
+                     function () { Thread_delete ( selection.thread_tech_id, function(Response) { MODBUS_Refresh(); }, null ); } ) ;
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function MODBUS_Set ( selection )

@@ -1,7 +1,22 @@
 /********************************************* Reload Process *****************************************************************/
- function Process_reload ( uuid )
-  { var json_request = { uuid : uuid };
-    Send_to_API ( "POST", "/api/process/reload", JSON.stringify(json_request), null, null);
+ function Thread_enable ( thread_tech_id, enable, fonction_ok, fonction_nok )
+  { var json_request =
+     { enable        : enable,
+       thread_tech_id: thread_tech_id,
+     };
+
+    Send_to_API ( "POST", "/thread/enable", json_request, function(Response)
+     { Show_toast_ok ( "Thread "+thread_tech_id+(enable ? " activé" : " désactivé") +".");
+       if (fonction_ok) fonction_ok(Response);
+     }, fonction_nok );
+  }
+/********************************************* Thread_Delete ******************************************************************/
+ function Thread_delete ( thread_tech_id, fonction_ok, fonction_nok )
+  { var json_request = { thread_tech_id: thread_tech_id };
+    Send_to_API ( 'DELETE', "/thread/delete", json_request, function(Response)
+     { Show_toast_ok ( "Thread "+thread_tech_id+" supprimé.");
+       if (fonction_ok) fonction_ok(Response);
+     }, fonction_nok );
   }
 /********************************************* Renvoi un Select d'archivage ***************************************************/
  function Bouton_Archivage ( id, fonction, selected )
