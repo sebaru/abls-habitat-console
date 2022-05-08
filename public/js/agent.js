@@ -8,11 +8,10 @@
     var json_request =
      { agent_uuid : selection.agent_uuid,
        description: $("#idAGENTDescription_"+id).val(),
+       headless   : ($("#idAGENTHeadless_"+id).val()=="true" ? true : false),
        log_level  : parseInt($("#idAGENTLogLevel_"+id).val()),
        log_msrv   : ($("#idAGENTLogMSRV_"+id).val()=="true" ? true : false),
-       log_db     : ($("#idAGENTLogDB_"+id).val()=="true" ? true : false),
        log_bus    : ($("#idAGENTLogBUS_"+id).val()=="true" ? true : false),
-       log_trad   : ($("#idAGENTLogTRAD_"+id).val()=="true" ? true : false),
      };
     Send_to_API ( 'POST', "/agent/set", json_request, function ()
      { Show_toast_ok ( "Configuration sauvegardée." );
@@ -88,7 +87,12 @@
            },
            { "data": "version", "title":"Version",   "className": "align-middle text-center" },
            { "data": "start_time", "title":"Start time",   "className": "align-middle text-center" },
-           { "data": "install_time", "title":"Install time",   "className": "align-middle text-center" },
+           { "data": null, "title":"Headless", "className": "align-middle text-center",
+             "render": function (item)
+              { var choix = [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ];
+                return( Select ( "idAGENTHeadless_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")", choix, item.headless ) );
+              }
+           },
            { "data": null, "title":"Description", "className": "align-middle ",
              "render": function (item)
               { return( Input ( "text", "idAGENTDescription_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")",
@@ -105,7 +109,8 @@
              "render": function (item)
               { var choix = [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ];
                 return( Select ( "idAGENTLogBUS_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")", choix, item.log_bus ) );
-              }           },
+              }
+           },
            { "data": null, "title":"Log Level", "className": "align-middle ",
              "render": function (item)
               { var choix = [ { valeur: 7, texte: "Debug" },
