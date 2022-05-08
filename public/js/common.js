@@ -16,7 +16,7 @@
     if (method=="POST" || method=="PUT" || method=="DELETE")
      { ContentType = 'application/json';
        if (parametre === null) parametre = new Object();
-       parametre.domain_uuid = localStorage.getItem("domain_uuid");
+       if (Token) parametre.domain_uuid = Token.domain_uuid;
      }
     else if (method=="POSTFILE") { ContentType = 'application/octet-stream'; method = "POST"; }
     else ContentType = null;
@@ -79,10 +79,8 @@
 
     if (Token.username !== null ) $("#idUsername").text(Token.username);
                              else $("#idUsername").text(Token.email);
-    if (localStorage.getItem("domain_uuid") === null)
-     { localStorage.setItem("domain_uuid", Token.grants[0].domain_uuid); }
 
-    $("#idDomainName").text( Token.grants.filter( function(item) { return item.domain_uuid==localStorage.getItem("domain_uuid") } )[0].description );
+    $("#idDomainName").text( Token.description );
 
     $("body").hide().removeClass("d-none").fadeIn();
     if (typeof Load_page === 'function') Load_page();
