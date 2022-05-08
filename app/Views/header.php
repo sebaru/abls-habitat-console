@@ -183,7 +183,7 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle" href="#" id="navbarDOMAINE" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fort-awesome"></i> <span id="idDomainName">Domaine</span>
+          <i class="fas fa-fort-awesome"></i> <span id="idNavDomainName">Domaine</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
           <a class="dropdown-item" href="/agent"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>

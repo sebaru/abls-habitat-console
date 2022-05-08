@@ -10,7 +10,7 @@
 
        <div class="card m-1">
          <div class="card-header">
-           <label>Informations générales</label>
+           <label>Details</label>
          </div>
          <div class="card-body">
 
@@ -21,14 +21,14 @@
 
            <div class="row form-group">
              <div class="input-group">
-               <label class="col-4 col-form-label text-right">Description</label>
-               <input id="idDomainDescription" type="text" class="form-control" placeholder="Domain Description">
+               <label class="col-4 col-form-label text-right">Domain Name</label>
+               <input id="idDomainName" type="text" class="form-control" placeholder="Short name of domain">
              </div>
            </div>
 
            <div class="row form-group">
              <div class="input-group">
-               <label class="col-4 col-form-label text-right">UUID</label>
+               <label class="col-4 col-form-label text-right">Domain UUID</label>
                <input disabled id="idDomainUuid" type="text" class="form-control" placeholder="Domain UUID">
              </div>
            </div>
@@ -42,8 +42,15 @@
 
            <div class="row form-group">
              <div class="input-group">
-               <label class="col-4 col-form-label text-right">Date création</label>
-               <input disabled id="idDomainDateCreate" type="text" class="form-control" placeholder="date de création">
+               <label class="col-4 col-form-label text-right">My Permissions level</label>
+               <span class='form-control' id="idDomainAccessLevel"></span>
+             </div>
+           </div>
+
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Creation date</label>
+               <input disabled id="idDomainDateCreate" type="text" class="form-control" placeholder="when the domain was created">
              </div>
            </div>
 
@@ -73,14 +80,14 @@
 
        <div class="card m-1 border border-danger">
          <div class="card-header">
-           <a class="text-danger" data-toggle="collapse" href="#idAdvancedOptions" role="button">Zone de Danger</a>
+           <a class="text-danger" data-toggle="collapse" href="#idAdvancedOptions" role="button">Danger Zone</a>
          </div>
          <div class="card-body collapse" id="idAdvancedOptions">
 
            <div class="row form-group">
              <div class="input-group">
-               <label class="col-4 col-form-label text-right">Owner<br><small class="text-danger">Cannot be Undone</small></label>
-               <input id="idDomainOwner" type="text" class="form-control" placeholder="Domain Owner">
+               <label class="col-4 col-form-label text-right">New Email Owner<br><small class="text-danger">Cannot be Undone</small></label>
+               <input id="idDomainNewOwnerEmail" type="text" class="form-control" placeholder="New Owner Email">
                <button id="idDomainTransferButton" class="col-2 ml-1 form-control btn btn-danger">Transfer</button>
              </div>
            </div>

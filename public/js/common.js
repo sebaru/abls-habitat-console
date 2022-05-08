@@ -16,7 +16,7 @@
     if (method=="POST" || method=="PUT" || method=="DELETE")
      { ContentType = 'application/json';
        if (parametre === null) parametre = new Object();
-       if (Token) parametre.domain_uuid = Token.domain_uuid;
+       if (Token) parametre.domain_uuid = localStorage.getItem("domain_uuid");
      }
     else if (method=="POSTFILE") { ContentType = 'application/octet-stream'; method = "POST"; }
     else ContentType = null;
@@ -39,7 +39,7 @@
        if (xhr.status == 200)
         { if (fonction_ok != null) fonction_ok(Response); }        /* Si function exist, on l'appelle, sinon on fait un toast */
        else { if (Response) Show_toast_ko( "Une erreur est survenue: " + Response.api_error );
-                       else Show_toast_ko( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
+                       else if (fonction_nok == null) Show_toast_ko( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
               if (fonction_nok != null) fonction_nok(xhr);
             }
      }
@@ -80,7 +80,7 @@
     if (Token.username !== null ) $("#idUsername").text(Token.username);
                              else $("#idUsername").text(Token.email);
 
-    $("#idDomainName").text( Token.description );
+    $("#idNavDomainName").text( localStorage.getItem("domain_name") );
 
     $("body").hide().removeClass("d-none").fadeIn();
     if (typeof Load_page === 'function') Load_page();
@@ -178,20 +178,21 @@
        if (selected!=null) $('#'+id).val(selected);
      }, null );
   }
-/********************************************* Renvoi un Badge d'access Level *************************************************/
- function Badge_Access_level ( level )
-  { if (level == 1) return( Badge ( "info", "Accès de niveau 1", "1" ) );
-    if (level == 2) return( Badge ( "info", "Accès de niveau 2", "2" ) );
-    if (level == 3) return( Badge ( "info", "Accès de niveau 3", "3" ) );
-    if (level == 4) return( Badge ( "secondary", "Accès de niveau 4", "4" ) );
-    if (level == 5) return( Badge ( "primary", "Accès de niveau 5", "5" ) );
-    if (level == 6) return( Badge ( "warning", "Accès technicien 6", "6" ) );
-    if (level == 7) return( Badge ( "warning", "Accès technicien 7", "7" ) );
-    if (level == 8) return( Badge ( "warning", "Accès technicien 8", "8" ) );
-    if (level >= 9) return( Badge ( "danger", "Accès technicien 9", "9" ) );
-    return( Badge ( "success", "Accès public", "0" ) );
-  }
 
+/********************************************* Renvoi un Badge d'access Level *************************************************/
+ let Access_level_description = [ { name: "Accès de niveau 0",                 color: "success" },
+                                  { name: "Accès de niveau 1",                 color: "info" },
+                                  { name: "Accès de niveau 2",                 color: "info" },
+                                  { name: "Accès de niveau 3",                 color: "info" },
+                                  { name: "Accès de niveau 4",                 color: "secondary" },
+                                  { name: "Accès de niveau 5",                 color: "primary" },
+                                  { name: "Technicien délégué du domaine",     color: "warning" },
+                                  { name: "Technicien du domaine",             color: "warning" },
+                                  { name: "Administrateur délégué du domaine", color: "warning" },
+                                  { name: "Administrateur du domaine",         color: "danger" }
+                                ];
+ function Badge_Access_level ( level )
+  { return( Badge ( Access_level_description[level].color, Access_level_description[level].name, level.toString() ) ); }
 /********************************************* Renvoi un Select d'access Level ************************************************/
  function Select ( id, fonction, array, selected )
   { retour = "<select id='"+id+"' class='custom-select'"+

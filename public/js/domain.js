@@ -21,7 +21,7 @@
     card.append ( $("<div>").addClass("card-body text-center").append(body) );
 
     let footer = $("<button>").addClass("btn btn-primary")
-                  .click( function () { Creer_domaine ( element.domain_uuid ); } )
+                  .click( function () { Creer_domaine ( element ); } )
                   .text("Ajouter");
     card.append ( $("<div>").addClass("card-footer text-center").append( footer ) );
     $("#idCardContainer").append(card);
@@ -30,7 +30,7 @@
      { Response.domains.forEach ( function (element, index)
         { let card = $("<div>").addClass("card shadow m-1 bg-light");
 
-          let header = $("<h5>").html( Badge_Access_level ( element.access_level ) + " " + element.description );
+          let header = $("<h5>").html( Badge_Access_level ( element.access_level ) + " " + element.domain_name );
           card.append ( $("<div>").addClass("card-header text-center").append(header) );
 
           let body = $("<img>").css("cursor","pointer").addClass("wtd-img-card")
@@ -50,7 +50,8 @@
      }, null );
   }
 /******************************************************************************************************************************/
- function Changer_domaine ( domain_uuid )
-  { localStorage.setItem ( "domain_uuid", domain_uuid );
+ function Changer_domaine ( element )
+  { localStorage.setItem ( "domain_uuid", element.domain_uuid );
+    localStorage.setItem ( "domain_name", element.domain_name );
     Redirect("/");
   }
