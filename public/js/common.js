@@ -180,7 +180,7 @@
   }
 
 /********************************************* Renvoi un Badge d'access Level *************************************************/
- let Access_level_description = [ { name: "Accès de niveau 0",                 color: "success" },
+ var Access_level_description = [ { name: "Accès de niveau 0",                 color: "success" },
                                   { name: "Accès de niveau 1",                 color: "info" },
                                   { name: "Accès de niveau 2",                 color: "info" },
                                   { name: "Accès de niveau 3",                 color: "info" },

@@ -22,15 +22,11 @@
        $("#idNbrMsgs").text(Response.nbr_msgs);
        $("#idNbrHistoMsgs").text(Response.nbr_histo_msgs);
 
-       $("#idArchDBUsername").text(Response.db_arch_username);
        $("#idArchDBHostname").text(Response.db_arch_hostname);
        $("#idArchDBPort").text(Response.db_arch_port);
-       $("#idArchDBDatabase").text(Response.db_arch_database);
 
-       $("#idDBUsername").text(Response.db_username);
        $("#idDBHostname").text(Response.db_hostname);
        $("#idDBPort").text(Response.db_port);
-       $("#idDBDatabase").text(Response.db_database);
 
        $("#idNbrAgent").text(Response.nbr_agent);
        $("#idNbrProcess").text(Response.nbr_process);
