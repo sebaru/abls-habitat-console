@@ -9,14 +9,19 @@
 <!----------------------------------------------------------------------------------------------------------------------------->
 
        <div class="card m-1">
-         <div class="card-header">
-           <label>Details</label>
-         </div>
+         <div class="card-header"> <label>Configuration</label> </div>
          <div class="card-body">
 
            <div class="row d-block form-group ml-auto mx-auto">
                <div style="cursor:pointer" class="text-center mb-1"><img id="idDomainImage" src="" /></div>
                <input type="file" class="d-none" id="idDomainInputFile">
+           </div>
+
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">My Permissions level</label>
+               <span class='form-control' id="idDomainAccessLevel"></span>
+             </div>
            </div>
 
            <div class="row form-group">
@@ -42,13 +47,6 @@
 
            <div class="row form-group">
              <div class="input-group">
-               <label class="col-4 col-form-label text-right">My Permissions level</label>
-               <span class='form-control' id="idDomainAccessLevel"></span>
-             </div>
-           </div>
-
-           <div class="row form-group">
-             <div class="input-group">
                <label class="col-4 col-form-label text-right">Creation date</label>
                <input disabled id="idDomainDateCreate" type="text" class="form-control" placeholder="when the domain was created">
              </div>
@@ -62,7 +60,7 @@
                 <i class="fas fa-image"></i> Change Image
               </button>
 
-              <button id="idDomainSaveButton" type="button" class="btn btn-primary ml-1">
+              <button id="idDomainSaveButton" type="button" class="btn btn-success ml-1">
                 <i class="fas fa-save"></i> Save
               </button>
          </div>

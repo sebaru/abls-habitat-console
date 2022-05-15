@@ -24,6 +24,7 @@
 
        $("#idArchDBHostname").text(Response.db_arch_hostname);
        $("#idArchDBPort").text(Response.db_arch_port);
+       $("#idArchRetention").text(Response.archive_retention);
 
        $("#idDBHostname").text(Response.db_hostname);
        $("#idDBPort").text(Response.db_port);

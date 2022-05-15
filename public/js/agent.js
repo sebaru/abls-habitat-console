@@ -82,7 +82,7 @@
               { if (item.is_master==true)
                  { return( item.agent_hostname + "<br>" + Badge ( "info", "Agent is Master", "Master" ) ); }
                 else
-                 { return( item.agent_hostname + "<br>" + Badge ( "secondary", "Agent is Master", "Slave" ) ); }
+                 { return( item.agent_hostname + "<br>" + Badge ( "secondary", "Agent is Slave", "Slave" ) ); }
               }
            },
            { "data": "version", "title":"Version",   "className": "align-middle text-center" },

@@ -147,8 +147,7 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "modbus_id",
-       ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "modbus",
-               contentType: "application/json",
+       ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "modbus", contentType: "application/json",
                data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "modbus"} ) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
