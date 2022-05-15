@@ -31,7 +31,7 @@
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { Send_to_API ( "POST", "/archive/status", null, function ( Response )
-     { $('#idArchiveDBRetention').val(Response.retention);
+     { $('#idArchiveDBRetention').val(Response.archive_retention);
        $('#idArchiveNumber').val(Response.nbr_all_archives);
        $('#idArchiveTableNumber').val(Response.nbr_tables);
        $('#idTableArchive').DataTable(
