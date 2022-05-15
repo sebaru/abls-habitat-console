@@ -32,6 +32,8 @@
  function Load_page ()
   { Send_to_API ( "POST", "/archive/status", null, function ( Response )
      { $('#idArchiveDBRetention').val(Response.retention);
+       $('#idArchiveNumber').val(Response.nbr_all_archives);
+       $('#idArchiveTableNumber').val(Response.nbr_tables);
        $('#idTableArchive').DataTable(
           { pageLength : 50,
             fixedHeader: true,
