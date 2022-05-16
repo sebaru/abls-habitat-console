@@ -1,7 +1,7 @@
 <div class="container">
 
  <div class="row m-2">
-   <h3><i class="fas fa-fort-awesome text-primary"></i> Liste des domaines</h3>
+   <h3><i class="fas fa-fort-awesome text-primary"></i> Liste de mes domaines</h3>
  </div>
 
 <hr>

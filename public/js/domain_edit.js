@@ -3,11 +3,14 @@
  function Domain_Delete ( target_domain_uuid )
   {
     if ($("#idDomainDeleteText").val() != "ok to delete "+target_domain_uuid )
-     { Show_toast_ko ( "Erreur: delete impossible." );
+     { $("#idDomainDeleteText").addClass("border border-danger shadow");
+       Show_toast_ko ( "Clé de protection invalide. Controlez le champ de suppression." );
        $("#idDomainDeleteText").val("");
        return;
      }
 
+    $("#idSpinnerDelete").show();
+    Show_toast_ok ( "Suppression du domaine "+target_domain_uuid+" en cours, veuillez patienter." );
     var json_request =
      { target_domain_uuid: target_domain_uuid,
      };

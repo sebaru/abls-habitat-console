@@ -94,7 +94,8 @@
              <div class="input-group align-items-center">
                <label class="col-4 col-form-label text-right">Delete Domain<br><small class="text-danger">Cannot be Undone</small></label>
                <input  id="idDomainDeleteText" type="text" class="col-6 form-control" placeholder="type 'ok to delete ' followed by domain_uuid">
-               <button id="idDomainDeleteButton" class="col-2 ml-1 form-control btn btn-danger">Delete</button>
+               <button id="idDomainDeleteButton" class="col-2 ml-1 form-control btn btn-danger">
+                 <span id="idSpinnerDelete" class="spinner-border spinner-border-sm" style="display:none" role="status" aria-hidden="true"></span> Delete</button>
              </div>
            </div>
 

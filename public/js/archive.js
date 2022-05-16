@@ -1,12 +1,11 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Valider_Archive_Del ( table_name )
   { var json_request = { table_name : table_name };
-    Send_to_API ( 'DELETE', "/archive/del", json_request, function ()
+    Send_to_API ( 'DELETE', "/archive/delete", json_request, function ()
      { Show_toast_ok ( "Table "+table_name+" supprimée." );
-       $('#idTableArchive').DataTable().row("#"+table_name).delete();
+       $('#idTableArchive').DataTable().row("#"+table_name).remove().draw();
      });
   }
-
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function Show_Modal_Archive_Del ( table_name )
   { selection = $('#idTableArchive').DataTable().row("#"+table_name).data();
