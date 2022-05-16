@@ -183,26 +183,20 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle" href="#" id="navbarDOMAINE" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fort-awesome"></i> <span id="idNavDomainName">Domaine</span>
+          <i class="fas fa-fort-awesome text-primary"></i> <span id="idNavDomainName">Domaine</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
           <a class="dropdown-item" href="/agent"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
           <a class="dropdown-item" href="/process"><i class="fas fa-microchip text-primary"></i> <span>Processus</span></a>
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
           <a class="dropdown-item" href="/dashboard_courbes"> <i class="fas fa-chart-line text-secondary"></i> <span>Courbes</span> </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/domain"> <i class="fas fa-fort-awesome text-primary"></i> <span>Mes domaines</span> </a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="https://docs.abls-habitat.fr/guide_demarrage/#installation-dun-agent" target="_blank">
-            <i class="fas fa-book text-primary"></i> <span>Installer un agent</span>
-          </a>
       </li>
 
-      <a class="nav-link rounded" href="/dashboard"> <i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a class="nav-link rounded" href="/dashboard"> <i class="fas fa-tachometer-alt text-primary"></i> Dashboard</a>
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle" href="#" id="navbarCONFIG" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-wrench"></i> Configuration
+          <i class="fas fa-wrench text-primary"></i> Configuration
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarCONFIG">
           <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-danger"></i> <span>Synoptiques</span> </a>
@@ -211,7 +205,7 @@
         </div>
       </li>
 
-      <a class="nav-link rounded" href="/io_config"><i class="fas fa-link"></i> <span>Connecteurs</span></a>
+      <a class="nav-link rounded" href="/io_config"><i class="fas fa-link text-primary"></i> <span>Connecteurs</span></a>
 
     </ul>
 
@@ -221,9 +215,21 @@
         <span class="sr-only">Loading...</span>
       </div>
 
-      <a class="nav-link rounded" href="/search"><i class="fas fa-search"></i> <span> Dictionnaire</span></a>
+      <a class="nav-link rounded" href="/search"><i class="fas fa-search text-primary"></i> <span> Dictionnaire</span></a>
 
-      <a class="nav-link rounded" href="https://docs.abls-habitat.fr"><i class="fas fa-book"></i> <span> Documentation</span></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarDOCS" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-book text-primary"></i> Documentation</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
+          <a class="dropdown-item" href="https://docs.abls-habitat.fr"><i class="fas fa-book"></i> <span> Portail de documentation</span></a>
+          <a class="dropdown-item" href="https://docs.abls-habitat.fr/guide_demarrage/#installation-dun-agent" target="_blank">
+            <i class="fas fa-crown text-primary"></i> <span>Installer un agent</span>
+          </a>
+        </div>
+
+      </li>
+
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarUSER" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -232,6 +238,7 @@
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
           <a class="dropdown-item" href="/user" id="idHrefUsername"><i class="fas fa-user text-info"></i> Mon Profil</a>
+          <a class="dropdown-item" href="/domain"> <i class="fas fa-fort-awesome text-primary"></i> <span>Mes domaines</span> </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/users"><i class="fas fa-users-cog text-info"></i> <span>Utilisateurs</span></a>
           <a class="dropdown-item" href="/users_sessions"><i class="fas fa-list text-info"></i> <span>Sessions</span></a>

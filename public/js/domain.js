@@ -37,7 +37,7 @@
           card.append ( $("<div>").addClass("card-header text-center").append(header) );
 
           let body = $("<img>").css("cursor","pointer").addClass("wtd-img-card")
-                     .click( function () { Changer_domaine ( element.domain_uuid ); } );
+                     .click( function () { Changer_domaine ( element ); } );
           if (element.image) body.attr ("src", element.image );
                         else body.attr ("src", "https://static.abls-habitat.fr/img/syn_accueil.png" );
           card.append ( $("<div>").addClass("card-body text-center").append(body) );
@@ -54,7 +54,8 @@
   }
 /******************************************************************************************************************************/
  function Changer_domaine ( element )
-  { localStorage.setItem ( "domain_uuid", element.domain_uuid );
+  { console.log("Demande de changement de domaine : " + element.domain_uuid );
+    localStorage.setItem ( "domain_uuid", element.domain_uuid );
     localStorage.setItem ( "domain_name", element.domain_name );
     Redirect("/");
   }
