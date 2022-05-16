@@ -32,6 +32,7 @@
      { $('#idArchiveDBRetention').val(Response.archive_retention);
        $('#idArchiveNumber').val(Response.nbr_all_archives);
        $('#idArchiveTableNumber').val(Response.nbr_tables);
+       $('#idArchiveDatabaseSize').val(Response.database_size);
        $('#idTableArchive').DataTable(
           { pageLength : 50,
             fixedHeader: true,
@@ -41,6 +42,7 @@
              [ { "data": "table_name", "title":"Nom de la table", "className": "align-middle text-center" },
                { "data": "table_rows", "title":"Nombre d'enregistrements", "className": "align-middle text-center" },
                { "data": "update_time", "title":"Last Update", "className": "align-middle text-center" },
+               { "data": "table_size", "title":"Taille stockage", "className": "align-middle text-center" },
                { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                    { boutons = Bouton_actions_start ();
                      boutons += Bouton_actions_add ( "danger", "Supprimer la table", "Show_Modal_Archive_Del", item.table_name, "trash", null );

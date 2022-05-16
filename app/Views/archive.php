@@ -29,6 +29,14 @@
 
            <div class="row form-group">
              <div class="input-group">
+               <label class="col-4 col-form-label text-right">Taille de base de données</label>
+               <input id="idArchiveDatabaseSize" type="text" disabled class="form-control" placeholder="Volume de stockage">
+               <div class="input-group-append"> <span class="input-group-text">MB</span> </div>
+             </div>
+           </div>
+
+           <div class="row form-group">
+             <div class="input-group">
                <label class="col-4 col-form-label text-right">Nombre de tables</label>
                <input id="idArchiveTableNumber" type="text" disabled class="form-control" placeholder="Nombre de tables">
                <div class="input-group-append"> <span class="input-group-text">tables</span> </div>
