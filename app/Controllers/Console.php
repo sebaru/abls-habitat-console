@@ -24,6 +24,7 @@ class Console extends BaseController
  public function domain()      { $this->send_page ("domain"); }
  public function modbus()      { $this->send_page ("modbus"); }
  public function archive()     { $this->send_page ("archive"); }
+ public function users()       { $this->send_page ("users"); }
 
 
 }

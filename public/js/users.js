@@ -1,154 +1,101 @@
- document.addEventListener('DOMContentLoaded', Load_page, false);
-
 /******************************************************************************************************************************/
- function User_disable_user ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    var json_request = JSON.stringify(
-       { username    : selection.username,
-         enable      : false,
-       }
-     );
+ function User_disable_user ( uuid )
+  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+    var json_request =  { user_uuid   : selection.user_uuid, enable      : false };
 
-    Send_to_API ( 'POST', "/api/users/set", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
+    Send_to_API ( 'POST', "/users/set", json_request, function ()
+     { Show_toast_ok ( "Utilisateur désactivé" );
+       $('#idTableUsers').DataTable().ajax.reload(null, false);
      }, null);
   }
 /******************************************************************************************************************************/
- function User_enable_user ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    var json_request = JSON.stringify(
-       { username    : selection.username,
-         enable      : true,
-       }
-     );
+ function User_enable_user ( uuid )
+  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+    var json_request =  { user_uuid   : selection.user_uuid, enable      : true };
 
-    Send_to_API ( 'POST', "/api/users/set", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
+    Send_to_API ( 'POST', "/users/set", json_request, function ()
+     { Show_toast_ok ( "Utilisateur activé" );
+       $('#idTableUsers').DataTable().ajax.reload(null, false);
      }, null);
   }
 /******************************************************************************************************************************/
- function User_reset_password ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    var json_request = JSON.stringify(
-       { username      : selection.username,
-         reset_password: true,
-       }
-     );
+ function User_enable_send_txt ( uuid )
+  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+    var json_request =  { user_uuid   : selection.user_uuid, can_send_txt  : true };
 
-    Send_to_API ( 'POST', "/api/users/set", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
+    Send_to_API ( 'POST', "/users/set", json_request, function ()
+     { Show_toast_ok ( "Commande GSM/XMPP autorisée" );
+       $('#idTableUsers').DataTable().ajax.reload(null, false);
      }, null);
   }
 /******************************************************************************************************************************/
- function User_enable_cde ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    var json_request = JSON.stringify(
-       { username : selection.username,
-         allow_cde: true,
-       }
-     );
+ function User_disable_send_txt ( uuid )
+  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+    var json_request =  { user_uuid   : selection.user_uuid, can_send_txt  : false };
 
-    Send_to_API ( 'POST', "/api/users/set", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
+    Send_to_API ( 'POST', "/users/set", json_request, function ()
+     { Show_toast_ok ( "Commande GSM/XMPP interdite" );
+       $('#idTableUsers').DataTable().ajax.reload(null, false);
      }, null);
   }
 /******************************************************************************************************************************/
- function User_disable_cde ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    var json_request = JSON.stringify(
-       { username : selection.username,
-         allow_cde: false,
-       }
-     );
+ function User_enable_recv_sms ( uuid )
+  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+    var json_request =  { user_uuid   : selection.user_uuid, can_recv_sms: true };
 
-    Send_to_API ( 'POST', "/api/users/set", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
+    Send_to_API ( 'POST', "/users/set", json_request, function ()
+     { Show_toast_ok ( "Notification GSM/XMPP activée" );
+       $('#idTableUsers').DataTable().ajax.reload(null, false);
      }, null);
   }
 /******************************************************************************************************************************/
- function User_enable_notif ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    var json_request = JSON.stringify(
-       { username     : selection.username,
-         notification : true,
-       }
-     );
+ function User_disable_recv_sms ( uuid )
+  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+    var json_request =  { user_uuid   : selection.user_uuid, can_recv_sms: false };
 
-    Send_to_API ( 'POST', "/api/users/set", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
+    Send_to_API ( 'POST', "/users/set", json_request, function ()
+     { Show_toast_ok ( "Notification GSM/XMPP désactivée" );
+       $('#idTableUsers').DataTable().ajax.reload(null, false);
      }, null);
   }
 /******************************************************************************************************************************/
- function User_disable_notif ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    var json_request = JSON.stringify(
-       { username     : selection.username,
-         notification : false,
-       }
-     );
+ function User_set ( uuid )
+  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+    var json_request =
+       { user_uuid   : selection.user_uuid,
+         access_level: parseInt($('#idUserLevel_'+uuid).val()),
+         xmpp        : $('#idUserXmpp_'+uuid).val(),
+         phone       : $('#idUserPhone_'+uuid).val(),
+       };
 
-    Send_to_API ( 'POST', "/api/users/set", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
-     }, null);
-  }
-/******************************************************************************************************************************/
- function User_set ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    var json_request = JSON.stringify(
-       { username    : selection.username,
-         access_level: parseInt($('#idUserLevel_'+username).val()),
-         email       : $('#idUserMail_'+username).val(),
-         xmpp        : $('#idUserXmpp_'+username).val(),
-         phone       : $('#idUserPhone_'+username).val(),
-         comment     : $('#idUserComment_'+username).val(),
-       }
-     );
-
-    Send_to_API ( 'POST', "/api/users/set", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
+    Send_to_API ( 'POST', "/users/set", json_request, function ()
+     { Show_toast_ok ( "Utilisateur modifié" );
+       $('#idTableUsers').DataTable().ajax.reload(null, false);
      }, null);
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function Show_Modal_user_del ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    Show_modal_del ( "Supprimer cet utilisateur ?",
-                     "Etes-vous sur de vouloir supprimer l'utilisateur "+selection.username+ "?",
-                      selection.username + " - " + selection.comment,
-                     "User_Valider_user_del('"+username+"')" );
+ function Show_Modal_user_del ( uuid )
+  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+    Show_modal_del ( "Interdire l'accès à cet utilisateur ?",
+                     "Etes-vous sûr de vouloir interdire l'accès au domaine "+localStorage.getItem("domain_name")+
+                     " pour l'utilisateur "+selection.username+ "?",
+                      selection.username + " - " + selection.email,
+                     function () { User_Valider_user_del(uuid); } );
   }
 /******************************************************************************************************************************/
- function User_Valider_user_del ( username )
-  { table = $('#idTableUsers').DataTable();
-    selection = table.ajax.json().users.filter( function(item) { return (item.username==username) } )[0];
-    var json_request = JSON.stringify(
-       { username    : selection.username,
-       }
-     );
+ function User_Valider_user_del ( uuid )
+  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+    var json_request = { user_uuid   : selection.user_uuid };
 
-    Send_to_API ( 'DELETE', "/api/users/del", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
+    Send_to_API ( 'DELETE', "/users/grant", json_request, function ()
+     { Show_toast_ok ( "Le domaine "+localStorage.getItem("domain_name")+" est interdit pour l'utilisateur "+selection.email+"." );
+       $('#idTableUsers').DataTable().ajax.reload(null, false);
      }, null);
   }
 /******************************************************************************************************************************/
- function Users_Valider_add_user ()
-  { var json_request = JSON.stringify(
-       { username    : $('#idModalUserNewUsername').val(),
-         password    : $('#idModalUserNewPassword').val(),
-         email       : $('#idModalUserNewEmail').val(),
-       }
-     );
-
-    Send_to_API ( 'POST', "/api/users/add", json_request, function ()
-     { $('#idTableUsers').DataTable().ajax.reload(null, false);
+ function Users_Valider_Inviter ()
+  { Send_to_API ( 'POST', "/users/invite", json_request, function ()
+     { Show_toast_ok ( "L'utilisateur "+email+" a été invité." );
      }, null);
   }
 /******************************************************************************************************************************/
@@ -160,28 +107,31 @@
     $('#idTableUsers').DataTable(
        { pageLength : 50,
          fixedHeader: true,
-         ajax: {	url : "/api/users/list",	type : "GET", data: { }, dataSrc: "users",
-                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
+         ajax: {	url : $ABLS_API+"/user/list",	type : "POST", dataSrc: "users", contentType: "application/json",
+                 data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid')} ) ); },
+                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
                },
-         rowId: "id",
+         rowId: "user_uuid",
          columns:
           [ { "data": "username",   "title":"Username", "className": "align-middle text-center" },
+            { "data": "email", "title":"Adresse Mail", "className": "align-middle " },
             { "data": null, "title":"Enable", "className": "align-middle  text-center",
               "render": function (item)
                 { if (item.enable==true)
                    { return( Bouton ( "success", "Désactiver cet utilisateur",
-                                      "User_disable_user", item.username, "Oui" ) );
+                                      "User_disable_user", item.user_uuid, "Oui" ) );
                    }
                   else
                    { return( Bouton ( "outline-warning", "Activer cet utilisateur",
-                                      "User_enable_user", item.username, "Désactivé" ) );
+                                      "User_enable_user", item.user_uuid, "Désactivé" ) );
                    }
                 }
             },
             { "data": null, "title":"Level", "className": "align-middle  text-center",
               "render": function (item)
-                { return( Select_Access_level ( "idUserLevel_"+item.username,
-                                                "User_set('"+item.username+"')",
+                { return( Select_Access_level ( "idUserLevel_"+item.user_uuid,
+                                                "User_set('"+item.user_uuid+"')",
                                                 item.access_level )
                         );
                 }
@@ -189,33 +139,24 @@
             { "data": null, "title":"Notification/Cde", "className": "align-middle  text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  if (item.notification==true)
-                   { boutons += Bouton_actions_add ( "success", "Désactiver les notifications",
-                                                     "User_disable_notif", item.username, "bell", null );
+                  if (item.can_recv_sms==true)
+                   { boutons += Bouton_actions_add ( "success", "Désactiver les can_recv_smss",
+                                                     "User_disable_recv_sms", item.user_uuid, "bell", null );
                    }
                   else
-                   { boutons += Bouton_actions_add ( "outline-warning", "Activer les notifications",
-                                                     "User_enable_notif", item.username, "bell-slash", null );
+                   { boutons += Bouton_actions_add ( "outline-secondary", "Activer les can_recv_smss",
+                                                     "User_enable_recv_sms", item.user_uuid, "bell-slash", null );
                    }
                   if (item.allow_cde==true)
                    { boutons += Bouton_actions_add ( "success", "Interdire les commandes",
-                                                     "User_disable_cde", item.username, "phone", null );
+                                                     "User_disable_send_txt", item.user_uuid, "phone", null );
                    }
                   else
-                   { boutons += Bouton_actions_add ( "outline-warning", "Autoriser les commandes",
-                                                     "User_enable_cde", item.username, "phone-slash", null );
+                   { boutons += Bouton_actions_add ( "outline-secondary", "Autoriser les commandes",
+                                                     "User_enable_send_txt", item.user_uuid, "phone-slash", null );
                    }
                   boutons += Bouton_actions_end ();
                   return(boutons);
-                }
-            },
-            { "data": null, "title":"Adresse Mail", "className": "align-middle ",
-              "render": function (item)
-                { return( Input ( "email", "idUserMail_"+item.username,
-                                  "User_set('"+item.username+"')",
-                                  "Adresse de messagerie",
-                                  item.email )
-                        );
                 }
             },
             { "data": null, "title":"Messagerie Instantanée", "className": "align-middle ",
@@ -229,27 +170,17 @@
             },
             { "data": null, "title":"Téléphone", "className": "align-middle ",
               "render": function (item)
-                { return( Input ( "tel", "idUserPhone_"+item.username,
-                                  "User_set('"+item.username+"')",
+                { return( Input ( "tel", "idUserPhone_"+item.user_uuid,
+                                  "User_set('"+item.user_uuid+"')",
                                   "Téléphone de cet utilisateur",
                                   item.phone )
-                        );
-                }
-            },
-            { "data": null, "title":"Commentaire", "className": "align-middle ",
-              "render": function (item)
-                { return( Input ( "text", "idUserComment_"+item.username,
-                                  "User_set('"+item.username+"')",
-                                  "Qui est cet utilisateur ?",
-                                  item.comment )
                         );
                 }
             },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "warning", "Reseter son mot de passe", "User_reset_password", item.username, "key", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer cet utilisateur", "Show_Modal_user_del", item.username, "trash", null );
+                  boutons += Bouton_actions_add ( "danger", "Retirer les droits d'accès", "Show_Modal_user_del", item.user_uuid, "trash", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },

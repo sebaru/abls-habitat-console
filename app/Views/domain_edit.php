@@ -8,8 +8,8 @@
 
 <!----------------------------------------------------------------------------------------------------------------------------->
 
-       <div class="card m-1">
-         <div class="card-header"> <label>Configuration</label> </div>
+       <div class="card m-1 shadow">
+         <div class="card-header"> <i class="fas fa-pen text-primary"></i> <label>Configuration</label> </div>
          <div class="card-body">
 
            <div class="row d-block form-group ml-auto mx-auto">
@@ -68,17 +68,9 @@
 
        </div>
 
-       <div class="card m-1">
+       <div class="card m-1 border border-danger shadow">
          <div class="card-header">
-           <label>Users</label>
-         </div>
-         <div class="card-body">
-         </div>
-       </div>
-
-       <div class="card m-1 border border-danger">
-         <div class="card-header">
-           <a class="text-danger" data-toggle="collapse" href="#idAdvancedOptions" role="button">Danger Zone</a>
+           <a class="text-danger" data-toggle="collapse" href="#idAdvancedOptions" role="button"><i class="fas fa-exclamation text-danger"></i> Danger Zone</a>
          </div>
          <div class="card-body collapse" id="idAdvancedOptions">
 

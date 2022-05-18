@@ -261,7 +261,7 @@
   }
 /****************************************** Are you sure **********************************************************************/
  function Show_modal_del ( titre, message, details, fonction )
-  { $('#idModalDelTitre').text ( htmlEncode(titre) );
+  { $('#idModalDelTitre').html ( htmlEncode(titre) );
     $('#idModalDelMessage').html( htmlEncode(message) );
     $('#idModalDelDetails').html( htmlEncode(details) );
     $('#idModalDelValider').off("click").on( "click", fonction );

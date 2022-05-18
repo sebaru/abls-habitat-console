@@ -99,7 +99,6 @@
        $("#idDomainDeleteButton")     .off("click").click( function () { Domain_Delete( vars[2] ); } )
                                       .prop("disabled", (Response.access_level < 9) );
        $("#idDomainDeleteText")       .prop("disabled", (Response.access_level < 9) );
-
      }, null );
   }
 /******************************************************************************************************************************/
