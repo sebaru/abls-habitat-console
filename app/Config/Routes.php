@@ -38,6 +38,7 @@ $routes->get('/domain/(:any)', 'Console::domain_edit');
 $routes->get('/domain',       'Console::domain');
 $routes->get('/agent',        'Console::agent');
 $routes->get('/modbus',       'Console::modbus');
+$routes->get('/imsgs',        'Console::imsgs');
 $routes->get('/archive',      'Console::archive');
 $routes->get('/users',        'Console::users');
 $routes->get('(:any)',        'Console::default');

@@ -2,7 +2,7 @@
 
 Abls-Habitat is my own project to do home automation. it presents:
 
-* one or more [Agents](https://github.com/sebaru/abls-habitat-agent), in house, to interact with sensors and outputs)
+* one or more [Agents](https://github.com/sebaru/abls-habitat-agent), in house, to interact with sensors and outputs
 * one [API](https://github.com/sebaru/abls-habitat-api) on SaaS, main process of project, to handle all of agents
 * one [Console](https://github.com/sebaru/abls-habitat-console) to configure each element and develop [D.L.S module](https://docs.abls-habitat.fr/)
 * one [Home](https://github/com/sebaru/abls-habitat-home) frontend for all users

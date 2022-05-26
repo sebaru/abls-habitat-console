@@ -1,7 +1,7 @@
 <div class="container">
 
  <div class="row m-2">
-   <div class="col-auto"><h3><img src="/img/imsgs.png" style="width:80px" alt="Configuration IMSGS">Configuration Messagerie Instantanée</h3></div>
+   <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/imsgs.png" style="width:80px" alt="Configuration IMSGS">Configuration Messagerie Instantanée</h3></div>
 
    <div class="ml-auto btn-group align-items-center">
         <button type="button" onclick="IMSGS_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une connexion</button>
@@ -37,7 +37,7 @@
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
-           <select id="idTargetProcess" class="custom-select border-info"></select>
+           <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
@@ -80,4 +80,4 @@
   </div>
 </div>
 
-<script src="/js/tech/imsgs.js" type="text/javascript"></script>
+<script src="/js/imsgs.js" type="text/javascript"></script>
