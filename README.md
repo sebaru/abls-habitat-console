@@ -1,63 +1,44 @@
-# CodeIgniter 4 Application Starter
+# Abls-Habitat Project
 
-## What is CodeIgniter?
+Abls-Habitat is my own project to do home automation. it presents:
+* one or more [Agents](https://github.com/sebaru/abls-habitat-agent, in house, to interact with sensors and outputs)
+* one [API](https://github.com/sebaru/abls-habitat-api) on SaaS, main process of project, to handle all of agents
+* one [Console](https://github.com/sebaru/abls-habitat-console) to configure each element and develop [D.L.S module](https://docs.abls-habitat.fr/https://docs.abls-habitat.fr/dls/)
+* one [Home](https://github/com/sebaru/abls-habitat-home) frontend for all users
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](http://codeigniter.com).
+## What is Abls-Habitat Console ?
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+**Console** is the priviledged user part of project.
+It permits to handle synoptics, DLS modules, set every connectors configuration and mappings
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+## Installation with apache Httpd
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+Make sure apache, php and composer packages are installed. Then follow these command lines:
 
-## Installation & updates
+    # mkdir /var/ww/html/abls-console
+    # cd /var/ww/html/abls-console
+    # git clone https://github.com/sebaru/abls-habitat-console.git .
+    # composer update
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+Create Let's Encrypt certificate for your domain and adapt domain and certificate names in httpd-abls-console.conf.sample. And finally do:
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+    # cp httpd-abls-console.conf.sample /etc/httpd/conf.d/httpd-abls-console.conf
+    # systemctl restart httpd
+
+## Upgrade
+
+When upgrading, follow these command lines:
+
+    # git pull /var/ww/html/abls-console
 
 ## Setup
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Edit /var/ww/html/abls-console/public/js/config.json and change:
 
-## Important Change with index.php
+* the `api_url` to your own API Instance
+* the `idp_url` to your own OpenID IDP Instance
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+# All docs
 
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 7.3 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+all documentation [is here](https://docs;abls-habitat.fr)
