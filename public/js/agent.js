@@ -3,8 +3,7 @@
   { $('#idTableAGENT').DataTable().ajax.reload(null, false); }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Sauver_parametre ( id )
-  { table = $('#idTableAGENT').DataTable();
-    selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
+  { selection = $('#idTableAGENT').DataTable().row("#"+id).data();
     var json_request =
      { agent_uuid : selection.agent_uuid,
        description: $("#idAGENTDescription_"+id).val(),
@@ -25,31 +24,50 @@
     Send_to_API ( 'POST', "/agent/reset", json_request, function ()
      { Show_toast_ok ( "Attendez 10 secondes" );
        setTimeout ( function () { AGENT_Refresh (); }, 10000 );
-     }, function ()
-     { Show_toast_ko ( "Erreur lors du redemarrage" );
-     });
+     }, null );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Reset ( id  )
-  { table = $('#idTableAGENT').DataTable();
-    selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
+  { selection = $('#idTableAGENT').DataTable().row("#"+id).data();
     Show_modal_del ( "Restarter l'agent "+selection.agent_hostname,
                      "Etes-vous sûr de vouloir relancer cet agent ?",
                      selection.agent_hostname + " - "+selection.description,
                      function () { AGENT_Reset_Valider( selection ) } ) ;
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
+ function AGENT_Set_master_Valider ( selection )
+  { var json_request = { agent_uuid: selection.agent_uuid };
+    Send_to_API ( 'POST', "/agent/set_master", json_request, function ()
+     { Show_toast_ok ( "Attendez 10 secondes" );
+       setTimeout ( function () { AGENT_Refresh (); }, 10000 );
+     }, null );
+  }
+/************************************ Envoi les infos de modifications synoptique *********************************************/
+ function AGENT_Set_master ( id  )
+  { selection = $('#idTableAGENT').DataTable().row("#"+id).data();
+    Show_modal_del ( "Promouvoir l'agent "+selection.agent_hostname+" comme master ?",
+                     "Etes-vous sûr de vouloir promouvoir ce agent en tant que master ?",
+                     selection.agent_hostname + " - "+selection.description,
+                     function () { AGENT_Set_master_Valider( selection ) } ) ;
+  }
+/************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Upgrade_Valider ( selection )
   { var json_request = { agent_uuid: selection.agent_uuid };
     Send_to_API ( 'POST', "/agent/upgrade", json_request, function ()
      { Show_toast_ok ( "Attendez le download et le redémarrage" );
-     }, function ()
-     { Show_toast_ko ( "Erreur lors de l'uprade" );
-     });
+     }, null );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Upgrade ( id  )
-  { table = $('#idTableAGENT').DataTable();
+  { selection = $('#idTableAGENT').DataTable().row("#"+id).data();
+    Show_modal_del ( "Upgrader l'agent "+selection.agent_hostname,
+                     "Etes-vous sûr de vouloir upgrader cet agent ?",
+                     selection.agent_hostname + " - "+selection.description,
+                     function () { AGENT_Upgrade_Valider( selection ) } ) ;
+  }
+/************************************ Envoi les infos de modifications synoptique *********************************************/
+ function AGENT_Upgrade ( id  )
+  { selection = $('#idTableAGENT').DataTable().row("#"+id).data();
     selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
     Show_modal_del ( "Upgrader l'agent "+selection.agent_hostname,
                      "Etes-vous sûr de vouloir upgrader cet agent ?",
@@ -124,9 +142,12 @@
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "warning", "Upgrade l'agent",
+                 boutons += Bouton_actions_add ( "info", "Promouvoir Master",
+                                                 (item.ws_connected && item.is_master == false ? "AGENT_set_master" : null),
+                                                 item.agent_id, "asterisk", null );
+                 boutons += Bouton_actions_add ( "warning", "Upgrader l'agent",
                                                  (item.ws_connected ? "AGENT_Upgrade" : null), item.agent_id, "download", null );
-                 boutons += Bouton_actions_add ( "danger", "Restart l'agent",
+                 boutons += Bouton_actions_add ( "danger", "Restarter l'agent",
                                                  (item.ws_connected ? "AGENT_Reset" : null), item.agent_id, "redo", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
