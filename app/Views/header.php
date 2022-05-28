@@ -190,6 +190,8 @@
           <a class="dropdown-item" href="/process"><i class="fas fa-microchip text-primary"></i> <span>Processus</span></a>
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
           <a class="dropdown-item" href="/dashboard_courbes"> <i class="fas fa-chart-line text-secondary"></i> <span>Courbes</span> </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/domains"> <i class="fas fa-fort-awesome text-primary"></i> <span>Mes domaines</span> </a>
       </li>
 
       <a class="nav-link rounded" href="/dashboard"> <i class="fas fa-tachometer-alt text-primary"></i> Dashboard</a>
@@ -238,7 +240,6 @@
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
           <a class="dropdown-item" href="/user" id="idHrefUsername"><i class="fas fa-user text-info"></i> Mon Profil</a>
-          <a class="dropdown-item" href="/domain"> <i class="fas fa-fort-awesome text-primary"></i> <span>Mes domaines</span> </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/users"><i class="fas fa-users-cog text-info"></i> <span>Utilisateurs</span></a>
           <a class="dropdown-item" href="/users_sessions"><i class="fas fa-list text-info"></i> <span>Sessions</span></a>

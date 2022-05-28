@@ -8,9 +8,9 @@
   { selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     var json_request =
      { thread_tech_id: selection.thread_tech_id,
-       zmq_tag : "test"
+       api_tag : "test"
      };
-    Send_to_API ( 'POST', "/api/process/send", JSON.stringify(json_request), null );
+    Send_to_API ( 'POST', "/thread/send", json_request, null );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function IMSGS_Del_Valider ( selection )

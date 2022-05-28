@@ -143,7 +143,7 @@
              "render": function (item)
                { boutons = Bouton_actions_start ();
                  boutons += Bouton_actions_add ( "info", "Promouvoir Master",
-                                                 (item.ws_connected && item.is_master == false ? "AGENT_set_master" : null),
+                                                 (item.is_master == false ? "AGENT_Set_master" : null),
                                                  item.agent_id, "asterisk", null );
                  boutons += Bouton_actions_add ( "warning", "Upgrader l'agent",
                                                  (item.ws_connected ? "AGENT_Upgrade" : null), item.agent_id, "download", null );

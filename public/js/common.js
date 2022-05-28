@@ -75,6 +75,12 @@
        return;
      }
 
+    if (localStorage.getItem("domain_uuid") == null)
+     { if (!Token.default_domain_uuid && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
+       localStorage.setItem("domain_uuid", Token.default_domain_uuid );        /* Positionne les parametres domain par défaut */
+       localStorage.setItem("domain_name", Token.default_domain_name );
+     }
+
     /* add refresh token */
 
     if (Token.username !== null ) $("#idUsername").text(Token.username);

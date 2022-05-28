@@ -2,9 +2,9 @@
   ServerName my-abls-console.mydomain
 
   SSLEngine on
-  SSLCertificateFile /etc/letsencrypt/live/wtd-ozoir.abls-habitat.fr/cert.pem
-  SSLCertificateKeyFile /etc/letsencrypt/live/wtd-ozoir.abls-habitat.fr/privkey.pem
-  SSLCertificateChainFile /etc/letsencrypt/live/wtd-ozoir.abls-habitat.fr/chain.pem
+  SSLCertificateFile /etc/letsencrypt/live/my-abls-console.mydomain/cert.pem
+  SSLCertificateKeyFile /etc/letsencrypt/live/my-abls-console.mydomain/privkey.pem
+  SSLCertificateChainFile /etc/letsencrypt/live/my-abls-console.mydomain/chain.pem
   SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
   SSLCompression      off
   SSLSessionTickets   off

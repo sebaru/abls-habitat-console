@@ -21,7 +21,7 @@ class Console extends BaseController
  public function io_config()   { $this->send_page ("io_config"); }
  public function agent()       { $this->send_page ("agent"); }
  public function domain_edit() { $this->send_page ("domain_edit"); }
- public function domain()      { $this->send_page ("domain"); }
+ public function domains()     { $this->send_page ("domains"); }
  public function modbus()      { $this->send_page ("modbus"); }
  public function imsgs()       { $this->send_page ("imsgs"); }
  public function archive()     { $this->send_page ("archive"); }

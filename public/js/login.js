@@ -26,9 +26,6 @@
 
     Send_to_API ( 'POST', "/user/register", json_request, function (Response)
      { localStorage.setItem("token",              Response.token );                       /* Sauvegarde pour les autres pages */
-       Token = JSON.parse(atob(Response.token.split(".")[1]));
-       localStorage.setItem("domain_uuid", Token.default_domain_uuid ); /* Positionne les parametres domain par défaut */
-       localStorage.setItem("domain_name", Token.default_domain_name );
        Redirect("/dashboard");
      }, function() { $("#idLabel").text ( "Une erreur s'est produite."); } );
   }

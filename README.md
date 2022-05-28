@@ -22,8 +22,8 @@ It permits to manage domains and user access, to handle synoptics, DLS modules, 
 
 Make sure apache, php and composer packages are installed. Then follow these command lines:
 
-    # mkdir /var/ww/html/abls-console
-    # cd /var/ww/html/abls-console
+    # mkdir /var/www/html/abls-console
+    # cd /var/www/html/abls-console
     # git clone https://github.com/sebaru/abls-habitat-console.git .
     # composer update
 
@@ -36,7 +36,7 @@ Create Let's Encrypt certificate for your domain and adapt domain and certificat
 
 When upgrading, follow these command lines:
 
-    # git pull /var/ww/html/abls-console
+    # git pull /var/www/html/abls-console
 
 ## Setup
 

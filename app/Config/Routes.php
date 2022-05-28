@@ -35,7 +35,7 @@ $routes->get('/login',        'Console::login');
 $routes->get('/dashboard',    'Console::dashboard');
 $routes->get('/io_config',    'Console::io_config');
 $routes->get('/domain/(:any)', 'Console::domain_edit');
-$routes->get('/domain',       'Console::domain');
+$routes->get('/domains',       'Console::domains');
 $routes->get('/agent',        'Console::agent');
 $routes->get('/modbus',       'Console::modbus');
 $routes->get('/imsgs',        'Console::imsgs');

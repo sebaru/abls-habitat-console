@@ -176,7 +176,7 @@
                                 else { return( Bouton ( "outline-secondary", "Comm Failed", null, null, "0" ) ); }
               },
           },
-          { "data": null, "title":"Actions", "orderable": false, "render": function (item)
+          { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center", "render": function (item)
               { boutons = Bouton_actions_start ();
                 boutons += Bouton_actions_add ( "outline-primary", "Editer le module", "MODBUS_Edit", item.modbus_id, "pen", null );
                 boutons += Bouton_actions_add ( "danger", "Supprimer le module", "MODBUS_Del", item.modbus_id, "trash", null );

@@ -11,7 +11,9 @@
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
-  { console.log ("in load domain !");
+  { console.log ("in load domain !" + Token.default_domain_uuid );
+
+    if ( localStorage.getItem("domain_uuid") == null ) $("#idAlertNoDomain").slideDown("slow");
 
     let card = $("<div id='idpluscard'>").addClass("card shadow m-1 bg-light");
     let header = $("<h5>").text( "Nouveau" );
@@ -57,5 +59,9 @@
   { console.log("Demande de changement de domaine : " + element.domain_uuid );
     localStorage.setItem ( "domain_uuid", element.domain_uuid );
     localStorage.setItem ( "domain_name", element.domain_name );
-    Redirect("/");
+    element.target_domain_uuid = element.domain_uuid;
+    Send_to_API ( 'POST', "/user/set_domain", element, function (Response)
+     { Redirect("/");
+     }, null );
+
   }
