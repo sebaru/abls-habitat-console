@@ -7,21 +7,18 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Disable (modbus_id)
   { $("#idButtonSpinner_"+modbus_id).show();
-    table = $('#idTableMODBUS').DataTable();
-    selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
+    selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Enable (modbus_id)
   { $("#idButtonSpinner_"+modbus_id).show();
-    table = $('#idTableMODBUS').DataTable();
-    selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
+    selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
   }
 /**************************************** Supprime une connexion modbus *******************************************************/
  function MODBUS_Del (modbus_id)
-  { table = $('#idTableMODBUS').DataTable();
-    selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
+  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
     Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
                      selection.thread_tech_id + " - "+selection.hostname +" - "+ selection.description,
@@ -47,13 +44,11 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Edit ( modbus_id )
-  { table = $('#idTableMODBUS').DataTable();
-    selection = table.ajax.json().modbus.filter( function(item) { return item.modbus_id==modbus_id } )[0];
+  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, selection.agent_uuid );
     $('#idMODBUSTitre').text("Editer la connexion MODBUS " + selection.thread_tech_id);
-    $('#idMODBUSTechID').val( selection.thread_tech_id )
-      .off("input").on("input", function () { Controle_tech_id( "idMODBUS", selection.thread_tech_id ); } ).trigger("input");
+    $('#idMODBUSTechID').prop ("disabled", true).val( selection.thread_tech_id );
     $('#idMODBUSHostname').val ( selection.hostname );
     $('#idMODBUSDescription').val( selection.description );
     $('#idMODBUSWatchdog').val( selection.watchdog )
@@ -68,7 +63,7 @@
   { $('#idMODBUSTitre').text("Ajouter un MODBUS");
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, null );
-    $('#idMODBUSTechID').val("")
+    $('#idMODBUSTechID').prop ("disabled", false).val("")
       .off("input").on("input", function () { Controle_tech_id( "idMODBUS", null ); } ).trigger("input");
     $('#idMODBUSHostname').val ( "" );
     $('#idMODBUSDescription').val( "" );
@@ -81,8 +76,7 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Map_DI (modbus_id)
-  { table = $('#idTableMODBUS_DI').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.modbus_id==id } )[0];
+  { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_id).data();
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DI" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "DI", selection.tech_id, selection.acronyme );
@@ -97,8 +91,7 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Map_DO (modbus_id)
-  { table = $('#idTableMODBUS_DO').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.modbus_id==id } )[0];
+  { selection = $('#idTableMODBUS_DO').DataTable().row("#"+modbus_id).data();
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DO" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "DO", selection.tech_id, selection.acronyme );
@@ -113,8 +106,7 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Map_AI (modbus_id)
-  { table = $('#idTableMODBUS_AI').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.modbus_id==id } )[0];
+  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "AI" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "AI", selection.tech_id, selection.acronyme );
@@ -129,8 +121,7 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Edit_AI (modbus_id)
-  { table = $('#idTableMODBUS_AI').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.modbus_id==id } )[0];
+  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
     $('#idMODBUSEditAI').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODBUSEditAITypeBorne').val ( selection.type_borne );
     $('#idMODBUSEditAIMin').val ( selection.min );

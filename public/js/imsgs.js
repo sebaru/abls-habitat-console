@@ -18,7 +18,7 @@
     Send_to_API ( 'DELETE', "/thread/delete", json_request, function(Response)
      { Show_toast_ok ( "Compte IMSG supprimé");
        IMSGS_Refresh();
-     }, null );
+     }, function(Response) { IMSGS_Refresh(); } );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function IMSGS_Del ( imsgs_id )
@@ -31,18 +31,18 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function IMSGS_Set ( selection )
   { var json_request =
-       { agent_uuid     : $('#idTargetProcess').val(),
+       { agent_uuid     : $('#idTargetAgent').val(),
          thread_tech_id : $('#idIMSGSTechID').val(),
          description: $('#idIMSGSDescription').val(),
          jabberid: $('#idIMSGSJabberID').val(),
          password: $('#idIMSGSPassword').val(),
        };
-    if (selection) json_request.imsg_id = parseInt(selection.imsg_id);                                  /* Ajout ou édition ? */
+    if (selection) json_request.imsgs_id = parseInt(selection.imsgs_id);                                /* Ajout ou édition ? */
 
     Send_to_API ( "POST", "/imsgs/set", json_request, function(Response)
      { Show_toast_ok ( "Modification sauvegardée.");
        IMSGS_Refresh();
-     }, null );
+     }, function(Response) { IMSGS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function IMSGS_Edit ( imsgs_id )
@@ -50,7 +50,7 @@
     $('#idIMSGSTitre').text("Editer la connexion " + selection.thread_tech_id);
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, selection.agent_uuid );
-    $('#idIMSGSTechID').val( selection.thread_tech_id ).off("input").on("input", function () { Controle_tech_id( "idIMSGS", selection.thread_tech_id ); } );
+    $('#idIMSGSTechID').prop ("disabled", true).val( selection.thread_tech_id );
     $('#idIMSGSDescription').val( selection.description );
     $('#idIMSGSJabberID').val( selection.jabberid );
     $('#idIMSGSPassword').val( selection.password );
@@ -62,7 +62,7 @@
   { $('#idIMSGSTitre').text("Ajouter une connexion XMPP");
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, null );
-    $('#idIMSGSTechID').val("").off("input").on("input", function () { Controle_tech_id( "idIMSGS", null ); } );
+    $('#idIMSGSTechID').prop ("disabled", false).val("").off("input").on("input", function () { Controle_tech_id( "idIMSGS", null ); } );
     $('#idIMSGSJabberID').val( "" );
     $('#idIMSGSPassword').val( "" );
     $('#idIMSGSValider').off("click").on( "click", function () { IMSGS_Set(null); } );
@@ -78,7 +78,7 @@
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
              },
-       rowId: "imsg_id",
+       rowId: "imsgs_id",
        columns:
          [ { "data": null, "title":"Agent", "className": "align-middle text-center",
              "render": function (item)
@@ -99,9 +99,9 @@
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la connexion", "IMSGS_Edit", item.imsg_id, "pen", null );
-                 boutons += Bouton_actions_add ( "outline-primary", "Test IMSGS", "IMSGS_Test", item.imsg_id, "question", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "IMSGS_Del", item.imsg_id, "trash", null );
+                 boutons += Bouton_actions_add ( "primary", "Editer la connexion", "IMSGS_Edit", item.imsgs_id, "pen", null );
+                 boutons += Bouton_actions_add ( "outline-primary", "Test IMSGS", "IMSGS_Test", item.imsgs_id, "question", null );
+                 boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "IMSGS_Del", item.imsgs_id, "trash", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
