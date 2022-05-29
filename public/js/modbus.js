@@ -43,7 +43,7 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Edit ( modbus_id )
-  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
+  { selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, selection.agent_uuid );
     $('#idMODBUSTitre').text("Editer la connexion MODBUS " + selection.thread_tech_id);
