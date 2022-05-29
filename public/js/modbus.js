@@ -7,18 +7,18 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Disable (modbus_id)
   { $("#idButtonSpinner_"+modbus_id).show();
-    selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
+    selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Enable (modbus_id)
   { $("#idButtonSpinner_"+modbus_id).show();
-    selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
+    selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
   }
 /**************************************** Supprime une connexion modbus *******************************************************/
  function MODBUS_Del (modbus_id)
-  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
+  { selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
     Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
                      selection.thread_tech_id + " - "+selection.hostname +" - "+ selection.description,
@@ -35,7 +35,6 @@
        watchdog:       parseInt($('#idMODBUSWatchdog').val()),
        max_request_par_sec: parseInt($('#idMODBUSMaxRequestParSec').val()),
      };
-    if (selection) json_request.modbus_id = parseInt(selection.modbus_id);                              /* Ajout ou édition ? */
 
     Send_to_API ( "POST", "/modbus/set", json_request,
                   (Response) => { Show_toast_ok ("Modifications sauvegardées.");
