@@ -68,7 +68,6 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Upgrade ( id  )
   { selection = $('#idTableAGENT').DataTable().row("#"+id).data();
-    selection = table.ajax.json().agents.filter( function(item) { return item.agent_id==id } )[0];
     Show_modal_del ( "Upgrader l'agent "+selection.agent_hostname,
                      "Etes-vous sûr de vouloir upgrader cet agent ?",
                      selection.agent_hostname + " - "+selection.description,
