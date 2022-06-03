@@ -37,7 +37,6 @@
          jabberid: $('#idIMSGSJabberID').val(),
          password: $('#idIMSGSPassword').val(),
        };
-    if (selection) json_request.imsgs_id = parseInt(selection.imsgs_id);                                /* Ajout ou édition ? */
 
     Send_to_API ( "POST", "/imsgs/set", json_request, function(Response)
      { Show_toast_ok ( "Modification sauvegardée.");

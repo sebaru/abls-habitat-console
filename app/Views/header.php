@@ -32,7 +32,12 @@
         .wtd-img-card { object-fit: contain; height: 196px; max-width: 196px; padding: 10px; }
       </style>
 
-      <script> var $ABLS_API = "<?php echo getenv("ABLS_API"); ?>"; </script>
+      <script>
+        var $ABLS_API      = "<?php echo getenv("ABLS_API"); ?>";
+        var $IDP_REALM     = "<?php echo getenv("IDP_REALM"); ?>";
+        var $IDP_URL       = "<?php echo getenv("IDP_URL"); ?>";
+        var $IDP_CLIENT_ID = "<?php echo getenv("IDP_CLIENT_ID"); ?>";
+      </script>
     </head>
 
     <body class="d-none">

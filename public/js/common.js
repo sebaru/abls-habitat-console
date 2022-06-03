@@ -1,8 +1,46 @@
- document.addEventListener('DOMContentLoaded', Load_common, false);
+ document.addEventListener('DOMContentLoaded', init, false);
 
  var Charts = new Array();
  var Token = null;
 
+/**************************************************** Gère l'ID token *********************************************************/
+ function init()
+  { let keycloak = new Keycloak( { "realm": $IDP_REALM, "auth-server-url": $IDP_URL, "clientId": $IDP_CLIENT_ID,
+                                   "ssl-required": "external", "public-client": true, "confidential-port": 0 } );
+
+    keycloak.init( { onLoad: "login-required" } )
+            .then((auth) =>
+             { if (!auth) { console.log( "not authenticated" ); }
+               else { console.log("Authenticated"); }
+             })
+            .catch((error) =>
+             { console.log("Authenticated Failed");
+               console.debug(error);
+             });
+
+    keycloak.onAuthSuccess  = function() { console.log('authenticated');
+                                           TokenParsed = keycloak.tokenParsed;
+                                           Token       = keycloak.token;
+                                           console.debug (TokenParsed); console.debug (Token);
+                                           Load_common();
+                                         }
+    keycloak.onAuthLogout   = function() { console.log('logout'); }
+    keycloak.onAuthError    = function() { console.log('onAuthError'); }
+    keycloak.onTokenExpired = function() { console.log('onTokenExpired'); }
+
+//Token Refresh
+    setInterval(  () =>
+     { keycloak.updateToken(30)
+       .then((refreshed) =>
+        { if (refreshed) { console.log('Token refreshed' + refreshed); }
+          else
+           { console.log ('Token not refreshed, valid for '
+               + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
+           }
+        })
+        .catch(() => { console.log('Failed to refresh token'); });
+     }, 60000);
+  }
 /******************************************************************************************************************************/
  function Show_toast_ok ( message )
   { $('#idToastStatusOKLabel').text(" "+message); $('#idToastStatusOK').toast('show'); }
@@ -44,7 +82,7 @@
             }
      }
     xhr.ontimeout = function() { console.log("XHR timeout for "+URL); }
-    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token") );
+    xhr.setRequestHeader("Authorization", "Bearer " + Token );
     xhr.send( JSON.stringify(parametre) );
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
@@ -64,22 +102,18 @@
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_common ()
-  { if (window.location.pathname === "/login") { setTimeout ( function () { Load_login (); }, 500 ); return; }
-    if (localStorage.getItem("token") === null) { Redirect ("/login" ); return; }
-    Token = JSON.parse(atob(localStorage.getItem("token").split(".")[1]));
+  { console.log("debut load_common");
 
-    if (Token.iat + Token.exp < Date.now()/1000 )
-     { console.log ("token expired, redirecting to /login");
-       localStorage.removeItem("token");
-       Redirect("/login");
-       return;
-     }
+    Send_to_API ( "POST", "/user/profil", null, function()
+     {
+       if (localStorage.getItem("domain_uuid") == null)
+        { if (!Token.default_domain_uuid && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
+          localStorage.setItem("domain_uuid", Token.default_domain_uuid );        /* Positionne les parametres domain par défaut */
+          localStorage.setItem("domain_name", Token.default_domain_name );
+        }
+       if (typeof Load_page === 'function') Load_page();
+     }, function () { Show_toast_ko ("Unable to request profil."); } );
 
-    if (localStorage.getItem("domain_uuid") == null)
-     { if (!Token.default_domain_uuid && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
-       localStorage.setItem("domain_uuid", Token.default_domain_uuid );        /* Positionne les parametres domain par défaut */
-       localStorage.setItem("domain_name", Token.default_domain_name );
-     }
 
     /* add refresh token */
 
@@ -87,9 +121,7 @@
                              else $("#idUsername").text(Token.email);
 
     $("#idNavDomainName").text( localStorage.getItem("domain_name") );
-
     $("body").hide().removeClass("d-none").fadeIn();
-    if (typeof Load_page === 'function') Load_page();
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()
