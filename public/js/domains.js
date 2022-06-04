@@ -11,9 +11,7 @@
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
-  { console.log ("in load domain !" + Token.default_domain_uuid );
-
-    if ( localStorage.getItem("domain_uuid") == null ) $("#idAlertNoDomain").slideDown("slow");
+  { if ( localStorage.getItem("domain_uuid") == null ) $("#idAlertNoDomain").slideDown("slow");
 
     let card = $("<div id='idpluscard'>").addClass("card shadow m-1 bg-light");
     let header = $("<h5>").text( "Nouveau" );

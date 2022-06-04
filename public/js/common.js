@@ -104,23 +104,29 @@
  function Load_common ()
   { console.log("debut load_common");
 
-    Send_to_API ( "POST", "/user/profil", null, function()
-     {
-       if (localStorage.getItem("domain_uuid") == null)
-        { if (!Token.default_domain_uuid && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
-          localStorage.setItem("domain_uuid", Token.default_domain_uuid );        /* Positionne les parametres domain par défaut */
-          localStorage.setItem("domain_name", Token.default_domain_name );
+    Send_to_API ( "POST", "/user/profil", null, function( Response )
+     { console.debug(Response);
+       if (localStorage.getItem("domain_uuid") === null)
+        { if (!Response.default_domain_uuid && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
+          if (Response.default_domain_uuid !== null)
+           { localStorage.setItem("domain_uuid", Response.default_domain_uuid );/* Positionne les parametres domain par défaut */
+             localStorage.setItem("domain_name", Response.default_domain_name );
+           }
         }
+       localStorage.setItem("access_level", Response.access_level );
+
        if (typeof Load_page === 'function') Load_page();
      }, function () { Show_toast_ko ("Unable to request profil."); } );
 
 
-    /* add refresh token */
+         if (TokenParsed.name !== null )               $("#idUsername").text(TokenParsed.name);
+    else if (TokenParsed.preferred_username !== null ) $("#idUsername").text(TokenParsed.preferred_username);
+    else if (TokenParsed.given_name !== null )         $("#idUsername").text(TokenParsed.given_name);
+    else if (TokenParsed.email !== null )              $("#idUsername").text(TokenParsed.email);
+    else $("#idUsername").text("Unknown");
 
-    if (Token.username !== null ) $("#idUsername").text(Token.username);
-                             else $("#idUsername").text(Token.email);
-
-    $("#idNavDomainName").text( localStorage.getItem("domain_name") );
+    if (localStorage.getItem("domain_name")) $("#idNavDomainName").text( localStorage.getItem("domain_name") );
+                                        else $("#idNavDomainName").text( "Select your domain" );
     $("body").hide().removeClass("d-none").fadeIn();
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
@@ -246,8 +252,9 @@
  function Select_Access_level ( id, fonction, selected )
   { retour = "<select id='"+id+"' class='custom-select'"+
              "onchange="+fonction+">";
-    for ( i=0; i<=localStorage.getItem("access_level"); i++ )
-     { retour += "<option value='"+i+"' "+(selected==i ? "selected" : "")+">"+i+"</option>"; }
+    for ( i=localStorage.getItem("access_level"); i>=0; i-- )
+     { console.log(Badge_Access_level(i));
+       retour += "<option value='"+i+"' "+(selected==i ? "selected" : "")+">"+i+" - "+Access_level_description[i].name+"</option>"; }
     retour +="</select>";
     return(retour);
   }

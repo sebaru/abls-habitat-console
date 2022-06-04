@@ -20,6 +20,7 @@
            <div class="row form-group">
              <div class="input-group">
                <label class="col-4 col-form-label text-right">My Permissions level</label>
+               <div class="input-group-prepend"> <div class="input-group-text"><i class="fas fa-star text-primary"></i></div> </div>
                <span class='form-control' id="idDomainAccessLevel"></span>
              </div>
            </div>

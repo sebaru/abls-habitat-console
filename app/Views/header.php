@@ -244,10 +244,10 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
-          <a class="dropdown-item" href="/user" id="idHrefUsername"><i class="fas fa-user text-info"></i> Mon Profil</a>
+          <a class="dropdown-item" href="/user/me" id="idHrefUsername"><i class="fas fa-user text-info"></i> Mon Profil</a>
+          <a class="dropdown-item" href="/user/invite"><i class="fas fa-user-friends text-info"></i> Inviter</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/users"><i class="fas fa-users-cog text-info"></i> <span>Utilisateurs</span></a>
-          <a class="dropdown-item" href="/users_sessions"><i class="fas fa-list text-info"></i> <span>Sessions</span></a>
+          <a class="dropdown-item" href="/user/list"><i class="fas fa-users-cog text-info"></i> <span>Utilisateurs</span></a>
           <a class="dropdown-item" href="/log"><i class="fas fa-binoculars text-warning"></i> <span>Audit Log</span></a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" onclick="Logout()"><i class="fas fa-sign-out-alt text-danger"></i> <span>Sortir</span> </a>
