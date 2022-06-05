@@ -138,7 +138,7 @@
        ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "modbus", contentType: "application/json",
                data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "modbus"} ) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+               headers: { 'Authorization': 'Bearer ' + Token }
              },
        columns:
         [ { "data": "agent_hostname",   "title":"Agent", "className": "align-middle text-center" },
@@ -185,7 +185,7 @@
                contentType: "application/json",
                data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "DI"} ) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+               headers: { 'Authorization': 'Bearer ' + Token }
              },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
@@ -227,7 +227,7 @@
                contentType: "application/json",
                data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "DO"} ) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+               headers: { 'Authorization': 'Bearer ' + Token }
              },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
@@ -270,7 +270,7 @@
                contentType: "application/json",
                data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "AI"} ) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+               headers: { 'Authorization': 'Bearer ' + Token }
              },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",

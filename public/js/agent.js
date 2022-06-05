@@ -82,7 +82,7 @@
                contentType: "application/json",
                data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid')} ) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+               headers: { 'Authorization': 'Bearer ' + Token }
              },
        rowId: "agent_id",
        columns:

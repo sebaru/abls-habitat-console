@@ -1,7 +1,8 @@
  document.addEventListener('DOMContentLoaded', init, false);
 
  var Charts = new Array();
- var Token = null;
+ var Token       = null;
+ var TokenParsed = null;
 
 /**************************************************** Gère l'ID token *********************************************************/
  function init()
