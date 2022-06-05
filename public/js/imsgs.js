@@ -14,7 +14,7 @@
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function IMSGS_Del_Valider ( selection )
-  { var json_request = { uuid : selection.agent_uuid, thread_tech_id: selection.thread_tech_id };
+  { var json_request = { agent_uuid : selection.agent_uuid, thread_tech_id: selection.thread_tech_id };
     Send_to_API ( 'DELETE', "/thread/delete", json_request, function(Response)
      { Show_toast_ok ( "Compte IMSG supprimé");
        IMSGS_Refresh();
@@ -81,14 +81,20 @@
        columns:
          [ { "data": null, "title":"Agent", "className": "align-middle text-center",
              "render": function (item)
-               { return( item.agent_hostname ); }
+               { return( htmlEncode(item.agent_hostname) ); }
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
                { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
-           { "data": "description", "title":"Description", "className": "align-middle text-center " },
-           { "data": "jabberid", "title":"JabberID", "className": "align-middle " },
+           { "data": null, "title":"Description", "className": "align-middle text-center",
+             "render": function (item)
+               { return( htmlEncode(item.description) ); }
+           },
+           { "data": null, "title":"JabberID", "className": "align-middle text-center",
+             "render": function (item)
+               { return( htmlEncode(item.jabberid) ); }
+           },
            { "data": null, "title":"IO_COMM", "className": "align-middle text-center",
              "render": function (item)
                { if (item.comm==true) { return( Bouton ( "success", "Comm OK", null, null, "1" ) );        }

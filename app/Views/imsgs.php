@@ -11,6 +11,7 @@
  </div>
 
 <hr>
+
    <div class="table-responsive">
      <table id="idTableIMSGS" class="table table-striped table-bordered table-hover">
        <thead class="thead-dark">
