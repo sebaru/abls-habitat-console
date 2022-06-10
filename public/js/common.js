@@ -33,7 +33,10 @@
     setInterval(  () =>
      { keycloak.updateToken(30)
        .then((refreshed) =>
-        { if (refreshed) { console.log('Token refreshed' + refreshed); }
+        { if (refreshed) { console.log('Token refreshed' + refreshed);
+                           TokenParsed = keycloak.tokenParsed;
+                           Token       = keycloak.token;
+                         }
           else
            { console.log ('Token not refreshed, valid for '
                + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
