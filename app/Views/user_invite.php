@@ -31,7 +31,7 @@
          </div>
 
          <div class="card-footer d-flex">
-              <button id="idUserFriendInvite" type="button" class="btn btn-primary ml-auto">
+              <button id="idUserInviteValider" type="button" class="btn btn-primary ml-auto">
                 <i class="fas fa-user-friends"></i> Inviter
               </button>
          </div>

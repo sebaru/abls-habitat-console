@@ -117,7 +117,7 @@
              localStorage.setItem("domain_name", Response.default_domain_name );
            }
         }
-       localStorage.setItem("access_level", Response.access_level );
+       localStorage.setItem("access_level", parseInt(Response.access_level) );
 
        if (typeof Load_page === 'function') Load_page();
      }, function () { Show_toast_ko ("Unable to request profil."); } );
@@ -256,9 +256,8 @@
  function Select_Access_level ( id, fonction, selected )
   { retour = "<select id='"+id+"' class='custom-select'"+
              "onchange="+fonction+">";
-    for ( i=localStorage.getItem("access_level"); i>=0; i-- )
-     { console.log(Badge_Access_level(i));
-       retour += "<option value='"+i+"' "+(selected==i ? "selected" : "")+">"+i+" - "+Access_level_description[i].name+"</option>"; }
+    for ( i=localStorage.getItem("access_level")-1; i>=0; i-- )
+     { retour += "<option value='"+i+"' "+(selected==i ? "selected" : "")+">"+i+" - "+Access_level_description[i].name+"</option>"; }
     retour +="</select>";
     return(retour);
   }

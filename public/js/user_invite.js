@@ -1,22 +1,22 @@
 
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function Domain_Save ( target_domain_uuid )
+ function Inviter (  )
   { var json_request =
-       { target_domain_uuid: target_domain_uuid,
-         domain_name       : $("#idDomainName").val(),
+       { friend_email: $("#idUserInviteEmail").val(),
+         friend_level: $("#idUserInviteAccessLevel").val(),
        };
 
-    Send_to_API ( "POST", "/domain/set", json_request, function(Response)
-     { Load_page();
-       Show_toast_ok ( "Modifications sauvegardées." );
+    Send_to_API ( "POST", "/user/invite", json_request, function(Response)
+     { Show_toast_ok ( json_request.friend_email + " a été invité." );
      }, null );
 
   }
-/********************************************* Chargement du synoptique 1 au démrrage *****************************************/
+/********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Load_page ()
   { console.log ("in load domain !");
 
-    $("#idDomainLabel").text( localStorage.getItem ("domain_name" ) );
+    $("#idDomainLabel").text( localStorage.getItem ("domain_name") );
     $("#idUserInviteAccessLevel").replaceWith ( Select_Access_level ( "idUserInviteAccessLevel", null ) );
+    $("#idUserInviteValider").off("click").on("click", function () { Inviter(); } );
   }
 /******************************************************************************************************************************/
