@@ -1,5 +1,3 @@
- document.addEventListener('DOMContentLoaded', Load_page, false);
-
 /************************************ Demande de refresh **********************************************************************/
  function AUDIO_Refresh ( )
   { $('#idTableAUDIO').DataTable().ajax.reload(null, false);
@@ -7,38 +5,34 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AUDIO_Set ( selection )
   { var json_request =
-     { uuid:     $('#idTargetProcess').val(),
+     { agent_uuid     : $('#idTargetAgent').val(),
        thread_tech_id : $('#idAUDIOTechID').val(),
-       language: $('#idAUDIOLanguage').val(),
-       device  : $('#idAUDIODevice').val(),
-       description: $('#idAUDIODescription').val(),
+       language       : $('#idAUDIOLanguage').val(),
+       device         : $('#idAUDIODevice').val(),
+       description    : $('#idAUDIODescription').val(),
      };
-    if (selection) json_request.id = parseInt(selection.id);                                            /* Ajout ou édition ? */
 
-    Send_to_API ( "POST", "/api/process/config", JSON.stringify(json_request), function(Response)
-     { if (selection && selection.uuid != json_request.uuid) Process_reload ( selection.uuid );/* Restart de l'ancien subprocess si uuid différent */
-       Process_reload ( json_request.uuid );                                /* Dans tous les cas, restart du subprocess cible */
-       $('#idTableAUDIO').DataTable().ajax.reload(null, false);
-     }, null );
+    Send_to_API ( "POST", "/audio/set", json_request, function(Response)
+     { Show_toast_ok ( "Modification sauvegardée.");
+       AUDIO_Refresh();
+     }, function(Response) { AUDIO_Refresh(); } );
   }
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function AUDIO_Test ( id )
-  { table = $('#idTableAUDIO').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+  { selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
     var json_request =
      { thread_tech_id: selection.thread_tech_id,
-       zmq_tag: "test"
+       api_tag : "test"
      };
-    Send_to_API ( 'POST', "/api/process/send", JSON.stringify(json_request), null );
+    Send_to_API ( 'POST', "/thread/send", json_request, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function AUDIO_Edit ( id )
-  { table = $('#idTableAUDIO').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
-    Select_from_api ( "idTargetProcess", "/api/process/list", "name=audio", "Process", "uuid", function (Response)
-                        { return ( Response.instance ); }, selection.uuid );
-    $('#idAUDIOTitre').text("Editer la connexion GSM " + selection.thread_tech_id);
-    $('#idAUDIOTechID').val( selection.thread_tech_id ).off("input").on("input", function () { Controle_thread_tech_id( "idAUDIO", selection.thread_tech_id ); } );
+ function AUDIO_Edit ( audio_id )
+  { selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
+    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
+                        { return ( Response.agent_hostname ); }, selection.agent_uuid );
+    $('#idAUDIOTitre').text("Editer la connexion Audio " + selection.thread_tech_id);
+    $('#idAUDIOTechID').prop ("disabled", true).val( selection.thread_tech_id );
     $('#idAUDIOLanguage').val( selection.language );
     $('#idAUDIODevice').val( selection.device );
     $('#idAUDIODescription').val( selection.description );
@@ -48,9 +42,9 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function AUDIO_Add ( )
   { $('#idAUDIOTitre').text("Ajouter une zone AUDIO");
-    Select_from_api ( "idTargetProcess", "/api/process/list", "name=audio", "Process", "uuid", function (Response)
-                        { return ( Response.instance ); }, null );
-    $('#idAUDIOTechID').val("").off("input").on("input", function () { Controle_thread_tech_id( "idAUDIO", null ); } );
+    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
+                        { return ( Response.agent_hostname ); }, selection.agent_uuid );
+    $('#idAUDIOTechID').val("").prop ("disabled", false).val("").off("input").on("input", function () { Controle_tech_id( "idAUDIO", null ); } );
     $('#idAUDIOLanguage').val( "" );
     $('#idAUDIODevice').val( "" );
     $('#idAUDIODescription').val( "" );
@@ -58,17 +52,16 @@
     $('#idAUDIOEdit').modal("show");
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
- function AUDIO_Del_Valider ( selection )
-  { var json_request = { uuid : selection.uuid, thread_tech_id: selection.thread_tech_id };
-    Send_to_API ( 'DELETE', "/api/process/config", JSON.stringify(json_request), function(Response)
-     { Process_reload ( json_request.uuid );
-       $('#idTableAUDIO').DataTable().ajax.reload(null, false);
-     }, null );
+ function AUDIO__Del_Valider ( selection )
+  { var json_request = { agent_uuid : selection.agent_uuid, thread_tech_id: selection.thread_tech_id };
+    Send_to_API ( 'DELETE', "/thread/delete", json_request, function(Response)
+     { Show_toast_ok ( "Zone de diffusion supprimée.");
+       AUDIO_Refresh();
+     }, function(Response) { AUDIO_Refresh(); } );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function AUDIO_Del ( id )
-  { table = $('#idTableAUDIO').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+  { selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
     Show_modal_del ( "Supprimer la zone de diffusion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette zone de diffusion ?",
                      selection.thread_tech_id + " - "+selection.description,
@@ -79,19 +72,34 @@
   { $('#idTableAUDIO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/process/config", type : "GET", data: { name: "audio" }, dataSrc: "config",
-               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
+       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "audio", contentType: "application/json",
+               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
+                                                             "classe": "audio" } ) ); },
+               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
              },
-       rowId: "id",
+       rowId: "audio_id",
        columns:
-         [ { "data": "instance",   "title":"Instance",   "className": "align-middle text-center" },
+         [ { "data": null, "title":"Agent", "className": "align-middle text-center",
+             "render": function (item)
+               { return( htmlEncode(item.agent_hostname) ); }
+           },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
                { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
-           { "data": "description", "title":"Description", "className": "align-middle " },
-           { "data": "language", "title":"Language", "className": "align-middle " },
-           { "data": "device", "title":"Device", "className": "align-middle " },
+           { "data": null, "title":"Description", "className": "align-middle text-center",
+             "render": function (item)
+               { return( htmlEncode(item.description) ); }
+           },
+           { "data": null, "title":"Language", "className": "align-middle text-center",
+             "render": function (item)
+               { return( htmlEncode(item.language) ); }
+           },
+           { "data": null, "title":"Device", "className": "align-middle text-center",
+             "render": function (item)
+               { return( htmlEncode(item.device) ); }
+           },
            { "data": null, "title":"IO_COMM", "className": "align-middle text-center",
              "render": function (item)
                { if (item.comm==true) { return( Bouton ( "success", "Comm OK", null, null, "1" ) );        }
@@ -101,9 +109,9 @@
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la zone de difufsion", "AUDIO_Edit", item.id, "pen", null );
-                 boutons += Bouton_actions_add ( "outline-primary", "Tester la diffusion", "AUDIO_Test", item.id, "question", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer la zone", "AUDIO_Del", item.id, "trash", null );
+                 boutons += Bouton_actions_add ( "primary", "Editer la zone de diffusion", "AUDIO_Edit", item.audio_id, "pen", null );
+                 boutons += Bouton_actions_add ( "outline-primary", "Tester la diffusion", "AUDIO_Test", item.audio_id, "question", null );
+                 boutons += Bouton_actions_add ( "danger", "Supprimer la zone", "AUDIO_Del", item.audio_id, "trash", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
@@ -114,3 +122,4 @@
      });
 
   }
+/*----------------------------------------------------------------------------------------------------------------------------*/

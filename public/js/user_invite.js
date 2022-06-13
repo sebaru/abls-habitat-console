@@ -3,7 +3,7 @@
  function Inviter (  )
   { var json_request =
        { friend_email: $("#idUserInviteEmail").val(),
-         friend_level: $("#idUserInviteAccessLevel").val(),
+         friend_level: parseInt($("#idUserInviteAccessLevel").val()),
        };
 
     Send_to_API ( "POST", "/user/invite", json_request, function(Response)
