@@ -18,7 +18,7 @@
      }, function(Response) { AUDIO_Refresh(); } );
   }
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
- function AUDIO_Test ( id )
+ function AUDIO_Test ( audio_id )
   { selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
     var json_request =
      { thread_tech_id: selection.thread_tech_id,

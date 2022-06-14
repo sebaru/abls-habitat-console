@@ -72,8 +72,9 @@
   { $('#idTableIMSGS').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/imsgs/list", type : "POST", dataSrc: "imsgs", contentType: "application/json",
-               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid') } ) ); },
+       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "imsgs", contentType: "application/json",
+               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
+                                                             "classe": "imsgs" } ) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
              },
