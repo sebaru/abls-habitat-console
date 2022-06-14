@@ -26,7 +26,7 @@
   { selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
     var json_request =
      { thread_tech_id: selection.thread_tech_id,
-       api_tag: "test_gsm"
+       tag: "test_gsm"
      };
     Send_to_API ( 'POST', "/thread/send", json_request, null );
   }
@@ -35,7 +35,7 @@
   { selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
     var json_request =
      { thread_tech_id: selection.thread_tech_id,
-       api_tag : "test_ovh"
+       tag : "test_ovh"
      };
     Send_to_API ( 'POST', "/thread/send", json_request, null );
   }

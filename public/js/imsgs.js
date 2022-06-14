@@ -8,7 +8,7 @@
   { selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     var json_request =
      { thread_tech_id: selection.thread_tech_id,
-       api_tag : "test"
+       tag : "test"
      };
     Send_to_API ( 'POST', "/thread/send", json_request, null );
   }
