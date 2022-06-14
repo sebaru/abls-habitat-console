@@ -52,7 +52,7 @@
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Language</label>
-           <input id="idAUDIOLanguage" type="text" class="form-control" placeholder="frn">
+           <input id="idAUDIOLanguage" type="text" class="form-control" placeholder="fr">
           </div>
        </div>
 

@@ -43,7 +43,7 @@
  function AUDIO_Add ( )
   { $('#idAUDIOTitre').text("Ajouter une zone AUDIO");
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
-                        { return ( Response.agent_hostname ); }, selection.agent_uuid );
+                        { return ( Response.agent_hostname ); }, null );
     $('#idAUDIOTechID').val("").prop ("disabled", false).val("").off("input").on("input", function () { Controle_tech_id( "idAUDIO", null ); } );
     $('#idAUDIOLanguage').val( "" );
     $('#idAUDIODevice').val( "" );
