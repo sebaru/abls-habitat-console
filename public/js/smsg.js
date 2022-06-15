@@ -1,5 +1,3 @@
- document.addEventListener('DOMContentLoaded', Load_page, false);
-
 /************************************ Demande de refresh **********************************************************************/
  function SMSG_Refresh ( )
   { $('#idTableSMSG').DataTable().ajax.reload(null, false);
@@ -59,7 +57,7 @@
   { $('#idSMSGTitre').text("Ajouter un équipement GSM");
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, null );
-    $('#idSMSGTechID').prop ("disabled", false).val("").off("input").on("input", function () { Controle_thread_tech_id( "idSMSG", null ); } );
+    $('#idSMSGTechID').prop ("disabled", false).val("").off("input").on("input", function () { Controle_tech_id( "idSMSG", null ); } );
     $('#idSMSGDescription').val("");
     $('#idSMSGOVHServiceName').val("");
     $('#idSMSGOVHApplicationKey').val("");
@@ -90,8 +88,9 @@
   { $('#idTableSMSG').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/smsg/list", type : "POST", dataSrc: "smsgs", contentType: "application/json",
-               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid') } ) ); },
+       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "smsg", contentType: "application/json",
+               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
+                                                             "classe": "smsg" } ) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
              },
