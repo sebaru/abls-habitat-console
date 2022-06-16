@@ -197,7 +197,8 @@
                 { return( item.thread_acronyme ); }
             },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
-              "render": function (item)                { if(item.tech_id)
+              "render": function (item)
+                { if(item.tech_id)
                    { return ( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
@@ -208,7 +209,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DI", item.modbus_id, "directions", null );
+                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DI", item.modbus_di_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },
@@ -251,7 +252,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DO", item.modbus_id, "directions", null );
+                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DO", item.modbus_do_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },
@@ -303,8 +304,8 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Editer cet objet", "MODBUS_Edit_AI", item.modbus_id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_AI", item.modbus_id, "directions", null );
+                  boutons += Bouton_actions_add ( "primary", "Editer cet objet", "MODBUS_Edit_AI", item.modbus_ai_id, "pen", null );
+                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_AI", item.modbus_ai_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },

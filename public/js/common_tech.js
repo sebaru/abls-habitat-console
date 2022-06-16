@@ -38,7 +38,7 @@
        tech_id        : tech_id.toUpperCase(),
        acronyme       : acronyme.toUpperCase(),
      };
-    Send_to_API ( 'POST', "/api/map", JSON.stringify(json_request) );
+    Send_to_API ( 'POST', "/mapping/set", json_request, function () { Show_toast_ok("Mapping done.") }, null );
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function Controle_tech_id ( id_modal, tech_id_initial )
