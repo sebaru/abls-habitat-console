@@ -4,14 +4,14 @@
    <h3><i class="fas fa-mimage text-primary"></i> Liste des Synoptiques</strong></h3>
 
    <div class ="ml-auto btn-group align-items-start">
-        <button type="button" onclick="Show_Modal_Syn_Add(0)" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un Synoptique</button>
+        <button type="button" onclick="SYN_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un Synoptique</button>
    </div>
  </div>
 
 <hr>
 
 <div class="table-responsive">
-  <table id="idTableSyn" class="table table-striped table-bordered table-hover">
+  <table id="idTableSYN" class="table table-striped table-bordered table-hover">
     <thead class="thead-dark">
 				</thead>
 			 <tbody>
@@ -101,4 +101,4 @@
 </div>
 
 
-<script src="/js/tech/synoptiques.js" type="text/javascript"></script>
+<script src="/js/synoptiques.js" type="text/javascript"></script>
