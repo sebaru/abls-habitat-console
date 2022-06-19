@@ -24,6 +24,7 @@ class Console extends BaseController
  public function synoptiques() { $this->send_page ("synoptiques"); }
  public function audio()       { $this->send_page ("audio"); }
  public function imsgs()       { $this->send_page ("imsgs"); }
+ public function ups()         { $this->send_page ("ups"); }
  public function archive()     { $this->send_page ("archive"); }
  public function user_invite() { $this->send_page ("user_invite"); }
  public function users()       { $this->send_page ("users"); }

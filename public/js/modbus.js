@@ -7,11 +7,13 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Disable (modbus_id)
   { $("#idButtonSpinner_"+modbus_id).show();
+    selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Enable (modbus_id)
   { $("#idButtonSpinner_"+modbus_id).show();
+    selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
   }
 /**************************************** Supprime une connexion modbus *******************************************************/

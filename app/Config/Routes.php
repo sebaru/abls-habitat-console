@@ -40,6 +40,7 @@ $routes->get('/modbus',       'Console::modbus');
 $routes->get('/imsgs',        'Console::imsgs');
 $routes->get('/smsg',         'Console::smsg');
 $routes->get('/audio',        'Console::audio');
+$routes->get('/ups',          'Console::ups');
 $routes->get('/synoptiques',  'Console::synoptiques');
 $routes->get('/archive',      'Console::archive');
 $routes->get('/user/invite',  'Console::user_invite');
