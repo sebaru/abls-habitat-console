@@ -14,8 +14,8 @@
 
     <table id="idTableDLS" class="table table-striped table-bordered table-hover">
       <thead class="thead-dark">
-				  </thead>
-			   <tbody>
+      </thead>
+      <tbody>
       </tbody>
     </table>
 
@@ -34,31 +34,31 @@
       <div class="modal-body">
 
        <div class="col form-group">
-					     <div class="input-group">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Synoptique du module</label>
-						     <select id="idModalDlsEditPage" class="custom-select border-info"></select>
-     					</div>
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Synoptique du module</label>
+           <select id="idModalDlsEditPage" class="custom-select border-info"></select>
+          </div>
        </div>
 
        <div class="col form-group">
-					     <div class="input-group">
-						     <label class="col-5 col-sm-4 col-form-label text-right">TechID du module</label>
-						      <input id="idModalDlsEditTechID" type="text" class="form-control" maxlength="32" placeholder="TechID du module DLS">
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">TechID du module</label>
+            <input id="idModalDlsEditTechID" type="text" class="form-control" maxlength="32" placeholder="TechID du module DLS">
            </div>
        </div>
 
        <div class="col form-group">
-					     <div class="input-group">
-						     <label class="col-5 col-sm-4 col-form-label text-right">ShortName</label>
-						     <input id="idModalDlsEditShortname" type="text" class="form-control" placeholder="Nom court du module DLS">
-     					</div>
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">ShortName</label>
+           <input id="idModalDlsEditShortname" type="text" class="form-control" placeholder="Nom court du module DLS">
+          </div>
        </div>
 
        <div class="col form-group">
-					     <div class="input-group">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Description du module</label>
-						     <input id="idModalDlsEditDescription" type="text" class="form-control" placeholder="Description du module D.L.S">
-     					</div>
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Description du module</label>
+           <input id="idModalDlsEditDescription" type="text" class="form-control" placeholder="Description du module D.L.S">
+          </div>
         </div>
 
       </div>
@@ -71,4 +71,4 @@
 </div>
 
 
-<script src="/js/tech/dls.js" type="text/javascript"></script>
+<script src="/js/dls.js" type="text/javascript"></script>
