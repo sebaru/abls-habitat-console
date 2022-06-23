@@ -84,7 +84,8 @@
                                                              "classe": "ups" } ) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
-             },       columns:
+             },
+       columns:
           [ { "data": null, "title":"Agent", "className": "align-middle text-center",
               "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
@@ -103,7 +104,7 @@
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+               { return( Lien ( "/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
            { "data": "description", "title":"Description", "className": "align-middle text-center " },
            { "data": "name", "title":"Name", "className": "align-middle text-center" },
