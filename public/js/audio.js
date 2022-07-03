@@ -2,6 +2,18 @@
  function AUDIO_Refresh ( )
   { $('#idTableAUDIO').DataTable().ajax.reload(null, false);
   }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function AUDIO_Disable (audio_id)
+  { $("#idButtonSpinner_"+audio_id).show();
+    selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
+    Thread_enable ( selection.thread_tech_id, false, function(Response) { AUDIO_Refresh(); }, function(Response) { AUDIO_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function AUDIO_Enable (audio_id)
+  { $("#idButtonSpinner_"+audio_id).show();
+    selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
+    Thread_enable ( selection.thread_tech_id, true, function(Response) { AUDIO_Refresh(); }, function(Response) { AUDIO_Refresh(); } );
+  }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AUDIO_Set ( selection )
   { var json_request =
@@ -83,6 +95,18 @@
          [ { "data": null, "title":"Agent", "className": "align-middle text-center",
              "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
+           },
+           { "data": null, "title":"Enabled", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.enable==true)
+                 { return( Bouton ( "success", "Désactiver la zone de diffusion",
+                                    "AUDIO_Disable", item.audio_id, "Actif" ) );
+                 }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer la zone de diffusion",
+                                    "AUDIO_Enable", item.audio_id, "Désactivé" ) );
+                 }
+              },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)

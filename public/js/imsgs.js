@@ -3,6 +3,18 @@
  function IMSGS_Refresh ( )
   { $('#idTableIMSGS').DataTable().ajax.reload(null, false);
   }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function IMSG_Disable (imsg_id)
+  { $("#idButtonSpinner_"+imsg_id).show();
+    selection = $('#idTableIMSG').DataTable().row("#"+imsg_id).data();
+    Thread_enable ( selection.thread_tech_id, false, function(Response) { IMSG_Refresh(); }, function(Response) { IMSG_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function IMSG_Enable (imsg_id)
+  { $("#idButtonSpinner_"+modbus_id).show();
+    selection = $('#idTableIMSG').DataTable().row("#"+imsg_id).data();
+    Thread_enable ( selection.thread_tech_id, true, function(Response) { IMSG_Refresh(); }, function(Response) { IMSG_Refresh(); } );
+  }
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function IMSGS_Test ( imsgs_id )
   { selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
@@ -83,6 +95,14 @@
          [ { "data": null, "title":"Agent", "className": "align-middle text-center",
              "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
+           },
+           { "data": null, "title":"Enable", "className": "align-middle text-center",
+              "render": function (item)
+               { if (item.enable==true)
+                 { return( Bouton ( "success", "Désactiver le compte", "IMSG_Disable", item.imsg_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le compte", "IMSG_Enable", item.imsg_id, "Désactivé" ) ); }
+               },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)

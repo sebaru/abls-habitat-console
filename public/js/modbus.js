@@ -143,7 +143,10 @@
                beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
              },
        columns:
-        [ { "data": "agent_hostname",   "title":"Agent", "className": "align-middle text-center" },
+        [ { "data": null, "title":"Agent", "className": "align-middle text-center",
+             "render": function (item)
+               { return( htmlEncode(item.agent_hostname) ); }
+          },
           { "data": null, "title":"Enable", "className": "align-middle text-center",
              "render": function (item)
               { if (item.enable==true)

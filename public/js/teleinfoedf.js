@@ -85,18 +85,18 @@
          [ { "data": null, "title":"Agent", "className": "align-middle text-center",
               "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
-            },
-            { "data": null, "title":"Enabled", "className": "align-middle text-center",
-              "render": function (item)
-               { if (item.enable==true)
-                  { return( Bouton ( "success", "Désactiver la téléinfo",
-                                     "UPS_Disable", item.teleinfoedf_id, "Actif" ) );
-                  }
-                 else
-                  { return( Bouton ( "outline-secondary", "Activer la téléinfo",
-                                     "UPS_Enable", item.teleinfoedf_id, "Désactivé" ) );
-                  }
-               },
+           },
+           { "data": null, "title":"Enabled", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.enable==true)
+                 { return( Bouton ( "success", "Désactiver la téléinfo",
+                                    "TELEINFO_Disable", item.teleinfoedf_id, "Actif" ) );
+                 }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer la téléinfo",
+                                    "TELEINFO_Enable", item.teleinfoedf_id, "Désactivé" ) );
+                 }
+              },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
