@@ -17,31 +17,35 @@
   { $('#idTableDLS').DataTable().ajax.reload(null, false); }
 /******************************************************************************************************************************/
  function Dls_start_plugin ( dls_id )
-  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id };
-    Send_to_API ( 'POST', "/dls/start", json_request, function () { Show_toast_ok("Module "+selection.tech_id+" activé"); DLS_Refresh(); });
+  { $("#idButtonSpinner_"+dls_id).show();
+    selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
+    var json_request = { tech_id : selection.tech_id, start: true };
+    Send_to_API ( 'POST', "/dls/enable", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" activé"); DLS_Refresh(); });
   }
+/******************************************************************************************************************************/
  function Dls_stop_plugin ( dls_id )
-  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id };
-    Send_to_API ( 'POST', "/dls/stop", json_request, function () { Show_toast_ok("Module "+selection.tech_id+" désactivé"); DLS_Refresh(); });
+  { $("#idButtonSpinner_"+dls_id).show();
+    selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
+    var json_request = { tech_id : selection.tech_id, start: false };
+    Send_to_API ( 'POST', "/dls/enable", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" désactivé"); DLS_Refresh(); });
   }
+/******************************************************************************************************************************/
  function Dls_debug_plugin ( dls_id )
   { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id };
-    Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("Module "+selection.tech_id+" en debug"); DLS_Refresh(); });
+    var json_request = { tech_id : selection.tech_id, debug: true };
+    Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" en debug"); DLS_Refresh(); });
   }
-
+/******************************************************************************************************************************/
  function Dls_undebug_plugin ( dls_id )
   { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id };
-    Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("Module "+selection.tech_id+" hors debug"); DLS_Refresh(); });
+    var json_request = { tech_id : selection.tech_id, debug: false };
+    Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" hors debug"); DLS_Refresh(); });
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Valider_Dls_Del ( selection )
   { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
     var json_request = { tech_id : selection.tech_id };
-    Send_to_API ( 'DELETE', "/dls/delete", json_request, function () { Show_toast_ok("Module "+selection.tech_id+" supprimé"); DLS_Refresh(); });
+    Send_to_API ( 'DELETE', "/dls/delete", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" supprimé"); DLS_Refresh(); });
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function Show_Modal_Dls_Del ( dls_id )
@@ -73,7 +77,7 @@
     if (dls_id>0) json_request.dls_id = dls_id;                                                         /* Ajout ou édition ? */
 
     Send_to_API ( "POST", "/dls/set", json_request, function(Response)
-     { Show_toast_ok("Module "+selection.tech_id+" mis à jour"); DLS_Refresh(); });
+     { Show_toast_ok("D.L.S "+selection.tech_id+" mis à jour"); DLS_Refresh(); });
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function Dls_Set_controle_techid ( tech_id_initial )
@@ -191,8 +195,8 @@
             },
             { "data": null, "title":"Stats", "className": "align-middle text-center",
               "render": function (item)
-                { return( Badge ( "primary", "Nombre de compilation", item.nbr_compil ) + "<br>" +
-                          Badge ( "secondary", "Nombre de ligne", item.nbr_ligne ) );
+                { return( Badge ( "primary", "Nombre de compilation", item.nbr_compil.toString() ) + "<br>" +
+                          Badge ( "secondary", "Nombre de ligne", item.nbr_ligne.toString() ) );
                 }
             },
             { "data": "compil_date", "title":"Date Compil", "className": "align-middle text-center " },
