@@ -1,23 +1,23 @@
- document.addEventListener('DOMContentLoaded', Load_page, false);
+
  var SourceCode;
 
  function Go_to_mnemos ()
   { vars = window.location.pathname.split('/');
-    Redirect ( "/tech/mnemos/"+vars[3] );
+    Redirect ( "/tech/mnemos/"+vars[2] );
   }
  function Go_to_source ()
   { vars = window.location.pathname.split('/');
-    Redirect ( "/tech/dls_source/"+vars[3] );
+    Redirect ( "/tech/dls_source/"+vars[2] );
   }
  function Go_to_dls_run ()
   { vars = window.location.pathname.split('/');
-    Redirect ( "/tech/dls_run/"+vars[3] );
+    Redirect ( "/tech/dls_run/"+vars[2] );
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Compiler ()
   { vars = window.location.pathname.split('/');
     var json_request =
-     { tech_id : vars[3],
+     { tech_id : vars[2],
        sourcecode: SourceCode.getDoc().getValue(),
      };
 
@@ -26,7 +26,7 @@
        return;
      }
 
-    Send_to_API ( "POST", "/api/dls/compil", JSON.stringify(json_request), function(Response)
+    Send_to_API ( "POST", "/dls/compil", json_request, function(Response)
      { $("#idErrorLog").html(Response.errorlog.replace(/(?:\r\n|\r|\n)/g, '<br>'));
        $("#idErrorLog").removeClass("alert-info alert-warning alert-danger alert-success");
             if (Response.compil_status==6) { $("#idErrorLog").addClass("alert-success"); }                              /* OK */
@@ -37,14 +37,14 @@
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { vars = window.location.pathname.split('/');
+    if (vars[2] == null) Redirect ("/dls");
+
     SourceCode = CodeMirror.fromTextArea( document.getElementById("idSourceCode"), { lineNumbers: true } );
     SourceCode.setSize( null, "100%");
 
+    var json_request = { tech_id : vars[2] });
 
-    var json_request = JSON.stringify(
-     { tech_id : vars[3],
-     });
-    Send_to_API ( "GET", "/api/dls/source", "tech_id="+vars[3], function(Response)
+    Send_to_API ( "POST", "/api/dls/source", json_request, function(Response)
      { $("#idSourceTitle").text( "(#"+Response.dls_id+") - " + Response.tech_id + " - " + Response.shortname);
        $("#idSourceSynoptique").text(Response.page);
        SourceCode.getDoc().setValue(Response.sourcecode);
@@ -54,3 +54,4 @@
        else $("#idErrorLog").addClass("alert-danger");
      }, null);
   }
+/*----------------------------------------------------------------------------------------------------------------------------*/
