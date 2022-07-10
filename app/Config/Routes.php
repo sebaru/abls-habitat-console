@@ -39,6 +39,7 @@ $routes->get('/agent',        'Console::agent');
 $routes->get('/modbus',       'Console::modbus');
 $routes->get('/imsgs',        'Console::imsgs');
 $routes->get('/smsg',         'Console::smsg');
+$routes->get('/search',       'Console::search');
 $routes->get('/audio',        'Console::audio');
 $routes->get('/ups',          'Console::ups');
 $routes->get('/teleinfoedf',  'Console::teleinfoedf');
