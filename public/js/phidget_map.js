@@ -356,7 +356,7 @@
             },
             { "data": null, "title":"BIT Tech_id", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) ); }
+                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
             },
             { "data": null, "title":"BIT Acronyme", "className": "align-middle text-center",
               "render": function (item)
@@ -401,7 +401,7 @@
             },
             { "data": null, "title":"BIT Tech_id", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) ); }
+                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
             },
             { "data": null, "title":"BIT Acronyme", "className": "align-middle text-center",
               "render": function (item)
@@ -447,7 +447,7 @@
             },
             { "data": null, "title":"BIT Tech_id", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) ); }
+                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
             },
             { "data": null, "title":"BIT Acronyme", "className": "align-middle text-center",
               "render": function (item)
@@ -489,7 +489,7 @@
             },
             { "data": null, "title":"BIT Tech_id", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) ); }
+                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
             },
             { "data": "acronyme", "title":"BIT Acronyme", "className": "align-middle text-center" },
             { "data": "libelle", "title":"BIT Libelle", "className": "align-middle text-center" },

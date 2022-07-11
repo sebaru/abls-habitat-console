@@ -171,17 +171,17 @@
             },
             { "data": null, "title":"TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) );
+                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) );
                 }
             },
             { "data": null, "title":"Nom court", "className": "align-middle",
               "render": function (item)
-                { return( Lien ( "/dls_source/"+item.tech_id, "Voir la source", item.shortname ) );
+                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.shortname ) );
                 }
             },
             { "data": null, "title":"Libellé", "className": "align-middle ",
               "render": function (item)
-                { return( Lien ( "/dls_source/"+item.tech_id, "Voir la source", item.name ) );
+                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.name ) );
                 }
             },
             { "data": null, "title":"Compil", "className": "align-middle ",
@@ -203,7 +203,7 @@
             { "data": null, "title":"Actions", "orderable": false, "className": "align-middle",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir le code", "Redirect", "/dls_source/"+item.dls_id, "code", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Voir le code", "Redirect", "/dls/"+item.dls_id, "code", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les mnemos", "Redirect", "/mnemos/"+item.dls_id, "book", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Compiler le module", "Dls_compiler", item.dls_id, "coffee", null );

@@ -110,7 +110,7 @@
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
            { "data": null, "title":"Description", "className": "align-middle text-center",
              "render": function (item)

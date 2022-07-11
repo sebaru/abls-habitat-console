@@ -157,7 +157,7 @@
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
-              { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+              { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center " },
           { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center " },
@@ -195,7 +195,7 @@
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
             },
             { "data": null, "title":"WAGO I/O", "className": "align-middle text-center",
               "render": function (item)
@@ -204,7 +204,7 @@
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
-                   { return ( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
             },
@@ -238,7 +238,7 @@
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
             },
             { "data": null, "title":"WAGO I/O", "className": "align-middle text-center",
               "render": function (item)
@@ -247,7 +247,7 @@
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
-                   { return ( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
             },
@@ -281,7 +281,7 @@
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
             },
             { "data": null, "title":"WAGO I/O", "className": "align-middle text-center",
               "render": function (item)
@@ -289,7 +289,7 @@
             },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)                { if(item.tech_id)
-                   { return ( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
             },
