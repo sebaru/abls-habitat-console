@@ -77,7 +77,10 @@
     if (dls_id>0) json_request.dls_id = dls_id;                                                         /* Ajout ou édition ? */
 
     Send_to_API ( "POST", "/dls/set", json_request, function(Response)
-     { Show_toast_ok("D.L.S "+selection.tech_id+" mis à jour"); DLS_Refresh(); });
+     {      if (dls_id>0) Show_toast_ok("D.L.S "+json_request.tech_id+" mis à jour");
+       else if (dls_id>0) Show_toast_ok("D.L.S "+json_request.tech_id+" ajouté");
+       DLS_Refresh();
+     });
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function Dls_Set_controle_techid ( tech_id_initial )
@@ -89,8 +92,8 @@
      { input.addClass("bg-danger");    $('#idModalDlsEditValider').attr("disabled", true);
        Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, _ et .' );
      }
-    else if ( (table.ajax.json().plugins.filter( function(item)                                   /* Si tech_id deja existant */
-                                               { return item.tech_id.toUpperCase()==input.val().toUpperCase() } )[0] !== undefined &&
+    else if ( (table.ajax.json().dls.filter( function(item)                                   /* Si tech_id deja existant */
+                                              { return item.tech_id.toUpperCase()==input.val().toUpperCase() } )[0] !== undefined &&
               (tech_id_initial == null || input.val().toUpperCase() != tech_id_initial.toUpperCase()) )
        )
      { input.addClass("bg-danger");    $('#idModalDlsEditValider').attr("disabled", true);
@@ -126,11 +129,11 @@
   { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
     $('#idModalDlsEditTitre').text("Modifier le D.L.S " + selection.tech_id );
     $('#idModalDlsEditTechID').val(selection.tech_id);
-    $('#idModalDlsEditTechID').attr("oninput", "Dls_Set_controle_techid('"+tech_id+"')" );
-    Dls_Set_controle_techid ( tech_id );
+    $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid(selection.tech_id); } );
+    Dls_Set_controle_techid ( selection.tech_id );
     $('#idModalDlsEditShortname').val(selection.shortname);
     $('#idModalDlsEditDescription').val(selection.name);
-    $('#idModalDlsEditValider').attr( "onclick", "Dls_Set("+selection.dls_id+")" );
+    $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(selection.dls_id); } );
     Send_to_API ( "POST", "/syn/list", null, function (Response)
      { $('#idModalDlsEditPage').empty();
        $.each ( Response.synoptiques, function ( i, item )
