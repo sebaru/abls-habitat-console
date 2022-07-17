@@ -114,9 +114,7 @@
                },
          rowId: "user_uuid",
          columns:
-          [ { "data": "username",   "title":"Username", "className": "align-middle text-center" },
-            { "data": "email", "title":"Adresse Mail", "className": "align-middle " },
-            { "data": null, "title":"Enable", "className": "align-middle  text-center",
+          [ { "data": null, "title":"Enable", "className": "align-middle  text-center",
               "render": function (item)
                 { if (item.enable==true)
                    { return( Bouton ( "success", "Désactiver cet utilisateur",
@@ -128,58 +126,22 @@
                    }
                 }
             },
+            { "data": null,   "title":"Username", "className": "align-middle text-center",
+              "render": function (item)
+                { return( htmlEncode(item.username) ); }
+            },
+            { "data": null, "title": "Adresse Mail", "className": "align-middle ",
+              "render": function (item)
+                { return( htmlEncode(item.email) ); }
+            },
             { "data": null, "title":"Level", "className": "align-middle  text-center",
               "render": function (item)
-                { return( Select_Access_level ( "idUserLevel_"+item.user_uuid,
-                                                "User_set('"+item.user_uuid+"')",
-                                                item.access_level )
-                        );
-                }
-            },
-            { "data": null, "title":"Notification/Cde", "className": "align-middle  text-center",
-              "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  if (item.can_recv_sms==true)
-                   { boutons += Bouton_actions_add ( "success", "Désactiver les can_recv_smss",
-                                                     "User_disable_recv_sms", item.user_uuid, "bell", null );
-                   }
-                  else
-                   { boutons += Bouton_actions_add ( "outline-secondary", "Activer les can_recv_smss",
-                                                     "User_enable_recv_sms", item.user_uuid, "bell-slash", null );
-                   }
-                  if (item.allow_cde==true)
-                   { boutons += Bouton_actions_add ( "success", "Interdire les commandes",
-                                                     "User_disable_send_txt", item.user_uuid, "phone", null );
-                   }
-                  else
-                   { boutons += Bouton_actions_add ( "outline-secondary", "Autoriser les commandes",
-                                                     "User_enable_send_txt", item.user_uuid, "phone-slash", null );
-                   }
-                  boutons += Bouton_actions_end ();
-                  return(boutons);
-                }
-            },
-            { "data": null, "title":"Messagerie Instantanée", "className": "align-middle ",
-              "render": function (item)
-                { return( Input ( "email", "idUserXmpp_"+item.username,
-                                  "User_set('"+item.username+"')",
-                                  "Adresse de messagerie instantanée",
-                                  item.xmpp )
-                        );
-                }
-            },
-            { "data": null, "title":"Téléphone", "className": "align-middle ",
-              "render": function (item)
-                { return( Input ( "tel", "idUserPhone_"+item.user_uuid,
-                                  "User_set('"+item.user_uuid+"')",
-                                  "Téléphone de cet utilisateur",
-                                  item.phone )
-                        );
-                }
+                { return( Badge_Access_level ( item.access_level ) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
+                  boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur", "Redirect('/user/'"+item.user_uuid, item.user_uuid, "pen", null );
                   boutons += Bouton_actions_add ( "danger", "Retirer les droits d'accès", "Show_Modal_user_del", item.user_uuid, "trash", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);

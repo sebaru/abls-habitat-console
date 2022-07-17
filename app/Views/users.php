@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
 
  <div class="row m-2">
    <h3><i class="fas fa-users text-primary"></i> Utilisateurs du domaine</h3>

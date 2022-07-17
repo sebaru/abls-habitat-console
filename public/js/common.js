@@ -254,8 +254,7 @@
   }
 /********************************************* Renvoi un Select d'access Level ************************************************/
  function Select_Access_level ( id, fonction, selected )
-  { retour = "<select id='"+id+"' class='custom-select'"+
-             "onchange="+fonction+">";
+  { retour = "<select id='"+id+"' class='custom-select'"+"onchange="+fonction+">";
     for ( i=localStorage.getItem("access_level")-1; i>=0; i-- )
      { retour += "<option value='"+i+"' "+(selected==i ? "selected" : "")+">"+i+" - "+Access_level_description[i].name+"</option>"; }
     retour +="</select>";
