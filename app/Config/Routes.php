@@ -48,6 +48,7 @@ $routes->get('/dls/(:any)',   'Console::dls_source');
 $routes->get('/synoptiques',  'Console::synoptiques');
 $routes->get('/archive',      'Console::archive');
 $routes->get('/user/invite',  'Console::user_invite');
+$routes->get('/user/(:any)',  'Console::user_edit');
 $routes->get('/users',        'Console::users');
 $routes->get('(:any)',        'Console::default');
 

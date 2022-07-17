@@ -243,8 +243,8 @@
   { return( Badge ( Access_level_description[level].color, Access_level_description[level].name, level.toString() ) ); }
 /********************************************* Renvoi un Select d'access Level ************************************************/
  function Select ( id, fonction, array, selected )
-  { retour = "<select id='"+id+"' class='custom-select'"+
-             "onchange="+fonction+">";
+  { retour = "<select id='"+id+"' class='custom-select' ";
+    if (fonction) retour += "onchange="+fonction+">";
     valeur = array.map ( function(item) { return(item.valeur); } );
     texte  = array.map ( function(item) { return(item.texte); } );
     for ( i=0; i<valeur.length; i++ )
