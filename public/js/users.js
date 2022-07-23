@@ -63,9 +63,9 @@
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur",
-                                                  (item.access_level<TokenParsed.access_level || item.user_uuid==TokenParsed.sub ? "Redirect('/user/"+item.user_uuid+"')" : null),
-                                                  item.user_uuid, "pen", null );
+                  if (item.access_level<TokenParsed.access_level || item.user_uuid==TokenParsed.sub)
+                        { boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur", "Redirect", "/user/"+item.user_uuid, "pen", null ); }
+                   else { boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur", null, null, "pen", null ); }
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },
