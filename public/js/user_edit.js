@@ -6,7 +6,7 @@
          xmpp        : $("#idUserXmpp").val(),
          phone       : $("#idUserPhone").val(),
          can_send_txt: ($("#idUserCanSendTxt").val()==1 ? true : false),
-         can_recv_sms: ($("#idUserCanRecvSms").val()==1 ? true : false),
+         wanna_be_notified: ($("#idUserWannaBeNotified").val()==1 ? true : false),
        };
     if (TokenParsed.sub != Response.user_uuid) json_request.access_level = parseInt($("#idUserAccessLevel").val());
 
@@ -49,8 +49,8 @@
        if (TokenParsed.sub == Response.user_uuid)
           { $("#idUserAccessLevel").html ( Badge_Access_level (Response.access_level) + " - " + Access_level_description[Response.access_level].name ); }
        else $("#idUserAccessLevel").replaceWith ( Select_Access_level ( "idUserAccessLevel", null ) );
-       $("#idUserCanRecvSms").replaceWith ( Select ( "idUserCanRecvSms", null,
-                                                     [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.can_recv_sms ) );
+       $("#idUserWannaBeNotified").replaceWith ( Select ( "idUserWannaBeNotified", null,
+                                                     [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.wanna_be_notified ) );
        $("#idUserCanSendTxt").replaceWith ( Select ( "idUserCanSendTxt", null,
                                                      [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.can_send_txt ) );
        $("#idUserSaveButton").off("click").click ( function() { User_set(Response); } );

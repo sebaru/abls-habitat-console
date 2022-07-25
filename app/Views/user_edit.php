@@ -57,8 +57,8 @@
 
            <div class="row form-group">
              <div class="input-group">
-               <label class="col-4 col-form-label text-right">Notification GSM</label>
-               <select id="idUserCanRecvSms" class="custom-select"></select>
+               <label class="col-4 col-form-label text-right">Notifications<br><small class="text-dark">par GSM ou IMSG</small></label>
+               <select id="idUserWannaBeNotified" class="custom-select"></select>
              </div>
            </div>
 
