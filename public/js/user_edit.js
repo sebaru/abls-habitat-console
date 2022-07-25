@@ -1,11 +1,11 @@
 /******************************************************************************************************************************/
  function User_set ( Response )
   { var json_request =
-       { user_uuid   : Response.user_uuid,
-         name        : $("#idUserName").val(),
-         xmpp        : $("#idUserXmpp").val(),
-         phone       : $("#idUserPhone").val(),
-         can_send_txt: ($("#idUserCanSendTxt").val()==1 ? true : false),
+       { user_uuid        : Response.user_uuid,
+         name             : $("#idUserName").val(),
+         xmpp             : $("#idUserXmpp").val(),
+         phone            : $("#idUserPhone").val(),
+         can_send_txt_cde : ($("#idUserCanSendTxtCde").val()==1 ? true : false),
          wanna_be_notified: ($("#idUserWannaBeNotified").val()==1 ? true : false),
        };
     if (TokenParsed.sub != Response.user_uuid) json_request.access_level = parseInt($("#idUserAccessLevel").val());
@@ -51,8 +51,8 @@
        else $("#idUserAccessLevel").replaceWith ( Select_Access_level ( "idUserAccessLevel", null ) );
        $("#idUserWannaBeNotified").replaceWith ( Select ( "idUserWannaBeNotified", null,
                                                      [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.wanna_be_notified ) );
-       $("#idUserCanSendTxt").replaceWith ( Select ( "idUserCanSendTxt", null,
-                                                     [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.can_send_txt ) );
+       $("#idUserCanSendTxtCde").replaceWith ( Select ( "idUserCanSendTxtCde", null,
+                                                     [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.can_send_txt_cde ) );
        $("#idUserSaveButton").off("click").click ( function() { User_set(Response); } );
        $("#idUserDeleteButton").off("click").click ( function() { User_delete(Response); } );
      }, null );

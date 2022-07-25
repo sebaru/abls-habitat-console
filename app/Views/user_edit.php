@@ -57,15 +57,15 @@
 
            <div class="row form-group">
              <div class="input-group">
-               <label class="col-4 col-form-label text-right">Notifications<br><small class="text-dark">par GSM ou IMSG</small></label>
+               <label class="col-4 col-form-label text-right">Notifications textuelles<br><small class="text-dark">par GSM ou IMSG</small></label>
                <select id="idUserWannaBeNotified" class="custom-select"></select>
              </div>
            </div>
 
            <div class="row form-group">
              <div class="input-group align-items-center">
-               <label class="col-4 col-form-label text-right">Commande autorisée<br><small class="text-dark">par GSM ou IMSG</small></label>
-               <select id="idUserCanSendTxt" class="custom-select"></select>
+               <label class="col-4 col-form-label text-right">Commandes textuelles<br><small class="text-dark">par GSM ou IMSG</small></label>
+               <select id="idUserCanSendTxtCde" class="custom-select"></select>
              </div>
            </div>
 
