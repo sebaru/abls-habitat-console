@@ -159,7 +159,7 @@
             { "data": "page", "title":"Page", "className": "align-middle  text-center" },
             { "data": null, "title":"Started", "className": "align-middle  text-center",
               "render": function (item)
-                { if (item.actif==true)
+                { if (item.enable==true)
                    { return( Bouton ( "success", "Désactiver le plugin", "Dls_stop_plugin", item.dls_id, "Actif" ) ); }
                   if (item.compil_status>=6) /* Si compil OK ou warning */
                    { return( Bouton ( "outline-secondary", "Activer le plugin", "Dls_start_plugin", item.dls_id, "Désactivé" ) ); }

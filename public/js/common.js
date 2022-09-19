@@ -376,19 +376,17 @@
 
 /********************************* Chargement d'une courbe dans u synoptique 1 au démrrage ************************************/
  function Charger_plusieurs_courbes ( idChart, tableau_map, period )
-  { if (localStorage.getItem("instance_is_master")!="true") return;
-
-    var chartElement = document.getElementById(idChart);
-    if (!chartElement) { console.log("Charger_plusieurs_courbes: Erreur chargement chartElement " + json_request ); return; }
+  { var chartElement = document.getElementById(idChart);
+    if (!chartElement) { console.log("Charger_plusieurs_courbes: Erreur chargement chartElement " + idChart ); return; }
 
     if (period===undefined) period="HOUR";
-    var json_request = JSON.stringify(
+    var json_request =
      { courbes: tableau_map.map( function (item)
                                   { return( { tech_id: item.tech_id, acronyme: item.acronyme } ) } ),
        period : period
-     });
+     };
 
-    Send_to_API ( "PUT", "/api/archive/get", json_request, function(Response)
+    Send_to_API ( "POST", "/archive/get", json_request, function(Response)
      { var dates;
        var ctx = chartElement.getContext('2d');
        if (!ctx) { console.log("Charger_plusieurs_courbes: Erreur chargement context " + json_request ); return; }
