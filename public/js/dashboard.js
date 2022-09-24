@@ -6,7 +6,7 @@
     Send_to_API ( "POST", "/domain/status", null, function (Response)
      { console.debug(Response);
        $("#idNbrSyns").text(Response.nbr_syns);
-       $("#idNbrSynsVisuels").text(Response.nbr_syns_visuels);
+       $("#idNbrSynsMotifs").text(Response.nbr_syns_motifs);
        $("#idNbrSynsLiens").text(Response.nbr_syns_liens);
        $("#idNbrDls").text(Response.nbr_dls);
        $("#idNbrDlsLignes").text(Response.nbr_dls_lignes);
