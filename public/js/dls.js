@@ -1,11 +1,6 @@
- var compil_status = [ [ "Never compiled yet", "info" ],
-                       [ "Database Export failed", "outline-danger" ],
-                       [ "Error loading source file", "outline-danger" ],
-                       [ "Error loading log file", "outline-danger" ],
-                       [ "Syntax error", "outline-danger" ],
-                       [ "Error Fork GCC", "outline-danger" ],
-                       [ "OK", "success" ],
+ var compil_status = [ [ "Syntax error", "outline-danger" ],
                        [ "Warnings", "outline-warning" ],
+                       [ "OK", "success" ],
                      ];
 
  function Go_to_dls_status ()
@@ -161,7 +156,7 @@
               "render": function (item)
                 { if (item.enable==true)
                    { return( Bouton ( "success", "Désactiver le plugin", "Dls_stop_plugin", item.dls_id, "Actif" ) ); }
-                  if (item.compil_status>=6) /* Si compil OK ou warning */
+                  if (item.compil_status>=1) /* Si compil OK ou warning */
                    { return( Bouton ( "outline-secondary", "Activer le plugin", "Dls_start_plugin", item.dls_id, "Désactivé" ) ); }
                   return( Bouton ( "outline-secondary", "Compilation nécéssaire", null, null, "Désactivé" ) );
                 }

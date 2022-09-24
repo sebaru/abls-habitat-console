@@ -29,8 +29,8 @@
     Send_to_API ( "POST", "/dls/compil", json_request, function(Response)
      { $("#idErrorLog").html(Response.errorlog.replace(/(?:\r\n|\r|\n)/g, '<br>'));
        $("#idErrorLog").removeClass("alert-info alert-warning alert-danger alert-success");
-            if (Response.compil_status==6) { $("#idErrorLog").addClass("alert-success"); }                              /* OK */
-       else if (Response.compil_status==7) { $("#idErrorLog").addClass("alert-warning"); }                         /* Warning */
+            if (Response.compil_status==2) { $("#idErrorLog").addClass("alert-success"); }                              /* OK */
+       else if (Response.compil_status==1) { $("#idErrorLog").addClass("alert-warning"); }                         /* Warning */
        else $("#idErrorLog").addClass("alert-danger");
      }, null );
   }
@@ -49,8 +49,8 @@
        $("#idSourceSynoptique").text(Response.page);
        SourceCode.getDoc().setValue(Response.sourcecode);
        $("#idErrorLog").html(Response.errorlog.replace(/(?:\r\n|\r|\n)/g, '<br>'));
-            if (Response.compil_status==6) { $("#idErrorLog").addClass("alert-success"); }                              /* OK */
-       else if (Response.compil_status==7) { $("#idErrorLog").addClass("alert-warning"); }                         /* Warning */
+            if (Response.compil_status==2) { $("#idErrorLog").addClass("alert-success"); }                              /* OK */
+       else if (Response.compil_status==1) { $("#idErrorLog").addClass("alert-warning"); }                         /* Warning */
        else $("#idErrorLog").addClass("alert-danger");
      }, null);
   }
