@@ -62,15 +62,6 @@
      }, null );
 
   }
-/************************************ Envoi les infos de compilation **********************************************************/
- function Domain_Compil_all_DLS ( target_domain_uuid )
-  { var json_request = { target_domain_uuid: target_domain_uuid };
-
-    Send_to_API ( "POST", "/dls/compil_all", json_request, function(Response)
-     { Show_toast_ok ( "Full Compilation in progress." );
-     }, null );
-
-  }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { console.log ("in load domain !");
@@ -102,7 +93,6 @@
                                       .prop("disabled", (Response.access_level < 8) );
        $("#idDomainSaveButton")       .off("click").click( function () { Domain_Save( vars[2] ); } )
                                       .prop("disabled", (Response.access_level < 8) );
-       $("#idDomainCompilAllButton")  .off("click").click( function () { Domain_Compil_all_DLS( vars[2] ); } );
        $("#idDomainNewOwnerEmail")    .prop("disabled", (Response.access_level < 9) );
        $("#idDomainTransferButton")   .off("click").click( function () { Domain_Transfer( vars[2] ); } )
                                       .prop("disabled", (Response.access_level < 9) );

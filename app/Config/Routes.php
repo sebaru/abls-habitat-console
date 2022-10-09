@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/dashboard',    'Console::dashboard');
 $routes->get('/io_config',    'Console::io_config');
+$routes->get('/domain_maintenance', 'Console::domain_maintenance');
 $routes->get('/domain/(:any)', 'Console::domain_edit');
 $routes->get('/domains',       'Console::domains');
 $routes->get('/agent',        'Console::agent');
