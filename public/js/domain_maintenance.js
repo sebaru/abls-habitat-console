@@ -10,6 +10,7 @@
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { console.log ("in load domain !");
+    $("#idDomainLabel").text( localStorage.getItem("domain_name") );
     $("#idDomainCompilAllButton")  .off("click").click( function () { Domain_Compil_all_DLS(); } );
   }
 /******************************************************************************************************************************/

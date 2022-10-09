@@ -16,6 +16,7 @@
        $("#idNbrDlsAO").text(Response.nbr_dls_ao);
        $("#idNbrDlsBI").text(Response.nbr_dls_bi);
        $("#idNbrDlsMONO").text(Response.nbr_dls_mono);
+       $("#idDlsCompilTime").text(Response.dls_compil_time/10.0);
        $("#idNbrUsers").text(Response.nbr_users);
        $("#idNbrAuditLog").text(Response.nbr_audit_log);
        $("#idNbrSessions").text(Response.nbr_sessions);
