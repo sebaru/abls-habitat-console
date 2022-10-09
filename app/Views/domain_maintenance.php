@@ -29,6 +29,6 @@
        </div>
 
 
-<script src="/js/domain_mainteance.js" type="text/javascript"></script>
+<script src="/js/domain_maintenance.js" type="text/javascript"></script>
 <!-- Container -->
 </div>
