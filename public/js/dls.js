@@ -1,8 +1,3 @@
- var compil_status = [ [ "Syntax error", "outline-danger" ],
-                       [ "Warnings", "outline-warning" ],
-                       [ "OK", "success" ],
-                     ];
-
  function Go_to_dls_status ()
   { Redirect ( "/dls_status" );
   }
@@ -181,11 +176,13 @@
             },
             { "data": null, "title":"Compil", "className": "align-middle ",
               "render": function (item)
-                { return( Bouton ( compil_status[item.compil_status][1],
-                                  "Statut de la compilation", null, null,
-                                   compil_status[item.compil_status][0]
-                                )
-                        );
+                { if (item.compil_status==false)
+                   { return( Bouton ( "secondary", "Internal error", null, null, "Internal error" ) ); }
+                  if (item.error_count>0)
+                   { return( Bouton ( "outline-danger", "Erreur rencontrée", null, null, "Error" ) ); }
+                  if (item.warning_count>0)
+                   { return( Bouton ( "outline-warning", "Warning rencontré", null, null, "Warning" ) ); }
+                  return( Bouton ( "success", "Aucune erreur", null, null, "OK" ) );
                 }
             },
             { "data": null, "title":"Stats", "className": "align-middle text-center",
