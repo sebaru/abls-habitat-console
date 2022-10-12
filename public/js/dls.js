@@ -12,29 +12,25 @@
   { $('#idTableDLS').DataTable().ajax.reload(null, false); }
 /******************************************************************************************************************************/
  function Dls_start_plugin ( dls_id )
-  { $("#idButtonSpinner_"+dls_id).show();
-    selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id, start: true };
+  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
+    var json_request = { tech_id : selection.tech_id, enable: true };
     Send_to_API ( 'POST', "/dls/enable", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" activé"); DLS_Refresh(); });
   }
 /******************************************************************************************************************************/
  function Dls_stop_plugin ( dls_id )
-  { $("#idButtonSpinner_"+dls_id).show();
-    selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id, start: false };
+  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
+    var json_request = { tech_id : selection.tech_id, enable: false };
     Send_to_API ( 'POST', "/dls/enable", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" désactivé"); DLS_Refresh(); });
   }
 /******************************************************************************************************************************/
  function Dls_debug_plugin ( dls_id )
-  { $("#idButtonSpinner_"+dls_id).show();
-    selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
+  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
     var json_request = { tech_id : selection.tech_id, debug: true };
     Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" en debug"); DLS_Refresh(); });
   }
 /******************************************************************************************************************************/
  function Dls_undebug_plugin ( dls_id )
-  { $("#idButtonSpinner_"+dls_id).show();
-    selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
+  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
     var json_request = { tech_id : selection.tech_id, debug: false };
     Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" hors debug"); DLS_Refresh(); });
   }
@@ -202,11 +198,11 @@
             { "data": null, "title":"Actions", "orderable": false, "className": "align-middle",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir le code", "Redirect", "/dls/"+item.dls_id, "code", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir les mnemos", "Redirect", "/mnemos/"+item.dls_id, "book", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Voir le code", "Redirect", "/dls/"+item.tech_id, "code", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Voir les mnemos", "Redirect", "/mnemos/"+item.tech_id, "book", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Compiler le module", "Dls_compiler", item.dls_id, "coffee", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir les RUN", "Redirect", "/dls_run/"+item.dls_id, "eye", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Voir les RUN", "Redirect", "/dls_run/"+item.tech_id, "eye", null );
                   boutons += Bouton_actions_add ( "danger", "Supprimer le plugin", "Show_Modal_Dls_Del", item.dls_id, "trash", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
