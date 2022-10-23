@@ -11,7 +11,7 @@
   }
  function Go_to_dls_run ()
   { vars = window.location.pathname.split('/');
-    Redirect ( "/tech/dls_run/"+vars[2] );
+    Redirect ( "/dls/run/"+vars[2] );
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Compiler ()

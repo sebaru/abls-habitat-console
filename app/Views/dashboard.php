@@ -60,8 +60,7 @@
     </div>
     <div class="card-body">
       <ul>
-      <li><h6 class="card-text">Nombre d'agent: <span id="idNbrAgent">-</span></h6></li>
-      <li><h6 class="card-text">Nombre de process: <span id="idNbrProcess">-</span></h6></li>
+      <li><h6 class="card-text">Nombre d'agent(s): <span id="idNbrAgent">-</span></h6></li>
       </ul>
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->

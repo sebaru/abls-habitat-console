@@ -138,7 +138,8 @@
          ajax: { url : $ABLS_API+"/dls/list", type : "POST", dataSrc: "dls", contentType: "application/json",
                  data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid') } ) ); },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); },
+                 initComplete: function (data) { localStorage.setItem ( "master_hostname", data.master_hostname ); }
                },
          columns:
           [ { "data": "dls_id", "title":"#ID", "className": "align-middle  text-center" },
@@ -199,7 +200,7 @@
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les mnemos", "Redirect", "/mnemos/"+item.tech_id, "book", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Compiler le module", "Dls_compiler", item.dls_id, "coffee", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir les RUN", "Redirect", "/dls_run/"+item.tech_id, "eye", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Voir les RUN", "Redirect", "/dls/run/"+item.tech_id, "eye", null );
                   boutons += Bouton_actions_add ( "danger", "Supprimer le plugin", "Show_Modal_Dls_Del", item.dls_id, "trash", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);

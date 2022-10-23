@@ -31,6 +31,5 @@
        $("#idDBPort").text(Response.db_port);
 
        $("#idNbrAgent").text(Response.nbr_agent);
-       $("#idNbrProcess").text(Response.nbr_process);
      });
   }
