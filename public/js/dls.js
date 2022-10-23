@@ -139,7 +139,7 @@
                  data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid') } ) ); },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); },
-                 initComplete: function (data) { localStorage.setItem ( "master_hostname", data.master_hostname ); }
+                 complete: function (data) { localStorage.setItem ( "master_hostname", data.master_hostname ); }
                },
          columns:
           [ { "data": "dls_id", "title":"#ID", "className": "align-middle  text-center" },
