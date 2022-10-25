@@ -9,7 +9,7 @@
     Redirect ( "/dls/mnemos/"+vars[3] );
   }
 /******************************************************************************************************************************/
- function Dls_run_set ( table, classe, acronyme, valeur )
+ async function Dls_run_set ( table, classe, acronyme, valeur )
   { vars = window.location.pathname.split('/');
     var json_request = JSON.stringify(
      { classe: classe,
@@ -17,8 +17,11 @@
        acronyme: acronyme,
        valeur: valeur
      });
-    Send_to_API ( "POST", "/api/dls/run/set", json_request, function(Response)
-     { $('#'+table).DataTable().ajax.reload(null, false); }, null );
+    let response = await fetch ("https://"+master+":5559/dls/run/set",
+                                 { method: 'POST', headers: { 'Content-Type': 'application/json;charset=utf-8' },
+                                   body: json_request });
+    if (response.ok)
+     { $('#'+table).DataTable().ajax.reload(null, false); }
   }
 /******************************************************************************************************************************/
  function Dls_run_refresh ( table )
