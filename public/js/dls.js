@@ -178,7 +178,7 @@
             { "data": null, "title":"Compil", "className": "align-middle ",
               "render": function (item)
                 { if (item.compil_status==false)
-                   { return( Bouton ( "secondary", "Internal error", null, null, "Internal error" ) ); }
+                   { return( Bouton ( "secondary", "Not compiled", null, null, "Not compiled" ) ); }
                   if (item.error_count>0)
                    { return( Bouton ( "outline-danger", "Erreur rencontrée", null, null, "Error" ) ); }
                   if (item.warning_count>0)

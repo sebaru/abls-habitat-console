@@ -135,13 +135,7 @@
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()
-  { Send_to_API ( "POST", "/user/disconnect", null, function()
-     { localStorage.removeItem("token");
-       Show_toast_ok ("Vous avez été déconnecté.");
-       setTimeout ( function () { Redirect("/login") }, 2000 );
-     }, function()
-     { Show_toast_ko ("Déconnexion impossible."); });
-  }
+  { Redirect ( $IDP_URL+"/realms/"+$IDP_REALM+"/protocol/openid-connect/logout" ); }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Error ( message )
   { if (message == "Not Connected") { Logout(); }
