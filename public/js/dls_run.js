@@ -91,6 +91,12 @@
                                  else { return( Bouton ( "outline-secondary", "Désactivée", null, null, "Inactive" ) ); }
                },
            },
+           { "data": null, "title":"Map on", "className": "align-middle ",
+             "render": function (item)
+               { if (item.thread_tech_id==null) return("Not Mapped");
+                 else return ( item.thread_tech_id+":"+item.thread_acronyme );
+               },
+           },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
@@ -118,6 +124,12 @@
              "render": function (item)
                { return ( Lien ("/tech/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
+           { "data": null, "title":"Map on", "className": "align-middle ",
+             "render": function (item)
+               { if (item.thread_tech_id==null) return("Not Mapped");
+                 else return ( item.thread_tech_id+":"+item.thread_acronyme );
+               },
+           },
            { "data": "valeur", "title":"Valeur", "className": "align-middle text-center " },
            { "data": "unite", "title":"Unité", "className": "align-middle text-center " },
            { "data": null, "title":"in_range", "className": "align-middle",
@@ -142,6 +154,12 @@
        rowId: "do_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
+           { "data": null, "title":"Map on", "className": "align-middle ",
+             "render": function (item)
+               { if (item.thread_tech_id==null) return("Not Mapped");
+                 else return ( item.thread_tech_id+":"+item.thread_acronyme );
+               },
+           },
            { "data": null, "title":"Etat", "className": "align-middle ",
              "render": function (item)
                { if (item.etat==true) { return( Bouton ( "success", "Activée", null, null, "Active" ) );        }
@@ -171,6 +189,12 @@
              },
        rowId: "ao_id",
        columns: [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
+                  { "data": null, "title":"Map on", "className": "align-middle ",
+                    "render": function (item)
+                      { if (item.thread_tech_id==null) return("Not Mapped");
+                        else return ( item.thread_tech_id+":"+item.thread_acronyme );
+                      },
+                  },
                   { "data": "libelle",    "title":"Libellé",    "className": "align-middle " },
                 ],
        /*order: [ [0, "desc"] ],*/
