@@ -17,6 +17,7 @@
  </div>
 
 <hr>
+
      <div class="row m-1">
        <div id="idErrorLog" class="col-12 alert alert-info" role="alert">
          <!--<h6 class="text-center">Résultat de compilation</h6>-->

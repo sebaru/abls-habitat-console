@@ -64,6 +64,17 @@
 
     $('#idTitle').html(vars[3]);
 
+    $("#idAlertAgentNotConnected").hide();
+    fetch ("https://"+master+":5559/status",
+            { method: 'GET', headers: { 'Content-Type': 'application/json;charset=utf-8' } })
+         .then ( () => { } )
+         .catch ( () => { $("#idAlertAgentNotConnected")
+                          .html("Error when connecting, things you can do:<br>"+
+                                "1/ See <a target=_blank href='https://"+master+":5559/status'>Agent Status</a>, accept SSL Exception and reload this page.<br>"+
+                                "2/ Check DNS configuration for <strong>"+master+"</strong> hostname"
+                               )
+                          .slideDown(); } );
+
     $('#idTableEntreeTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,

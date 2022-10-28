@@ -12,6 +12,8 @@
 </div>
 <hr>
 
+<div id="idAlertAgentNotConnected" class='alert alert-danger'></div>
+
 <!----------------------------------------------------------------------------------------------------------------------------->
  <div class="row m-2">
       <h4><img style="width: 30px" data-toggle="tooltip" title="Entrées TOR"
