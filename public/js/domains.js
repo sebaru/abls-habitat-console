@@ -6,12 +6,14 @@
     Send_to_API ( 'POST', "/domain/add", null, function (Response)
      { Show_toast_ok ( "Un nouveau domaine est créé" );
        $("#idCardContainer").empty();
+       Changer_domaine ( Response );
        Load_page();
      }, null );
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { if ( localStorage.getItem("domain_uuid") == null ) $("#idAlertNoDomain").slideDown("slow");
+                                                 else  $("#idAlertNoDomain").slideUp("slow");
 
     let card = $("<div id='idpluscard'>").addClass("card shadow m-1 bg-light");
     let header = $("<h5>").text( "Nouveau" );
@@ -37,16 +39,17 @@
           card.append ( $("<div>").addClass("card-header text-center").append(header) );
 
           let body = $("<img>").css("cursor","pointer").addClass("wtd-img-card")
-                     .click( function () { Changer_domaine ( element ); } );
+                     .click( function () { Changer_domaine ( element ); Redirect("/"); } );
           if (element.image) body.attr ("src", element.image );
                         else body.attr ("src", "https://static.abls-habitat.fr/img/syn_accueil.png" );
           card.append ( $("<div>").addClass("card-body text-center").append(body) );
 
-          let footer = $("<button>").addClass("btn btn-primary")
-                         .click( function () { Redirect("/domain/"+ element.domain_uuid ); } )
-                         .text("Configurer");
-
-          card.append ( $("<div>").addClass("card-footer text-center").append( footer ) );
+          if (localStorage.getItem("domain_uuid") != null)
+           { let footer = $("<button>").addClass("btn btn-primary")
+                                       .click( function () { Redirect("/domain/"+ element.domain_uuid ); } )
+                                       .text("Configurer");
+             card.append ( $("<div>").addClass("card-footer text-center").append( footer ) );
+           }
 
           card.insertBefore("#idpluscard");
         });
@@ -59,7 +62,7 @@
     localStorage.setItem ( "domain_name", element.domain_name );
     element.target_domain_uuid = element.domain_uuid;
     Send_to_API ( 'POST', "/user/set_domain", element, function (Response)
-     { Redirect("/");
+     {
      }, null );
 
   }

@@ -110,14 +110,16 @@
 
     Send_to_API ( "POST", "/user/profil", null, function( Response )
      { console.debug(Response);
-       if (localStorage.getItem("domain_uuid") === null)
-        { if (!Response.default_domain_uuid && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
-          if (Response.default_domain_uuid !== null)
-           { localStorage.setItem("domain_uuid", Response.default_domain_uuid );/* Positionne les parametres domain par défaut */
-             localStorage.setItem("domain_name", Response.default_domain_name );
-           }
+       if (Response.default_domain_uuid == null)
+        { localStorage.clear(); }
+       else
+        { localStorage.setItem("domain_uuid", Response.default_domain_uuid );/* Positionne les parametres domain par défaut */
+          localStorage.setItem("domain_name", Response.default_domain_name );
+          localStorage.setItem("access_level", parseInt(Response.access_level) );
+          $("#idNavDomainName").text( localStorage.getItem("domain_name") );
         }
-       localStorage.setItem("access_level", parseInt(Response.access_level) );
+
+       if (Response.default_domain_uuid == null && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
 
        if (typeof Load_page === 'function') Load_page();
      }, function () { Show_toast_ko ("Unable to request profil."); } );
@@ -129,8 +131,8 @@
     else if (TokenParsed.email !== null )              $("#idUsername").text(TokenParsed.email);
     else $("#idUsername").text("Unknown");
 
-    if (localStorage.getItem("domain_name")) $("#idNavDomainName").text( localStorage.getItem("domain_name") );
-                                        else $("#idNavDomainName").text( "Select your domain" );
+
+
     $("body").hide().removeClass("d-none").fadeIn();
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
