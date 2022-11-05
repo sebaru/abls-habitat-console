@@ -148,7 +148,7 @@
               "render": function (item)
                 { if (item.enable==true)
                    { return( Bouton ( "success", "Désactiver le plugin", "Dls_stop_plugin", item.dls_id, "Actif" ) ); }
-                  if (item.compil_status>=1) /* Si compil OK ou warning */
+                  if (item.compil_status==true) /* Si compil OK ou warning */
                    { return( Bouton ( "outline-secondary", "Activer le plugin", "Dls_start_plugin", item.dls_id, "Désactivé" ) ); }
                   return( Bouton ( "outline-secondary", "Compilation nécéssaire", null, null, "Désactivé" ) );
                 }
