@@ -60,7 +60,8 @@
     </div>
     <div class="card-body">
       <ul>
-      <li><h6 class="card-text">Nombre d'agent(s): <span id="idNbrAgent">-</span></h6></li>
+      <li><h6 class="card-text">Nombre d'agent(s): <span id="idNbrAgents">-</span></h6></li>
+      <li><h6 class="card-text">Nombre de thread(s): <span id="idNbrThreads">-</span></h6></li>
       </ul>
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
@@ -98,7 +99,7 @@
     </div>
     <div class="card-body">
       <ul>
-      <li><h6 class="card-text"><span id="idNbrMsgs">-</span> Messages</h6></li>
+      <li><h6 class="card-text"><span id="idNbrDlsMsgs">-</span> Messages</h6></li>
       <li><h6 class="card-text"><span id="idNbrHistoMsgs">-</span> messages dans l'historique</h6></li>
       </ul>
     </div>
@@ -120,29 +121,6 @@
       <li><h6 class="card-text"><span id="idNbrAuditLog">-</span> Enregistrements Logs</h6></li>
       <li><h6 class="card-text"><span id="idNbrSessions">-</span> Sessions</h6></li>
       </ul>
-<!--<h3 class="card-text text-center"><strong>56</h3>-->
-    </div>
-    <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
- </div>
-
- <div class="card shadow m-1 bg-light">
-    <div class="card-header">
-      <div class="row">
-        <div class="col-4">
-          <i class="fas fa-2x fa-database text-primary"></i>
-        </div>
-        <div class="col-8 mt-1"><h5>Databases</h5></div>
-      </div>
-    </div>
-    <div class="card-body">
-
-        <ul>
-          <li><h6 class="card-text">DB Hostname: <span id="idDBHostname">-</span></h6></li>
-          <li><h6 class="card-text">DB Port: <span id="idDBPort">-</span></h6></li>
-          <li><h6 class="card-text">ArchDB Hostname: <span id="idArchDBHostname">-</span></h6></li>
-          <li><h6 class="card-text">ArchDB Port: <span id="idArchDBPort">-</span></h6></li>
-          <li><h6 class="card-text">Durée de Retention: <span id="idArchRetention">-</span></h6></li>
-        </ul>
 <!--<h3 class="card-text text-center"><strong>56</h3>-->
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->

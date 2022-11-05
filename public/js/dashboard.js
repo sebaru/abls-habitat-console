@@ -16,11 +16,11 @@
        $("#idNbrDlsAO").text(Response.nbr_dls_ao);
        $("#idNbrDlsBI").text(Response.nbr_dls_bi);
        $("#idNbrDlsMONO").text(Response.nbr_dls_mono);
+       $("#idNbrDlsMsgs").text(Response.nbr_dls_msgs);
        $("#idDlsCompilTime").text(Response.dls_compil_time/10.0);
        $("#idNbrUsers").text(Response.nbr_users);
        $("#idNbrAuditLog").text(Response.nbr_audit_log);
        $("#idNbrSessions").text(Response.nbr_sessions);
-       $("#idNbrMsgs").text(Response.nbr_msgs);
        $("#idNbrHistoMsgs").text(Response.nbr_histo_msgs);
 
        $("#idArchDBHostname").text(Response.db_arch_hostname);
@@ -30,6 +30,7 @@
        $("#idDBHostname").text(Response.db_hostname);
        $("#idDBPort").text(Response.db_port);
 
-       $("#idNbrAgent").text(Response.nbr_agent);
+       $("#idNbrAgents").text(Response.nbr_agents);
+       $("#idNbrThreads").text(Response.nbr_threads);
      });
   }
