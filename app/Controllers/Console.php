@@ -15,7 +15,9 @@ class Console extends BaseController
   { return redirect()->to(base_url("/dashboard")); }
 
  public function dashboard()          { $this->send_page ("dashboard"); }
+ public function dashboard_courbes()  { $this->send_page ("dashboard_courbes"); }
  public function io_config()          { $this->send_page ("io_config"); }
+ public function atelier()            { $this->send_page ("atelier"); }
  public function agent()              { $this->send_page ("agent"); }
  public function domain_maintenance() { $this->send_page ("domain_maintenance"); }
  public function domain_edit()        { $this->send_page ("domain_edit"); }

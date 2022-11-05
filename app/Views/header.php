@@ -190,16 +190,16 @@
           <i class="fas fa-fort-awesome text-primary"></i> <span id="idNavDomainName">Domaine</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
+          <a class="dropdown-item" href="/dashboard"> <i class="fas fa-tachometer-alt text-primary"></i> Dashboard</a>
+          <a class="dropdown-item" href="/dashboard/courbes"> <i class="fas fa-chart-line text-secondary"></i> <span>Courbes</span> </a>
           <a class="dropdown-item" href="/agent"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
           <a class="dropdown-item" href="/process"><i class="fas fa-microchip text-primary"></i> <span>Processus</span></a>
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
-          <a class="dropdown-item" href="/dashboard_courbes"> <i class="fas fa-chart-line text-secondary"></i> <span>Courbes</span> </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/domain_maintenance"> <i class="fas fa-wrench text-warning"></i> Maintenance</a>
           <a class="dropdown-item" href="/domains"> <i class="fas fa-fort-awesome text-primary"></i> Mes domaines</a>
       </li>
 
-      <a class="nav-link rounded" href="/dashboard"> <i class="fas fa-tachometer-alt text-primary"></i> Dashboard</a>
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle" href="#" id="navbarCONFIG" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

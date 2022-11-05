@@ -323,18 +323,16 @@
   }
 /********************************* Chargement d'une courbe dans u synoptique 1 au démrrage ************************************/
  function Charger_une_courbe ( idChart, tech_id, acronyme, period )
-  { if (localStorage.getItem("instance_is_master")!="true") return;
-
-    var chartElement = document.getElementById(idChart);
+  { var chartElement = document.getElementById(idChart);
     if (!chartElement) { console.log("Charger_une_courbe: Erreur chargement chartElement " + json_request ); return; }
 
     if (period===undefined) period="HOUR";
-    var json_request = JSON.stringify(
+    var json_request =
      { courbes: [ { tech_id : tech_id, acronyme : acronyme, } ],
        period   : period
-     });
+     };
 
-    Send_to_API ( "PUT", "/api/archive/get", json_request, function(json)
+    Send_to_API ( "POST", "/archive/get", json_request, function(json)
      { var dates;
        if (period=="HOUR") dates = json.valeurs.map( function(item) { return item.date.split(' ')[1]; } );
                       else dates = json.valeurs.map( function(item) { return item.date; } );

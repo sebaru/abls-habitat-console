@@ -31,6 +31,7 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->get('/dashboard/courbes', 'Console::dashboard_courbes');
 $routes->get('/dashboard',    'Console::dashboard');
 $routes->get('/io_config',    'Console::io_config');
 $routes->get('/domain_maintenance', 'Console::domain_maintenance');
@@ -47,6 +48,7 @@ $routes->get('/teleinfoedf',  'Console::teleinfoedf');
 $routes->get('/dls',          'Console::dls');
 $routes->get('/dls/run/(:any)', 'Console::dls_run');
 $routes->get('/dls/(:any)',   'Console::dls_source');
+$routes->get('/atelier/(:any)', 'Console::atelier');
 $routes->get('/synoptiques',  'Console::synoptiques');
 $routes->get('/archive',      'Console::archive');
 $routes->get('/user/invite',  'Console::user_invite');
