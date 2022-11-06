@@ -44,6 +44,7 @@ $routes->get('/smsg',         'Console::smsg');
 $routes->get('/search',       'Console::search');
 $routes->get('/audio',        'Console::audio');
 $routes->get('/ups',          'Console::ups');
+$routes->get('/thread',       'Console::thread');
 $routes->get('/teleinfoedf',  'Console::teleinfoedf');
 $routes->get('/dls',          'Console::dls');
 $routes->get('/dls/run/(:any)', 'Console::dls_run');

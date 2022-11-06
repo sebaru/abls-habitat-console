@@ -1,7 +1,7 @@
     <div class="container-fluid">
 
  <div class="row m-2">
-   <h3><i class="fas fa-tachometer-alt text-primary"></i> Tableau de bord</h3>
+   <div class="col-auto"><h3><i class="fas fa-tachometer-alt text-primary"></i> Tableau de bord</h3></div>
  </div>
 
 <hr>
@@ -60,8 +60,8 @@
     </div>
     <div class="card-body">
       <ul>
-      <li><h6 class="card-text">Nombre d'agent(s): <span id="idNbrAgents">-</span></h6></li>
-      <li><h6 class="card-text">Nombre de thread(s): <span id="idNbrThreads">-</span></h6></li>
+      <li><h6 class="card-text"> Nombre d'<a href="/agent">agent(s)</a>: <span id="idNbrAgents">-</span></h6></li>
+      <li><h6 class="card-text"> Nombre de <a href="/thread">thread(s)</a>: <span id="idNbrThreads">-</span></h6></li>
       </ul>
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
