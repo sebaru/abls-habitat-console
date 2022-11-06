@@ -2,11 +2,9 @@
  function Load_page ()
   { $('#idTableSearchResults').DataTable(
        { pageLength : 50,
-         fixedHeader: true,
+         fixedHeader: true, paging: false, ordering: true, searching: true,
          rowId: "id",
-         processing: true,
-         serverSide: true,
-         ajax: { url : $ABLS_API+"/api/search", type : "POST", dataSrc: "results", contentType: "application/json",
+         ajax: { url : $ABLS_API+"/search", type : "POST", dataSrc: "results", contentType: "application/json",
                  data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid') } ) ); },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
