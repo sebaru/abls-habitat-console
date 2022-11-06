@@ -10,7 +10,7 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function SMSG_Enable (smsg_id)
-  { $("#idButtonSpinner_"+modbus_id).show();
+  { $("#idButtonSpinner_"+smsg_id).show();
     selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { SMSG_Refresh(); }, function(Response) { SMSG_Refresh(); } );
   }

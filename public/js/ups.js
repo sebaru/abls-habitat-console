@@ -104,7 +104,7 @@
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
            { "data": "description", "title":"Description", "className": "align-middle text-center " },
            { "data": "name", "title":"Name", "className": "align-middle text-center" },
