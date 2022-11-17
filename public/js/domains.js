@@ -31,7 +31,7 @@
     card.append ( $("<div>").addClass("card-footer text-center").append( footer ) );
     $("#idCardContainer").append(card);
 
-    Send_to_API ( 'POST', "/domain/list", null, function (Response)
+    Send_to_API ( "GET", "/domain/list", null, function (Response)
      { Response.domains.forEach ( function (element, index)
         { let card = $("<div>").addClass("card shadow m-1 bg-light");
 

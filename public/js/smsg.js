@@ -100,11 +100,13 @@
   { $('#idTableSMSG').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "smsg", contentType: "application/json",
-               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
-                                                             "classe": "smsg" } ) ); },
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "smsg", contentType: "application/json",
+               data: function() { return ( "classe=smsg" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "smsg_id",
        columns:

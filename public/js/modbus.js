@@ -137,10 +137,13 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "modbus_id",
-       ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "modbus", contentType: "application/json",
-               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "modbus"} ) ); },
+       ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "modbus", contentType: "application/json",
+               data: function() { return ( "classe=modbus" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        columns:
         [ { "data": null, "title":"Agent", "className": "align-middle text-center",
@@ -186,12 +189,15 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_di_id", paging: false,
-         ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "DI",
-               contentType: "application/json",
-               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "DI"} ) ); },
-               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
-             },
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DI",
+                 contentType: "application/json",
+                 data: function() { return ( "classe=DI" ) },
+                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
+               },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
@@ -229,11 +235,14 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_do_id", paging: false,
-         ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "DO",
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DO",
                  contentType: "application/json",
-                 data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "DO"} ) ); },
+                 data: function() { return ( "classe=DO" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
                },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
@@ -272,11 +281,14 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_ai_id", paging: false,
-         ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "AI",
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "AI",
                  contentType: "application/json",
-                 data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "AI"} ) ); },
+                 data: function() { return ( "classe=AI" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
                },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",

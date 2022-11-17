@@ -79,11 +79,13 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "ups_id",
-       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "ups", contentType: "application/json",
-               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
-                                                             "classe": "ups" } ) ); },
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "ups", contentType: "application/json",
+               data: function() { return ( "classe=ups" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        columns:
           [ { "data": null, "title":"Agent", "className": "align-middle text-center",

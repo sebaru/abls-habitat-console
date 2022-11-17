@@ -4,7 +4,7 @@
        { pageLength : 50,
          fixedHeader: true, paging: false, ordering: true, searching: true,
          rowId: "id",
-         ajax: { url : $ABLS_API+"/search", type : "POST", dataSrc: "results", contentType: "application/json",
+         ajax: { url : $ABLS_API+"/search", type : "GET", dataSrc: "results", contentType: "application/json",
                  data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid') } ) ); },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }

@@ -80,7 +80,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "di_id",
        columns:
@@ -116,7 +119,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "ai_id",
        columns:
@@ -149,7 +155,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "do_id",
        columns:
@@ -185,7 +194,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "ao_id",
        columns: [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
@@ -206,7 +218,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "ci_id",
        columns:
@@ -233,7 +248,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "ch_id",
        columns:
@@ -261,7 +279,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "registre_id",
        columns:
@@ -281,7 +302,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "TEMPO" }, dataSrc: "TEMPO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "tempo_id",
        columns:
@@ -308,7 +332,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "mono_id",
        columns:
@@ -337,7 +364,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "bi_id",
        columns:
@@ -368,7 +398,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "visuel_id",
        columns:
@@ -392,7 +425,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "watchdog_id",
        columns:
@@ -417,7 +453,10 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "msg_id",
        columns:

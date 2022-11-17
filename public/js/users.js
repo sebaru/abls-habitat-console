@@ -29,10 +29,12 @@
     $('#idTableUsers').DataTable(
        { pageLength : 50,
          fixedHeader: true,
-         ajax: {	url : $ABLS_API+"/user/list",	type : "POST", dataSrc: "users", contentType: "application/json",
-                 data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid')} ) ); },
+         ajax: {	url : $ABLS_API+"/user/list",	type : "GET", dataSrc: "users", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
                },
          rowId: "user_uuid",
          columns:

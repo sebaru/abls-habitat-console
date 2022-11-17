@@ -3,7 +3,7 @@
  function Load_page ()
   { console.log ("in load dashboard !");
 
-    Send_to_API ( "POST", "/domain/status", null, function (Response)
+    Send_to_API ( "GET", "/domain/status", null, function (Response)
      { console.debug(Response);
        $("#idNbrSyns").text(Response.nbr_syns);
        $("#idNbrSynsMotifs").text(Response.nbr_syns_motifs);

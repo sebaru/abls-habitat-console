@@ -104,7 +104,7 @@
     $('#idModalDlsEditShortname').val("");
     $('#idModalDlsEditDescription').val("");
     $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(0); } );
-    Send_to_API ( "POST", "/syn/list", null, function (Response)
+    Send_to_API ( "GET", "/syn/list", null, function (Response)
      { $('#idModalDlsEditPage').empty();
        $.each ( Response.synoptiques, function ( i, item )
         { $('#idModalDlsEditPage').append("<option value='"+item.syn_id+"'>"+item.page+" - "+htmlEncode(item.libelle)+"</option>"); } );
@@ -121,7 +121,7 @@
     $('#idModalDlsEditShortname').val(selection.shortname);
     $('#idModalDlsEditDescription').val(selection.name);
     $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(selection.dls_id); } );
-    Send_to_API ( "POST", "/syn/list", null, function (Response)
+    Send_to_API ( "GET", "/syn/list", null, function (Response)
      { $('#idModalDlsEditPage').empty();
        $.each ( Response.synoptiques, function ( i, item )
         { $('#idModalDlsEditPage').append("<option value='"+item.syn_id+"'>"+item.page+" - "+htmlEncode(item.libelle)+"</option>"); } );
@@ -135,10 +135,12 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "dls_id",
-         ajax: { url : $ABLS_API+"/dls/list", type : "POST", dataSrc: "dls", contentType: "application/json",
-                 data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid') } ) ); },
+         ajax: { url : $ABLS_API+"/dls/list", type : "GET", dataSrc: "dls", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); },
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              },
                  complete: function (data) { localStorage.setItem ( "master_hostname", data.responseJSON.master_hostname ); }
                },
          columns:

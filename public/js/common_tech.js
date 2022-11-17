@@ -51,7 +51,7 @@
        Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, _ et .' );
      }
     else
-     { Send_to_API ( "POST", "/mnemos/tech_ids", null, function(Response)
+     { Send_to_API ( "GET", "/mnemos/tech_ids", null, function(Response)
         { tech_id = input.val().toUpperCase();
           if ( Response.tech_ids.map ( function (item) { return(item.tech_id); } ).includes(tech_id) &&
               (tech_id_initial == null || tech_id_initial != tech_id) )
@@ -97,7 +97,7 @@
        classe     : classe,
      };
 
-    Send_to_API ( "POST", "/mnemos/validate", json_request, function (Response)
+    Send_to_API ( "GET", "/mnemos/validate", json_request, function (Response)
      { $('#'+ids+'SelectAcronyme').empty();
        $.each ( Response.acronymes_found, function ( i, item )
         { $('#'+ids+'SelectAcronyme').append("<option value='"+item.acronyme+"'>"+item.acronyme+" - "+htmlEncode(item.libelle)+"</option>"); } );
@@ -112,7 +112,7 @@
 
     $('#'+ids+'SelectTechID').off("change").on("change", function () { Common_Updater_Choix_Acronyme ( ids, classe, def_acronyme ); } );
 
-    Send_to_API ( "POST", "/mnemos/validate", json_request, function (Response)
+    Send_to_API ( "GET", "/mnemos/validate", json_request, function (Response)
      { $('#'+ids+'SelectTechID').empty();
        $.each ( Response.tech_ids_found, function ( i, item )
         { $('#'+ids+'SelectTechID').append("<option value='"+item.tech_id+"'>"+item.tech_id+" - "+htmlEncode(item.name)+"</option>"); } );

@@ -74,11 +74,13 @@
   { $('#idTableTELEINFO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "teleinfoedf", contentType: "application/json",
-               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
-                                                             "classe": "teleinfoedf" } ) ); },
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "teleinfoedf", contentType: "application/json",
+               data: function() { return ( "classe=teleinfoedf" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "teleinfoedf_id",
        columns:
