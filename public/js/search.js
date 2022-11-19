@@ -5,9 +5,11 @@
          fixedHeader: true, paging: false, ordering: true, searching: true,
          rowId: "id",
          ajax: { url : $ABLS_API+"/search", type : "GET", dataSrc: "results", contentType: "application/json",
-                 data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid') } ) ); },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
                },
          columns:
           [ { "data": "classe", "title":"Classe", "className": "align-middle  text-center" },
