@@ -45,21 +45,21 @@
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Tech_ID</label>
-           <input id="idAUDIOTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du SMS">
+           <input id="idAUDIOTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du thread AUDIO">
           </div>
        </div>
 
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Language</label>
-           <input id="idAUDIOLanguage" type="text" class="form-control" placeholder="fr">
+           <input id="idAUDIOLanguage" type="text" class="form-control" placeholder="fr for french">
           </div>
        </div>
 
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Device</label>
-           <input id="idAUDIODevice" type="text" class="form-control" placeholder="default">
+           <input id="idAUDIODevice" type="text" class="form-control" placeholder="default device">
           </div>
        </div>
 
