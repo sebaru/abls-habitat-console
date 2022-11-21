@@ -38,4 +38,5 @@ class Console extends BaseController
  public function user_invite()        { $this->send_page ("user_invite"); }
  public function user_edit()          { $this->send_page ("user_edit"); }
  public function users()              { $this->send_page ("users"); }
+ public function courbe()             { $this->send_page ("courbe"); }
 }
