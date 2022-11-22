@@ -18,7 +18,7 @@
  function UPS_Set ( selection )
   { var json_request =
      { agent_uuid    : $('#idTargetAgent').val(),
-       thread_tech_id: $('#idUPSTechID').val(),
+       thread_tech_id: $('#idUPSTechID').val().toUpperCase(),
        host:           $('#idUPSHost').val(),
        name:           $('#idUPSName').val(),
        admin_username: $('#idUPSAdminUsername').val(),

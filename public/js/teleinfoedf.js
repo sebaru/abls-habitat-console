@@ -18,7 +18,7 @@
  function TELEINFO_Set ( selection )
   { var json_request =
      { agent_uuid    : $('#idTargetAgent').val(),
-       thread_tech_id: $('#idTELEINFOTechID').val(),
+       thread_tech_id: $('#idTELEINFOTechID').val().toUpperCase(),
        description:    $('#idTELEINFODescription').val(),
        port:           $('#idTELEINFOPort').val(),
      };

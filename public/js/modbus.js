@@ -29,7 +29,7 @@
   { var json_request =
      { agent_uuid:     $('#idTargetAgent').val(),
        thread_classe : "modbus",
-       thread_tech_id: $('#idMODBUSTechID').val(),
+       thread_tech_id: $('#idMODBUSTechID').val().toUpperCase(),
        hostname:       $('#idMODBUSHostname').val(),
        description:    $('#idMODBUSDescription').val(),
        watchdog:       parseInt($('#idMODBUSWatchdog').val()),

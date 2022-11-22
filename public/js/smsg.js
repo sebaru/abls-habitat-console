@@ -18,7 +18,7 @@
  function SMSG_Set ( selection )
   { var json_request =
      { agent_uuid:             $('#idTargetAgent').val(),
-       thread_tech_id:         $('#idSMSGTechID').val(),
+       thread_tech_id:         $('#idSMSGTechID').val().toUpperCase(),
        description:            $('#idSMSGDescription').val(),
        ovh_service_name:       $('#idSMSGOVHServiceName').val(),
        ovh_application_key:    $('#idSMSGOVHApplicationKey').val(),

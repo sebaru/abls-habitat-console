@@ -4,18 +4,18 @@
   { $('#idTableIMSGS').DataTable().ajax.reload(null, false);
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function IMSG_Disable (imsg_id)
-  { $("#idButtonSpinner_"+imsg_id).show();
-    selection = $('#idTableIMSG').DataTable().row("#"+imsg_id).data();
-    Thread_enable ( selection.thread_tech_id, false, function(Response) { IMSG_Refresh(); }, function(Response) { IMSG_Refresh(); } );
+ function IMSG_Disable (imsgs_id)
+  { $("#idButtonSpinner_"+imsgs_id).show();
+    selection = $('#idTableIMSG').DataTable().row("#"+imsgs_id).data();
+    Thread_enable ( selection.thread_tech_id, false, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function IMSG_Enable (imsg_id)
-  { $("#idButtonSpinner_"+modbus_id).show();
-    selection = $('#idTableIMSG').DataTable().row("#"+imsg_id).data();
-    Thread_enable ( selection.thread_tech_id, true, function(Response) { IMSG_Refresh(); }, function(Response) { IMSG_Refresh(); } );
+ function IMSG_Enable (imsgs_id)
+  { $("#idButtonSpinner_"+imsgs_id).show();
+    selection = $('#idTableIMSG').DataTable().row("#"+imsgs_id).data();
+    Thread_enable ( selection.thread_tech_id, true, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
   }
-/************************************ Demande l'envoi d'un SMS de test ********************************************************/
+/************************************ Demande l'envoi d'un IMSGS de test ******************************************************/
  function IMSGS_Test ( imsgs_id )
   { selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     var json_request =
@@ -44,7 +44,7 @@
  function IMSGS_Set ( selection )
   { var json_request =
        { agent_uuid     : $('#idTargetAgent').val(),
-         thread_tech_id : $('#idIMSGSTechID').val(),
+         thread_tech_id : $('#idIMSGSTechID').val().toUpperCase(),
          description: $('#idIMSGSDescription').val(),
          jabberid: $('#idIMSGSJabberID').val(),
          password: $('#idIMSGSPassword').val(),
@@ -74,6 +74,7 @@
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, null );
     $('#idIMSGSTechID').prop ("disabled", false).val("").off("input").on("input", function () { Controle_tech_id( "idIMSGS", null ); } );
+    $('#idIMSGSDescription').val("");
     $('#idIMSGSJabberID').val( "" );
     $('#idIMSGSPassword').val( "" );
     $('#idIMSGSValider').off("click").on( "click", function () { IMSGS_Set(null); } );

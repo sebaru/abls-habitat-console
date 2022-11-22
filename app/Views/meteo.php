@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
  <div class="row m-2">
-   <div class="col-auto"><h3><img src="/img/meteo.svg" style="width:80px" alt="Récupération Météo">Configuration de la météo</h3></div>
+   <div class="col-auto"><h3><img src="https://static.abls-habitat.fr//img/meteo.svg" style="width:80px" alt="Récupération Météo">Configuration de la météo</h3></div>
 
    <div class="ml-auto btn-group align-items-start">
         <button type="button" onclick="METEO_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une connexion</button>
@@ -38,7 +38,7 @@
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
-           <select id="idTargetProcess" class="custom-select border-info"></select>
+           <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
@@ -79,4 +79,4 @@
   </div>
 </div>
 
-<script src="/js/tech/meteo.js" type="text/javascript"></script>
+<script src="/js/meteo.js" type="text/javascript"></script>
