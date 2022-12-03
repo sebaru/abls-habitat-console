@@ -91,7 +91,7 @@
        return;
      }
 
-    Send_to_API ( "GET", "/mnemos/validate", "tech_id="+$('#'+ids+'SelectTechID').val().toUpperCase()+"&classe="+classe, function (Response)
+    Send_to_API ( "GET", "/mnemos/validate", "tech_id="+$('#'+ids+'SelectTechID').val().toUpperCase()+"&acronyme=&classe="+classe, function (Response)
      { $('#'+ids+'SelectAcronyme').empty();
        $.each ( Response.acronymes_found, function ( i, item )
         { $('#'+ids+'SelectAcronyme').append("<option value='"+item.acronyme+"'>"+item.acronyme+" - "+htmlEncode(item.libelle)+"</option>"); } );
@@ -103,7 +103,7 @@
   { if (def_tech_id != null) { $('#'+ids+'RechercherTechID').val( '' ); }
     $('#'+ids+'SelectTechID').off("change").on("change", function () { Common_Updater_Choix_Acronyme ( ids, classe, def_acronyme ); } );
 
-    Send_to_API ( "GET", "/mnemos/validate", "tech_id="+$('#'+ids+'RechercherTechID').val().toUpperCase()+"&classe="+classe, function (Response)
+    Send_to_API ( "GET", "/mnemos/validate", "tech_id="+$('#'+ids+'RechercherTechID').val().toUpperCase()+"&acronyme=&classe="+classe, function (Response)
      { $('#'+ids+'SelectTechID').empty();
        $.each ( Response.tech_ids_found, function ( i, item )
         { $('#'+ids+'SelectTechID').append("<option value='"+item.tech_id+"'>"+item.tech_id+" - "+htmlEncode(item.name)+"</option>"); } );
