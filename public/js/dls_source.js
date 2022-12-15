@@ -42,9 +42,7 @@
     SourceCode = CodeMirror.fromTextArea( document.getElementById("idSourceCode"), { lineNumbers: true } );
     SourceCode.setSize( null, "100%");
 
-    var json_request = { tech_id : vars[2] };
-
-    Send_to_API ( "POST", "/dls/source", json_request, function(Response)
+    Send_to_API ( "GET", "/dls/source", "tech_id="+vars[2], function(Response)
      { $("#idSourceTitle").text( "(#"+Response.dls_id+") - " + Response.tech_id + " - " + Response.shortname);
        $("#idSourceSynoptique").text(Response.page);
        SourceCode.getDoc().setValue(Response.sourcecode);

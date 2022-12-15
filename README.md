@@ -22,9 +22,17 @@ It permits to manage domains and user access, to handle synoptics, DLS modules, 
 
 Make sure apache, php and composer packages are installed. Then follow these command lines:
 
+    # dnf install -y httpd mod_ssl php-fpm php
     # mkdir /var/www/html/abls-console
     # cd /var/www/html/abls-console
     # git clone https://github.com/sebaru/abls-habitat-console.git .
+    # mkdir writable
+    # mkdir writable/cache
+    # mkdir writable/debugbar
+    # mkdir writable/logs
+    # mkdir writable/session
+    # mkdir writable/uploads
+    # chmod a=rwx -R writable
     # composer update
 
 Create Let's Encrypt certificate for your domain and adapt domain and certificate names in httpd-abls-console.conf.sample. And finally do:
@@ -36,11 +44,19 @@ Create Let's Encrypt certificate for your domain and adapt domain and certificat
 
 When upgrading, follow these command lines:
 
-    # git pull /var/www/html/abls-console
+    # cd /var/www/html/abls-console
+    # git pull
+    # cp vendor/codeigniter4/framework/public/index.php public/index.php
+    # cp vendor/codeigniter4/framework/spark .
 
 ## Setup
 
-Edit /var/ww/html/abls-console/public/js/config.json and change:
+Edit /var/www/html/abls-console/.env and change as you want:
 
-* the `api_url` to your own API Instance
-* the `idp_url` to your own OpenID IDP Instance
+    CI_ENVIRONMENT = production
+    ABLS_API       = 'https://api.abls-habitat.fr'
+    IDP_ADAPTER    = "https://idp.abls-habitat.fr/js/keycloak.js"
+    IDP_REALM      = "Abls-Habitat"
+    IDP_URL        = "https://idp.abls-habitat.fr/"
+    IDP_CLIENT_ID  = "abls-habitat-console"
+    app.baseURL    = 'https://console.abls-habitat.fr'
