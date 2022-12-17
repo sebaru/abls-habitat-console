@@ -22,4 +22,4 @@
 <!-- Container -->
 </div>
 
-<script src="/js/thread.js" type="text/javascript"></script>
+<script src="/js/threads.js" type="text/javascript"></script>
