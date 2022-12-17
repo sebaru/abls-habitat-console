@@ -104,7 +104,11 @@
                  { return( item.agent_hostname + "<br>" + Badge ( "secondary", "Agent is Slave", "Slave" ) ); }
               }
            },
-           { "data": "version", "title":"Version",   "className": "align-middle text-center" },
+           { "data": null, "title":"Version", "className": "align-middle text-center",
+             "render": function (item)
+              { return( item.version + "<br>" + Badge ( "secondary", "Branche is "+item.branche, item.branche ) );
+              }
+           },
            { "data": "start_time", "title":"Start time",   "className": "align-middle text-center" },
            { "data": null, "title":"Headless", "className": "align-middle text-center",
              "render": function (item)
