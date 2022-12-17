@@ -31,22 +31,32 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->get('/dashboard/courbes', 'Console::dashboard_courbes');
 $routes->get('/dashboard',    'Console::dashboard');
 $routes->get('/io_config',    'Console::io_config');
+$routes->get('/domain_maintenance', 'Console::domain_maintenance');
 $routes->get('/domain/(:any)', 'Console::domain_edit');
 $routes->get('/domains',       'Console::domains');
 $routes->get('/agent',        'Console::agent');
 $routes->get('/modbus',       'Console::modbus');
 $routes->get('/imsgs',        'Console::imsgs');
 $routes->get('/smsg',         'Console::smsg');
+$routes->get('/search',       'Console::search');
 $routes->get('/audio',        'Console::audio');
 $routes->get('/ups',          'Console::ups');
+$routes->get('/thread',       'Console::thread');
 $routes->get('/teleinfoedf',  'Console::teleinfoedf');
+$routes->get('/meteo',        'Console::meteo');
 $routes->get('/dls',          'Console::dls');
+$routes->get('/dls/run/(:any)', 'Console::dls_run');
+$routes->get('/dls/(:any)',   'Console::dls_source');
+$routes->get('/atelier/(:any)', 'Console::atelier');
 $routes->get('/synoptiques',  'Console::synoptiques');
 $routes->get('/archive',      'Console::archive');
 $routes->get('/user/invite',  'Console::user_invite');
+$routes->get('/user/(:any)',  'Console::user_edit');
 $routes->get('/users',        'Console::users');
+$routes->get('/courbe/(:any)','Console::courbe');
 $routes->get('(:any)',        'Console::default');
 
 /*

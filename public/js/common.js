@@ -58,7 +58,6 @@
     if (method=="POST" || method=="PUT" || method=="DELETE")
      { ContentType = 'application/json';
        if (parametre === null) parametre = new Object();
-       if (Token) parametre.domain_uuid = localStorage.getItem("domain_uuid");
      }
     else if (method=="POSTFILE") { ContentType = 'application/octet-stream'; method = "POST"; }
     else ContentType = null;
@@ -68,8 +67,9 @@
     else xhr.open(method, $ABLS_API+URL, true);
 
     if (ContentType != null) { xhr.setRequestHeader('Content-type', ContentType ); }
-
     xhr.timeout = 60000; // durée en millisecondes
+    xhr.setRequestHeader("X-ABLS-DOMAIN", localStorage.getItem("domain_uuid") );
+    xhr.setRequestHeader("Authorization", "Bearer " + Token );
 
     xhr.onreadystatechange = function()
      { if ( xhr.readyState != 4 ) return;
@@ -86,7 +86,6 @@
             }
      }
     xhr.ontimeout = function() { console.log("XHR timeout for "+URL); }
-    xhr.setRequestHeader("Authorization", "Bearer " + Token );
     xhr.send( JSON.stringify(parametre) );
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
@@ -108,16 +107,18 @@
  function Load_common ()
   { console.log("debut load_common");
 
-    Send_to_API ( "POST", "/user/profil", null, function( Response )
+    Send_to_API ( "GET", "/user/profil", null, function( Response )
      { console.debug(Response);
-       if (localStorage.getItem("domain_uuid") === null)
-        { if (!Response.default_domain_uuid && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
-          if (Response.default_domain_uuid !== null)
-           { localStorage.setItem("domain_uuid", Response.default_domain_uuid );/* Positionne les parametres domain par défaut */
-             localStorage.setItem("domain_name", Response.default_domain_name );
-           }
+       if (Response.default_domain_uuid == null)
+        { localStorage.clear(); }
+       else
+        { localStorage.setItem("domain_uuid", Response.default_domain_uuid );/* Positionne les parametres domain par défaut */
+          localStorage.setItem("domain_name", Response.default_domain_name );
+          localStorage.setItem("access_level", parseInt(Response.access_level) );
+          $("#idNavDomainName").text( localStorage.getItem("domain_name") );
         }
-       localStorage.setItem("access_level", parseInt(Response.access_level) );
+
+       if (Response.default_domain_uuid == null && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
 
        if (typeof Load_page === 'function') Load_page();
      }, function () { Show_toast_ko ("Unable to request profil."); } );
@@ -129,19 +130,11 @@
     else if (TokenParsed.email !== null )              $("#idUsername").text(TokenParsed.email);
     else $("#idUsername").text("Unknown");
 
-    if (localStorage.getItem("domain_name")) $("#idNavDomainName").text( localStorage.getItem("domain_name") );
-                                        else $("#idNavDomainName").text( "Select your domain" );
     $("body").hide().removeClass("d-none").fadeIn();
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()
-  { Send_to_API ( "POST", "/user/disconnect", null, function()
-     { localStorage.removeItem("token");
-       Show_toast_ok ("Vous avez été déconnecté.");
-       setTimeout ( function () { Redirect("/login") }, 2000 );
-     }, function()
-     { Show_toast_ko ("Déconnexion impossible."); });
-  }
+  { Redirect ( $IDP_URL+"/realms/"+$IDP_REALM+"/protocol/openid-connect/logout" ); }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Error ( message )
   { if (message == "Not Connected") { Logout(); }
@@ -220,7 +213,7 @@
 /*****************************************Peuple un selecten fonction d'un retour API *****************************************/
  function Select_from_api ( id, url, json_request, array_out, array_item, to_string, selected )
   { $('#'+id).empty();
-    Send_to_API ( "POST", url, json_request, function(Response)
+    Send_to_API ( "GET", url, json_request, function(Response)
      { $.each ( Response[array_out], function ( i, item )
         { $('#'+id).append("<option value='"+item[array_item]+"'>"+to_string(item)+"</option>"); } );
        if (selected!=null) $('#'+id).val(selected);
@@ -243,19 +236,19 @@
   { return( Badge ( Access_level_description[level].color, Access_level_description[level].name, level.toString() ) ); }
 /********************************************* Renvoi un Select d'access Level ************************************************/
  function Select ( id, fonction, array, selected )
-  { retour = "<select id='"+id+"' class='custom-select'"+
-             "onchange="+fonction+">";
+  { retour = "<select id='"+id+"' class='custom-select' ";
+    if (fonction) retour += "onchange="+fonction;
+    retour+= ">";
     valeur = array.map ( function(item) { return(item.valeur); } );
     texte  = array.map ( function(item) { return(item.texte); } );
-    for ( i=0; i<valeur.length; i++ )
+    for ( i=0; i<array.length; i++ )
      { retour += "<option value='"+valeur[i]+"' "+(selected==valeur[i] ? "selected" : "")+">"+texte[i]+"</option>"; }
     retour +="</select>";
     return(retour);
   }
 /********************************************* Renvoi un Select d'access Level ************************************************/
  function Select_Access_level ( id, fonction, selected )
-  { retour = "<select id='"+id+"' class='custom-select'"+
-             "onchange="+fonction+">";
+  { retour = "<select id='"+id+"' class='custom-select'"+"onchange="+fonction+">";
     for ( i=localStorage.getItem("access_level")-1; i>=0; i-- )
      { retour += "<option value='"+i+"' "+(selected==i ? "selected" : "")+">"+i+" - "+Access_level_description[i].name+"</option>"; }
     retour +="</select>";
@@ -327,18 +320,16 @@
   }
 /********************************* Chargement d'une courbe dans u synoptique 1 au démrrage ************************************/
  function Charger_une_courbe ( idChart, tech_id, acronyme, period )
-  { if (localStorage.getItem("instance_is_master")!="true") return;
-
-    var chartElement = document.getElementById(idChart);
+  { var chartElement = document.getElementById(idChart);
     if (!chartElement) { console.log("Charger_une_courbe: Erreur chargement chartElement " + json_request ); return; }
 
     if (period===undefined) period="HOUR";
-    var json_request = JSON.stringify(
+    var json_request =
      { courbes: [ { tech_id : tech_id, acronyme : acronyme, } ],
        period   : period
-     });
+     };
 
-    Send_to_API ( "PUT", "/api/archive/get", json_request, function(json)
+    Send_to_API ( "POST", "/archive/get", json_request, function(json)
      { var dates;
        if (period=="HOUR") dates = json.valeurs.map( function(item) { return item.date.split(' ')[1]; } );
                       else dates = json.valeurs.map( function(item) { return item.date; } );
@@ -376,19 +367,17 @@
 
 /********************************* Chargement d'une courbe dans u synoptique 1 au démrrage ************************************/
  function Charger_plusieurs_courbes ( idChart, tableau_map, period )
-  { if (localStorage.getItem("instance_is_master")!="true") return;
-
-    var chartElement = document.getElementById(idChart);
-    if (!chartElement) { console.log("Charger_plusieurs_courbes: Erreur chargement chartElement " + json_request ); return; }
+  { var chartElement = document.getElementById(idChart);
+    if (!chartElement) { console.log("Charger_plusieurs_courbes: Erreur chargement chartElement " + idChart ); return; }
 
     if (period===undefined) period="HOUR";
-    var json_request = JSON.stringify(
+    var json_request =
      { courbes: tableau_map.map( function (item)
                                   { return( { tech_id: item.tech_id, acronyme: item.acronyme } ) } ),
        period : period
-     });
+     };
 
-    Send_to_API ( "PUT", "/api/archive/get", json_request, function(Response)
+    Send_to_API ( "POST", "/archive/get", json_request, function(Response)
      { var dates;
        var ctx = chartElement.getContext('2d');
        if (!ctx) { console.log("Charger_plusieurs_courbes: Erreur chargement context " + json_request ); return; }

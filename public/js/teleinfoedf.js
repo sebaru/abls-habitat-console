@@ -18,7 +18,7 @@
  function TELEINFO_Set ( selection )
   { var json_request =
      { agent_uuid    : $('#idTargetAgent').val(),
-       thread_tech_id: $('#idTELEINFOTechID').val(),
+       thread_tech_id: $('#idTELEINFOTechID').val().toUpperCase(),
        description:    $('#idTELEINFODescription').val(),
        port:           $('#idTELEINFOPort').val(),
      };
@@ -74,33 +74,35 @@
   { $('#idTableTELEINFO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "teleinfoedf", contentType: "application/json",
-               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
-                                                             "classe": "teleinfoedf" } ) ); },
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "teleinfoedf", contentType: "application/json",
+               data: function() { return ( "classe=teleinfoedf" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "teleinfoedf_id",
        columns:
          [ { "data": null, "title":"Agent", "className": "align-middle text-center",
               "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
-            },
-            { "data": null, "title":"Enabled", "className": "align-middle text-center",
-              "render": function (item)
-               { if (item.enable==true)
-                  { return( Bouton ( "success", "Désactiver la téléinfo",
-                                     "UPS_Disable", item.teleinfoedf_id, "Actif" ) );
-                  }
-                 else
-                  { return( Bouton ( "outline-secondary", "Activer la téléinfo",
-                                     "UPS_Enable", item.teleinfoedf_id, "Désactivé" ) );
-                  }
-               },
+           },
+           { "data": null, "title":"Enabled", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.enable==true)
+                 { return( Bouton ( "success", "Désactiver la téléinfo",
+                                    "TELEINFO_Disable", item.teleinfoedf_id, "Actif" ) );
+                 }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer la téléinfo",
+                                    "TELEINFO_Enable", item.teleinfoedf_id, "Désactivé" ) );
+                 }
+              },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
            { "data": "description", "title":"Description", "className": "align-middle " },
            { "data": "port", "title":"Device Port", "className": "align-middle " },

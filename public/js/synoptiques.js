@@ -29,7 +29,7 @@
     if (syn_id>0) json_request.syn_id = parseInt(syn_id);                                               /* Ajout ou édition ? */
     else json_request.image = "syn_maison.png";
 
-    Send_to_API ( "POST", "/syns/set", json_request, function(Response)
+    Send_to_API ( "POST", "/syn/set", json_request, function(Response)
      { Show_toast_ok ( "Modification sauvegardée.");
        SYN_Refresh();
      }, null );
@@ -93,7 +93,7 @@
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Valide_del_synoptique ( selection )
-  { Send_to_API ( "DELETE", "/syns/delete", selection, function(Response)
+  { Send_to_API ( "DELETE", "/syn/delete", selection, function(Response)
      { $('#idTableSYN').DataTable().ajax.reload(null, false);
      }, null );;
   }
@@ -110,7 +110,7 @@
  function Valide_edit_image ( syn_id, image_name )
   { var json_request = { syn_id: syn_id, image: image_name };
     console.debug ( json_request );
-    Send_to_API ( "POST", "/syns/set", json_request, function(Response)
+    Send_to_API ( "POST", "/syn/set", json_request, function(Response)
      { $('#idTableSYN').DataTable().ajax.reload(null, false);
      }, null );
     $('#idSynEditImage').modal("hide");
@@ -148,10 +148,12 @@
     $('#idTableSYN').DataTable(
        { pageLength : 25,
          fixedHeader: true,
-         ajax: {	url : $ABLS_API+"/syns/list", type : "POST", dataSrc: "synoptiques", contentType: "application/json",
-                 data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid')} ) ); },
+         ajax: {	url : $ABLS_API+"/syn/list", type : "GET", dataSrc: "synoptiques", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
                },
          rowId: "syn_id",
          columns:
@@ -186,7 +188,7 @@
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  /*boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", '/tech/atelier/'+item.syn_id, "image", null );*/
+                  if (item.mode_affichage==true) boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", '/atelier/'+item.syn_id, "image", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Configurer", "SYN_Edit", item.syn_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line", null );

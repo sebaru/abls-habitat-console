@@ -1,61 +1,67 @@
- document.addEventListener('DOMContentLoaded', Load_page, false);
 
 /************************************ Demande de refresh **********************************************************************/
  function METEO_Refresh ( )
   { $('#idTableMETEO').DataTable().ajax.reload(null, false);
   }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function METEO_Disable (meteo_id)
+  { $("#idButtonSpinner_"+meteo_id).show();
+    selection = $('#idTableMETEOG').DataTable().row("#"+meteo_id).data();
+    Thread_enable ( selection.thread_tech_id, false, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function METEO_Enable (meteo_id)
+  { $("#idButtonSpinner_"+modbus_id).show();
+    selection = $('#idTableMETEOG').DataTable().row("#"+meteo_id).data();
+    Thread_enable ( selection.thread_tech_id, true, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
+  }
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
- function METEO_Test ( id )
-  { table = $('#idTableMETEO').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+ function METEO_Test ( meteo_id )
+  { selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
     var json_request =
      { thread_tech_id: selection.thread_tech_id,
-       zmq_tag : "test"
+       tag : "test"
      };
-    Send_to_API ( 'POST', "/api/process/send", JSON.stringify(json_request), null );
+    Send_to_API ( 'POST', "/thread/send", json_request, null );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function METEO_Del_Valider ( selection )
-  { var json_request = { uuid : selection.uuid, thread_tech_id: selection.thread_tech_id };
-    Send_to_API ( 'DELETE', "/api/process/config", JSON.stringify(json_request), function(Response)
-     { Process_reload ( json_request.uuid );
-       $('#idTableMETEO').DataTable().ajax.reload(null, false);
-     }, null );
+  { var json_request = { agent_uuid : selection.agent_uuid, thread_tech_id: selection.thread_tech_id };
+    Send_to_API ( 'DELETE', "/thread/delete", json_request, function(Response)
+     { Show_toast_ok ( "Compte IMSG supprimé");
+       METEO_Refresh();
+     }, function(Response) { METEO_Refresh(); } );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
- function METEO_Del ( id )
-  { table = $('#idTableMETEO').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
+ function METEO_Del ( meteo_id )
+  { selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
     Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
-                     selection.thread_tech_id + " - code insee "+selection.code_insee,
+                     selection.thread_tech_id + " - "+selection.jabberid,
                      function () { METEO_Del_Valider( selection ) } ) ;
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function METEO_Set ( selection )
   { var json_request =
-       { uuid          : $('#idTargetProcess').val(),
+       { agent_uuid     : $('#idTargetAgent').val(),
          thread_tech_id: $('#idMETEOTechID').val().toUpperCase(),
          token         : $('#idMETEOToken').val(),
          description   : $('#idMETEODescription').val(),
          code_insee    : $('#idMETEOCodeInsee').val(),
        };
-    if (selection) json_request.id = parseInt(selection.id);                                            /* Ajout ou édition ? */
 
-    Send_to_API ( "POST", "/api/process/config", JSON.stringify(json_request), function(Response)
-     { if (selection && selection.uuid != json_request.uuid) Process_reload ( selection.uuid );/* Restart de l'ancien subprocess si uuid différent */
-       Process_reload ( json_request.uuid );                                /* Dans tous les cas, restart du subprocess cible */
-       $('#idTableMETEO').DataTable().ajax.reload(null, false);
-     }, null );
+    Send_to_API ( "POST", "/meteo/set", json_request, function(Response)
+     { Show_toast_ok ( "Modification sauvegardée.");
+       METEO_Refresh();
+     }, function(Response) { METEO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function METEO_Edit ( id )
-  { table = $('#idTableMETEO').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
-    $('#idMETEOTitre').text("Editer la source Météo " + selection.thread_tech_id);
-    Select_from_api ( "idTargetProcess", "/api/process/list", "name=meteo", "Process", "uuid", function (Response)
-                        { return ( Response.instance ); }, selection.uuid );
-    $('#idMETEOTechID').val( selection.thread_tech_id ).off("input").on("input", function () { Controle_thread_tech_id( "idMETEO", selection.thread_tech_id ); } );
+ function METEO_Edit ( meteo_id )
+  { selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
+    $('#idMETEOTitre').text("Editer la connexion " + selection.thread_tech_id);
+    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
+                        { return ( Response.agent_hostname ); }, selection.agent_uuid );
+    $('#idMETEOTechID').prop ("disabled", true).val( selection.thread_tech_id );
     $('#idMETEODescription').val( selection.description );
     $('#idMETEOToken').val( selection.token );
     $('#idMETEOCodeInsee').val( selection.code_insee );
@@ -64,13 +70,13 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function METEO_Add ( )
-  { $('#idMETEOTitre').text("Ajouter une source Météo");
-    Select_from_api ( "idTargetProcess", "/api/process/list", "name=meteo", "Process", "uuid", function (Response)
-                        { return ( Response.instance ); }, null );
-    $('#idMETEOTechID').val("").off("input").on("input", function () { Controle_thread_tech_id( "idMETEO", null ); } );
-    $('#idMETEODescription').val("");
-    $('#idMETEOToken').val("");
-    $('#idMETEOCodeInsee').val("");
+  { $('#idMETEOTitre').text("Ajouter une connexion XMPP");
+    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
+                        { return ( Response.agent_hostname ); }, null );
+    $('#idMETEOTechID').prop ("disabled", false).val("").off("input").on("input", function () { Controle_tech_id( "idMETEO", null ); } );
+    $('#idMETEODescription').val( "" );
+    $('#idMETEOToken').val( "" );
+    $('#idMETEOCodeInsee').val( "" );
     $('#idMETEOValider').off("click").on( "click", function () { METEO_Set(null); } );
     $('#idMETEOEdit').modal("show");
   }
@@ -79,15 +85,31 @@
   { $('#idTableMETEO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/process/config", type : "GET", data: { name: "meteo" }, dataSrc: "config",
-               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "meteo", contentType: "application/json",
+               data: function() { return ( "classe=meteo" ); },
+               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
-       rowId: "id",
+       rowId: "meteo_id",
        columns:
-         [ { "data": "instance",   "title":"Instance",   "className": "align-middle text-center" },
+         [ { "data": null, "title":"Agent", "className": "align-middle text-center",
+             "render": function (item)
+               { return( htmlEncode(item.agent_hostname) ); }
+           },
+           { "data": null, "title":"Enable", "className": "align-middle text-center",
+              "render": function (item)
+               { if (item.enable==true)
+                 { return( Bouton ( "success", "Désactiver le compte", "METEO_Disable", item.meteo_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le compte", "METEO_Enable", item.meteo_id, "Désactivé" ) ); }
+               },
+           },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
            { "data": "description", "title":"Description", "className": "align-middle " },
            { "data": "token", "title":"token", "className": "align-middle " },
@@ -101,9 +123,9 @@
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la connexion", "METEO_Edit", item.id, "pen", null );
-                 boutons += Bouton_actions_add ( "outline-primary", "Tester la connexion", "METEO_Test", item.id, "question", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "METEO_Del", item.id, "trash", null );
+                 boutons += Bouton_actions_add ( "primary", "Editer la connexion", "METEO_Edit", item.meteo_id, "pen", null );
+                 boutons += Bouton_actions_add ( "outline-primary", "Test METEO", "METEO_Test", item.meteo_id, "question", null );
+                 boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "METEO_Del", item.meteo_id, "trash", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
@@ -112,5 +134,4 @@
        /*order: [ [0, "desc"] ],*/
        responsive: true,
      });
-
   }

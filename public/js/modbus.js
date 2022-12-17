@@ -29,7 +29,7 @@
   { var json_request =
      { agent_uuid:     $('#idTargetAgent').val(),
        thread_classe : "modbus",
-       thread_tech_id: $('#idMODBUSTechID').val(),
+       thread_tech_id: $('#idMODBUSTechID').val().toUpperCase(),
        hostname:       $('#idMODBUSHostname').val(),
        description:    $('#idMODBUSDescription').val(),
        watchdog:       parseInt($('#idMODBUSWatchdog').val()),
@@ -137,13 +137,19 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "modbus_id",
-       ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "modbus", contentType: "application/json",
-               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "modbus"} ) ); },
+       ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "modbus", contentType: "application/json",
+               data: function() { return ( "classe=modbus" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        columns:
-        [ { "data": "agent_hostname",   "title":"Agent", "className": "align-middle text-center" },
+        [ { "data": null, "title":"Agent", "className": "align-middle text-center",
+             "render": function (item)
+               { return( htmlEncode(item.agent_hostname) ); }
+          },
           { "data": null, "title":"Enable", "className": "align-middle text-center",
              "render": function (item)
               { if (item.enable==true)
@@ -154,7 +160,7 @@
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
-              { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+              { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center " },
           { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center " },
@@ -183,16 +189,19 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_di_id", paging: false,
-         ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "DI",
-               contentType: "application/json",
-               data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "DI"} ) ); },
-               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
-             },
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DI",
+                 contentType: "application/json",
+                 data: function() { return ( "classe=DI" ) },
+                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
+               },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
             },
             { "data": null, "title":"WAGO I/O", "className": "align-middle text-center",
               "render": function (item)
@@ -201,7 +210,7 @@
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
-                   { return ( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
             },
@@ -226,16 +235,19 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_do_id", paging: false,
-         ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "DO",
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DO",
                  contentType: "application/json",
-                 data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "DO"} ) ); },
+                 data: function() { return ( "classe=DO" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
                },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
             },
             { "data": null, "title":"WAGO I/O", "className": "align-middle text-center",
               "render": function (item)
@@ -244,7 +256,7 @@
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
-                   { return ( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
             },
@@ -269,16 +281,19 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_ai_id", paging: false,
-         ajax: {	url : $ABLS_API+"/modbus/list", type : "POST", dataSrc: "AI",
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "AI",
                  contentType: "application/json",
-                 data: function() { return ( JSON.stringify({"domain_uuid": localStorage.getItem('domain_uuid'), "classe": "AI"} ) ); },
+                 data: function() { return ( "classe=AI" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-                 beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
                },
          columns:
           [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
             },
             { "data": null, "title":"WAGO I/O", "className": "align-middle text-center",
               "render": function (item)
@@ -286,7 +301,7 @@
             },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)                { if(item.tech_id)
-                   { return ( Lien ( "/tech/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
             },

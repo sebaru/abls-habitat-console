@@ -3,7 +3,19 @@
  function IMSGS_Refresh ( )
   { $('#idTableIMSGS').DataTable().ajax.reload(null, false);
   }
-/************************************ Demande l'envoi d'un SMS de test ********************************************************/
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function IMSG_Disable (imsgs_id)
+  { $("#idButtonSpinner_"+imsgs_id).show();
+    selection = $('#idTableIMSG').DataTable().row("#"+imsgs_id).data();
+    Thread_enable ( selection.thread_tech_id, false, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function IMSG_Enable (imsgs_id)
+  { $("#idButtonSpinner_"+imsgs_id).show();
+    selection = $('#idTableIMSG').DataTable().row("#"+imsgs_id).data();
+    Thread_enable ( selection.thread_tech_id, true, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
+  }
+/************************************ Demande l'envoi d'un IMSGS de test ******************************************************/
  function IMSGS_Test ( imsgs_id )
   { selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     var json_request =
@@ -32,7 +44,7 @@
  function IMSGS_Set ( selection )
   { var json_request =
        { agent_uuid     : $('#idTargetAgent').val(),
-         thread_tech_id : $('#idIMSGSTechID').val(),
+         thread_tech_id : $('#idIMSGSTechID').val().toUpperCase(),
          description: $('#idIMSGSDescription').val(),
          jabberid: $('#idIMSGSJabberID').val(),
          password: $('#idIMSGSPassword').val(),
@@ -62,6 +74,7 @@
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, null );
     $('#idIMSGSTechID').prop ("disabled", false).val("").off("input").on("input", function () { Controle_tech_id( "idIMSGS", null ); } );
+    $('#idIMSGSDescription').val("");
     $('#idIMSGSJabberID').val( "" );
     $('#idIMSGSPassword').val( "" );
     $('#idIMSGSValider').off("click").on( "click", function () { IMSGS_Set(null); } );
@@ -72,11 +85,13 @@
   { $('#idTableIMSGS').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "imsgs", contentType: "application/json",
-               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
-                                                             "classe": "imsgs" } ) ); },
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "imsgs", contentType: "application/json",
+               data: function() { return ( "classe=imsgs" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "imsgs_id",
        columns:
@@ -84,9 +99,17 @@
              "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
            },
+           { "data": null, "title":"Enable", "className": "align-middle text-center",
+              "render": function (item)
+               { if (item.enable==true)
+                 { return( Bouton ( "success", "Désactiver le compte", "IMSG_Disable", item.imsg_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le compte", "IMSG_Enable", item.imsg_id, "Désactivé" ) ); }
+               },
+           },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
            { "data": null, "title":"Description", "className": "align-middle text-center",
              "render": function (item)

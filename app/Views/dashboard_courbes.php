@@ -1,7 +1,7 @@
-    <div class="container">
+<div class="container">
 
  <div class="row m-2">
-   <h3><i class="fas fa-tachometer-alt text-primary"></i> Courbes de l'agent principale</h3>
+   <h3><i class="fas fa-tachometer-alt text-primary"></i> Courbes du domaine</h3>
  </div>
 
 <hr>
@@ -34,6 +34,6 @@
    <canvas id="idCourbeDlsNbLigne" class="courbe-dashboard border border-info"></canvas>
   </div>
 
-<script src="/js/tech/dashboard_courbes.js" type="text/javascript"></script>
+<script src="/js/dashboard_courbes.js" type="text/javascript"></script>
 <!-- Container -->
 </div>

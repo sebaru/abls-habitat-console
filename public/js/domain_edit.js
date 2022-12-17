@@ -1,8 +1,8 @@
 
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function Domain_Delete ( target_domain_uuid )
+ function Domain_Delete ( domain_uuid )
   {
-    if ($("#idDomainDeleteText").val() != "ok to delete "+target_domain_uuid )
+    if ($("#idDomainDeleteText").val() != "ok to delete "+domain_uuid )
      { $("#idDomainDeleteText").addClass("border border-danger shadow");
        Show_toast_ko ( "Clé de protection invalide. Controlez le champ de suppression." );
        $("#idDomainDeleteText").val("");
@@ -10,9 +10,9 @@
      }
 
     $("#idSpinnerDelete").show();
-    Show_toast_ok ( "Suppression du domaine "+target_domain_uuid+" en cours, veuillez patienter." );
+    Show_toast_ok ( "Suppression du domaine "+domain_uuid+" en cours, veuillez patienter." );
     var json_request =
-     { target_domain_uuid: target_domain_uuid,
+     { domain_uuid: domain_uuid,
      };
 
     Send_to_API ( "DELETE", "/domain/delete", json_request, function(Response)
@@ -20,9 +20,9 @@
      }, null );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function Domain_Transfer ( target_domain_uuid )
+ function Domain_Transfer ( domain_uuid )
   { var json_request =
-     { target_domain_uuid: target_domain_uuid,
+     { domain_uuid: domain_uuid,
        new_owner_email   : $("#idDomainNewOwnerEmail").val(),
      };
 
@@ -32,13 +32,13 @@
      }, null );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function Domain_Change_image ( target_domain_uuid )
+ function Domain_Change_image ( domain_uuid )
   { var reader = new FileReader();
     reader.readAsDataURL($("#idDomainInputFile")[0].files[0]);
 
     reader.onload = function ()
      { var json_request =
-        { target_domain_uuid: target_domain_uuid,
+        { domain_uuid: domain_uuid,
           image             : reader.result
         };
 
@@ -50,9 +50,9 @@
    reader.onerror = function (error) { Show_toast_ko ( "Erreur : " + error ); };
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function Domain_Save ( target_domain_uuid )
+ function Domain_Save ( domain_uuid )
   { var json_request =
-       { target_domain_uuid: target_domain_uuid,
+       { domain_uuid: domain_uuid,
          domain_name       : $("#idDomainName").val(),
        };
 
@@ -67,9 +67,7 @@
   { console.log ("in load domain !");
     vars = window.location.pathname.split('/');
 
-    var json_request = { search_domain_uuid: vars[2] };
-
-    Send_to_API ( 'POST', "/domain/get", json_request, function (Response)
+    Send_to_API ( 'GET', "/domain/get", "domain_uuid="+vars[2], function (Response)
      {
        $("#idDomainLabel").text( Response.domain_name );
        $("#idDomainUuid").val( Response.domain_uuid );

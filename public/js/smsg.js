@@ -2,11 +2,23 @@
  function SMSG_Refresh ( )
   { $('#idTableSMSG').DataTable().ajax.reload(null, false);
   }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function SMSG_Disable (smsg_id)
+  { $("#idButtonSpinner_"+smsg_id).show();
+    selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
+    Thread_enable ( selection.thread_tech_id, false, function(Response) { SMSG_Refresh(); }, function(Response) { SMSG_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function SMSG_Enable (smsg_id)
+  { $("#idButtonSpinner_"+smsg_id).show();
+    selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
+    Thread_enable ( selection.thread_tech_id, true, function(Response) { SMSG_Refresh(); }, function(Response) { SMSG_Refresh(); } );
+  }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function SMSG_Set ( selection )
   { var json_request =
      { agent_uuid:             $('#idTargetAgent').val(),
-       thread_tech_id:         $('#idSMSGTechID').val(),
+       thread_tech_id:         $('#idSMSGTechID').val().toUpperCase(),
        description:            $('#idSMSGDescription').val(),
        ovh_service_name:       $('#idSMSGOVHServiceName').val(),
        ovh_application_key:    $('#idSMSGOVHApplicationKey').val(),
@@ -88,17 +100,27 @@
   { $('#idTableSMSG').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "smsg", contentType: "application/json",
-               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
-                                                             "classe": "smsg" } ) ); },
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "smsg", contentType: "application/json",
+               data: function() { return ( "classe=smsg" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        rowId: "smsg_id",
        columns:
          [ { "data": null, "title":"Agent", "className": "align-middle text-center",
              "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
+           },
+           { "data": null, "title":"Enable", "className": "align-middle text-center",
+              "render": function (item)
+               { if (item.enable==true)
+                 { return( Bouton ( "success", "Désactiver le gsm", "SMSG_Disable", item.smsg_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le gsm", "SMSG_Enable", item.smsg_id, "Désactivé" ) ); }
+               },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
@@ -109,7 +131,6 @@
            { "data": "ovh_service_name", "title":"OVH Service Name", "className": "align-middle " },
            { "data": "ovh_application_key", "title":"OVH App Key", "className": "align-middle " },
            { "data": "ovh_application_secret", "title":"OVH App Secret", "className": "align-middle " },
-           { "data": "nbr_sms", "title":"#SMS", "className": "align-middle " },
            { "data": null, "title":"IO_COMM", "className": "align-middle text-center",
              "render": function (item)
                { if (item.comm==true) { return( Bouton ( "success", "Comm OK", null, null, "1" ) );        }

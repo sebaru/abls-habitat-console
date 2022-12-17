@@ -55,7 +55,6 @@
 
          </div>
 
-
          <div class="card-footer d-flex">
               <button id="idDomainChangeImageButton" type="button" class="btn btn-primary ml-auto">
                 <i class="fas fa-image"></i> Change Image
@@ -65,10 +64,8 @@
                 <i class="fas fa-save"></i> Save
               </button>
          </div>
-
-
        </div>
-
+<!-- Encadré Danger Zone ------------------------------------------------------------------------------------------------------>
        <div class="card m-1 border border-danger shadow">
          <div class="card-header">
            <a class="text-danger" data-toggle="collapse" href="#idAdvancedOptions" role="button"><i class="fas fa-exclamation text-danger"></i> Danger Zone</a>

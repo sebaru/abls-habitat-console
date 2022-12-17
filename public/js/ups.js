@@ -18,7 +18,7 @@
  function UPS_Set ( selection )
   { var json_request =
      { agent_uuid    : $('#idTargetAgent').val(),
-       thread_tech_id: $('#idUPSTechID').val(),
+       thread_tech_id: $('#idUPSTechID').val().toUpperCase(),
        host:           $('#idUPSHost').val(),
        name:           $('#idUPSName').val(),
        admin_username: $('#idUPSAdminUsername').val(),
@@ -79,11 +79,13 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "ups_id",
-       ajax: { url : $ABLS_API+"/thread/list", type : "POST", dataSrc: "ups", contentType: "application/json",
-               data: function() { return ( JSON.stringify( { "domain_uuid": localStorage.getItem('domain_uuid'),
-                                                             "classe": "ups" } ) ); },
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "ups", contentType: "application/json",
+               data: function() { return ( "classe=ups" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request) { request.setRequestHeader('Authorization', 'Bearer ' + Token); }
+               beforeSend: function (request)
+                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            }
              },
        columns:
           [ { "data": null, "title":"Agent", "className": "align-middle text-center",
@@ -104,7 +106,7 @@
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
            { "data": "description", "title":"Description", "className": "align-middle text-center " },
            { "data": "name", "title":"Name", "className": "align-middle text-center" },
