@@ -60,7 +60,7 @@
     </div>
     <div class="card-body">
       <ul>
-      <li><h6 class="card-text"> Nombre d'<a href="/agent">agent(s)</a>: <span id="idNbrAgents">-</span></h6></li>
+      <li><h6 class="card-text"> Nombre d'<a href="/agents">agent(s)</a>: <span id="idNbrAgents">-</span></h6></li>
       <li><h6 class="card-text"> Nombre de <a href="/thread">thread(s)</a>: <span id="idNbrThreads">-</span></h6></li>
       </ul>
     </div>

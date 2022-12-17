@@ -2,23 +2,6 @@
  function AGENT_Refresh ( )
   { $('#idTableAGENT').DataTable().ajax.reload(null, false); }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function AGENT_Sauver_parametre ( id )
-  { selection = $('#idTableAGENT').DataTable().row("#"+id).data();
-    var json_request =
-     { agent_uuid : selection.agent_uuid,
-       description: $("#idAGENTDescription_"+id).val(),
-       headless   : ($("#idAGENTHeadless_"+id).val()=="true" ? true : false),
-       log_level  : parseInt($("#idAGENTLogLevel_"+id).val()),
-       log_msrv   : ($("#idAGENTLogMSRV_"+id).val()=="true" ? true : false),
-       log_bus    : ($("#idAGENTLogBUS_"+id).val()=="true" ? true : false),
-     };
-    Send_to_API ( 'POST', "/agent/set", json_request, function ()
-     { Show_toast_ok ( "Configuration sauvegardée." );
-       AGENT_Refresh ();
-     }, function ()
-     { Show_toast_ko ( "Configuration non sauvegardée.") });
-  }
-/************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Reset_Valider ( selection )
   { var json_request = { agent_uuid: selection.agent_uuid };
     Send_to_API ( 'POST', "/agent/reset", json_request, function ()
@@ -98,10 +81,10 @@
            },
            { "data": null, "title":"Hostname", "className": "align-middle text-center",
              "render": function (item)
-              { if (item.is_master==true)
-                 { return( item.agent_hostname + "<br>" + Badge ( "info", "Agent is Master", "Master" ) ); }
-                else
-                 { return( item.agent_hostname + "<br>" + Badge ( "secondary", "Agent is Slave", "Slave" ) ); }
+              { result = Lien ( "/agent/"+item.agent_uuid, "Démarré le "+item.start_time, item.agent_hostname ) + "<br>";
+                if (item.is_master==true) result = result + Badge ( "info", "Agent is Master", "Master" );
+                                     else result = result + Badge ( "secondary", "Agent is Slave", "Slave" );
+                return(result);
               }
            },
            { "data": null, "title":"Version", "className": "align-middle text-center",
@@ -109,39 +92,9 @@
               { return( item.version + "<br>" + Badge ( "secondary", "Branche is "+item.branche, item.branche ) );
               }
            },
-           { "data": "start_time", "title":"Start time",   "className": "align-middle text-center" },
-           { "data": null, "title":"Headless", "className": "align-middle text-center",
-             "render": function (item)
-              { var choix = [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ];
-                return( Select ( "idAGENTHeadless_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")", choix, item.headless ) );
-              }
-           },
            { "data": null, "title":"Description", "className": "align-middle ",
              "render": function (item)
-              { return( Input ( "text", "idAGENTDescription_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")",
-                                "Description de l'agent", item.description, null ) );
-              }
-           },
-           { "data": null, "title":"Log_MSRV", "className": "align-middle text-center",
-             "render": function (item)
-              { var choix = [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ];
-                return( Select ( "idAGENTLogMSRV_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")", choix, item.log_msrv ) );
-              }
-           },
-           { "data": null, "title":"Log_BUS", "className": "align-middle text-center",
-             "render": function (item)
-              { var choix = [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ];
-                return( Select ( "idAGENTLogBUS_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")", choix, item.log_bus ) );
-              }
-           },
-           { "data": null, "title":"Log Level", "className": "align-middle ",
-             "render": function (item)
-              { var choix = [ { valeur: 7, texte: "Debug" },
-                              { valeur: 6, texte: "Info" },
-                              { valeur: 5, texte: "Notice" },
-                              { valeur: 4, texte: "Warning" },
-                              { valeur: 3, texte: "Error" } ];
-                return( Select ( "idAGENTLogLevel_"+item.agent_id, "AGENT_Sauver_parametre("+item.agent_id+")", choix, item.log_level ) );
+              { return( htmlEncode ( item.description ) );
               }
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
