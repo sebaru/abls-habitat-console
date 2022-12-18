@@ -20,6 +20,7 @@ class Console extends BaseController
  public function atelier()            { $this->send_page ("atelier"); }
  public function agents()             { $this->send_page ("agents"); }
  public function agent_edit()         { $this->send_page ("agent_edit"); }
+ public function agent_add()          { $this->send_page ("agent_add"); }
  public function domain_maintenance() { $this->send_page ("domain_maintenance"); }
  public function domain_edit()        { $this->send_page ("domain_edit"); }
  public function domains()            { $this->send_page ("domains"); }

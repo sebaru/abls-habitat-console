@@ -31,13 +31,6 @@
            </div>
 
            <div class="row form-group">
-             <div class="input-group align-items-center">
-               <label class="col-4 col-form-label text-right">Domain Secret Key<br><small class="text-danger">Keep it secret</small></label>
-               <input disabled id="idDomainSecret" type="password" class="form-control" placeholder="Domain's Secret Key">
-             </div>
-           </div>
-
-           <div class="row form-group">
              <div class="input-group">
                <label class="col-4 col-form-label text-right">Description</label>
                <input id="idAGENTDescription" type="text" class="form-control" placeholder="Agent description">
@@ -78,6 +71,21 @@
               <button id="idAGENTSaveButton" type="button" class="btn btn-success ml-auto">
                 <i class="fas fa-save"></i> Save
               </button>
+         </div>
+       </div>
+
+<!------------------------------------------------ Card de liaison ------------------------------------------------------------>
+       <div class="card m-1 shadow">
+         <div class="card-header"> <i class="fas fa-pen text-primary"></i> <label>Lier l'agent</label> </div>
+         <div class="card-body">
+
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Commande de lien</label>
+               <input disabled id="idAGENTLink" type="text" class="form-control" placeholder="Command to link agent">
+             </div>
+           </div>
+
          </div>
        </div>
 

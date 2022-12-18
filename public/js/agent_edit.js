@@ -24,10 +24,13 @@
        $("#idAGENTHostname").val( Response.agent_hostname + " - " + Response.version + " - " + Response.branche );
        $("#idAGENTUUID").val( Response.agent_uuid );
        $("#idAGENTDescription").val( Response.description );
-       $("#idDomainSecret").val( Response.domain_secret );
-       $("#idDomainSecret").off("mouseenter").mouseenter( function () { $("#idDomainSecret").prop("type", "text"); }  );
-       $("#idDomainSecret").off("mouseleave").mouseleave( function () { $("#idDomainSecret").prop("type", "password"); }  );
 
+       $("#idAGENTLink").val( "sudo Watchdogd --link"+
+                               " --api-url " + window.location.protocol + "//" + window.location.host +
+                               " --domain-uuid " + localStorage.getItem("domain_uuid") +
+                               " --domain-secret " + Response.domain_secret +
+                               " --agent-uuid " + Response.agent_uuid
+                            );
 
        $("#idAGENTHeadless").replaceWith ( Select ( "idAGENTHeadless", null,
                                                     [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.headless ) );
