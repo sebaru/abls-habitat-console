@@ -1,3 +1,7 @@
+
+
+ var Borne_Type = [ "none0", "none1", "none2", "750455 - 4/20 mA", "750461 - Pt-100" ];
+
  function MODBUS_Refresh ( )
   { $('#idTableMODBUS').DataTable().ajax.reload(null, false);
     $('#idTableMODBUS_DI').DataTable().ajax.reload(null, false);
@@ -119,15 +123,30 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Edit_AI (modbus_id)
-  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
-    $('#idMODBUSEditAI').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
-    $('#idMODBUSEditAITypeBorne').val ( selection.type_borne );
+ function MODBUS_Edit_AI (modbus_ai_id)
+  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_ai_id).data();
+    $('#idMODBUSEditAITitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODBUSEditAITypeBorne').replaceWith ( Select ( "idMODBUSEditAITypeBorne", null,
+                                                         [ { valeur: 3, texte: Borne_Type[3] },
+                                                           { valeur: 4, texte: Borne_Type[4] } ],
+                                                         selection.type_borne ) );
     $('#idMODBUSEditAIMin').val ( selection.min );
     $('#idMODBUSEditAIMax').val ( selection.max );
+    $('#idMODBUSEditAIUnite').val ( selection.unite );
     $('#idMODBUSEditAIValider').off("click").on( "click", function ()
      { $('#idMODBUSEditAI').modal("hide");
-       /*Send_to_API().then ( () => { MODBUS_Refresh(); } );*/
+       var json_request =
+        { modbus_ai_id: modbus_ai_id,
+          type_borne: $('#idMODBUSEditAITypeBorne').val(),
+          min: $('#idMODBUSEditAIMin').val(),
+          max: $('#idMODBUSEditAIMax').val(),
+          unite: $('#idMODBUSEditAIUnite').val(),
+        };
+
+       Send_to_API ( "POST", "/modbus/set/ai", json_request,
+                     (Response) => { Show_toast_ok ("Modifications sauvegardées.");
+                                     MODBUS_Refresh();
+                                   }, null );
      });
     $('#idMODBUSEditAI').modal("show");
   }
@@ -311,7 +330,7 @@
             },
             { "data": null, "title":"Type Borne", "className": "align-middle text-center",
               "render": function (item)
-                { return( "type_borne = " + item.type_borne ); }
+                { return( Borne_Type[item.type_borne] ); }
             },
             { "data": "min", "title":"min", "className": "align-middle text-center" },
             { "data": "max", "title":"max", "className": "align-middle text-center" },

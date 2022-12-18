@@ -98,25 +98,23 @@
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Type de borne</label>
            <select id="idMODBUSEditAITypeBorne" class="custom-select border-info">
-             <option value="3">750455 - 4/20 mA</option>
-             <option value="4">750462 - Pt-100</option>
            </select>
           </div>
-        </div>
+       </div>
 
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Minimum</label>
            <input id="idMODBUSEditAIMin" type="number" class="form-control" placeholder="Valeur Min">
           </div>
-        </div>
+       </div>
 
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Maximum</label>
            <input id="idMODBUSEditAIMax" type="number" class="form-control" placeholder="Valeur Max">
           </div>
-        </div>
+       </div>
 
        <div class="col form-group">
           <div class="input-group">
