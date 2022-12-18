@@ -26,7 +26,7 @@
        $("#idAGENTDescription").val( Response.description );
 
        $("#idAGENTLink").val( "sudo Watchdogd --link"+
-                               " --api-url " + window.location.protocol + "//" + window.location.host +
+                               " --api-url " + Response.api_url +
                                " --domain-uuid " + localStorage.getItem("domain_uuid") +
                                " --domain-secret " + Response.domain_secret +
                                " --agent-uuid " + Response.agent_uuid
