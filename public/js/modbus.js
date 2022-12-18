@@ -130,17 +130,22 @@
                                                          [ { valeur: 3, texte: Borne_Type[3] },
                                                            { valeur: 4, texte: Borne_Type[4] } ],
                                                          selection.type_borne ) );
+
+    $('#idMODBUSEditAIArchivage').replaceWith ( Bouton_Archivage ( "idMODBUSEditAIArchivage", null, selection.archivage ) );
     $('#idMODBUSEditAIMin').val ( selection.min );
     $('#idMODBUSEditAIMax').val ( selection.max );
     $('#idMODBUSEditAIUnite').val ( selection.unite );
+    $('#idMODBUSEditAILibelle').val ( selection.libelle );
     $('#idMODBUSEditAIValider').off("click").on( "click", function ()
      { $('#idMODBUSEditAI').modal("hide");
        var json_request =
-        { modbus_ai_id: modbus_ai_id,
-          type_borne: $('#idMODBUSEditAITypeBorne').val(),
-          min: $('#idMODBUSEditAIMin').val(),
-          max: $('#idMODBUSEditAIMax').val(),
+        { modbus_ai_id: parseInt(modbus_ai_id),
+          type_borne: parseInt($('#idMODBUSEditAITypeBorne').val()),
+          min: parseInt($('#idMODBUSEditAIMin').val()),
+          max: parseInt($('#idMODBUSEditAIMax').val()),
+          archivage: $('#idMODBUSEditAIArchivage').val(),
           unite: $('#idMODBUSEditAIUnite').val(),
+          libelle: $('#idMODBUSEditAILibelle').val(),
         };
 
        Send_to_API ( "POST", "/modbus/set/ai", json_request,

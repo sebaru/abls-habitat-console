@@ -104,6 +104,14 @@
 
        <div class="col form-group">
           <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
+           <select id="idMODBUSEditAIArchivage" class="custom-select border-info">
+           </select>
+          </div>
+       </div>
+
+       <div class="col form-group">
+          <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Minimum</label>
            <input id="idMODBUSEditAIMin" type="number" class="form-control" placeholder="Valeur Min">
           </div>
@@ -120,6 +128,13 @@
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Unité</label>
            <input id="idMODBUSEditAIUnite" type="text" class="form-control" placeholder="°C, km/h, ...">
+          </div>
+       </div>
+
+       <div class="col form-group">
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Unité</label>
+           <input id="idMODBUSEditAILibelle" type="text" class="form-control" placeholder="Description">
           </div>
        </div>
 
