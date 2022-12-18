@@ -82,7 +82,7 @@
            <div class="row form-group">
              <div class="input-group">
                <label class="col-4 col-form-label text-right">Commande de lien</label>
-               <input disabled id="idAGENTLink" type="text" class="form-control" placeholder="Command to link agent">
+               <textarea id="idAGENTLink" readonly rows="5" type="text" class="form-control" placeholder="Command to link agent"></textarea>
              </div>
            </div>
 
