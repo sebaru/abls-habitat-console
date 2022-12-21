@@ -19,13 +19,28 @@
              </div>
            </div>
 
-         </div>
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Rechargement des Mappings I/O</label>
+               <button id="idDomainRemap" type="button" class="btn btn-secondary"><i class="fas fa-directions"></i> Remap I/O</button>
+             </div>
+           </div>
 
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Rechargement des ticks Horloges</label>
+               <button id="idDomainHorlogeReload" type="button" class="btn btn-secondary"><i class="fas fa-clock"></i> Recharger les Horloges</button>
+             </div>
+           </div>
+
+         </div>
+<!--
          <div class="card-footer d-flex">
               <button id="idDomainMaintenanceSaveButton" type="button" class="btn btn-success ml-auto">
                 <i class="fas fa-save"></i> Save
               </button>
          </div>
+-->
        </div>
 
 
