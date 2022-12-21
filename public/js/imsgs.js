@@ -4,13 +4,13 @@
   { $('#idTableIMSGS').DataTable().ajax.reload(null, false);
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function IMSG_Disable (imsgs_id)
+ function IMSGS_Disable (imsgs_id)
   { $("#idButtonSpinner_"+imsgs_id).show();
     selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function IMSG_Enable (imsgs_id)
+ function IMSGS_Enable (imsgs_id)
   { $("#idButtonSpinner_"+imsgs_id).show();
     selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
@@ -102,9 +102,9 @@
            { "data": null, "title":"Enable", "className": "align-middle text-center",
               "render": function (item)
                { if (item.enable==true)
-                 { return( Bouton ( "success", "Désactiver le compte", "IMSG_Disable", item.imsg_id, "Actif" ) ); }
+                 { return( Bouton ( "success", "Désactiver le compte", "IMSGS_Disable", item.imsgs_id, "Actif" ) ); }
                 else
-                 { return( Bouton ( "outline-secondary", "Activer le compte", "IMSG_Enable", item.imsg_id, "Désactivé" ) ); }
+                 { return( Bouton ( "outline-secondary", "Activer le compte", "IMSGS_Enable", item.imsgs_id, "Désactivé" ) ); }
                },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
