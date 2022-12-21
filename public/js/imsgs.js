@@ -6,13 +6,13 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function IMSG_Disable (imsgs_id)
   { $("#idButtonSpinner_"+imsgs_id).show();
-    selection = $('#idTableIMSG').DataTable().row("#"+imsgs_id).data();
+    selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function IMSG_Enable (imsgs_id)
   { $("#idButtonSpinner_"+imsgs_id).show();
-    selection = $('#idTableIMSG').DataTable().row("#"+imsgs_id).data();
+    selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
   }
 /************************************ Demande l'envoi d'un IMSGS de test ******************************************************/
