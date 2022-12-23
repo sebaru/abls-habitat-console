@@ -133,7 +133,7 @@
 
        <div class="col form-group">
           <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Unité</label>
+           <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditAILibelle" type="text" class="form-control" placeholder="Description">
           </div>
        </div>
