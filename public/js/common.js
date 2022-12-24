@@ -206,7 +206,7 @@
  function Badge ( color, tooltip, texte )
   { return("<span "+
            "class='badge badge-"+color+"' "+
-           "data-toggle='tooltip' title='"+tooltip+"'>"+htmlEncode(texte)+
+           "data-toggle='tooltip' title='"+htmlEncode(tooltip)+"'>"+htmlEncode(texte)+
            "</span>" );
   }
 

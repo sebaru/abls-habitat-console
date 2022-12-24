@@ -113,10 +113,10 @@
            { "data": "host", "title":"Host", "className": "align-middle text-center" },
            { "data": "admin_username", "title":"Username", "className": "align-middle text-center" },
            { "data": "admin_password", "title":"Password", "className": "align-middle text-center" },
-           { "data": null, "title":"IO_COMM", "className": "align-middle text-center",
+           { "data": null, "title":"Last Comm", "className": "align-middle text-center",
              "render": function (item)
-               { if (item.comm==true) { return( Bouton ( "success", "Comm OK", null, null, "1" ) );        }
-                                 else { return( Bouton ( "outline-secondary", "Comm Failed", null, null, "0" ) ); }
+               { if (item.last_comm==null) return( Badge( "info", "Thread à l'arret", "Stopped" ) );
+                 return( htmlEncode ( item.last_comm ) );
                },
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",

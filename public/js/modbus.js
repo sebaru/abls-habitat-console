@@ -190,12 +190,12 @@
           { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center " },
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center " },
           { "data": "max_request_par_sec", "title":"Max Requete/s", "className": "align-middle text-center " },
-          { "data": null, "title":"IO_COMM", "className": "align-middle text-center",
-            "render": function (item)
-              { if (item.comm==true) { return( Bouton ( "success", "Comm OK", null, null, "1" ) );        }
-                                else { return( Bouton ( "outline-secondary", "Comm Failed", null, null, "0" ) ); }
-              },
-          },
+           { "data": null, "title":"Last Comm", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.last_comm==null) return( Badge( "info", "Thread à l'arret", "Stopped" ) );
+                 return( htmlEncode ( item.last_comm ) );
+               },
+           },
           { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center", "render": function (item)
               { boutons = Bouton_actions_start ();
                 boutons += Bouton_actions_add ( "outline-primary", "Editer le module", "MODBUS_Edit", item.modbus_id, "pen", null );
