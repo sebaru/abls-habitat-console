@@ -191,9 +191,9 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
           <a class="dropdown-item" href="/dashboard"> <i class="fas fa-tachometer-alt text-primary"></i> Dashboard</a>
+          <a class="dropdown-item" href="/agents"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
+          <a class="dropdown-item" href="/threads"><i class="fas fa-microchip text-primary"></i> <span>Threads</span></a>
           <a class="dropdown-item" href="/dashboard/courbes"> <i class="fas fa-chart-line text-secondary"></i> <span>Courbes</span> </a>
-          <a class="dropdown-item" href="/agent"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
-          <a class="dropdown-item" href="/thread"><i class="fas fa-microchip text-primary"></i> <span>Threads</span></a>
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/domain_maintenance"> <i class="fas fa-wrench text-warning"></i> Maintenance</a>

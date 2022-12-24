@@ -1,3 +1,7 @@
+
+
+ var Borne_Type = [ "none0", "none1", "none2", "750455 - 4/20 mA", "750461 - Pt-100" ];
+
  function MODBUS_Refresh ( )
   { $('#idTableMODBUS').DataTable().ajax.reload(null, false);
     $('#idTableMODBUS_DI').DataTable().ajax.reload(null, false);
@@ -119,15 +123,35 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Edit_AI (modbus_id)
-  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
-    $('#idMODBUSEditAI').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
-    $('#idMODBUSEditAITypeBorne').val ( selection.type_borne );
+ function MODBUS_Edit_AI (modbus_ai_id)
+  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_ai_id).data();
+    $('#idMODBUSEditAITitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODBUSEditAITypeBorne').replaceWith ( Select ( "idMODBUSEditAITypeBorne", null,
+                                                         [ { valeur: 3, texte: Borne_Type[3] },
+                                                           { valeur: 4, texte: Borne_Type[4] } ],
+                                                         selection.type_borne ) );
+
+    $('#idMODBUSEditAIArchivage').replaceWith ( Bouton_Archivage ( "idMODBUSEditAIArchivage", null, selection.archivage ) );
     $('#idMODBUSEditAIMin').val ( selection.min );
     $('#idMODBUSEditAIMax').val ( selection.max );
+    $('#idMODBUSEditAIUnite').val ( selection.unite );
+    $('#idMODBUSEditAILibelle').val ( selection.libelle );
     $('#idMODBUSEditAIValider').off("click").on( "click", function ()
      { $('#idMODBUSEditAI').modal("hide");
-       /*Send_to_API().then ( () => { MODBUS_Refresh(); } );*/
+       var json_request =
+        { modbus_ai_id: parseInt(modbus_ai_id),
+          type_borne: parseInt($('#idMODBUSEditAITypeBorne').val()),
+          min: parseInt($('#idMODBUSEditAIMin').val()),
+          max: parseInt($('#idMODBUSEditAIMax').val()),
+          archivage: $('#idMODBUSEditAIArchivage').val(),
+          unite: $('#idMODBUSEditAIUnite').val(),
+          libelle: $('#idMODBUSEditAILibelle').val(),
+        };
+
+       Send_to_API ( "POST", "/modbus/set/ai", json_request,
+                     (Response) => { Show_toast_ok ("Modifications sauvegardées.");
+                                     MODBUS_Refresh();
+                                   }, null );
      });
     $('#idMODBUSEditAI').modal("show");
   }
@@ -166,12 +190,12 @@
           { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center " },
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center " },
           { "data": "max_request_par_sec", "title":"Max Requete/s", "className": "align-middle text-center " },
-          { "data": null, "title":"IO_COMM", "className": "align-middle text-center",
-            "render": function (item)
-              { if (item.comm==true) { return( Bouton ( "success", "Comm OK", null, null, "1" ) );        }
-                                else { return( Bouton ( "outline-secondary", "Comm Failed", null, null, "0" ) ); }
-              },
-          },
+           { "data": null, "title":"Last Comm", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.last_comm==null) return( Badge( "info", "Thread à l'arret", "Stopped" ) );
+                 return( htmlEncode ( item.last_comm ) );
+               },
+           },
           { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center", "render": function (item)
               { boutons = Bouton_actions_start ();
                 boutons += Bouton_actions_add ( "outline-primary", "Editer le module", "MODBUS_Edit", item.modbus_id, "pen", null );
@@ -311,7 +335,7 @@
             },
             { "data": null, "title":"Type Borne", "className": "align-middle text-center",
               "render": function (item)
-                { return( "type_borne = " + item.type_borne ); }
+                { return( Borne_Type[item.type_borne] ); }
             },
             { "data": "min", "title":"min", "className": "align-middle text-center" },
             { "data": "max", "title":"max", "className": "align-middle text-center" },
