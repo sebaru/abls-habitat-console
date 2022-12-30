@@ -31,6 +31,10 @@
   </div>
 
   <div class="row p-1">
+   <canvas id="idCourbeDlsNbARCHIVE" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1">
    <canvas id="idCourbeDlsNbLigne" class="courbe-dashboard border border-info"></canvas>
   </div>
 

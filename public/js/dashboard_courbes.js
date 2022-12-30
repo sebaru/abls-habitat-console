@@ -8,5 +8,6 @@
     Charger_une_courbe ( "idCourbeNbArchive",     "SYS", "ARCH_REQUEST_NUMBER", "HOUR" );
     Charger_une_courbe ( "idCourbeDlsNbMSG",      "SYS", "NBR_MSG_QUEUE", "HOUR" );
     Charger_une_courbe ( "idCourbeDlsNbVISUEL",   "SYS", "NBR_VISUEL_QUEUE", "HOUR" );
+    Charger_une_courbe ( "idCourbeDlsNbARCHIVE",  "SYS", "NBR_ARCHIVE_QUEUE", "HOUR" );
     Charger_une_courbe ( "idCourbeDlsNbLigne",    "SYS", "NBR_LIGNE_DLS", "MONTH" );
   }
