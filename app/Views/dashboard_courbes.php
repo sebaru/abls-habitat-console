@@ -19,10 +19,6 @@
   </div>
 
   <div class="row p-1">
-   <canvas id="idCourbeNbArchive" class="courbe-dashboard border border-info"></canvas>
-  </div>
-
-  <div class="row p-1">
    <canvas id="idCourbeDlsNbMSG" class="courbe-dashboard border border-info"></canvas>
   </div>
 
@@ -36,6 +32,10 @@
 
   <div class="row p-1">
    <canvas id="idCourbeDlsNbLigne" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1">
+   <canvas id="idCourbeDlsMaxRss" class="courbe-dashboard border border-info"></canvas>
   </div>
 
 <script src="/js/dashboard_courbes.js" type="text/javascript"></script>
