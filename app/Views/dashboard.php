@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
 
  <div class="row m-2">
    <div class="col-auto"><h3><i class="fas fa-tachometer-alt text-primary"></i> Tableau de bord</h3></div>
@@ -6,7 +6,7 @@
 
 <hr>
 
-<div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+<div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
 
  <div class="card shadow m-1 bg-light">
     <div class="card-header">
@@ -127,6 +127,45 @@
  </div>
 
 </div>
+
+ <div class="row m-2">
+   <h3><i class="fas fa-tachometer-alt text-primary"></i> Courbes du domaine</h3>
+ </div>
+
+<hr>
+
+  <div class="row p-1 justify-content-center">
+      <canvas id="idCourbeDlsTourParSec" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
+      <canvas id="idCourbeDlsBitParSec" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsAttente" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsNbMSG" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsNbVISUEL" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsNbARCHIVE" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsNbLigne" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsMaxRss" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
 
 <script src="/js/dashboard.js" type="text/javascript"></script>
 <!-- Container -->
