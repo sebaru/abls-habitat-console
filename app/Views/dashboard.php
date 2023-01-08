@@ -19,7 +19,7 @@
     </div>
     <div class="card-body">
       <ul>
-      <li><h6 class="card-text"><span id="idNbrSyns">-</span> Synoptiques</h6></li>
+      <li><h6 class="card-text"><span id="idNbrSyns">-</span> <a href="/synoptiques">Synoptiques</a> </h6></li>
       <li><h6 class="card-text"><span id="idNbrSynsMotifs">-</span> Motifs</h6></li>
       <li><h6 class="card-text"><span id="idNbrSynsLiens">-</span> Liens</h6></li>
       </ul>
@@ -39,7 +39,7 @@
     </div>
     <div class="card-body">
       <ul>
-      <li><h6 class="card-text"><span id="idNbrDls">-</span> Modules</h6></li>
+      <li><h6 class="card-text"><span id="idNbrDls">-</span> <a href="/dls">Module(s)</a> </h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsLignes">-</span> Lignes</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsBI">-</span> Bistables</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsMONO">-</span> Monostables</h6></li>
@@ -117,9 +117,8 @@
     </div>
     <div class="card-body">
       <ul>
-      <li><h6 class="card-text"><span id="idNbrUsers">-</span> Utilisateurs</h6></li>
+      <li><h6 class="card-text"><span id="idNbrUsers">-</span> <a href="/users">Utilisateur(s)</a></h6></li>
       <li><h6 class="card-text"><span id="idNbrAuditLog">-</span> Enregistrements Logs</h6></li>
-      <li><h6 class="card-text"><span id="idNbrSessions">-</span> Sessions</h6></li>
       </ul>
 <!--<h3 class="card-text text-center"><strong>56</h3>-->
     </div>
