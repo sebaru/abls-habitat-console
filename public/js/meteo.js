@@ -6,13 +6,13 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function METEO_Disable (meteo_id)
   { $("#idButtonSpinner_"+meteo_id).show();
-    selection = $('#idTableMETEOG').DataTable().row("#"+meteo_id).data();
+    selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function METEO_Enable (meteo_id)
   { $("#idButtonSpinner_"+modbus_id).show();
-    selection = $('#idTableMETEOG').DataTable().row("#"+meteo_id).data();
+    selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
