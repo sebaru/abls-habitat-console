@@ -173,15 +173,15 @@
             },
             { "data": null, "title": "Parent", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/"+item.ppage, "Voir le synoptique "+item.plibelle, item.ppage ) ); },
+                { return( Lien ( "/atelier/"+item.ppage, "Voir le synoptique "+item.plibelle, item.ppage ) ); },
             },
             { "data": null, "title": "Page", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/"+item.page, "Voir le synoptique "+item.libelle, item.page ) ); },
+                { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.libelle, item.page ) ); },
             },
             { "data": null, "title": "Description", "className": "align-middle ",
               "render": function (item)
-                { return( Lien ( "/"+item.page, "Voir le synoptique "+item.libelle, item.libelle ) ); },
+                { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.libelle, item.libelle ) ); },
             },
             { "data": "dls_count", "title": "#dls", "className": "align-middle text-center" },
             { "data": "subsyn_count", "title": "#SubSyn", "className": "align-middle text-center" },
