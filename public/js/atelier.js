@@ -1,9 +1,10 @@
+ var Synoptique;
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { console.log ("in load archive !");
     vars = window.location.pathname.split('/');
     console.debug(vars);
-    Charger_syn ( vars[3] )
+    Charger_syn ( vars[2] );
 	 }
 
  var svg_selected;
@@ -128,63 +129,178 @@
        '<div class="col-sd-1"><input id="WTD-ctrl-panel-comment-font-family" onchange="Change_comment_properties()"/> </div>'+
        '<div class="col-sd-1"><label>Font size</label></div>'+
        '<div class="col-sd-1"><input id="WTD-ctrl-panel-comment-font-size" type="number" min="10" max="100" step="5" onchange="Change_comment_properties()"/> </div>';
-/********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Ajouter_icone ()
-  { var topsvg = document.getElementById("TopSVG");
-    var object =
-     { syn_id: syn_id, bitctrl: -1,
-       icone: $("#select-icones").val(), libelle: "Nouveau motif",
-       posx: 150, posy: 150, angle : 0, scale : 1, def_color : "#c8c8c8",
-       tech_id : "", acronyme:"", clic_tech_id : "", clic_acronyme:"",
-       access_level:0
-     };
-    var json_request = JSON.stringify(object);
-    var xhr = new XMLHttpRequest;
-    xhr.open('post',base_url + "admin/syn/add_motif", true);
-    xhr.setRequestHeader('Content-type', 'application/json');
-    xhr.onreadystatechange = function()
-     { if ( ! (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) ) return;
-       var Response = JSON.parse(xhr.responseText);                                         /* Pointe sur <synoptique a=1 ..> */
-       Load_Motif_to_canvas ( Response[0] );
-     };
-    xhr.send(json_request);
+
+/*************************************** Met à jour la matrice de transformation **********************************************/
+ function SVG_New_from_image ( trame, image_filename )
+  { var svgimage = trame.image( "https://static.abls-habitat.fr/img/"+image_filename, function(event)
+                                 { this.dx ( -this.width()/2 );
+                                   this.dy ( -this.height()/2 );
+                                 } );
+    return( svgimage );
   }
-
-/********************************************* Chargement du synoptique 1 au démrrage *****************************************/
- function Charger_icone ()
-  { var xhr = new XMLHttpRequest;
-    xhr.open('get', "https://icons.abls-habitat.fr/icons/icon_list/"+$("#select-classes").val(), true);
-    xhr.onreadystatechange = function()
-     { if ( ! (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) ) return;
-       var Response = JSON.parse(xhr.responseText, true);
-
-       var options = "";
-       for(var i = 0; i < Response.length; i++)
-        { options += "<option value='" + Response[i][0] + "'>" + Response[i][1] + "</option>"; }
-       $("#select-icones").find('option').remove().end().append($(options));
-     };
-    xhr.send();
+/*************************************** Met à jour la matrice de transformation **********************************************/
+ function SVG_Update_matrice ( visuel )
+  { visuel.svggroupe.transform ( { scale: visuel.scale, translate: [visuel.posx, visuel.posy],
+                                   rotate: visuel.angle, origin: 'center center' } );
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
- function Charger_classe ( )
-  { var xhr = new XMLHttpRequest;
-    xhr.open('get', "https://icons.abls-habitat.fr/icons/class_list", true);
-    xhr.onreadystatechange = function()
-     { if ( ! (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) ) return;
-       var Response = JSON.parse(xhr.responseText, true);
+ function Charger_syn ( syn_page )
+  {
+    $("#idSectionHeavySyn").empty().css("position","relative");
+    var trame = SVG().addTo("#idSectionHeavySyn").attr("id", "idTrame")
+                     .attr("viewbox", "0 0 1200 1024")
+                     .attr("preserveAspectRatio", "xMinYMin meet")
+                     .addClass("border border-success")
+                     .css("background-color", "darkgray")
+                     .css("width", "100vw")
+                     .css("height", "100vh")
+                     .css("position", "relative");
 
-       var options = "";
-       for(var i = 0; i < Response.length; i++)
-        { options += "<option value='" + Response[i][0] + "'>" + Response[i][1] + "</option>"; }
-       $("#select-classes").find('option').remove().end().append($(options));
-       Charger_icone();
-     };
-    xhr.send();
-  }
+    console.log("------------------------------ Chargement synoptique "+syn_page);
+    Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
+     { console.log(Response);
+       Synoptique = Response;                                                                       /* sauvegarde du pointeur */
+       $.each ( Response.visuels, function (i, visuel)
+                 { /*if (visuel.forme == null)
+                    { /*var new_svg = svg.append ("g").attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      new_svg.node().setAttribute( "transform-origin", visuel.posx+" "+visuel.posy );
+                      new_svg.append ( "image" ).attr("href", "https://static.abls-habitat.fr/img/"+visuel.icone+".gif" )
+                                       .on( "load", function ()
+                                         { console.log("loaded");
+                                           var dimensions = this.getBBox();
+                                           var orig_x = (visuel.posx-dimensions.width/2);
+                                           var orig_y = (visuel.posy-dimensions.height/2);
+                                           new_svg.attr( "transform", "rotate("+visuel.angle+") "+
+                                                                      "scale("+(visuel.larg/dimensions.width)+" "+(visuel.haut/dimensions.height)+") "+
+                                                                      "translate("+orig_x+" "+orig_y+") "
+                                                       );
+                               } );
+                    }
+                   else */if (visuel.ihm_affichage=="complexe" && visuel.forme=="bouton")
+                    { var button = $("<button>").css("position", "absolute").addClass("btn btn-sm")
+                                                .css("left", visuel.posx).css("top", visuel.posy)
+                                                .css("translate", "-50% -50%")
+                                                .append( visuel.libelle )
+                           if (visuel.color=="blue")   button.addClass("btn-primary");
+                      else if (visuel.color=="orange") button.addClass("btn-warning");
+                      else if (visuel.color=="gray")   button.addClass("btn-secondary");
+                      else if (visuel.color=="red")    button.addClass("btn-danger");
+                      else if (visuel.color=="green")  button.addClass("btn-success");
+                      else button.addClass("btn-outline-dark").attr("disabled", '');
+                      console.debug(button);
+                      $("#idSectionHeavySyn").append ( button );
+                    }/*
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="encadre")
+                    { var new_svg = svg.append ("g").attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      new_svg.node().setAttribute( "transform-origin", visuel.posx+" "+visuel.posy );
 
-/********************************************* Chargement du synoptique 1 au démrrage *****************************************/
- function Charger_syn ( id )
-  { var topsvg = document.getElementById("TopSVG");
+                      var dimensions = visuel.mode.split('x');
+                      console.log("Encadre : dimensions");
+                      console.debug(dimensions);
+                      if (!dimensions[0]) dimensions[0] = 1;
+                      if (!dimensions[1]) dimensions[1] = 1;
+
+                      var hauteur=64*parseInt(dimensions[0]);
+                      var largeur=64*parseInt(dimensions[1]);
+
+                      new_svg.append ( "text" ).attr("x", (largeur+10)/2 ).attr("y", 12 )
+                                               .attr("text-anchor", "middle")
+                                               .attr("font-size", "14" )
+                                               .attr("font-family", "Sans" )
+                                               .attr("font-style", "italic" )
+                                               .attr("font-weight", "normal" )
+                                               .attr("fill", visuel.color )
+                                               .attr("stroke", visuel.color )
+                                               .text(visuel.libelle);
+
+                      new_svg.append ( "rect" ).attr("x", 5 ).attr("y", 20 ).attr("rx", 15)
+                                               .attr("width", largeur)
+                                               .attr("height", hauteur )
+                                               .attr("fill", "none" )
+                                               .attr("stroke-width", 4 )
+                                               .attr("stroke", visuel.color );
+                      new_svg.attr( "transform", "rotate("+visuel.angle+") "+
+                                                 "scale("+visuel.scale+") "+
+                                                 "translate("+visuel.posx+" "+visuel.posy+") "
+                                  );
+                     }
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment")
+                    { var new_svg = svg. append ("g").attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      new_svg.node().setAttribute( "transform-origin", visuel.posx+" "+visuel.posy );
+                      var size, family, style, weight;
+                      if ( visuel.mode=="titre" )
+                       { size = 32;
+                         family = "Sans";
+                         style  = "italic";
+                         weight = "normal";
+                       }
+                      else if ( visuel.mode =="soustitre" )
+                       { size = 24;
+                         family = "Sans";
+                         style  = "italic";
+                         weight = "normal";
+                       }
+                      else
+                       { size   = 14;
+                         family = "Sans";
+                         style  = "italic";
+                         weight = "normal";
+                       }
+
+                      new_svg.append ( "text" ).attr("font-size", size)
+                                               .attr("font-family", family + ",serif" )
+                                               .attr("font-style", style )
+                                               .attr("font-weight", weight )
+                                               .attr("fill", visuel.color )
+                                               .attr("stroke", visuel.color )
+                                               .attr("dominant-baseline", "middle")
+                                               .attr("text-anchor", "middle")
+                                               .text(visuel.libelle);
+                      new_svg.attr( "transform", "rotate("+visuel.angle+") "+
+                                                 "scale("+visuel.scale+") "+
+                                                 "translate("+visuel.posx+" "+visuel.posy+") "
+                                  );
+                    }*/
+                   else if (visuel.ihm_affichage=="by_mode")
+                    { console.log ( "new by_mode at " + visuel.posx + " " + visuel.posy );
+                      visuel.svggroupe = trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      trame.add(visuel.svggroupe);
+                      visuel.svggroupe.add ( SVG_New_from_image ( trame, visuel.forme+"_"+visuel.mode+"."+visuel.extension ) );
+                      SVG_Update_matrice ( visuel );
+                    }
+                   else if (visuel.ihm_affichage=="by_color")
+                    { console.log ( "new by_color at " + visuel.posx + " " + visuel.posy );
+                      visuel.svggroupe = trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      trame.add(visuel.svggroupe);
+                      visuel.svggroupe.add ( SVG_New_from_image ( trame, visuel.forme+"_"+visuel.color+"."+visuel.extension ) );
+                      SVG_Update_matrice ( visuel );
+                    }
+                   else if (visuel.ihm_affichage=="by_mode_color")
+                    { console.log ( "new by_mode_color at " + visuel.posx + " " + visuel.posy );
+                      visuel.svggroupe = trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      trame.add(visuel.svggroupe);
+                      visuel.svggroupe.add ( SVG_New_from_image ( trame, visuel.forme+"_"+visuel.mode+"_"+visuel.color+"."+visuel.extension ) );
+                      SVG_Update_matrice ( visuel );
+                    }
+                   else if (visuel.ihm_affichage=="static")
+                    { console.log ( "new static at " + visuel.posx + " " + visuel.posy );
+                      visuel.svggroupe = trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      trame.add(visuel.svggroupe);
+                      visuel.svggroupe.add ( SVG_New_from_image ( trame, visuel.forme+"."+visuel.extension ) );
+                      SVG_Update_matrice ( visuel );
+                    }
+                   if (visuel.svggroupe !== undefined)
+                   { visuel.svggroupe.on ( "click", function (event) { Clic_sur_motif ( visuel, event ) }, false);
+                     visuel.svggroupe.on ( "mouseup", function (event) { Up_sur_motif( visuel, event ) }, false);
+                     /*svg.addEventListener ( "mouseleave", function (event) { Up_sur_motif( svg, event ) }, false);*/
+                     visuel.svggroupe.on ( "mousedown", function (event) { Down_sur_motif( visuel, event ) }, false);
+                     visuel.svggroupe.on ( "mousemove", function (event) { Move_sur_motif( visuel, event ) }, false);
+                   }
+                 }
+              );
+     } );
+return;
+var topsvg = document.getElementById("TopSVG");
     if (!topsvg) return;
     syn_id = id;
     while (topsvg.firstChild) { topsvg.removeChild(topsvg.firstChild); }
@@ -237,6 +353,23 @@
      };
     xhr.send();
     Charger_classe();
+  }
+
+/********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
+ function Atelier_Sauvegarder_synoptique ()
+  { var Motifs=[], Liens=[], Rectangles=[], Comments=[];
+    var request = { syn_id: Synoptique.syn_id,
+                    visuels: Synoptique.visuels.map( function ( visuel )
+                                                      { return ( { syn_motif_id: visuel.syn_motif_id,
+                                                                   tech_id: visuel.tech_id, acronyme: visuel.acronyme,
+                                                                   posx: visuel.posx, posy: visuel.posy, scale: visuel.scale,
+                                                                   angle: visuel.angle } );
+                                                      }
+                                                   ),
+                  };
+console.debug(request);
+    Send_to_API ( "POST", "/syn/save", request, function(Response)
+     { Show_toast_ok ( "Synoptique "+Synoptique.page+" enregistré"); }, null );
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Deselectionner ( )
@@ -397,17 +530,17 @@
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function svgPoint(element, x, y)
-  { var pt = document.getElementById("TopSVG").createSVGPoint();
+  { var pt = document.getElementById("idTrame").createSVGPoint();
     pt.x = x;
     pt.y = y;
     return pt.matrixTransform(element.getScreenCTM().inverse());
   }
 
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Down_sur_motif ( svg, event )
-  { console.log(" Down sur motif " + svg.motif.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
-    svg.motif.selected = true;
-
+ function Down_sur_motif ( visuel, event )
+  { console.log(" Down sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
+    visuel.selected = true;
+return;
     if (svg_selected != undefined)
      { console.log("svg_selected =" + svg_selected.motif);
        if (svg.motif.id != svg_selected.motif.id) Deselectionner();
@@ -432,112 +565,25 @@
 
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Move_sur_motif ( svg, event )
-  { if (svg.motif.selected)
-     { console.log(" Clic sur motif " + svg.motif.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
-       target = svgPoint ( document.getElementById("TopSVG"), event.clientX, event.clientY );
-       svg.motif.posx = target.x.toString();
-       svg.motif.posy = target.y.toString();
-       svg.UpdateSVGMatrix ();
+ function Move_sur_motif ( visuel, event )
+  { if (visuel.selected)
+     { console.log(" Move sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
+       trame = document.getElementById("idTrame");
+       var pt = trame.createSVGPoint();
+       pt.x = event.clientX;
+       pt.y = event.clientY;
+       var target = pt.matrixTransform(trame.getScreenCTM().inverse());
+       visuel.posx = target.x;
+       visuel.posy = target.y;
+       SVG_Update_matrice ( visuel );
      }
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Up_sur_motif ( svg, event )
-  { console.log(" Up sur motif " + svg.motif.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
-    svg.motif.selected = false;
+ function Up_sur_motif ( visuel, event )
+  { console.log(" Up sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
+    visuel.selected = false;
   }
 
-/********************************************* Prepare un objet SVG et l'affiche sur la page **********************************/
- function Load_Motif_to_canvas ( Motif )
-  {
-    var request = new XMLHttpRequest();                         /* Envoie une requete de récupération du SVG associé au motif */
-    request.open("GET", "https://icons.abls-habitat.fr/assets/gif/"+Motif.forme+".svg", true);
-    request.onreadystatechange = function()
-     { if (request.readyState == 4 && (request.status == 200 || request.status == 0))
-       { var svg = request.responseXML.documentElement;
-         svg.motif = Motif;                                                            /* Sauvegarde du pointeur Motif source */
-         if(Motif.icone==428) console.debug(Motif);
-         svg.setAttribute( "id", "WTD-motif-"+svg.motif.id );
-         svg.setAttribute( "class", "WTDControl_bit_" + Motif.bitctrl );                        /* Affectation du control bit */
-         svg.currentColor  = Motif.def_color;
-         svg.currentState  = 0;
-         svg.currentCligno = 0;
-         svg.UpdateSVGMatrix = function ()                                       /* Fonction de mise a jour du positionnement */
-           { var matrice="";                                                        /* Calcul de la matrice de transformation */
-             var centrex = this.width.baseVal.value/2;
-             var centrey = this.height.baseVal.value/2;
-             matrice = matrice + "translate("+ this.motif.posx +"," + this.motif.posy +") ";
-             matrice = matrice + "rotate("+ this.motif.angle + " 0 0) ";
-             matrice = matrice + "scale("+this.motif.scale+") ";                    /* Scale, puis rotation, puis translation */
-             matrice = matrice + "translate(-"+ centrex +",-" + centrey +") ";
-             this.setAttribute( "transform", matrice );                                          /* Affectation de la matrice */
-           };
-         svg.ChangeState = function ( state, color, cligno )                                 /* Fonction de changement d'etat */
-           { if (color==undefined) color=this.motif.def_color;
-             targets = this.getElementsByClassName('WTD-ActiveFillColor');
-             for (target of targets)
-              { var chg_matrice = { fill: [ this.currentColor, color ] };                            /* Matrice de changement */
-                var chg_timing  = { duration: 500, fill: 'forwards' };                                /* Timing de changement */
-                target.animate ( chg_matrice, chg_timing );                                                   /* Go Animate ! */
-              }
-             targets = this.getElementsByClassName('WTD-ActiveStrokeColor');
-             for (target of targets)
-              { var chg_matrice = { stroke: [ this.currentColor, color ] };                          /* Matrice de changement */
-                var chg_timing  = { duration: 500, fill: 'forwards' };                                /* Timing de changement */
-                target.animate ( chg_matrice, chg_timing );                                                   /* Go Animate ! */
-              }
-             this.currentColor = color;
-             this.ChangeCligno ( cligno );
-           }
-                                                                                       /* ajout des objects de clignottements */
-         var myanim=document.createElementNS("http://www.w3.org/2000/svg", 'animate');
-         myanim.setAttribute("id","fadeout");
-         myanim.setAttribute("class","WTD-animate");
-         myanim.setAttribute("attributeName","opacity");
-         myanim.setAttribute("from","1");
-         myanim.setAttribute("to","0.5");
-         myanim.setAttribute("dur","0.7s");
-         myanim.setAttribute("fill","freeze");
-         myanim.setAttribute("begin","indefinite");
-         myanim.addEventListener ( "end", function (event)
-                                     { svg.getElementById("fadein").beginElement(); }, false );
-         svg.appendChild(myanim);
-
-         var myanim=document.createElementNS("http://www.w3.org/2000/svg", 'animate');
-         myanim.setAttribute("id","fadein");
-         myanim.setAttribute("class","WTD-animate");
-         myanim.setAttribute("attributeName","opacity");
-         myanim.setAttribute("from","0.5");
-         myanim.setAttribute("to","1");
-         myanim.setAttribute("dur","0.3s");
-         myanim.setAttribute("fill","freeze");
-         myanim.addEventListener ( "end", function (event)
-                                     { if (svg.currentCligno==1) svg.getElementById("fadeout").beginElement(); }, false );
-         svg.appendChild(myanim);
-
-         svg.ChangeCligno = function ( cligno )
-           { if (cligno==this.currentCligno) return;
-             if (cligno==1)
-              { svg.currentCligno=1;
-                svg.getElementById("fadeout").beginElement();
-              }
-             else
-              { svg.currentCligno=0;
-              }
-           }
-                                                                                                  /* Connexion aux listeners  */
-         svg.addEventListener ( "click", function (event) { Clic_sur_motif ( svg ) }, false);
-         svg.addEventListener ( "mouseup", function (event) { Up_sur_motif( svg, event ) }, false);
-         /*svg.addEventListener ( "mouseleave", function (event) { Up_sur_motif( svg, event ) }, false);*/
-         svg.addEventListener ( "mousedown", function (event) { Down_sur_motif( svg, event ) }, false);
-         svg.addEventListener ( "mousemove", function (event) { Move_sur_motif( svg, event ) }, false);
-         svg.UpdateSVGMatrix();                     /* Mise a jour du SVG en fonction des parametres de positionnements Motif */
-         $("#TopSVG").append(svg);                                                            /* ajout du SVG dans le Top SVG */
-         setTimeout(function(){ svg.ChangeState ( 0, Motif.def_color, false ); }, 500);
-       }
-     };
-    request.send(null);
-  }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Change_lien_properties ()
   { svg_selected.lien.src_posx = document.getElementById("WTD-ctrl-panel-lien-x1").value;

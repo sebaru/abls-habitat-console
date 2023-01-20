@@ -100,5 +100,6 @@
   </div>
 </div>
 
+</div> <!-- container -->
 
 <script src="/js/synoptiques.js" type="text/javascript"></script>
