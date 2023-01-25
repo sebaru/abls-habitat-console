@@ -292,7 +292,7 @@
                    if (visuel.svggroupe !== undefined)
                    { visuel.svggroupe.on ( "click", function (event) { Clic_sur_motif ( visuel, event ) }, false);
                      visuel.svggroupe.on ( "mouseup", function (event) { Up_sur_motif( visuel, event ) }, false);
-                     /*svg.addEventListener ( "mouseleave", function (event) { Up_sur_motif( svg, event ) }, false);*/
+                     visuel.svggroupe.on ( "mouseleave", function (event) { Up_sur_motif( visuel, event ) }, false);
                      visuel.svggroupe.on ( "mousedown", function (event) { Down_sur_motif( visuel, event ) }, false);
                      visuel.svggroupe.on ( "mousemove", function (event) { Move_sur_motif( visuel, event ) }, false);
                    }
@@ -529,16 +529,20 @@ console.debug(request);
     svg_selected.UpdateSVGMatrix();
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function svgPoint(element, x, y)
-  { var pt = document.getElementById("idTrame").createSVGPoint();
+ function SvgScreen_to_SVGPoint(x, y)
+  { var trame = document.getElementById("idTrame");
+    var pt = trame.createSVGPoint();
     pt.x = x;
     pt.y = y;
-    return pt.matrixTransform(element.getScreenCTM().inverse());
+    return pt.matrixTransform(trame.getScreenCTM().inverse());
   }
 
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Down_sur_motif ( visuel, event )
   { console.log(" Down sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
+    var clic = SvgScreen_to_SVGPoint ( event.clientX, event.clientY );
+    visuel.clic_posx = clic.x;
+    visuel.clic_posy = clic.y;
     visuel.selected = true;
 return;
     if (svg_selected != undefined)
@@ -568,13 +572,12 @@ return;
  function Move_sur_motif ( visuel, event )
   { if (visuel.selected)
      { console.log(" Move sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
-       trame = document.getElementById("idTrame");
-       var pt = trame.createSVGPoint();
-       pt.x = event.clientX;
-       pt.y = event.clientY;
-       var target = pt.matrixTransform(trame.getScreenCTM().inverse());
-       visuel.posx = target.x;
-       visuel.posy = target.y;
+       var pos = SvgScreen_to_SVGPoint ( event.clientX, event.clientY );
+       visuel.posx += pos.x - visuel.clic_posx;
+       visuel.posy += pos.y - visuel.clic_posy;
+       visuel.clic_posx = pos.x;
+       visuel.clic_posy = pos.y;
+       console.log ( "new posx " + visuel.posx + " : " + visuel.posy );
        SVG_Update_matrice ( visuel );
      }
   }
