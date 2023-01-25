@@ -163,25 +163,18 @@
 
     console.log("------------------------------ Chargement synoptique "+syn_page);
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
-     { console.log(Response);
+     { $("#idAtelierTitle").text( Response.page );
+       console.log(Response);
        Synoptique = Response;                                                                       /* sauvegarde du pointeur */
        $.each ( Response.visuels, function (i, visuel)
-                 { /*if (visuel.forme == null)
-                    { /*var new_svg = svg.append ("g").attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      new_svg.node().setAttribute( "transform-origin", visuel.posx+" "+visuel.posy );
-                      new_svg.append ( "image" ).attr("href", "https://static.abls-habitat.fr/img/"+visuel.icone+".gif" )
-                                       .on( "load", function ()
-                                         { console.log("loaded");
-                                           var dimensions = this.getBBox();
-                                           var orig_x = (visuel.posx-dimensions.width/2);
-                                           var orig_y = (visuel.posy-dimensions.height/2);
-                                           new_svg.attr( "transform", "rotate("+visuel.angle+") "+
-                                                                      "scale("+(visuel.larg/dimensions.width)+" "+(visuel.haut/dimensions.height)+") "+
-                                                                      "translate("+orig_x+" "+orig_y+") "
-                                                       );
-                               } );
+                 { if (visuel.forme == null)
+                    { console.log ( "new null at " + visuel.posx + " " + visuel.posy );
+                      visuel.svggroupe = trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      trame.add(visuel.svggroupe);
+                      visuel.svggroupe.add ( SVG_New_from_image ( trame, visuel.icone+".gif" ) );
+                      SVG_Update_matrice ( visuel );
                     }
-                   else */if (visuel.ihm_affichage=="complexe" && visuel.forme=="bouton")
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="bouton")
                     { var button = $("<button>").css("position", "absolute").addClass("btn btn-sm")
                                                 .css("left", visuel.posx).css("top", visuel.posy)
                                                 .css("translate", "-50% -50%")
@@ -249,7 +242,7 @@
                          weight = "normal";
                        }
 
-                      var texte = SVG_New_from_texte ( visuel.libelle );
+                      var texte = SVG_New_from_texte ( trame, visuel.libelle );
                       texte.attr("font-size", size).attr("font-family", family + ",serif" )
                            .attr("font-style", style ).attr("font-weight", weight )
                            .attr("fill", visuel.color ).attr("stroke", visuel.color )
