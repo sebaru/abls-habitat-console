@@ -139,6 +139,11 @@
     return( svgimage );
   }
 /*************************************** Met à jour la matrice de transformation **********************************************/
+ function SVG_New_from_texte ( trame, texte )
+  { var svgtext = trame.text( texte );
+    return( svgtext );
+  }
+/*************************************** Met à jour la matrice de transformation **********************************************/
  function SVG_Update_matrice ( visuel )
   { visuel.svggroupe.transform ( { scale: visuel.scale, translate: [visuel.posx, visuel.posy],
                                    rotate: visuel.angle, origin: 'center center' } );
@@ -189,10 +194,11 @@
                       else button.addClass("btn-outline-dark").attr("disabled", '');
                       console.debug(button);
                       $("#idSectionHeavySyn").append ( button );
-                    }/*
+                    }
                    else if (visuel.ihm_affichage=="complexe" && visuel.forme=="encadre")
-                    { var new_svg = svg.append ("g").attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      new_svg.node().setAttribute( "transform-origin", visuel.posx+" "+visuel.posy );
+                    { console.log ( "new encadre " + visuel.posx + " " + visuel.posy );
+                      visuel.svggroupe = trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      trame.add(visuel.svggroupe);
 
                       var dimensions = visuel.mode.split('x');
                       console.log("Encadre : dimensions");
@@ -203,28 +209,23 @@
                       var hauteur=64*parseInt(dimensions[0]);
                       var largeur=64*parseInt(dimensions[1]);
 
-                      new_svg.append ( "text" ).attr("x", (largeur+10)/2 ).attr("y", 12 )
-                                               .attr("text-anchor", "middle")
-                                               .attr("font-size", "14" )
-                                               .attr("font-family", "Sans" )
-                                               .attr("font-style", "italic" )
-                                               .attr("font-weight", "normal" )
-                                               .attr("fill", visuel.color )
-                                               .attr("stroke", visuel.color )
-                                               .text(visuel.libelle);
+                      var titre = SVG_New_from_texte ( trame, visuel.libelle );
+                      titre.attr("x", (largeur+10)/2 ).attr("y", 12 )
+                           .attr("text-anchor", "middle")
+                           .attr("font-size", "14" )
+                           .attr("font-family", "Sans" )
+                           .attr("font-style", "italic" )
+                           .attr("font-weight", "normal" )
+                           .attr("fill", visuel.color )
+                           .attr("stroke", visuel.color );
+                      visuel.svggroupe.add ( titre );
 
-                      new_svg.append ( "rect" ).attr("x", 5 ).attr("y", 20 ).attr("rx", 15)
-                                               .attr("width", largeur)
-                                               .attr("height", hauteur )
-                                               .attr("fill", "none" )
-                                               .attr("stroke-width", 4 )
-                                               .attr("stroke", visuel.color );
-                      new_svg.attr( "transform", "rotate("+visuel.angle+") "+
-                                                 "scale("+visuel.scale+") "+
-                                                 "translate("+visuel.posx+" "+visuel.posy+") "
-                                  );
+                      var rect = trame.rect( largeur, hauteur ).attr("x", 5 ).attr("y", 20 ).attr("rx", 15)
+                                      .attr("fill", "none" ).attr("stroke-width", 4 ).attr("stroke", visuel.color );
+                      visuel.svggroupe.add ( rect );
+                      SVG_Update_matrice ( visuel );
                      }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment")
+                   /*else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment")
                     { var new_svg = svg. append ("g").attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
                       new_svg.node().setAttribute( "transform-origin", visuel.posx+" "+visuel.posy );
                       var size, family, style, weight;
