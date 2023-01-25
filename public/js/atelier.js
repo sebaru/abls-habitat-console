@@ -225,11 +225,12 @@
                       visuel.svggroupe.add ( rect );
                       SVG_Update_matrice ( visuel );
                      }
-                   /*else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment")
-                    { var new_svg = svg. append ("g").attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      new_svg.node().setAttribute( "transform-origin", visuel.posx+" "+visuel.posy );
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment")
+                    { console.log ( "new encadre " + visuel.posx + " " + visuel.posy );
+                      visuel.svggroupe = trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
+                      trame.add(visuel.svggroupe);
                       var size, family, style, weight;
-                      if ( visuel.mode=="titre" )
+                      if ( visuel.mode == "titre" )
                        { size = 32;
                          family = "Sans";
                          style  = "italic";
@@ -248,20 +249,14 @@
                          weight = "normal";
                        }
 
-                      new_svg.append ( "text" ).attr("font-size", size)
-                                               .attr("font-family", family + ",serif" )
-                                               .attr("font-style", style )
-                                               .attr("font-weight", weight )
-                                               .attr("fill", visuel.color )
-                                               .attr("stroke", visuel.color )
-                                               .attr("dominant-baseline", "middle")
-                                               .attr("text-anchor", "middle")
-                                               .text(visuel.libelle);
-                      new_svg.attr( "transform", "rotate("+visuel.angle+") "+
-                                                 "scale("+visuel.scale+") "+
-                                                 "translate("+visuel.posx+" "+visuel.posy+") "
-                                  );
-                    }*/
+                      var texte = SVG_New_from_texte ( visuel.libelle );
+                      texte.attr("font-size", size).attr("font-family", family + ",serif" )
+                           .attr("font-style", style ).attr("font-weight", weight )
+                           .attr("fill", visuel.color ).attr("stroke", visuel.color )
+                           .attr("dominant-baseline", "middle").attr("text-anchor", "middle");
+                      visuel.svggroupe.add ( texte );
+                      SVG_Update_matrice ( visuel );
+                    }
                    else if (visuel.ihm_affichage=="by_mode")
                     { console.log ( "new by_mode at " + visuel.posx + " " + visuel.posy );
                       visuel.svggroupe = trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
