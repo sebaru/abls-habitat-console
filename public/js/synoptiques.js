@@ -188,7 +188,7 @@
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  if (item.mode_affichage==true) boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", '/atelier/'+item.syn_id, "image", null );
+                  if (item.mode_affichage==true) boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", '/atelier/'+item.page, "image", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Configurer", "SYN_Edit", item.syn_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line", null );
