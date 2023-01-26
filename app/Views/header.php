@@ -30,7 +30,6 @@
         .wtd-synoptique-preview { height: 80px; }
         .wtd-img-bit-interne { width: 40px; }
         .wtd-img-card { object-fit: contain; max-height: 196px; max-width: 196px; padding: 10px; }
-
       </style>
 
       <script>

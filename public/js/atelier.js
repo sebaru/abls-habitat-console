@@ -153,13 +153,10 @@
   {
     $("#idSectionHeavySyn").empty().css("position","relative");
     var trame = SVG().addTo("#idSectionHeavySyn").attr("id", "idTrame")
-                     .attr("viewbox", "0 0 1200 1024")
-                     .attr("preserveAspectRatio", "xMinYMin meet")
+                     .attr("viewBox", "0 0 1920 1080")
+                     .attr("preserveAspectRatio", "xMidYMid meet")
                      .addClass("border border-success")
-                     .css("background-color", "darkgray")
-                     .css("width", "100vw")
-                     .css("height", "100vh")
-                     .css("position", "relative");
+                     .css("background-color", "darkgray");
 
     console.log("------------------------------ Chargement synoptique "+syn_page);
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
