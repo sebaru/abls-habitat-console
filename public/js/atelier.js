@@ -159,6 +159,18 @@
                  .addClass("border border-success")
                  .css("background-color", "darkgray");
 
+    Trame.new_cadran = function ( cadran )
+     { console.log ( "new cadran " + cadran.forme + " " + cadran.tech_id + ":" + cadran.acronyme + " " + cadran.posx + "x" + cadran.posy );
+       cadran.svggroupe = Trame.group().attr("id", "wtd-visu-"+cadran.tech_id+"-"+cadran.acronyme);
+       Trame.add(cadran.svggroupe);
+       var rectangle = Trame.rect ( 110, 30 ).cx(0).cy(0).attr("rx", 10).fill("gray" ).stroke({ width:1, color:"lightgreen" });
+       cadran.svggroupe.add ( rectangle );
+
+       var texte = SVG_New_from_texte ( "- cadran -" ).cx(0).cy(0).font ( { family: "arial", size:14, anchor: "middle", variant:"italic" } );
+       cadran.svggroupe.add ( texte );
+       SVG_Update_matrice ( cadran );
+     }
+
     console.log("------------------------------ Chargement synoptique "+syn_page);
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
      { $("#idAtelierTitle").text( Response.page );
@@ -284,63 +296,14 @@
                    }
                  }
               );
+       $.each ( Response.cadrans, function (i, cadran)
+                 { Trame.new_cadran ( cadran );
+                   if (cadran.svggroupe !== undefined)
+                    { cadran.svggroupe.on ( "click", function (event) { Clic_sur_motif ( cadran, event ) }, false); }
+                 }
+              );
      } );
-return;
-var topsvg = document.getElementById("TopSVG");
-    if (!topsvg) return;
-    syn_id = id;
-    while (topsvg.firstChild) { topsvg.removeChild(topsvg.firstChild); }
-    /*var listpass = document.getElementById("liste_passerelles");
-    while (listpass.firstChild) { listpass.removeChild(listpass.firstChild); }*/
-    var xhr = new XMLHttpRequest;
-    xhr.open('get', "/api/syn/show/" + id, true);
-    xhr.onreadystatechange = function()
-     { if ( ! (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) ) return;
-       var Response = JSON.parse(xhr.responseText);                                         /* Pointe sur <synoptique a=1 ..> */
-
-       console.log("Traite motifs: "+Response.motifs.length);
-       for (var i = 0; i < Response.motifs.length; i++)                          /* Pour chacun des motifs, parsing un par un */
-        { var motif = Response.motifs[i];
-          Load_Motif_to_canvas ( motif );
-        }
-
-       /*var listpass = document.getElementById("liste_passerelles");                                 /* Pour chaque passerelle */
-       /*var button = document.createElement('button');
-       button.setAttribute( "class", "btn btn-primary" );
-       button.innerHTML = "Accueil";
-       button.onclick = function() { Charger_syn(1); }
-       listpass.appendChild(button);
-/*       for (var i = 0; i < Response.passerelles.length; i++)                       /* Pour chacun des motifs, parsing un par un */
-/*        { var passerelle = Response.passerelles[i];
-          var button = document.createElement('button');
-          button.setAttribute( "class", "btn btn-secondary" );
-          button.innerHTML = passerelle.page;
-          button.onclick = function() { Charger_syn(passerelle.syn_cible_id); }
-          listpass.appendChild(button);
-        }*/
-
-       console.log("Traite Lien: "+Response.liens.length);
-       for (var i = 0; i < Response.liens.length; i++)                            /* Pour chacun des liens, parsing un par un */
-        { var lien = Response.liens[i];
-          Load_Lien_to_canvas(lien);
-        }
-
-       console.log("Traite Rectangle: "+Response.rectangles.length);
-       for (var i = 0; i < Response.rectangles.length; i++)                            /* Pour chacun des liens, parsing un par un */
-        { var rectangle = Response.rectangles[i];
-          Load_Rectangle_to_canvas(rectangle);
-        }
-
-       console.log("Traite Comments: "+Response.comments.length);
-       for (var i = 0; i < Response.comments.length; i++)                            /* Pour chacun des liens, parsing un par un */
-        { var comment = Response.comments[i];
-          Load_Comment_to_canvas(comment);
-        }
-     };
-    xhr.send();
-    Charger_classe();
   }
-
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Atelier_Sauvegarder_synoptique ()
   { var Motifs=[], Liens=[], Rectangles=[], Comments=[];
@@ -350,6 +313,13 @@ var topsvg = document.getElementById("TopSVG");
                                                                    tech_id: visuel.tech_id, acronyme: visuel.acronyme,
                                                                    posx: visuel.posx, posy: visuel.posy, scale: visuel.scale,
                                                                    angle: visuel.angle } );
+                                                      }
+                                                   ),
+                    cadrans: Synoptique.cadrans.map( function ( cadran )
+                                                      { return ( { syn_cadran_id: cadran.syn_cadran_id,
+                                                                   tech_id: cadran.tech_id, acronyme: cadran.acronyme,
+                                                                   posx: cadran.posx, posy: cadran.posy, scale: cadran.scale,
+                                                                   angle: cadran.angle } );
                                                       }
                                                    ),
                   };
@@ -398,7 +368,7 @@ console.debug(request);
     if (visuel.selected != true)
      { console.log("add poignee");
        visuel.selected = true;
-       visuel.svgpoignee = Trame.circle( 40 ).attr("cx", 0 ).attr("cy", 0 )
+       visuel.svgpoignee = Trame.circle( 60 ).attr("cx", 0 ).attr("cy", 0 )
                                 .attr("fill", "lightblue" ).attr("fill-opacity", "0.5" )
                                 .attr("stroke-dasharray", "5 5").attr("stroke-width", 2 ).attr("stroke-linecap", "round")
                                 .attr("stroke", "black" ).attr("stroke-opacity", "1" )
@@ -416,8 +386,8 @@ console.debug(request);
  function Move_sur_poignee ( visuel, event )
   { console.log(" Move sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
     var pos = SvgScreen_to_SVGPoint ( event.clientX, event.clientY );
-    visuel.posx = pos.x;
-    visuel.posy = pos.y;
+    visuel.posx = Math.trunc(pos.x);
+    visuel.posy = Math.trunc(pos.y);
     console.log ( "new posx " + visuel.posx + " : " + visuel.posy );
     SVG_Update_matrice ( visuel );
   }
