@@ -9,8 +9,14 @@
    </div>
  </div>
 
-			<section id="idSectionHeavySyn" class="row justify-content-center mx-1">
-			</section>
+
+ <div class="row mx-1">
+			<section id="idSectionHeavySyn" class="col justify-content-center">	</section>
+   <div class="col-2 shadow">
+     <label>Selection</label> <input id="idSelection" type="text" class="form-control" disabled>
+     <label>Position</label>  <input id="idPosition"  type="text" class="form-control" disabled>
+   </div>
+ </div>
 
 
 <!-- Container -->

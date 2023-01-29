@@ -42,10 +42,7 @@
 
                    if (visuel.svggroupe !== undefined)
                    { visuel.svggroupe.on ( "click", function (event) { Clic_sur_motif ( visuel, event ) }, false);
-                     /*visuel.svggroupe.on ( "mouseup", function (event) { Up_sur_motif( visuel, event ) }, false);
-                     visuel.svggroupe.on ( "mouseleave", function (event) { Up_sur_motif( visuel, event ) }, false);
-                     visuel.svggroupe.on ( "mousedown", function (event) { Down_sur_motif( visuel, event ) }, false);
-                     visuel.svggroupe.on ( "mousemove", function (event) { Move_sur_motif( visuel, event ) }, false);*/
+                     visuel.svggroupe.on ( "mousemove", function () { Update_parametre_selection ( visuel ); } );
                    }
                  }
               );
@@ -142,7 +139,12 @@ console.debug(request);
     visuel.posx = Math.trunc(pos.x);
     visuel.posy = Math.trunc(pos.y);
     console.log ( "new posx " + visuel.posx + " : " + visuel.posy );
-    SVG_Update_matrice ( visuel );
+    Trame.update_matrice ( visuel );
+  }
+/********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
+ function Update_parametre_selection ( visuel )
+  { $("#idSelection").val(visuel.tech_id+":"+visuel.acronyme);
+    $("#idPosition") .val("x:" + visuel.posx+", y:"+visuel.posy);
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Change_lien_properties ()
