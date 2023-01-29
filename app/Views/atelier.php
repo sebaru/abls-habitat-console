@@ -17,5 +17,6 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.1.2/svg.min.js" type="text/javascript"></script>
+<script src="/js/trame.js" type="text/javascript"></script>
 <script src="/js/atelier.js" type="text/javascript"></script>
 

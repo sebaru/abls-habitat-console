@@ -30,6 +30,7 @@
         .wtd-synoptique-preview { height: 80px; }
         .wtd-img-bit-interne { width: 40px; }
         .wtd-img-card { object-fit: contain; max-height: 196px; max-width: 196px; padding: 10px; }
+        .wtd-darker-on-hover:hover { filter: brightness(80%); transition: 0.5s; }
       </style>
 
       <script>

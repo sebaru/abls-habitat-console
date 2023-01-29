@@ -7,169 +7,10 @@
     console.debug(vars);
     Charger_syn ( vars[2] );
 	 }
-
- var svg_selected;
-
- var Div_Ctrl_panel_Motif=
-       '<div class="row">'+
-       '  <label class="col-4 col-form-label-sm">Posx</label>'+
-       '  <input id="WTD-ctrl-panel-motif-posx" class="form-control-sm col-8" type="number" min="0" step="10" onchange="Change_motif_properties()"/>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-4 col-form-label-sm">Posy</label>'+
-       '  <input id="WTD-ctrl-panel-motif-posy" class="form-control-sm col-8" type="number" min="0" step="10" onchange="Change_motif_properties()"/>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-4 col-form-label-sm">Scale</label>'+
-       '  <input id="WTD-ctrl-panel-motif-scale" class="form-control-sm col-8" type="number" min="0.2" max="5" step="0.1" onchange="Change_motif_properties()"/> </div>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-4 col-form-label-sm">Angle</label>'+
-       '  <input id="WTD-ctrl-panel-motif-angle" class="form-control-sm col-8" type="number" min="0" max="360" step="5" onchange="Change_motif_properties()"/> </div>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-6 col-form-label-sm">Default Color</label>'+
-       '  <input id="WTD-ctrl-panel-motif-color" class="form-control-sm col-6" type="color" onchange="Change_motif_properties()"/> </div>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-6 col-form-label-sm">Ctrl Tech_id</label>'+
-       '  <input id="WTD-ctrl-panel-motif-tech-id" class="form-control-sm col-6" onchange="Change_motif_properties()"/> </div>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-6 col-form-label-sm">Ctrl Acronyme</label>'+
-       '  <input id="WTD-ctrl-panel-motif-acronyme" class="form-control-sm col-6" onchange="Change_motif_properties()"/> </div>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-6 col-form-label-sm">Clic Tech_id</label>'+
-       '  <input id="WTD-ctrl-panel-motif-clic-tech-id" class="form-control-sm col-6" onchange="Change_motif_properties()"/> </div>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-6 col-form-label-sm">Clic Acronyme</label>'+
-       '  <input id="WTD-ctrl-panel-motif-clic-acronyme" class="form-control-sm col-6" onchange="Change_motif_properties()"/> </div>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-6 col-form-label-sm">Access Level</label>'+
-       '  <input id="WTD-ctrl-panel-motif-access-level" class="form-control-sm col-6" type="number" min="0" max="9" step="1" onchange="Change_motif_properties()"/> </div>'+
-       '</div>'+
-
-       '<div class="row">'+
-       '  <label class="col-4 col-form-label-sm">Libellé</label>'+
-       '  <input id="WTD-ctrl-panel-motif-libelle" class="form-control-sm col-8" onchange="Change_motif_properties()"/> </div>'+
-       '</div>';
- var Div_Ctrl_panel_Lien=
-       '<div class="col-sd-1"><label>Src_Posx</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-lien-x1" type="number" min="0" step="10" onchange="Change_lien_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Src_Posy</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-lien-y1" type="number" min="0" step="10" onchange="Change_lien_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Dst_Posx</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-lien-x2" type="number" min="0" step="10" onchange="Change_lien_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Dst_Posy</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-lien-y2" type="number" min="0" step="10" onchange="Change_lien_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Stroke</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-lien-stroke" type="color" onchange="Change_lien_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>StrokeWidth</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-lien-stroke-width" type="number" min="1" max="15" step="1" onchange="Change_lien_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>DashArray</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-lien-stroke-dasharray" onchange="Change_lien_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Linecap</label></div>'+
-       '<div class="col-sd-1"><select id="WTD-ctrl-panel-lien-stroke-linecap" onchange="Change_lien_properties()"/>'+
-                              '<option value="butt">Normal</option>'+
-                              '<option value="round">Arrondi</option>'+
-                              '<option value="square">Carré</option>'+
-                              '</select></div>'+
-       '<div class="col-sd-1"><label>Control Tech_id</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-lien-tech-id" onchange="Change_lien_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Control Acronyme</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-lien-acronyme" onchange="Change_lien_properties()"/> </div>';
- var Div_Ctrl_panel_Rectangle=
-       '<div class="col-sd-1"><label>Posx</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-posx" type="number" min="0" step="10" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Posy</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-posy" type="number" min="0" step="10" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Width</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-width" type="number" min="5" step="5" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Height</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-height" type="number" min="5" step="5" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Rx</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-rx" type="number" min="0" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Ry</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-ry" type="number" min="0" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Default color</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-def-color" type="color" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Stroke</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-stroke" type="color" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>StrokeWidth</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-stroke-width" type="number" min="1" max="15" step="1" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>DashArray</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-stroke-dasharray" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Control Tech_id</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-tech-id" onchange="Change_rectangle_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Control Acronyme</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-rectangle-acronyme" onchange="Change_rectangle_properties()"/> </div>';
- var Div_Ctrl_panel_Comment=
-       '<div class="col-sd-1"><label>Libellé</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-comment-libelle" type="text" onchange="Change_comment_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Posx</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-comment-posx" type="number" min="0" step="10" onchange="Change_comment_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Posy</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-comment-posy" type="number" min="0" step="10" onchange="Change_comment_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Couleur</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-comment-def-color" type="color" onchange="Change_comment_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Angle</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-comment-angle" type="number" min="0" max="360" step="5" onchange="Change_comment_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Font Family</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-comment-font-family" onchange="Change_comment_properties()"/> </div>'+
-       '<div class="col-sd-1"><label>Font size</label></div>'+
-       '<div class="col-sd-1"><input id="WTD-ctrl-panel-comment-font-size" type="number" min="10" max="100" step="5" onchange="Change_comment_properties()"/> </div>';
-
-/*************************************** Met à jour la matrice de transformation **********************************************/
- function SVG_New_from_image ( image_filename )
-  { var svgimage = Trame.image( "https://static.abls-habitat.fr/img/"+image_filename, function(event)
-                                 { this.dx ( -this.width()/2 );
-                                   this.dy ( -this.height()/2 );
-                                 } );
-    return( svgimage );
-  }
-/*************************************** Met à jour la matrice de transformation **********************************************/
- function SVG_New_from_texte ( texte )
-  { var svgtext = Trame.text( texte ).font( 'anchor', 'middle' );
-    return( svgtext );
-  }
-/*************************************** Met à jour la matrice de transformation **********************************************/
- function SVG_Update_matrice ( visuel )
-  { visuel.svggroupe.transform ( { scale: visuel.scale, translate: [visuel.posx, visuel.posy],
-                                   rotate: visuel.angle, origin: 'center center' } );
-  }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Charger_syn ( syn_page )
   {
-    $("#idSectionHeavySyn").empty().css("position","relative");
-    Trame = SVG().addTo("#idSectionHeavySyn").attr("id", "idTrame")
-                 .attr("viewBox", "0 0 1920 1080")
-                 .attr("preserveAspectRatio", "xMidYMid meet")
-                 .addClass("border border-success")
-                 .css("background-color", "darkgray");
-
-    Trame.new_cadran = function ( cadran )
-     { console.log ( "new cadran " + cadran.forme + " " + cadran.tech_id + ":" + cadran.acronyme + " " + cadran.posx + "x" + cadran.posy );
-       cadran.svggroupe = Trame.group().attr("id", "wtd-visu-"+cadran.tech_id+"-"+cadran.acronyme);
-       Trame.add(cadran.svggroupe);
-       var rectangle = Trame.rect ( 110, 30 ).cx(0).cy(0).attr("rx", 10).fill("gray" ).stroke({ width:1, color:"lightgreen" });
-       cadran.svggroupe.add ( rectangle );
-
-       var texte = SVG_New_from_texte ( "- cadran -" ).cx(0).cy(0).font ( { family: "arial", size:14, anchor: "middle", variant:"italic" } );
-       cadran.svggroupe.add ( texte );
-       SVG_Update_matrice ( cadran );
-     }
+    Trame = Trame_new ("idSectionHeavySyn");
 
     console.log("------------------------------ Chargement synoptique "+syn_page);
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
@@ -185,108 +26,20 @@
                       SVG_Update_matrice ( visuel );
                     }
                    else if (visuel.ihm_affichage=="complexe" && visuel.forme=="bouton")
-                    { var button = $("<button>").css("position", "absolute").addClass("btn btn-sm")
-                                                .css("left", visuel.posx).css("top", visuel.posy)
-                                                .css("translate", "-50% -50%")
-                                                .append( visuel.libelle )
-                           if (visuel.color=="blue")   button.addClass("btn-primary");
-                      else if (visuel.color=="orange") button.addClass("btn-warning");
-                      else if (visuel.color=="gray")   button.addClass("btn-secondary");
-                      else if (visuel.color=="red")    button.addClass("btn-danger");
-                      else if (visuel.color=="green")  button.addClass("btn-success");
-                      else button.addClass("btn-outline-dark").attr("disabled", '');
-                      console.debug(button);
-                      $("#idSectionHeavySyn").append ( button );
-                    }
+                    { Trame.new_button ( visuel ); }
                    else if (visuel.ihm_affichage=="complexe" && visuel.forme=="encadre")
-                    { console.log ( "new encadre " + visuel.posx + " " + visuel.posy );
-                      visuel.svggroupe = Trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      Trame.add(visuel.svggroupe);
-
-                      var dimensions = visuel.mode.split('x');
-                      console.log("Encadre : dimensions");
-                      console.debug(dimensions);
-                      if (!dimensions[0]) dimensions[0] = 1;
-                      if (!dimensions[1]) dimensions[1] = 1;
-
-                      var hauteur=64*parseInt(dimensions[0]);
-                      var largeur=64*parseInt(dimensions[1]);
-
-                      var titre = SVG_New_from_texte ( visuel.libelle );
-                      titre.cx(0).cy(-hauteur/2 -20 )
-                           .attr("font-size", "14" )
-                           .attr("font-family", "Sans" )
-                           .attr("font-style", "italic" )
-                           .attr("font-weight", "normal" )
-                           .attr("fill", visuel.color )
-                           .attr("stroke", visuel.color );
-                      visuel.svggroupe.add ( titre );
-
-                      var rect = Trame.rect( largeur, hauteur ).x(-largeur/2).y(-hauteur/2).attr("rx", 15)
-                                      .attr("fill", "none" ).attr("stroke-width", 4 ).attr("stroke", visuel.color );
-                      visuel.svggroupe.add ( rect );
-                      SVG_Update_matrice ( visuel );
-                     }
+                    { Trame.new_encadre ( visuel ); }
                    else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment")
-                    { console.log ( "new encadre " + visuel.posx + " " + visuel.posy );
-                      visuel.svggroupe = Trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      Trame.add(visuel.svggroupe);
-                      var size, family, style, weight;
-                      if ( visuel.mode == "titre" )
-                       { size = 32;
-                         family = "Sans";
-                         style  = "italic";
-                         weight = "normal";
-                       }
-                      else if ( visuel.mode =="soustitre" )
-                       { size = 24;
-                         family = "Sans";
-                         style  = "italic";
-                         weight = "normal";
-                       }
-                      else
-                       { size   = 14;
-                         family = "Sans";
-                         style  = "italic";
-                         weight = "normal";
-                       }
-
-                      var texte = SVG_New_from_texte ( visuel.libelle );
-                      texte.attr("font-size", size).attr("font-family", family + ",serif" )
-                           .attr("font-style", style ).attr("font-weight", weight )
-                           .attr("fill", visuel.color ).attr("stroke", visuel.color )
-                           .x(0).y(0);
-                      visuel.svggroupe.add ( texte );
-                      SVG_Update_matrice ( visuel );
-                    }
+                    { Trame.new_comment ( visuel ); }
                    else if (visuel.ihm_affichage=="by_mode")
-                    { console.log ( "new by_mode at " + visuel.posx + " " + visuel.posy );
-                      visuel.svggroupe = Trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      Trame.add(visuel.svggroupe);
-                      visuel.svggroupe.add ( SVG_New_from_image ( visuel.forme+"_"+visuel.mode+"."+visuel.extension ) );
-                      SVG_Update_matrice ( visuel );
-                    }
+                    { Trame.new_from_image( visuel, visuel.forme+"_"+visuel.mode+"."+visuel.extension ); }
                    else if (visuel.ihm_affichage=="by_color")
-                    { console.log ( "new by_color at " + visuel.posx + " " + visuel.posy );
-                      visuel.svggroupe = Trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      Trame.add(visuel.svggroupe);
-                      visuel.svggroupe.add ( SVG_New_from_image ( visuel.forme+"_"+visuel.color+"."+visuel.extension ) );
-                      SVG_Update_matrice ( visuel );
-                    }
+                    { Trame.new_from_image( visuel, visuel.forme+"_"+visuel.color+"."+visuel.extension ); }
                    else if (visuel.ihm_affichage=="by_mode_color")
-                    { console.log ( "new by_mode_color at " + visuel.posx + " " + visuel.posy );
-                      visuel.svggroupe = Trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      Trame.add(visuel.svggroupe);
-                      visuel.svggroupe.add ( SVG_New_from_image ( visuel.forme+"_"+visuel.mode+"_"+visuel.color+"."+visuel.extension ) );
-                      SVG_Update_matrice ( visuel );
-                    }
+                    { Trame.new_from_image( visuel, visuel.forme+"_"+visuel.mode+"_"+visuel.color+"."+visuel.extension ); }
                    else if (visuel.ihm_affichage=="static")
-                    { console.log ( "new static at " + visuel.posx + " " + visuel.posy );
-                      visuel.svggroupe = Trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      Trame.add(visuel.svggroupe);
-                      visuel.svggroupe.add ( SVG_New_from_image ( visuel.forme+"."+visuel.extension ) );
-                      SVG_Update_matrice ( visuel );
-                    }
+                    { Trame.new_from_image( visuel, visuel.forme+"."+visuel.extension ); }
+
                    if (visuel.svggroupe !== undefined)
                    { visuel.svggroupe.on ( "click", function (event) { Clic_sur_motif ( visuel, event ) }, false);
                      /*visuel.svggroupe.on ( "mouseup", function (event) { Up_sur_motif( visuel, event ) }, false);
