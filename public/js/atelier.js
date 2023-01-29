@@ -11,7 +11,6 @@
  function Charger_syn ( syn_page )
   {
     Trame = Trame_new ("idSectionHeavySyn");
-
     console.log("------------------------------ Chargement synoptique "+syn_page);
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
      { $("#idAtelierTitle").text( Response.page );
@@ -111,7 +110,6 @@ console.debug(request);
     pt.y = y;
     return pt.matrixTransform(trame.getScreenCTM().inverse());
   }
-
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Clic_sur_motif ( visuel, event )
   { console.log(" Down sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY + " selected=" + visuel.selected );
@@ -141,10 +139,26 @@ console.debug(request);
     console.log ( "new posx " + visuel.posx + " : " + visuel.posy );
     Trame.update_matrice ( visuel );
   }
+/********************************************* Appeler quand on change le scale ***********************************************/
+ function Changer_scale ( visuel )
+  { visuel.scale = parseFloat($("#idScale").val());
+    console.log(" Change Scale sur motif " + visuel.libelle + " scale = " + visuel.scale );
+    Trame.update_matrice ( visuel );
+  }
+/********************************************* Appeler quand on change l'angle ************************************************/
+ function Changer_angle ( visuel )
+  { visuel.angle = $("#idAngle").val();
+    console.log(" Change Angle sur motif " + visuel.libelle + " angle = " + visuel.angle );
+    Trame.update_matrice ( visuel );
+  }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Update_parametre_selection ( visuel )
   { $("#idSelection").val(visuel.tech_id+":"+visuel.acronyme);
     $("#idPosition") .val("x:" + visuel.posx+", y:"+visuel.posy);
+    $("#idScale") .val(visuel.scale);
+    $("#idScale").off("change").on ("change", function (event) { Changer_scale ( visuel ); } );
+    $("#idAngle").val(visuel.angle);
+    $("#idAngle").off("change").on ("change", function (event) { Changer_angle ( visuel ); } );
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Change_lien_properties ()

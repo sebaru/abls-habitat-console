@@ -15,6 +15,8 @@
    <div class="col-2 shadow">
      <label>Selection</label> <input id="idSelection" type="text" class="form-control" disabled>
      <label>Position</label>  <input id="idPosition"  type="text" class="form-control" disabled>
+     <label>Scale</label>     <input id="idScale"     type="number" class="form-control" step=0.1 min=0.1 max=10>
+     <label>Angle</label>     <input id="idAngle"     type="number" class="form-control" step=1 min=0 max=359>
    </div>
  </div>
 
