@@ -39,6 +39,13 @@
 
            <div class="row form-group">
              <div class="input-group">
+               <label class="col-4 col-form-label text-right">Switch branch</label>
+               <input id="idAGENTBranche" type="text" class="form-control" placeholder="new GIT branch">
+             </div>
+           </div>
+
+           <div class="row form-group">
+             <div class="input-group">
                <label class="col-4 col-form-label text-right">Headless</label>
                <select id="idAGENTHeadless" class="form-control"></select>
              </div>

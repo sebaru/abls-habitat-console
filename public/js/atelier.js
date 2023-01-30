@@ -147,7 +147,7 @@ console.debug(request);
   }
 /********************************************* Appeler quand on change l'angle ************************************************/
  function Changer_angle ( visuel )
-  { visuel.angle = $("#idAngle").val();
+  { visuel.angle = parseInt($("#idAngle").val());
     console.log(" Change Angle sur motif " + visuel.libelle + " angle = " + visuel.angle );
     Trame.update_matrice ( visuel );
   }
