@@ -40,15 +40,17 @@
                     { Trame.new_from_image( visuel, visuel.forme+"."+visuel.extension ); }
 
                    if (visuel.svggroupe !== undefined)
-                   { visuel.svggroupe.on ( "click", function (event) { Clic_sur_motif ( visuel, event ) }, false);
-                     visuel.svggroupe.on ( "mousemove", function () { Update_parametre_selection ( visuel ); } );
-                   }
+                    { visuel.svggroupe.on ( "click", function (event) { Clic_sur_motif ( visuel, event ) }, false);
+                      visuel.svggroupe.on ( "mousemove", function () { Update_parametre_selection ( visuel ); } );
+                    }
                  }
               );
        $.each ( Response.cadrans, function (i, cadran)
                  { Trame.new_cadran ( cadran );
                    if (cadran.svggroupe !== undefined)
-                    { cadran.svggroupe.on ( "click", function (event) { Clic_sur_motif ( cadran, event ) }, false); }
+                    { cadran.svggroupe.on ( "click", function (event) { Clic_sur_motif ( cadran, event ) }, false);
+                      cadran.svggroupe.on ( "mousemove", function () { Update_parametre_selection ( cadran ); } );
+                    }
                  }
               );
      } );
