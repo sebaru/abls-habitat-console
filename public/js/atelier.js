@@ -155,9 +155,10 @@ console.debug(request);
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Update_parametre_selection ( visuel )
-  { $("#idSelection").val(visuel.tech_id+":"+visuel.acronyme);
-    $("#idPosition") .val("x:" + visuel.posx+", y:"+visuel.posy);
-    $("#idScale") .val(visuel.scale);
+  { $("#idSelectionTechID").val(visuel.tech_id);
+    $("#idSelectionAcronyme").val(visuel.acronyme);
+    $("#idPosition").val("x:" + visuel.posx+", y:"+visuel.posy);
+    $("#idScale").val(visuel.scale);
     $("#idScale").off("change").on ("change", function (event) { Changer_scale ( visuel ); } );
     $("#idAngle").val(visuel.angle);
     $("#idAngle").off("change").on ("change", function (event) { Changer_angle ( visuel ); } );
