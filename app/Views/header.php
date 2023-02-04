@@ -35,6 +35,7 @@
 
       <script>
         var $ABLS_API      = "<?php echo getenv("ABLS_API"); ?>";
+        var $HOME_URL      = "<?php echo getenv("HOME_URL"); ?>";
         var $IDP_REALM     = "<?php echo getenv("IDP_REALM"); ?>";
         var $IDP_URL       = "<?php echo getenv("IDP_URL"); ?>";
         var $IDP_CLIENT_ID = "<?php echo getenv("IDP_CLIENT_ID"); ?>";
@@ -209,6 +210,7 @@
           <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-danger"></i> <span>Synoptiques</span> </a>
           <a class="dropdown-item" href="/dls"> <i class="fas fa-code text-primary"></i> <span>Modules D.L.S</span> </a>
           <a class="dropdown-item" href="/tableau"> <i class="fas fa-chart-line text-secondary"></i> <span>Tableaux</span> </a>
+          <a class="dropdown-item" href="/search"> <i class="fas fa-search text-primary"></i> <span>Dictionnaire</span> </a>
         </div>
       </li>
 
@@ -222,7 +224,7 @@
         <span class="sr-only">Loading...</span>
       </div>
 
-      <a class="nav-link rounded" href="/search"><i class="fas fa-search text-primary"></i> <span> Dictionnaire</span></a>
+      <a href="<?php echo getenv("HOME_URL"); ?>" class="nav-link rounded" target="_blank"><i class="fas fa-home text-primary"></i> <span> Vue Cliente</span></a>
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarDOCS" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
