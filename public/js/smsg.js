@@ -124,13 +124,16 @@
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "/tech/dls_source/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
            { "data": "description", "title":"Description", "className": "align-middle " },
+           { "data": null, "title":"Signal Quality", "className": "align-middle text-center",
+             "render": function (item)
+               { return( Lien ( "/courbe/"+item.thread_tech_id+"/SIGNAL_QUALITY", "Voir la qualité du signal", item.thread_tech_id+":SIGNAL_QUALITY" ) ); }
+           },
            { "data": "ovh_consumer_key", "title":"OVH Consumer Key", "className": "align-middle " },
            { "data": "ovh_service_name", "title":"OVH Service Name", "className": "align-middle " },
            { "data": "ovh_application_key", "title":"OVH App Key", "className": "align-middle " },
-           { "data": "ovh_application_secret", "title":"OVH App Secret", "className": "align-middle " },
            { "data": null, "title":"Last Comm", "className": "align-middle text-center",
              "render": function (item)
                { if (item.last_comm==null) return( Badge( "info", "Thread à l'arret", "Stopped" ) );

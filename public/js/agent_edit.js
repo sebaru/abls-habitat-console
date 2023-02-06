@@ -7,6 +7,7 @@
        log_level  : parseInt($("#idAGENTLogLevel").val()),
        log_msrv   : ($("#idAGENTLogMSRV").val()=="true" ? true : false),
        log_bus    : ($("#idAGENTLogBUS").val()=="true" ? true : false),
+       branche    : $("#idAGENTBranche").val(),
      };
     Send_to_API ( 'POST', "/agent/set", json_request, function ()
      { Show_toast_ok ( "Configuration sauvegardée." );
@@ -21,14 +22,15 @@
     Send_to_API ( 'GET', "/agent", "agent_uuid="+vars[2], function (Response)
      {
        $("#idAGENTLabel").text( Response.agent_hostname );
-       $("#idAGENTHostname").val( Response.agent_hostname + " - " + Response.version + " - " + Response.branche );
+       $("#idAGENTHostname").val( Response.agent_hostname + " - " + Response.version );
        $("#idAGENTUUID").val( Response.agent_uuid );
        $("#idAGENTDescription").val( Response.description );
+       $("#idAGENTBranche").val( Response.branche );
 
        $("#idAGENTLink").val( "sudo Watchdogd --link"+
                                " --api-url " + Response.api_url +
                                " --domain-uuid " + localStorage.getItem("domain_uuid") +
-                               " --domain-secret " + Response.domain_secret +
+                               " --domain-secret '" + Response.domain_secret + "'" +
                                " --agent-uuid " + Response.agent_uuid
                             );
 
