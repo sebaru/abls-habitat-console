@@ -66,7 +66,11 @@
 
     $("#idAlertAgentNotConnected").hide();
     fetch ("https://"+master+":5559/status",
-            { method: 'GET', headers: { 'Content-Type': 'application/json;charset=utf-8' } })
+            { method: 'GET', headers: { 'Content-Type': 'application/json;charset=utf-8',
+                                        'Authorization': 'Bearer ' + Token,
+                                        'X-ABLS-DOMAIN': localStorage.getItem("domain_uuid")
+                                      }
+            })
          .then ( () => { } )
          .catch ( () => { $("#idAlertAgentNotConnected")
                           .html("Error when connecting, things you can do:<br>"+
