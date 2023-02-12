@@ -54,6 +54,8 @@ $routes->get('/dls/run/(:any)', 'Console::dls_run');
 $routes->get('/dls/(:any)',   'Console::dls_source');
 $routes->get('/atelier/(:any)', 'Console::atelier');
 $routes->get('/synoptiques',  'Console::synoptiques');
+$routes->get('/messages/(:any)', 'Console::messages');
+$routes->get('/messages',     'Console::messages');
 $routes->get('/archive',      'Console::archive');
 $routes->get('/user/invite',  'Console::user_invite');
 $routes->get('/user/(:any)',  'Console::user_edit');
