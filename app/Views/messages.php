@@ -24,7 +24,7 @@
 </div>
 
 
-<div id="idModelMsg" class="modal fade" tabindex="-1" role="dialog">
+<div id="idModalMsg" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">

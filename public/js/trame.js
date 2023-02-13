@@ -36,7 +36,7 @@
        var rectangle = Trame.rect ( 110, 30 ).attr("rx", 10).fill("gray" ).stroke({ width:2, color:"lightgreen" }).cx(0).cy(0);
        visuel.svggroupe.add ( rectangle );
 
-       var texte = this.text( "- visuel -" ).font ( { family: "arial", size:14, anchor: "middle", variant:"italic" } ).cx(0).cy(0);
+       var texte = this.text( "- cadran -" ).font ( { family: "arial", size:14, anchor: "middle", variant:"italic" } ).cx(0).cy(0);
        visuel.svggroupe.add ( texte );
        this.update_matrice ( visuel );
        return(visuel);
