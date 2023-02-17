@@ -19,28 +19,19 @@
        $.each ( Response.visuels, function (i, visuel)
                  { if (visuel.forme == null)
                     { console.log ( "new null at " + visuel.posx + " " + visuel.posy );
-                      visuel.svggroupe = Trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      Trame.add(visuel.svggroupe);
-                      visuel.svggroupe.add ( SVG_New_from_image ( Trame, visuel.icone+".gif" ) );
-                      SVG_Update_matrice ( visuel );
+                      Trame.new_from_image ( visuel, visuel.icone+".gif" );
                     }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="bouton")
-                    { Trame.new_button ( visuel ); }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="encadre")
-                    { Trame.new_encadre ( visuel ); }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment")
-                    { Trame.new_comment ( visuel ); }
-                   else if (visuel.ihm_affichage=="by_mode")
-                    { Trame.new_from_image( visuel, visuel.forme+"_"+visuel.mode+"."+visuel.extension ); }
-                   else if (visuel.ihm_affichage=="by_color")
-                    { Trame.new_from_image( visuel, visuel.forme+"_"+visuel.color+"."+visuel.extension ); }
-                   else if (visuel.ihm_affichage=="by_mode_color")
-                    { Trame.new_from_image( visuel, visuel.forme+"_"+visuel.mode+"_"+visuel.color+"."+visuel.extension ); }
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="bouton")  { Trame.new_button  ( visuel ); }
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="encadre") { Trame.new_encadre ( visuel ); }
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment") { Trame.new_comment ( visuel ); }
+                   else if (visuel.ihm_affichage=="by_mode")       { Trame.new_by_mode ( visuel );       }
+                   else if (visuel.ihm_affichage=="by_color")      { Trame.new_by_color( visuel );       }
+                   else if (visuel.ihm_affichage=="by_mode_color") { Trame.new_by_mode_color ( visuel ); }
                    else if (visuel.ihm_affichage=="static")
-                    { Trame.new_from_image( visuel, visuel.forme+"."+visuel.extension ); }
+                    { Trame.new_static( visuel, visuel.forme+"."+visuel.extension ); }
 
                    if (visuel.svggroupe !== undefined)
-                    { visuel.svggroupe.on ( "click", function (event) { Clic_sur_motif ( visuel, event ) }, false);
+                    { visuel.svggroupe.on ( "click", function (event) { Clic_sur_visuel ( visuel, event ) }, false);
                       visuel.svggroupe.on ( "mousemove", function () { Update_parametre_selection ( visuel ); } );
                     }
                  }
@@ -48,7 +39,7 @@
        $.each ( Response.cadrans, function (i, cadran)
                  { Trame.new_cadran ( cadran );
                    if (cadran.svggroupe !== undefined)
-                    { cadran.svggroupe.on ( "click", function (event) { Clic_sur_motif ( cadran, event ) }, false);
+                    { cadran.svggroupe.on ( "click", function (event) { Clic_sur_visuel ( cadran, event ) }, false);
                       cadran.svggroupe.on ( "mousemove", function () { Update_parametre_selection ( cadran ); } );
                     }
                  }
@@ -113,7 +104,7 @@ console.debug(request);
     return pt.matrixTransform(trame.getScreenCTM().inverse());
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Clic_sur_motif ( visuel, event )
+ function Clic_sur_visuel ( visuel, event )
   { console.log(" Down sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY + " selected=" + visuel.selected );
     if (visuel.selected != true)
      { console.log("add poignee");
@@ -123,8 +114,8 @@ console.debug(request);
                                 .attr("stroke-dasharray", "5 5").attr("stroke-width", 2 ).attr("stroke-linecap", "round")
                                 .attr("stroke", "black" ).attr("stroke-opacity", "1" )
                                 .css("cursor", "pointer");
-       visuel.svgpoignee.on ( "mousemove", function (event) { Move_sur_poignee( visuel, event ) }, false);
-       visuel.svgpoignee.on ( "mouseleave", function (event) { Clic_sur_motif( visuel, event ) }, false);
+       visuel.svgpoignee.on ( "mousemove",  function (event) { Move_sur_poignee( visuel, event ) }, false);
+       visuel.svgpoignee.on ( "mouseleave", function (event) { Clic_sur_visuel( visuel, event ) }, false);
        visuel.svggroupe.front().add ( visuel.svgpoignee );
      }
     else
