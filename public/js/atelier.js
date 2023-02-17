@@ -13,7 +13,7 @@
     Trame = Trame_new ("idSectionHeavySyn");
     console.log("------------------------------ Chargement synoptique "+syn_page);
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
-     { $("#idAtelierTitle").text( Response.page );
+     { $("#idAtelierTitle").text( Response.page + " #" + Response.syn_id );
        console.log(Response);
        Synoptique = Response;                                                                       /* sauvegarde du pointeur */
        $.each ( Response.visuels, function (i, visuel)
