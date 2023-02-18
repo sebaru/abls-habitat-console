@@ -35,7 +35,7 @@
                             );
 
        $("#idAGENTHeadless").replaceWith ( Select ( "idAGENTHeadless", null,
-                                                    [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.headless ) );
+                                                    [ { valeur: true, texte: "Oui" }, { valeur: false, texte: "Non" } ], Response.headless ) );
        $("#idAGENTLogMSRV").replaceWith ( Select ( "idAGENTLogMSRV", null,
                                                    [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ], Response.log_msrv ) );
        $("#idAGENTLogBUS").replaceWith ( Select ( "idAGENTLogBUS", null,
