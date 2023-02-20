@@ -95,7 +95,7 @@
            { "data": null, "title":"Map on", "className": "align-middle text-center",
              "render": function (item)
                { if (item.thread_tech_id==null)
-                  { if (item.thread_tech_id.endsWith("_CLIC") return("Clic Synoptique");
+                  { if (item.thread_tech_id.endsWith("_CLIC")) return("Clic Synoptique");
                     if (item.thread_tech_id == "OSYN_ACQUIT") return("Clic Synoptique");
                     return ( "Not Mapped" );
                   }
