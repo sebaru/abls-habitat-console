@@ -71,25 +71,25 @@
              },
        rowId: "agent_id",
        columns:
-         [ { "data": null, "title":"Connected", "className": "align-middle text-center",
+         [ { "data": null, "title":"Status", "className": "align-middle text-center",
              "render": function (item)
-              { if (item.ws_connected==true)
-                 { return( Bouton ( "success", "Agent connecté", null, null, "Yes" ) ); }
-                else
-                 { return( Bouton ( "outline-danger", "Agent déconnecté", null, null, "No" ) ); }
+              { var color, mode, connect;
+                if (item.ws_connected==true) { color = "success";   }
+                                        else { color = "danger"; }
+                if (item.is_master==true) { mode = "Master"; } else { mode = "Slave"; }
+                return ( Badge ( color, "Agent is " + mode, mode ) );
               }
            },
            { "data": null, "title":"Hostname", "className": "align-middle text-center",
              "render": function (item)
-              { result = Lien ( "/agent/"+item.agent_uuid, "Démarré le "+item.start_time, item.agent_hostname ) + "<br>";
-                if (item.is_master==true) result = result + Badge ( "info", "Agent is Master", "Master" );
-                                     else result = result + Badge ( "secondary", "Agent is Slave", "Slave" );
+              { result = Lien ( "/agent/"+item.agent_uuid, "Voir l'agent", item.agent_hostname ) + "<br>";
+                result = result + Badge ( "secondary", "Branche is "+item.branche, item.branche )
                 return(result);
               }
            },
            { "data": null, "title":"Version", "className": "align-middle text-center",
              "render": function (item)
-              { return( item.version + "<br>" + Badge ( "secondary", "Branche is "+item.branche, item.branche ) );
+              { return( item.version + "<br>" + item.start_time );
               }
            },
            { "data": null, "title":"Description", "className": "align-middle ",
@@ -113,6 +113,6 @@
            }
          ],
        order: [ [0, "desc"] ],
-       responsive: true,
+       responsive: false,
      });
   }
