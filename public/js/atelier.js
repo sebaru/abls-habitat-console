@@ -15,10 +15,15 @@
     console.log("------------------------------ Chargement synoptique "+syn_page);
 
     Trame = Trame_new ("idSectionHeavySyn");
-    Trame.on ( "mousemove", function ( event ) { Move_sur_trame ( event ); }, false );
-    Trame.on ( "mouseup",   function ( event ) { Deselectionner( event ) }, false);
+    Trame.on ( "mousemove",  function ( event ) { Move_sur_trame ( event ); }, false );
+    Trame.on ( "mouseup",    function ( event ) { Deselectionner( event ) }, false);
+    Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
     $("#idButtonMoveDown").on("click", function () { if (Selection_data) Selection_data.svggroupe.backward(); } );
     $("#idButtonMoveUp")  .on("click", function () { if (Selection_data) Selection_data.svggroupe.forward();  } );
+    $("#idScale").on ("change", function (event) { if (Selection_data) Changer_scale (); } );
+    $("#idAngle").on ("change", function (event) { if (Selection_data) Changer_angle (); } );
+    $("#idPosx").on  ("change", function (event) { if (Selection_data) Changer_posx (); } );
+    $("#idPosy").on  ("change", function (event) { if (Selection_data) Changer_posy (); } );
 
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
      { $("#idAtelierTitle").text( Response.page + " #" + Response.syn_id );
@@ -86,7 +91,7 @@ console.debug(request);
     console.log(" Clic sur motif " + visuel.libelle + " offsetx = " + event.offsetX + " offsetY="+event.offsetY + " selected=" + visuel.selected );
     console.log(" Clic sur motif " + visuel.libelle + " clientX = " + event.clientX + " clientY="+event.clientY + " selected=" + visuel.selected );
     Selection_drag = Selection_data = visuel;
-    Update_selection_data ( Selection_drag );
+    Update_selection_data();
 
     const domPoint = new DOMPointReadOnly ( event.clientX, event.clientY );
     const pt = domPoint.matrixTransform ( document.getElementById("idTrame").getScreenCTM().inverse() )
@@ -115,34 +120,50 @@ console.debug(request);
     console.log("move poignee " + pt.x + " " + pt.y );
 
     Selection_drag.posx += parseInt(pt.x - Selection_drag.clic_x);
+    if (Selection_drag.posx<0) Selection_drag.posx = 0;
+    if (Selection_drag.posx>1920) Selection_drag.posx = 1920;
     Selection_drag.posy += parseInt(pt.y - Selection_drag.clic_y);
+    if (Selection_drag.posy<0) Selection_drag.posy = 0;
+    if (Selection_drag.posy>1080) Selection_drag.posy = 1080;
     Selection_drag.clic_x = pt.x;
     Selection_drag.clic_y = pt.y;
     console.log ( "new posx " + Selection_drag.posx + " : " + Selection_drag.posy );
     Trame.update_matrice ( Selection_drag );
-    Update_selection_data ( Selection_drag );
+    Update_selection_data ();
+  }
+/********************************************* Appeler quand on change le scale ***********************************************/
+ function Changer_posx (  )
+  { Selection_data.posx = parseInt($("#idPosx").val());
+    console.log(" Change Posx sur motif " + Selection_data.libelle + " posx = " + Selection_data.posx );
+    Trame.update_matrice ( Selection_data );
+  }
+/********************************************* Appeler quand on change le scale ***********************************************/
+ function Changer_posy ( visuel )
+  { Selection_data.posy = parseInt($("#idPosy").val());
+    console.log(" Change Posy sur motif " + Selection_data.libelle + " posy = " + Selection_data.posy );
+    Trame.update_matrice ( Selection_data );
   }
 /********************************************* Appeler quand on change le scale ***********************************************/
  function Changer_scale ( visuel )
-  { visuel.scale = parseFloat($("#idScale").val());
-    console.log(" Change Scale sur motif " + visuel.libelle + " scale = " + visuel.scale );
-    Trame.update_matrice ( visuel );
+  { Selection_data.scale = parseFloat($("#idScale").val());
+    console.log(" Change Scale sur motif " + Selection_data.libelle + " scale = " + Selection_data.scale );
+    Trame.update_matrice ( Selection_data );
   }
 /********************************************* Appeler quand on change l'angle ************************************************/
- function Changer_angle ( visuel )
-  { visuel.angle = parseInt($("#idAngle").val());
-    console.log(" Change Angle sur motif " + visuel.libelle + " angle = " + visuel.angle );
-    Trame.update_matrice ( visuel );
+ function Changer_angle ( Selection_data )
+  { Selection_data.angle = parseInt($("#idAngle").val());
+    console.log(" Change Angle sur motif " + Selection_data.libelle + " angle = " + Selection_data.angle );
+    Trame.update_matrice ( Selection_data );
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Update_selection_data ( visuel )
-  { $("#idSelectionTechID").val(visuel.tech_id);
-    $("#idSelectionAcronyme").val(visuel.acronyme);
-    $("#idPosition").val("x:" + visuel.posx+", y:"+visuel.posy);
-    $("#idScale").val(visuel.scale);
-    $("#idScale").off("change").on ("change", function (event) { Changer_scale ( visuel ); } );
-    $("#idAngle").val(visuel.angle);
-    $("#idAngle").off("change").on ("change", function (event) { Changer_angle ( visuel ); } );
+ function Update_selection_data ( )
+  { $("#idSelectionTechID").val(Selection_data.tech_id);
+    $("#idSelectionAcronyme").val(Selection_data.acronyme);
+    $("#idPosition").val("x:" + Selection_data.posx+", y:"+Selection_data.posy);
+    $("#idPosx").val(Selection_data.posx);
+    $("#idPosy").val(Selection_data.posy);
+    $("#idScale").val(Selection_data.scale);
+    $("#idAngle").val(Selection_data.angle);
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Change_lien_properties ()
