@@ -207,10 +207,9 @@
        var hauteur=96*parseInt(dimensions[0]);
        var largeur=96*parseInt(dimensions[1]);
 
-       var titre = this.text ( visuel.libelle ).cx(0).cy(-hauteur/2 - 15 )
+       var titre = this.text ( visuel.libelle )
                    .font( { family: "Sans", size: 18, style: "italic", weight: "normal" } )
-                   .fill( visuel.color )
-                   .stroke( { width: 0 } );
+                   .cx(0).cy(-hauteur/2 - 15 ).fill( visuel.color ).stroke( { width: 0 } );
        visuel.svggroupe.add ( titre );
 
        var rect = Trame.rect( largeur, hauteur ).x(-largeur/2).y(-hauteur/2).attr("rx", 15)
