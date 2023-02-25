@@ -132,25 +132,25 @@ console.debug(request);
     Update_selection_data ();
   }
 /********************************************* Appeler quand on change le scale ***********************************************/
- function Changer_posx (  )
+ function Changer_posx ( )
   { Selection_data.posx = parseInt($("#idPosx").val());
     console.log(" Change Posx sur motif " + Selection_data.libelle + " posx = " + Selection_data.posx );
     Trame.update_matrice ( Selection_data );
   }
 /********************************************* Appeler quand on change le scale ***********************************************/
- function Changer_posy ( visuel )
+ function Changer_posy ( )
   { Selection_data.posy = parseInt($("#idPosy").val());
     console.log(" Change Posy sur motif " + Selection_data.libelle + " posy = " + Selection_data.posy );
     Trame.update_matrice ( Selection_data );
   }
 /********************************************* Appeler quand on change le scale ***********************************************/
- function Changer_scale ( visuel )
+ function Changer_scale ( )
   { Selection_data.scale = parseFloat($("#idScale").val());
     console.log(" Change Scale sur motif " + Selection_data.libelle + " scale = " + Selection_data.scale );
     Trame.update_matrice ( Selection_data );
   }
 /********************************************* Appeler quand on change l'angle ************************************************/
- function Changer_angle ( Selection_data )
+ function Changer_angle ( )
   { Selection_data.angle = parseInt($("#idAngle").val());
     console.log(" Change Angle sur motif " + Selection_data.libelle + " angle = " + Selection_data.angle );
     Trame.update_matrice ( Selection_data );
