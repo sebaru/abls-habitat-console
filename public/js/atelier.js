@@ -20,6 +20,8 @@
     Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
     $("#idButtonMoveDown").on("click", function () { if (Selection_data) Selection_data.svggroupe.backward(); } );
     $("#idButtonMoveUp")  .on("click", function () { if (Selection_data) Selection_data.svggroupe.forward();  } );
+    $("#idButtonMoveFullDown").on("click", function () { if (Selection_data) Selection_data.svggroupe.back(); } );
+    $("#idButtonMoveFullUp")  .on("click", function () { if (Selection_data) Selection_data.svggroupe.front();  } );
     $("#idScale").on ("change", function (event) { if (Selection_data) Changer_scale (); } );
     $("#idAngle").on ("change", function (event) { if (Selection_data) Changer_angle (); } );
     $("#idPosx").on  ("change", function (event) { if (Selection_data) Changer_posx (); } );

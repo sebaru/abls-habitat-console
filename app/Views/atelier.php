@@ -24,6 +24,10 @@
        <button id="idButtonMoveDown" class="form-control btn btn-info"><i class="fas fa-download"></i> Down</button>
        <button id="idButtonMoveUp"   class="form-control btn btn-info"><i class="fas fa-upload"></i> Up</button>
      </div>
+     <div class="btn-block btn-group">
+       <button id="idButtonMoveFullDown" class="form-control btn btn-info"><i class="fas fa-download"></i> Full Down</button>
+       <button id="idButtonMoveFullUp"   class="form-control btn btn-info"><i class="fas fa-upload"></i> Full Up</button>
+     </div>
    </div>
  </div>
 
