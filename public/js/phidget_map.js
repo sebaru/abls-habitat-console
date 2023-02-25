@@ -374,7 +374,7 @@
             },
           ],
          /*order: [ [0, "desc"] ],*/
-         responsive: true,
+         /*responsive: true,*/
        }
      );
 
@@ -419,7 +419,7 @@
             },
           ],
          /*order: [ [0, "desc"] ],*/
-         responsive: true,
+         /*responsive: true,*/
        }
      );
 
@@ -469,7 +469,7 @@
             },
           ],
          /*order: [ [0, "desc"] ],*/
-         responsive: true,
+         /*responsive: true,*/
        }
      );
 /*
@@ -502,7 +502,7 @@
                 },
             },
           ],
-         responsive: true,
+         /*responsive: true,*/
        }
      );
 */

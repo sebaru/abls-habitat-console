@@ -119,7 +119,7 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableEntreeANA').DataTable(
@@ -155,7 +155,7 @@
            { "data": "last_arch", "title":"last_arch", "className": "align-middle text-center " },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableSortieTOR').DataTable(
@@ -194,7 +194,7 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableSortieANA').DataTable(
@@ -218,7 +218,7 @@
                   { "data": "libelle",    "title":"Libellé",    "className": "align-middle " },
                 ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableCI').DataTable(
@@ -248,7 +248,7 @@
            { "data": "unite",      "title":"Unité", "className": "text-center align-middle " },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableCH').DataTable(
@@ -279,7 +279,7 @@
                },
            },         ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableRegistre').DataTable(
@@ -302,7 +302,7 @@
            { "data": "unite",      "title":"Unité",    "className": "align-middle " },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableTempo').DataTable(
@@ -332,7 +332,7 @@
            { "data": "date_on",    "title":"date_on",  "className": "align-middle  text-center" },
            { "data": "date_off",   "title":"date_off", "className": "align-middle  text-center" },
          ],
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableMONO').DataTable(
@@ -364,7 +364,7 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableBI').DataTable(
@@ -397,7 +397,7 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
 
@@ -425,7 +425,7 @@
            },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableWatchdog').DataTable(
@@ -453,7 +453,7 @@
            },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableMessages').DataTable(
@@ -486,7 +486,7 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTabEntreeTor').tab('show');

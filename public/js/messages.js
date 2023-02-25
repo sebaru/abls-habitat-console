@@ -73,7 +73,7 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 /*    Send_to_API ( "GET", "/message/list", (vars[2] ? "tech_id="+vars[2] : null), function(Response)
      { /*$("#idSourceTitle").text( "(#"+Response.dls_id+") - " + Response.tech_id + " - " + Response.shortname);

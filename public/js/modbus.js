@@ -206,7 +206,7 @@
           }
         ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableMODBUS_DI').DataTable(
@@ -251,7 +251,7 @@
             },
           ],
          /*order: [ [0, "desc"] ],*/
-         responsive: true,
+         /*responsive: true,*/
        }
      );
 
@@ -297,7 +297,7 @@
             },
           ],
          /*order: [ [0, "desc"] ],*/
-         responsive: true,
+         /*responsive: true,*/
        }
      );
 
@@ -353,7 +353,7 @@
             },
           ],
          /*order: [ [0, "desc"] ],*/
-         responsive: true,
+         /*responsive: true,*/
        }
      );
 
