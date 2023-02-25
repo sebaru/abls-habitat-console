@@ -54,7 +54,7 @@
        $.each ( Response.cadrans, function (i, cadran)
                  { Trame.new_cadran ( cadran );
                    if (cadran.svggroupe !== undefined)
-                    { cadran.svggroupe.on ( "mousemove", function () { Down_sur_visuel ( cadran ); } );
+                    { cadran.svggroupe.on ( "mousedown", function (event) { Down_sur_visuel ( cadran, event ); } );
                       cadran.svggroupe.css( "cursor", "move" );
                     }
                  }
