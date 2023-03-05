@@ -145,7 +145,10 @@
                },
          columns:
           [ { "data": "dls_id", "title":"#ID", "className": "align-middle  text-center" },
-            { "data": "page", "title":"Page", "className": "align-middle  text-center" },
+            { "data": null, "title": "Page", "className": "align-middle text-center",
+              "render": function (item)
+                { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.page, item.page ) ); },
+            },
             { "data": null, "title":"Started", "className": "align-middle  text-center",
               "render": function (item)
                 { if (item.enable==true)
