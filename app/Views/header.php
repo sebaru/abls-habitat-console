@@ -198,7 +198,7 @@
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/domain_maintenance"> <i class="fas fa-wrench text-warning"></i> Maintenance</a>
-          <a class="dropdown-item" href="/domains"> <i class="fas fa-fort-awesome text-primary"></i> Mes domaines</a>
+          <a class="dropdown-item" href="/domains"> <i class="fas fa-globe text-primary"></i> Mes domaines</a>
       </li>
 
 

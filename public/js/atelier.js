@@ -26,6 +26,7 @@
     $("#idAngle").on ("change", function (event) { if (Selection_data) Changer_angle (); } );
     $("#idPosx").on  ("change", function (event) { if (Selection_data) Changer_posx (); } );
     $("#idPosy").on  ("change", function (event) { if (Selection_data) Changer_posy (); } );
+    $("#idGrille").val(0);
 
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
      { $("#idAtelierTitle").text( Response.page + " #" + Response.syn_id );
@@ -119,17 +120,18 @@ console.debug(request);
     const domPoint = new DOMPointReadOnly(event.clientX, event.clientY)
     const pt = domPoint.matrixTransform(document.getElementById("idTrame").getScreenCTM().inverse())
 
-    console.log("move poignee " + pt.x + " " + pt.y );
-
+    var grille = $("#idGrille").val();
+    if (grille == 0) grille = 1;
     Selection_drag.posx += parseInt(pt.x - Selection_drag.clic_x);
-    if (Selection_drag.posx<0) Selection_drag.posx = 0;
+    Selection_drag.posx  = parseInt(Selection_drag.posx / grille) * grille;
+    if (Selection_drag.posx<0)    Selection_drag.posx = 0;
     if (Selection_drag.posx>1920) Selection_drag.posx = 1920;
     Selection_drag.posy += parseInt(pt.y - Selection_drag.clic_y);
-    if (Selection_drag.posy<0) Selection_drag.posy = 0;
+    Selection_drag.posy  = parseInt(Selection_drag.posy / grille) * grille;
+    if (Selection_drag.posy<0)    Selection_drag.posy = 0;
     if (Selection_drag.posy>1080) Selection_drag.posy = 1080;
-    Selection_drag.clic_x = pt.x;
-    Selection_drag.clic_y = pt.y;
-    console.log ( "new posx " + Selection_drag.posx + " : " + Selection_drag.posy );
+    Selection_drag.clic_x = parseInt(pt.x/grille)*grille;
+    Selection_drag.clic_y = parseInt(pt.y/grille)*grille;
     Trame.update_matrice ( Selection_drag );
     Update_selection_data ();
   }

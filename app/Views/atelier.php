@@ -15,10 +15,11 @@
    <div class="col-2 shadow">
      <label>TechID</label>   <input id="idSelectionTechID"   type="text" class="form-control mb-1" disabled>
      <label>Acronyme</label> <input id="idSelectionAcronyme" type="text" class="form-control mb-1" disabled>
-     <label>Posx</label>     <input id="idPosx"       type="number" class="form-control mb-1" step=1 min=0 max=1920>
-     <label>Posy</label>     <input id="idPosy"       type="number" class="form-control mb-1" step=1 min=0 max=1080>
-     <label>Scale</label>     <input id="idScale"     type="number" class="form-control mb-1" step=0.1 min=0.1 max=10>
-     <label>Angle</label>     <input id="idAngle"     type="number" class="form-control mb-1" step=1 min=0 max=359>
+     <label>Posx</label>     <input id="idPosx"   type="number" class="form-control mb-1" step=1 min=0 max=1920>
+     <label>Posy</label>     <input id="idPosy"   type="number" class="form-control mb-1" step=1 min=0 max=1080>
+     <label>Scale</label>    <input id="idScale"  type="number" class="form-control mb-1" step=0.1 min=0.1 max=10>
+     <label>Angle</label>    <input id="idAngle"  type="number" class="form-control mb-1" step=1 min=0 max=359>
+     <label>Grille</label>   <input id="idGrille" type="number" class="form-control mb-1" step=5 min=0 max=30>
      <hr>
      <div class="btn-block btn-group">
        <button id="idButtonMoveDown" class="form-control btn btn-info"><i class="fas fa-download"></i> Down</button>
