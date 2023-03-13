@@ -15,6 +15,7 @@
     console.log("------------------------------ Chargement synoptique "+syn_page);
 
     Trame = Trame_new ("idSectionHeavySyn");
+    Trame.set_grille( 40 );
     Trame.on ( "mousemove",  function ( event ) { Move_sur_trame ( event ); }, false );
     Trame.on ( "mouseup",    function ( event ) { Deselectionner( event ) }, false);
     Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
@@ -26,8 +27,6 @@
     $("#idAngle").on ("change", function (event) { if (Selection_data) Changer_angle (); } );
     $("#idPosx").on  ("change", function (event) { if (Selection_data) Changer_posx (); } );
     $("#idPosy").on  ("change", function (event) { if (Selection_data) Changer_posy (); } );
-    $("#idGrille").val(0);
-    $("#idGrille").on  ("change", function (event) { Trame.set_grille( parseInt($("#idGrille").val() )); } );
 
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
      { $("#idAtelierTitle").text( Response.page + " #" + Response.syn_id );
@@ -121,18 +120,30 @@ console.debug(request);
     const domPoint = new DOMPointReadOnly(event.clientX, event.clientY)
     const pt = domPoint.matrixTransform(document.getElementById("idTrame").getScreenCTM().inverse())
 
-    var grille = $("#idGrille").val();
-    if (grille == 0) grille = 1;
-    Selection_drag.posx += parseInt(pt.x - Selection_drag.clic_x);
-    Selection_drag.posx  = parseInt(Selection_drag.posx / grille) * grille;
-    if (Selection_drag.posx<0)    Selection_drag.posx = 0;
-    if (Selection_drag.posx>1920) Selection_drag.posx = 1920;
-    Selection_drag.posy += parseInt(pt.y - Selection_drag.clic_y);
-    Selection_drag.posy  = parseInt(Selection_drag.posy / grille) * grille;
-    if (Selection_drag.posy<0)    Selection_drag.posy = 0;
-    if (Selection_drag.posy>1080) Selection_drag.posy = 1080;
-    Selection_drag.clic_x = parseInt(pt.x/grille)*grille;
-    Selection_drag.clic_y = parseInt(pt.y/grille)*grille;
+    if (event.shiftKey) maille = 1; else maille = Trame.maille;
+
+    var old_x    = parseInt(Selection_drag.posx / maille);
+    var clic_x   = parseInt(Selection_drag.clic_x / maille);
+    var pt_x     = parseInt(pt.x / maille);
+    var delta_x  = pt_x - clic_x;
+    var new_posx = (old_x + delta_x) * maille;
+    if (new_posx<0)    new_posx = 0;
+    if (new_posx>1920) new_posx = 1920;
+    Selection_drag.posx   = new_posx;
+    Selection_drag.clic_x = pt_x * maille;
+
+    var old_y    = parseInt(Selection_drag.posy / maille);
+    var clic_y   = parseInt(Selection_drag.clic_y / maille);
+    var pt_y     = parseInt(pt.y / maille);
+    var delta_y  = pt_y - clic_y;
+    var new_posy = (old_y + delta_y) * maille;
+    if (new_posy<0)    new_posy = 0;
+    if (new_posy>1080) new_posy = 1080;
+    if (new_posy != Selection_drag.posy)
+     { Selection_drag.posy   = new_posy;
+       Selection_drag.clic_y = pt_y * maille;
+     }
+
     Trame.update_matrice ( Selection_drag );
     Update_selection_data ();
   }
