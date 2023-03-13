@@ -27,6 +27,7 @@
     $("#idPosx").on  ("change", function (event) { if (Selection_data) Changer_posx (); } );
     $("#idPosy").on  ("change", function (event) { if (Selection_data) Changer_posy (); } );
     $("#idGrille").val(0);
+    $("#idGrille").on  ("change", function (event) { Trame.set_grille( parseInt($("#idGrille").val() )); } );
 
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
      { $("#idAtelierTitle").text( Response.page + " #" + Response.syn_id );

@@ -9,6 +9,21 @@
                      .addClass("border border-success")
                      .css("background-color", "darkgray");
 
+/***************************************************** Set Grille *************************************************************/
+    Trame.set_grille = function ( maille )
+     { console.log("Set grille=" + maille);
+       if (this.grille !== undefined) this.grille.remove();
+       if(!maille) return;
+       var x, y;
+       this.grille = this.group().attr("id", "wtd-grille");
+       for ( x=0; x<1920; x+=maille )
+        { for ( y=0; y<1080; y+=maille )
+           { console.log("circle "+x+" "+y);
+             var point = this.circle(3).fill("lightblue").cx(x).cy(y);
+             this.grille.add(point);
+           }
+        }
+     }
 /*************************************** Met à jour la matrice de transformation **********************************************/
     Trame.update_matrice = function ( visuel )
      { visuel.svggroupe.transform ( { scale: visuel.scale, translate: [visuel.posx, visuel.posy],

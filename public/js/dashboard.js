@@ -41,5 +41,5 @@
     Charger_une_courbe ( "idCourbeDlsNbVISUEL",   "SYS", "NBR_VISUEL_QUEUE", "HOUR" );
     Charger_une_courbe ( "idCourbeDlsNbARCHIVE",  "SYS", "NBR_ARCHIVE_QUEUE", "HOUR" );
     Charger_une_courbe ( "idCourbeDlsNbLigne",    "SYS", "NBR_LIGNE_DLS", "MONTH" );
-    Charger_une_courbe ( "idCourbeDlsMaxRss",     "SYS", "MAXRSS", "MONTH" );
+    Charger_une_courbe ( "idCourbeDlsMaxRss",     "SYS", "MAXRSS", "WEEK" );
   }
