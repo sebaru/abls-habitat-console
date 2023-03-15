@@ -19,6 +19,9 @@
 
         .navbar { background-color: rgba(30,28,56,0.8);
                 }
+
+        .page-footer { background-color: rgba(0,0,0,0.7); }
+
         .toast { transform: translateX(-50%); }
         .nav-link {
                   }

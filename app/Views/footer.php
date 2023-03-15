@@ -1,6 +1,6 @@
 
 <!-- Footer -->
-<footer class="page-footer bg-info mt-2 pt-0"> <!-- fixed-bottom-->
+<footer class="page-footer mt-2 fixed-bottom"> <!-- fixed-bottom-->
 
   <!-- Copyright -->
   <div class="footer-copyright text-right p-2">
