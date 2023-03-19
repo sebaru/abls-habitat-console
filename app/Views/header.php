@@ -12,22 +12,24 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/codemirror.min.css">
         <style>
-        input:focus { outline: 0 0 0 0  !important;
-                      box-shadow: 0 0 0 0 !important;
-                    }
 
+        body { padding-top: 80px;
+               padding-bottom: 40px;
+             }
+
+        .toast { transform: translateX(-50%); }
 
         .navbar { background-color: rgba(30,28,56,0.8);
                 }
-
-        .page-footer { background-color: rgba(0,0,0,0.7); }
-
-        .toast { transform: translateX(-50%); }
         .nav-link {
                   }
         .nav-link:hover { /*color: white !important; attention, cible aussi les nav-tabs */
                           background-color: #48BBC0;
                         }
+        input:focus { outline: 0 0 0 0  !important;
+                      box-shadow: 0 0 0 0 !important;
+                    }
+
         .courbe-dashboard { height: 300px; }
 
         .wtd-synoptique-preview { height: 80px; }
@@ -181,7 +183,7 @@
 
 <!----------------------------------------------------------------------------------------------------------------------------->
 <header>
- <nav class="navbar navbar-dark  navbar-expand-lg sticky-top shadow mb-2"> <!-- fixed-top -->
+ <nav class="navbar navbar-dark  navbar-expand-lg fixed-top shadow mb-2"> <!-- fixed-top -->
   <a class="navbar-brand" href="/"><img src="https://static.abls-habitat.fr/img/abls.svg" alt="ABLS Logo" width=50></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggled" aria-controls="navbar-toggled" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
