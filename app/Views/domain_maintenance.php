@@ -1,7 +1,7 @@
     <div class="container">
 
  <div class="row m-2">
-   <h3><i class="fas fa-fort-awesome text-primary"></i> Maintenance du domaine <strong>'<span id="idDomainLabel"></span>'</strong></h3>
+   <h3><i class="fas fa-globe text-primary"></i> Maintenance du domaine <strong>'<span id="idDomainLabel"></span>'</strong></h3>
  </div>
 
 <hr>
@@ -30,6 +30,13 @@
              <div class="input-group">
                <label class="col-4 col-form-label text-right">Rechargement des ticks Horloges</label>
                <button id="idDomainHorlogeReload" type="button" class="btn btn-secondary"><i class="fas fa-clock"></i> Recharger les Horloges</button>
+             </div>
+           </div>
+
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Déchargement des Visuels</label>
+               <button id="idDomainHorlogeClearVisuel" type="button" class="btn btn-secondary"><i class="fas fa-image"></i> Décharger les Visuels</button>
              </div>
            </div>
 
