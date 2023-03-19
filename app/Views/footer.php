@@ -8,7 +8,7 @@
 
       <span class="text-secondary"><?php echo getenv("ABLS_API"); ?> -</span>
       <span class="text-secondary"> © </span>
-      <a href="https://docs.abls-habitat.fr/" target="_blank">ABLS-Habitat.fr</a>
+      <a href="https://docs.abls-habitat.fr/" target="_blank">Abls-Habitat.fr</a>
     </small>
   </div>
 

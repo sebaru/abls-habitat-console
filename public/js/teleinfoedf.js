@@ -22,7 +22,6 @@
        description:    $('#idTELEINFODescription').val(),
        port:           $('#idTELEINFOPort').val(),
      };
-    if (selection) json_request.id = parseInt(selection.id);                                            /* Ajout ou édition ? */
 
     Send_to_API ( "POST", "/teleinfoedf/set", json_request, function(Response)
      { Show_toast_ok ( "Modification sauvegardée.");
@@ -31,7 +30,7 @@
 
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function TELEINFO_Edit ( id )
+ function TELEINFO_Edit ( teleinfoedf_id )
   { selection = $('#idTableTELEINFO').DataTable().row("#"+teleinfoedf_id).data();
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, selection.agent_uuid );
