@@ -11,7 +11,7 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function METEO_Enable (meteo_id)
-  { $("#idButtonSpinner_"+modbus_id).show();
+  { $("#idButtonSpinner_"+meteo_id).show();
     selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }

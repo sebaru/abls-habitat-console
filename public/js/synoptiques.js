@@ -122,19 +122,21 @@
 
     images = [ "syn_maison.png", "syn_communication.png", "syn_reseau.png",
                "syn_buanderie.png", "syn_camera.png", "syn_chambre_double.png", "syn_chambre_simple.png",
-               "syn_cuisine.png", "syn_garage.png", "syn_cour.png", "syn_jardin.png", "syn_piscine.png",
-               "syn_salle_de_bain.png", "syn_salon.png", "syn_jeux.png", "syn_tele.png",
-               "syn_ouvrants.png", "syn_volets.png",
+               "syn_cuisine.png", "syn_garage.png", "syn_cour.png",
+               "syn_jardin.png", "syn_arrosage_1.svg", "syn_arrosage_2.svg", "syn_tondeuse.svg",
+               "syn_piscine.png", "syn_puit.svg",
+               "syn_salle_de_bain.png", "syn_congelateur.svg", "syn_salon.png", "syn_jeux.png", "syn_tele.png",
+               "syn_ouvrants.png", "syn_volets.png", "syn_velux.svg",
                "syn_luminaires.png", "syn_spot.png", "syn_sonorisation.png",
-               "syn_maintenance.png", "syn_parametres.png", "syn_menu_parametres.png", "syn_horloge.png",
                "syn_confort.png", "syn_vmc.png", "syn_energie.png", "syn_chaudiere.png", "syn_electricite.png",
-               "syn_ups.png", "syn_panneau_solaire.png"
+               "syn_ups.png", "syn_panneau_solaire.png", "syn_essence.svg",
+               "syn_acces.svg", "syn_maintenance.png", "syn_parametres.png", "syn_menu_parametres.png", "syn_horloge.png",
              ];
 
     liste = $("#idSynEditImageListe");
     liste.empty();
     images.forEach ( function (element)
-                      { liste.append( $("<img>").addClass("wtd-synoptique-preview m-1")
+                      { liste.append( $("<img>").addClass("wtd-synoptique-preview m-1").css("cursor","pointer")
                              .attr("name", element).attr("src", "https://static.abls-habitat.fr/img/"+element)
                              .click ( function () { Valide_edit_image(syn_id, element); } ) );
                       } );
