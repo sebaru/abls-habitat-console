@@ -85,11 +85,12 @@
                               }
                              if (etat.cligno) visuel.svggroupe.addClass("wtd-cligno");
                                          else visuel.svggroupe.removeClass("wtd-cligno");
-                             if (etat.mode=="disabled") visuel.svggroupe.addClass("wtd-img-grayscale")
-                                                   else visuel.svggroupe.removeClass("wtd-img-grayscale")
-                             visuel.mode   = etat.mode;
-                             visuel.cligno = etat.cligno;
-                             visuel.color  = etat.color;
+                             if (etat.disable==true) visuel.svggroupe.addClass("wtd-img-grayscale");
+                                                else visuel.svggroupe.removeClass("wtd-img-grayscale");
+                             visuel.mode    = etat.mode;
+                             visuel.cligno  = etat.cligno;
+                             visuel.color   = etat.color;
+                             visuel.disable = etat.disable;
                            }
        this.update_matrice ( visuel );
        if (visuel.cligno) visuel.svggroupe.addClass("wtd-cligno");
@@ -117,11 +118,12 @@
                               }
                              if (etat.cligno) visuel.svggroupe.addClass("wtd-cligno");
                                          else visuel.svggroupe.removeClass("wtd-cligno");
-                             if (etat.mode=="disabled") visuel.svggroupe.addClass("wtd-img-grayscale")
-                                                   else visuel.svggroupe.removeClass("wtd-img-grayscale")
-                             visuel.mode   = etat.mode;
-                             visuel.cligno = etat.cligno;
-                             visuel.color  = etat.color;
+                             if (etat.disable==true) visuel.svggroupe.addClass("wtd-img-grayscale");
+                                                else visuel.svggroupe.removeClass("wtd-img-grayscale");
+                             visuel.mode    = etat.mode;
+                             visuel.cligno  = etat.cligno;
+                             visuel.color   = etat.color;
+                             visuel.disable = etat.disable;
                            }
        this.update_matrice ( visuel );
        if (visuel.cligno) visuel.svggroupe.addClass("wtd-cligno");
@@ -149,11 +151,12 @@
                               }
                              if (etat.cligno) visuel.svggroupe.addClass("wtd-cligno");
                                          else visuel.svggroupe.removeClass("wtd-cligno");
-                             if (etat.mode=="disabled") visuel.svggroupe.addClass("wtd-img-grayscale")
-                                                   else visuel.svggroupe.removeClass("wtd-img-grayscale")
-                             visuel.mode   = etat.mode;
-                             visuel.cligno = etat.cligno;
-                             visuel.color  = etat.color;
+                             if (etat.disable==true) visuel.svggroupe.addClass("wtd-img-grayscale");
+                                                else visuel.svggroupe.removeClass("wtd-img-grayscale");
+                             visuel.mode    = etat.mode;
+                             visuel.cligno  = etat.cligno;
+                             visuel.color   = etat.color;
+                             visuel.disable = etat.disable;
                            }
        this.update_matrice ( visuel );
        if (visuel.cligno) visuel.svggroupe.addClass("wtd-cligno");
@@ -246,6 +249,8 @@
                              rectangle.fill(etat.color);
                              if (etat.cligno) visuel.svggroupe.addClass("wtd-cligno");
                                          else visuel.svggroupe.removeClass("wtd-cligno");
+                             if (etat.disable==true) visuel.svggroupe.addClass("wtd-img-grayscale");
+                                                else visuel.svggroupe.removeClass("wtd-img-grayscale");
                            }
 
        visuel.svggroupe.add ( texte );
