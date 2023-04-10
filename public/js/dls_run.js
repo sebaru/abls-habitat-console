@@ -152,7 +152,6 @@
                                      else { return( Bouton ( "warning", "Pb !", null, null, "Non" ) ); }
                },
            },
-           { "data": "last_arch", "title":"last_arch", "className": "align-middle text-center " },
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -417,10 +416,16 @@
            { "data": "libelle",    "title":"Libellé",     "className": "align-middle text-center" },
            { "data": "mode",       "title":"Mode",        "className": "align-middle text-center" },
            { "data": "color",      "title":"Couleur",     "className": "align-middle text-center" },
-           { "data": null, "title":"Cligno", "className": "align-middle ",
+           { "data": null, "title":"Cligno", "className": "align-middle text-center",
              "render": function (item)
                { if (item.cligno==true) { return( Bouton ( "outline-success", "Le visuel clignote", null, null, "Oui" ) );          }
                                    else { return( Bouton ( "outline-secondary", "Le visuel ne clignote pas", null, null, "Non" ) ); }
+               },
+           },
+           { "data": null, "title":"Disable", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.disable==true) { return( Bouton ( "outline-seconday", "Le visuel est désactivé", null, null, "Oui" ) );          }
+                                    else { return( Bouton ( "outline-success", "Le visuel est activé", null, null, "Non" ) ); }
                },
            },
          ],
