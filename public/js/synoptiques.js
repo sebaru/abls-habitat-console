@@ -128,7 +128,7 @@
                "syn_salle_de_bain.png", "syn_congelateur.svg", "syn_salon.png", "syn_jeux.png", "syn_tele.png",
                "syn_ouvrants.png", "syn_volets.png", "syn_velux.svg",
                "syn_luminaires.png", "syn_spot.png", "syn_sonorisation.png",
-               "syn_confort.png", "syn_vmc.png", "syn_energie.png", "syn_chaudiere.png", "syn_electricite.png",
+               "syn_confort.png", "syn_vmc.png", "syn_energie.png", "syn_chaudiere.png", "syn_electricite.png", "syn_chauffe_eau.svg",
                "syn_ups.png", "syn_panneau_solaire.png", "syn_essence.svg",
                "syn_acces.svg", "syn_maintenance.png", "syn_parametres.png", "syn_menu_parametres.png", "syn_horloge.png",
              ];
