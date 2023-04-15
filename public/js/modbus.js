@@ -123,6 +123,44 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function MODBUS_Edit_DI (modbus_di_id)
+  { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_di_id).data();
+    $('#idMODBUSEditDITitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODBUSEditDILibelle').val ( selection.libelle );
+    $('#idMODBUSEditDIValider').off("click").on( "click", function ()
+     { $('#idMODBUSEditDI').modal("hide");
+       var json_request =
+        { modbus_di_id: parseInt(modbus_di_id),
+          libelle: $('#idMODBUSEditDILibelle').val(),
+        };
+
+       Send_to_API ( "POST", "/modbus/set/di", json_request,
+                     (Response) => { Show_toast_ok ("Modifications sauvegardées.");
+                                     MODBUS_Refresh();
+                                   }, null );
+     });
+    $('#idMODBUSEditDI').modal("show");
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function MODBUS_Edit_DI (modbus_di_id)
+  { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_di_id).data();
+    $('#idMODBUSEditDOTitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODBUSEditDOLibelle').val ( selection.libelle );
+    $('#idMODBUSEditDOValider').off("click").on( "click", function ()
+     { $('#idMODBUSEditDO').modal("hide");
+       var json_request =
+        { modbus_di_id: parseInt(modbus_di_id),
+          libelle: $('#idMODBUSEditDOLibelle').val(),
+        };
+
+       Send_to_API ( "POST", "/modbus/set/do", json_request,
+                     (Response) => { Show_toast_ok ("Modifications sauvegardées.");
+                                     MODBUS_Refresh();
+                                   }, null );
+     });
+    $('#idMODBUSEditDO').modal("show");
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Edit_AI (modbus_ai_id)
   { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_ai_id).data();
     $('#idMODBUSEditAITitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
@@ -244,6 +282,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
+                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_DI", item.modbus_di_id, "pen", null );
                   boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DI", item.modbus_di_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
@@ -290,6 +329,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
+                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_DOI", item.modbus_do_id, "pen", null );
                   boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DO", item.modbus_do_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
@@ -345,7 +385,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Editer cet objet", "MODBUS_Edit_AI", item.modbus_ai_id, "pen", null );
+                  boutons += Bouton_actions_add ( "outline-primaryprimary", "Editer cet objet", "MODBUS_Edit_AI", item.modbus_ai_id, "pen", null );
                   boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_AI", item.modbus_ai_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);

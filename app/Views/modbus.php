@@ -83,6 +83,63 @@
 <!-- Container -->
 </div>
 
+<!------------------------------------------------- Modal Edit Digital Input -------------------------------------------------->
+<div id="idMODBUSEditDI" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content ">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idMODBUSEditDITitre"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+       <div class="col form-group">
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
+           <input id="idMODBUSEditDILibelle" type="text" class="form-control" placeholder="Description">
+          </div>
+       </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button id="idMODBUSEditDIValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!------------------------------------------------- Modal Edit Digital Input -------------------------------------------------->
+<div id="idMODBUSEditDO" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content ">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idMODBUSEditDOTitre"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+       <div class="col form-group">
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
+           <input id="idMODBUSEditDOLibelle" type="text" class="form-control" placeholder="Description">
+          </div>
+       </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button id="idMODBUSEditDOValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!------------------------------------------------- Modal Edit Analog Input --------------------------------------------------->
 <div id="idMODBUSEditAI" class="modal fade" tabindex="-1" role="dialog">
