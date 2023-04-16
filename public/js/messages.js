@@ -19,7 +19,7 @@
        columns:
          [ { "data": null, "title":"Type", "className": "align-middle text-center",
              "render": function (item)
-               {       if (item.typologie==0) { img = "info.svg";           title = "etat";        }
+               {      if (item.typologie==0) { img = "info.svg";           title = "etat";         }
                  else if (item.typologie==1) { img = "bouclier_orange.svg"; title = "alerte";      }
                  else if (item.typologie==2) { img = "pignon_orange.svg";   title = "defaut";      }
                  else if (item.typologie==3) { img = "pignon_red.svg";      title = "alarme";      }
@@ -66,7 +66,7 @@
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la connexion", "IMSGS_Edit", item.imsgs_id, "pen", null );
+                 boutons += Bouton_actions_add ( "primary", "Configurer le message", "MSG_Edit", item.msg_id, "pen", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
@@ -75,14 +75,5 @@
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
      });
-/*    Send_to_API ( "GET", "/message/list", (vars[2] ? "tech_id="+vars[2] : null), function(Response)
-     { /*$("#idSourceTitle").text( "(#"+Response.dls_id+") - " + Response.tech_id + " - " + Response.shortname);
-       $("#idSourceSynoptique").text(Response.page);
-       SourceCode.getDoc().setValue(Response.sourcecode);
-       $("#idErrorLog").html(Response.errorlog.replace(/(?:\r\n|\r|\n)/g, '<br>'));
-            if (Response.error_count)   { $("#idErrorLog").addClass("alert-danger"); }                        /* Error */
-      /* else if (Response.warning_count) { $("#idErrorLog").addClass("alert-warning"); }                          /* OK */
-      /* else $("#idErrorLog").addClass("alert-success").html("No error");*/
-  /*   }, null);*/
   }
 /*----------------------------------------------------------------------------------------------------------------------------*/
