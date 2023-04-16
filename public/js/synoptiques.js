@@ -169,10 +169,6 @@
               "render": function (item)
                 { return( Badge_Access_level ( item.access_level ) ); }
             },
-            { "data": null, "title":"Affichage Full", "className": "align-middle text-center",
-              "render": function (item)
-                { if (item.mode_affichage==true) return( "Mode Full" ); else return ("Mode Simple"); }
-            },
             { "data": null, "title": "Parent", "className": "align-middle text-center",
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.ppage, "Voir le synoptique "+item.plibelle, item.ppage ) ); },
