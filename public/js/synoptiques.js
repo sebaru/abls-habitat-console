@@ -101,8 +101,8 @@
  function SYN_Del ( syn_id )
   { selection = $('#idTableSYN').DataTable().row("#"+syn_id).data();
     Show_modal_del ( "Détruire le synoptique ?",
-                     "Etes-vous sur de vouloir supprimer le synoptique suivant et toutes ses dépendances (DLS, mnémoniques, ...) ?",
-                     selection.page+" - "+selection.libelle,
+                     "Etes-vous sur de vouloir supprimer le synoptique suivant ?",
+                     selection.page+" ("+selection.libelle + ") et RECURSIVEMENT toutes ses dépendances (sous-synoptiques, DLS, mnémoniques, ...)",
                      function () { Valide_del_synoptique(selection); } );
   }
 

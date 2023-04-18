@@ -42,13 +42,13 @@
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function Controle_tech_id ( id_modal, tech_id_initial )
-  { FormatPage = RegExp(/^[a-zA-Z0-9_\.]+$/);
+  { FormatPage = RegExp(/^[a-zA-Z0-9_-\.]+$/);
     input = $('#'+id_modal+'TechID');
 
     if ( FormatPage.test(input.val())==false )
      { input.addClass("bg-danger");
        $('#'+id_modal+'Valider').attr("disabled", true);
-       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, _ et .' );
+       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, -, _ et .' );
      }
     else
      { Send_to_API ( "GET", "/mnemos/tech_ids", null, function(Response)
