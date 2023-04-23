@@ -112,7 +112,7 @@
   </div>
 </div>
 
-<!------------------------------------------------- Modal Edit Digital Input -------------------------------------------------->
+<!------------------------------------------------- Modal Edit Digital utput -------------------------------------------------->
 <div id="idMODBUSEditDO" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content ">

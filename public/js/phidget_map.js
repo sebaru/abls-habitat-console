@@ -1,5 +1,3 @@
- document.addEventListener('DOMContentLoaded', Load_page, false);
-
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Valider_Phidget_Del ( classe, id )
   { var json_request = JSON.stringify(

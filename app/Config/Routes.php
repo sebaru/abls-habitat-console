@@ -46,6 +46,7 @@ $routes->get('/smsg',         'Console::smsg');
 $routes->get('/search',       'Console::search');
 $routes->get('/audio',        'Console::audio');
 $routes->get('/ups',          'Console::ups');
+$routes->get('/phidget',      'Console::phidget');
 $routes->get('/threads',      'Console::threads');
 $routes->get('/teleinfoedf',  'Console::teleinfoedf');
 $routes->get('/meteo',        'Console::meteo');

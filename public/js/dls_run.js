@@ -424,7 +424,7 @@
            },
            { "data": null, "title":"Disable", "className": "align-middle text-center",
              "render": function (item)
-               { if (item.disable==true) { return( Bouton ( "outline-seconday", "Le visuel est désactivé", null, null, "Oui" ) );          }
+               { if (item.disable==true) { return( Bouton ( "outline-secondary", "Le visuel est désactivé", null, null, "Oui" ) ); }
                                     else { return( Bouton ( "outline-success", "Le visuel est activé", null, null, "Non" ) ); }
                },
            },

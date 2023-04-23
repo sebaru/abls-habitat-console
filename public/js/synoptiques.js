@@ -4,12 +4,12 @@
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function Synoptique_set_controle_page ( page_initiale )
-  { FormatPage = RegExp(/^[a-zA-Z0-9_ ]+$/);
+  { FormatPage = RegExp(/^[a-zA-Z0-9_\- ]+$/);
     table = $('#idTableSYN').DataTable();
     input = $('#idModalSynEditPage');
     if ( FormatPage.test(input.val())==false )
      { input.addClass("bg-danger");    $('#idModalSynEditValider').attr("disabled", true);
-       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, espaces et _' );
+       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, espaces, - et _' );
      }
     else
      { input.removeClass("bg-danger"); $('#idModalSynEditValider').attr("disabled", false);

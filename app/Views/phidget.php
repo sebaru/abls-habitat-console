@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
  <div class="row m-2">
-   <div class="col-auto"><h3><img src="/img/phidget_hub5000.jpg" style="width:80px" alt="Phidget HB5000">Liste des HUB5000 Phidgets</h3></div>
+   <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/phidget_hub5000.jpg" style="width:80px" alt="Phidget HB5000">Liste des HUB5000 Phidgets</h3></div>
    <div class ="ml-auto btn-group align-items-center">
         <button type="button" onclick="PHIDGET_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une connexion</button>
         <button type="button" onclick="PHIDGET_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
@@ -10,12 +10,14 @@
 
 <hr>
 
-    <table id="idTablePHIDGET" class="table table-striped table-bordered table-hover">
-      <thead class="thead-dark">
-				  </thead>
-			   <tbody>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+     <table id="idTablePHIDGET" class="table table-striped table-bordered table-hover">
+       <thead class="thead-dark">
+       </thead>
+       <tbody>
+       </tbody>
+     </table>
+    </div>
 
 <!-- Container -->
 </div>
@@ -35,7 +37,7 @@
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
-           <select id="idTargetProcess" class="custom-select border-info"></select>
+           <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
@@ -47,32 +49,32 @@
         </div>
 
        <div class="col form-group">
-					     <div class="input-group">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
-						     <input id="idPHIDGETDescription" type="text" class="form-control" placeholder="Ou est le hub ?">
-     					</div>
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
+           <input id="idPHIDGETDescription" type="text" class="form-control" placeholder="Ou est le hub ?">
+          </div>
         </div>
 
        <div class="col form-group">
-					     <div class="input-group">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Hostname</label>
-						     <input id="idPHIDGETHostname" required type="text" class="form-control" maxlength="32" placeholder="@IP ou hostname">
-     					</div>
-   					</div>
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Hostname</label>
+           <input id="idPHIDGETHostname" required type="text" class="form-control" maxlength="32" placeholder="@IP ou hostname">
+          </div>
+        </div>
 
        <div class="col form-group">
-					     <div class="input-group">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Mot de passe</label>
-						     <input id="idPHIDGETPassword" required type="text" class="form-control" placeholder="Mot de passe de connexion">
-     					</div>
-   					</div>
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Mot de passe</label>
+           <input id="idPHIDGETPassword" required type="text" class="form-control" placeholder="Mot de passe de connexion">
+          </div>
+        </div>
 
        <div class="col form-group">
-					     <div class="input-group">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Serial Number</label>
-						     <input id="idPHIDGETSerial" required type="number" class="form-control" placeholder="Serial Number">
-     					</div>
-   					</div>
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Serial Number</label>
+           <input id="idPHIDGETSerial" required type="number" class="form-control" placeholder="Serial Number">
+          </div>
+        </div>
 
       </div>
       <div class="modal-footer">
@@ -83,4 +85,4 @@
   </div>
 </div>
 
-<script src="/js/tech/phidget.js" type="text/javascript"></script>
+<script src="/js/phidget.js" type="text/javascript"></script>
