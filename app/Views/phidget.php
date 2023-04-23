@@ -19,9 +19,92 @@
      </table>
     </div>
 
+<hr>
+
+<div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/wago_750342.webp" style="width:80px" alt="Wago 750-342">Configuration des I/O Phidget</h3></div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#idTabEntreeTor">
+        <img style="width: 30px" data-toggle="tooltip" title="Entrées TOR" src="https://static.abls-habitat.fr/img/entree.png" />Entrées TOR</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#idTabEntreeAna">
+        <img style="width: 30px" data-toggle="tooltip" title="Entrées ANA" src="https://static.abls-habitat.fr/img/entree_analogique.png" />Entrées ANA</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#idTabSortieTor">
+        <img style="width: 30px" data-toggle="tooltip" title="Sorties TOR" src="https://static.abls-habitat.fr/img/sortie.png" />Sorties TOR</a></li>
+  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#idTabSortieAna">
+        <img style="width: 30px" data-toggle="tooltip" title="Sorties ANA" src="https://static.abls-habitat.fr/img/sortie_analogique.png" />Sorties ANA</a></li>
+</ul>
+
+<div class="tab-content">
+<!----------------------------------------------------------------------------------------------------------------------------->
+<div id="idTabEntreeTor" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+
+ <div class="row m-2">
+   <div class ="ml-auto btn-group">
+        <button type="button" onclick="PHIDGET_Add_DI(null)" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une DI</button>
+   </div>
+ </div>
+    <table id="idTablePHIDGET_DI" class="table table-striped table-bordered table-hover w-100">
+      <thead class="thead-dark">
+				  </thead>
+			   <tbody>
+      </tbody>
+    </table>
+</div>
+
+<!----------------------------------------------------------------------------------------------------------------------------->
+<div id="idTabSortieTor" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+
+ <div class="row m-2">
+   <div class ="ml-auto btn-group">
+        <button type="button" onclick="PHIDGET_Add_DO(null)" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une DO</button>
+   </div>
+ </div>
+
+    <table id="idTablePHIDGET_DO" class="table table-striped table-bordered table-hover w-100">
+      <thead class="thead-dark">
+				  </thead>
+			   <tbody>
+      </tbody>
+    </table>
+</div>
+<!----------------------------------------------------------------------------------------------------------------------------->
+<div id="idTabEntreeAna" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+
+ <div class="row m-2">
+   <div class ="ml-auto btn-group">
+        <button type="button" onclick="PHIDGET_Add_AI(null)" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une AI</button>
+   </div>
+ </div>
+
+    <table id="idTablePHIDGET_AI" class="table table-striped table-bordered table-hover w-100">
+      <thead class="thead-dark">
+				  </thead>
+			   <tbody>
+      </tbody>
+    </table>
+</div>
+<!----------------------------------------------------------------------------------------------------------------------------->
+<div id="idTabSortieAna" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+ <div class="row m-2">
+   <div class ="ml-auto btn-group">
+        <button type="button" onclick="PHIDGET_Add_AO(null)" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une AO</button>
+   </div>
+ </div>
+    <table id="idTablePHIDGET_AO" class="table table-striped table-bordered table-hover w-100">
+      <thead class="thead-dark">
+				  </thead>
+			   <tbody>
+      </tbody>
+    </table>
+ </div>
+
+<!----------------------------------------------------------------------------------------------------------------------------->
+</div> <!-- TabContent -->
+
 <!-- Container -->
 </div>
 
+<!----------------------------------------------------------------------------------------------------------------------------->
 
 <div id="idPHIDGETEdit" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

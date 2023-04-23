@@ -78,8 +78,8 @@
     $('#idMODBUSEdit').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Map_DI (modbus_id)
-  { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_id).data();
+ function MODBUS_Map_DI (modbus_di_id)
+  { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_di_id).data();
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DI" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "DI", selection.tech_id, selection.acronyme );
@@ -93,8 +93,8 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Map_DO (modbus_id)
-  { selection = $('#idTableMODBUS_DO').DataTable().row("#"+modbus_id).data();
+ function MODBUS_Map_DO (modbus_do_id)
+  { selection = $('#idTableMODBUS_DO').DataTable().row("#"+modbus_do_id).data();
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DO" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "DO", selection.tech_id, selection.acronyme );
@@ -108,8 +108,8 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Map_AI (modbus_id)
-  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_id).data();
+ function MODBUS_Map_AI (modbus_ai_id)
+  { selection = $('#idTableMODBUS_AI').DataTable().row("#"+modbus_ai_id).data();
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "AI" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "AI", selection.tech_id, selection.acronyme );
@@ -278,7 +278,7 @@
             },
             { "data": null, "title":"Description", "className": "align-middle text-center",
               "render": function (item)
-                { if(item.tech_id) { return ( item.libelle ); } else return( "--" ); }
+                { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
