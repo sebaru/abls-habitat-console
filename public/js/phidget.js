@@ -1,10 +1,7 @@
 /************************************ Demande de refresh **********************************************************************/
  function PHIDGET_Refresh ( )
   { $('#idTablePHIDGET').DataTable().ajax.reload(null, false);
-    $('#idTablePHIDGET_DI').DataTable().ajax.reload(null, false);
-    $('#idTablePHIDGET_DO').DataTable().ajax.reload(null, false);
-    $('#idTablePHIDGET_AI').DataTable().ajax.reload(null, false);
-    $('#idTablePHIDGET_AO').DataTable().ajax.reload(null, false);
+    $('#idTablePHIDGET_IO').DataTable().ajax.reload(null, false);
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function PHIDGET_Disable (phidget_id)
@@ -89,8 +86,32 @@
   }
 
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function PHIDGET_Map_DI (phidget_di_id)
-  { selection = $('#idTablePHIDGET_DI').DataTable().row("#"+phidget_di_id).data();
+ function PHIDGET_Edit_IO (phidget_io_id)
+  { selection = $('#idTablePHIDGET_IO').DataTable().row("#"+phidget_io_id).data();
+    $('#idPHIDGETEditIOTitre').text( "Configurer "+selection.thread_tech_id+", port "+selection.port );
+    $('#idPHIDGETEditIOLibelle').val ( selection.libelle );
+    $('#idPHIDGETEditIOCapteur').val ( selection.capteur );
+    $('#idPHIDGETEditIOIntervalle').val ( selection.intervalle );
+    $('#idPHIDGETEditIOValider').off("click").on( "click", function ()
+     { $('#idPHIDGETEditIO').modal("hide");
+       var json_request =
+        { phidget_io_id: parseInt(phidget_io_id),
+          intervalle: parseInt($('#idPHIDGETEditIOIntervalle').val()),
+          capteur: $('#idPHIDGETEditIOCapteur').val(),
+          libelle: $('#idPHIDGETEditIOLibelle').val(),
+        };
+
+       Send_to_API ( "POST", "/phidget/set/io", json_request,
+                     (Response) => { Show_toast_ok ("Modifications sauvegardées.");
+                                     PHIDGET_Refresh();
+                                   }, null );
+     });
+    $('#idPHIDGETEditIO').modal("show");
+  }
+
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function PHIDGET_Map_DI (phidget_io_id)
+  { selection = $('#idTablePHIDGET_DI').DataTable().row("#"+phidget_io_id).data();
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DI" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "DI", selection.tech_id, selection.acronyme );
@@ -104,11 +125,26 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function PHIDGET_Map_DO (phidget_di_id)
-  { selection = $('#idTablePHIDGET_DO').DataTable().row("#"+phidget_di_id).data();
+ function PHIDGET_Map_DO (phidget_io_id)
+  { selection = $('#idTablePHIDGET_DO').DataTable().row("#"+phidget_io_id).data();
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DO" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "DO", selection.tech_id, selection.acronyme );
+    $('#idMODALMapValider').off("click").on( "click", function ()
+     { $('#idMODALMap').modal("hide");
+       COMMON_Map ( selection.thread_tech_id, selection.thread_acronyme,
+                    $('#idMODALMapSelectTechID').val(),  $('#idMODALMapSelectAcronyme').val()
+                  );
+       PHIDGET_Refresh();
+     });
+    $('#idMODALMap').modal("show");
+  }
+/********************************************* Afichage du modal d'eaition synoptique *****************************************/
+ function PHIDGET_Map_AI (phidget_io_id)
+  { selection = $('#idTablePHIDGET_AI').DataTable().row("#"+phidget_io_id).data();
+    $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "AI" ); } );
+    Common_Updater_Choix_TechID ( "idMODALMap", "AI", selection.tech_id, selection.acronyme );
     $('#idMODALMapValider').off("click").on( "click", function ()
      { $('#idMODALMap').modal("hide");
        COMMON_Map ( selection.thread_tech_id, selection.thread_acronyme,
@@ -173,18 +209,18 @@
        /*responsive: true,*/
      });
 
-    $('#idTablePHIDGET_DI').DataTable(
+    $('#idTablePHIDGET_IO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/phidget/list", type : "GET", dataSrc: "DI", contentType: "application/json",
-               data: function() { return ( "classe=DI" ) },
+       ajax: { url : $ABLS_API+"/phidget/list", type : "GET", dataSrc: "IO", contentType: "application/json",
+               data: function() { return ( "classe=io" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "phidget_di_id",
+       rowId: "phidget_io_id",
        columns:
           [ { "data": null, "title":"Phidget TechID", "className": "align-middle text-center",
               "render": function (item)
@@ -204,16 +240,17 @@
             { "data": "port", "title":"Port", "className": "align-middle text-center" },
             { "data": null, "title":"Capteur/Classe", "className": "align-middle text-center",
               "render": function (item)
-                { return( item.capteur+" - "+item.classe ); }
+                { return( item.classe + " - " + item.capteur ); }
             },
+            { "data": "intervalle", "title":"Interval", "className": "align-middle text-center" },
             { "data": null, "title":"Description", "className": "align-middle text-center",
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "PHIDGET_Edit_DI", item.phidget_di_id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "PHIDGET_Map_DI", item.phidget_di_id, "directions", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "PHIDGET_Edit_IO", item.phidget_io_id, "pen", null );
+                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "PHIDGET_Map", item.phidget_io_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },
@@ -221,142 +258,5 @@
           ],
          /*order: [ [0, "desc"] ],*/
          /*responsive: true,*/
-       }
-     );
-
-    $('#idTablePHIDGET_DO').DataTable(
-     { pageLength : 50,
-       fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/phidget/list", type : "GET", dataSrc: "DO", contentType: "application/json",
-               data: function() { return ( "classe=DO" ) },
-               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
-                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
-             },
-       rowId: "phidget_do_id",
-       columns:
-          [ { "data": null, "title":"Phidget TechID", "className": "align-middle text-center",
-              "render": function (item)
-                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
-            },
-            { "data": null, "title":"Phidget I/O", "className": "align-middle text-center",
-              "render": function (item)
-                { return( item.thread_acronyme ); }
-            },
-            { "data": null, "title":"Mapped on", "className": "align-middle text-center",
-              "render": function (item)
-                { if(item.tech_id)
-                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
-                   } else return( "--" );
-                }
-            },
-            { "data": "port", "title":"Port", "className": "align-middle text-center" },
-            { "data": null, "title":"Capteur/Classe", "className": "align-middle text-center",
-              "render": function (item)
-                { return( item.capteur+" - "+item.classe ); }
-            },
-            { "data": null, "title":"Description", "className": "align-middle text-center",
-              "render": function (item)
-                { return ( htmlEncode(item.libelle) ); }
-            },
-            { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "PHIDGET_Edit_DO", item.phidget_do_id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "PHIDGET_Map_DO", item.phidget_do_id, "directions", null );
-                  boutons += Bouton_actions_end ();
-                  return(boutons);
-                },
-            },
-          ],
-         /*order: [ [0, "desc"] ],*/
-         /*responsive: true,*/
-       }
-     );
-
-    $('#idTablePhidgetMapAI').DataTable(
-       { pageLength : 50,
-         fixedHeader: true,
-         rowId: "id", paging: false,
-         ajax: {	url : "/api/process/phidget/map/list",	type : "GET", dataSrc: "mappings", data: { "classe": "AI" },
-                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
-               },
-         columns:
-          [ { "data": null, "title":"Hub", "className": "align-middle text-center",
-              "render": function (item)
-                { return( item.hub_hostname+" - "+item.hub_description ); }
-            },
-            { "data": "port", "title":"Port", "className": "align-middle text-center" },
-            { "data": "intervalle", "title":"Acquisition (ms)", "className": "align-middle text-center" },
-            { "data": null, "title":"Capteur", "className": "align-middle text-center",
-              "render": function (item)
-                { return( item.capteur+" - "+item.classe ); }
-            },
-            { "data": null, "title":"Map", "className": "align-middle text-center",
-              "render": function (item)
-                { return( "<->" ); }
-            },
-            { "data": null, "title":"BIT Tech_id", "className": "align-middle text-center",
-              "render": function (item)
-                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
-            },
-            { "data": null, "title":"BIT Acronyme", "className": "align-middle text-center",
-              "render": function (item)
-                { return( Lien ( "/tech/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR", "Voir le graphe", item.acronyme ) ); }
-            },
-            { "data": "libelle", "title":"BIT Libelle", "className": "align-middle text-center" },
-            { "data": null, "title":"Echange vocaux", "className": "align-middle text-center",
-              "render": function (item)
-                { return( "Question : "+item.map_question_vocale+"<br>Réponse:"+item.map_reponse_vocale ); }
-            },
-            { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
-              "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "Show_Modal_Map_Edit_AI", item.id, "pen", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer cet objet", "Show_Modal_Map_Del_AI", item.id, "trash", null );
-                  boutons += Bouton_actions_end ();
-                  return(boutons);
-                },
-            },
-          ],
-         /*order: [ [0, "desc"] ],*/
-         /*responsive: true,*/
-       }
-     );
-
-    $('#idTablePhidgetMapAO').DataTable(
-       { pageLength : 50,
-         fixedHeader: true,
-         rowId: "id", paging: false,
-         ajax: {	url : "/api/map/list",	type : "GET", dataSrc: "mappings", data: { "thread": "MODBUS", "classe": "AO" },
-                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
-               },
-         columns:
-          [ { "data": "map_tech_id", "title":"WAGO TechID", "className": "align-middle text-center" },
-            { "data": "map_tag", "title":"WAGO I/O", "className": "align-middle text-center" },
-            { "data": null, "title":"Map", "className": "align-middle text-center",
-              "render": function (item)
-                { return( "<->" ); }
-            },
-            { "data": null, "title":"BIT Tech_id", "className": "align-middle text-center",
-              "render": function (item)
-                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
-            },
-            { "data": "acronyme", "title":"BIT Acronyme", "className": "align-middle text-center" },
-            { "data": "libelle", "title":"BIT Libelle", "className": "align-middle text-center" },
-            { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "Show_Modal_Map_Edit_AO", item.id, "pen", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer cet objet", "Show_Modal_Map_Del_AO", item.id, "trash", null );
-                  boutons += Bouton_actions_end ();
-                  return(boutons);
-                },
-            },
-          ],
-         /*responsive: true,*/
-       }
-     );
-
-    $('#idTabEntreeTor').tab('show');
+     });
   }

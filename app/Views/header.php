@@ -268,3 +268,4 @@
 </nav>
 </header>
 <?php if ( getenv("CI_ENVIRONMENT") == "development" ) { echo "<div class='alert alert-warning'>Instance de DEV</div>"; } ?>
+<div id="idDomainNotification" class='alert alert-info m-1' style="display:none" role="status"></div>

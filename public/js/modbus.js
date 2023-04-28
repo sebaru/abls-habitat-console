@@ -142,8 +142,8 @@
     $('#idMODBUSEditDI').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function MODBUS_Edit_DI (modbus_di_id)
-  { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_di_id).data();
+ function MODBUS_Edit_DO (modbus_do_id)
+  { selection = $('#idTableMODBUS_DO').DataTable().row("#"+modbus_do_id).data();
     $('#idMODBUSEditDOTitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODBUSEditDOLibelle').val ( selection.libelle );
     $('#idMODBUSEditDOValider').off("click").on( "click", function ()
@@ -364,7 +364,8 @@
                 { return( item.thread_acronyme ); }
             },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
-              "render": function (item)                { if(item.tech_id)
+              "render": function (item)
+                { if(item.tech_id)
                    { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
