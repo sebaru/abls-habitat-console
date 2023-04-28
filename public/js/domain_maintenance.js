@@ -20,6 +20,13 @@
      { Show_toast_ok ( tag.toUpperCase() + " Sent to Agents." );
      }, null );
   }
+/************************************ Vide le tampon des visuels **************************************************************/
+ function Domain_User_Notif ()
+  { var json_request = { notif: $("#idDomainUserNotif").val() }
+    Send_to_API ( "POST", "/domain/set_notif", json_request, function(Response)
+     { Show_toast_ok ( "Notif saved." );
+     }, null );
+  }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { console.log ("in load domain !");
@@ -28,5 +35,6 @@
     $("#idDomainRemap")          .off("click").click( function () { Domain_Send_to_Agent( "REMAP" ); } );
     $("#idDomainHorlogeReload")  .off("click").click( function () { Domain_Send_to_Agent( "RELOAD_HORLOGE_TICK" ); } );
     $("#idDomainHorlogeClearVisuel").off("click").click( function () { Domain_Clear_Visuels(); } );
+    $("#idDomainUserNotifSend")  .off("click").click( function () { Domain_User_Notif(); } );
   }
 /******************************************************************************************************************************/

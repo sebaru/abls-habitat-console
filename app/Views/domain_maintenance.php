@@ -40,6 +40,14 @@
              </div>
            </div>
 
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Notification aux utilisateurs</label>
+               <input id="idDomainUserNotif" type="text" class="form-control" placeholder="Notification aux utilisateurs">
+               <button id="idDomainUserNotifSend" type="button" class="btn btn-secondary"><i class="fas fa-message"></i> Send</button>
+             </div>
+           </div>
+
          </div>
 <!--
          <div class="card-footer d-flex">
