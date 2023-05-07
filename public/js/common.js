@@ -240,7 +240,7 @@
   { return( Badge ( Access_level_description[level].color, Access_level_description[level].name, level.toString() ) ); }
 /********************************************* Renvoi un Select d'access Level ************************************************/
  function Select ( id, fonction, array, selected )
-  { retour = "<select id='"+id+"' class='custom-select' ";
+  { retour = "<select id='"+id+"' class='custom-select border border-info' ";
     if (fonction) retour += "onchange="+fonction;
     retour+= ">";
     valeur = array.map ( function(item) { return(item.valeur); } );
@@ -367,7 +367,7 @@
     /* if (period=="HOUR") setInterval( function() { window.location.reload(); }, 60000);
     else if (period=="DAY")  setInterval( function() { window.location.reload(); }, 300000);
     else setInterval( function() { window.location.reload(); }, 600000);*/
-	 }
+  }
 
 /********************************* Chargement d'une courbe dans u synoptique 1 au démrrage ************************************/
  function Charger_plusieurs_courbes ( idChart, tableau_map, period )
@@ -422,7 +422,7 @@ console.debug(data);
            { Charger_plusieurs_courbes ( idChart, tableau_map, period ); }, 60000 );
         }
      });
-	 }
+  }
 /******************************************************************************************************************************/
 /* Get_url_parameter : Recupere un parametre de recherche dans l'URL                                                          */
 /******************************************************************************************************************************/

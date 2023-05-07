@@ -1,3 +1,18 @@
+
+ var Capteurs =
+  [ { valeur: "DIGITAL-INPUT",         texte: "DI - DIGITAL-INPUT" },
+    { valeur: "ADP1000-PH",            texte: "AI - ADP1000-PH" },
+    { valeur: "TMP1200_0-PT100-3850",, texte: "AI - TMP1200_0-PT100-3850" },
+    { valeur: "TMP1200_0-PT100-3920",  texte: "AI - TMP1200_0-PT100-3920<" },
+    { valeur: "AC-CURRENT-10A",        texte: "AI - AC-CURRENT-10A" },
+    { valeur: "AC-CURRENT-25A",        texte: "AI - AC-CURRENT-25A" },
+    { valeur: "AC-CURRENT-50A",        texte: "AI - AC-CURRENT-50A" },
+    { valeur: "AC-CURRENT-100A",       texte: "AI - AC-CURRENT-100A" },
+    { valeur: "TEMP_1124_0",           texte: "AI - TEMP_1124_0" },
+    { valeur: "REL2001_0",             texte: "DO - REL2001_0" },
+  ];
+
+
 /************************************ Demande de refresh **********************************************************************/
  function PHIDGET_Refresh ( )
   { $('#idTablePHIDGET').DataTable().ajax.reload(null, false);
@@ -15,12 +30,12 @@
     selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { PHIDGET_Refresh(); }, function(Response) { PHIDGET_Refresh(); } );
   }
-/**************************************** Supprime une connexion phidget *******************************************************/
+/**************************************** Supprime une connexion PHIDGET *******************************************************/
  function PHIDGET_Del (phidget_id)
   { selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
     Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
-                     selection.thread_tech_id + " - "+selection.hostname +" - "+ selection.description,
+                     selection.thread_tech_id + " - " +s election.hostname + " - " + selection.description,
                      function () { Thread_delete ( selection.thread_tech_id, function(Response) { PHIDGET_Refresh(); }, null ); } ) ;
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
@@ -67,30 +82,13 @@
     $('#idPHIDGETValider').off("click").on( "click", function () { PHIDGET_Set(null); } );
     $('#idPHIDGETEdit').modal("show");
   }
-/**************************************** Supprime une connexion meteo ********************************************************/
- function PHIDGET_Del_Valider ( selection )
-  { var json_request = { uuid : selection.uuid, thread_tech_id: selection.thread_tech_id };
-    Send_to_API ( 'DELETE', "/api/process/config", JSON.stringify(json_request), function(Response)
-     { Process_reload ( json_request.uuid );
-       PHIDGET_Refresh();
-     }, null );
-  }
-/**************************************** Supprime une connexion meteo ********************************************************/
- function PHIDGET_Del ( id )
-  { table = $('#idTablePHIDGET').DataTable();
-    selection = table.ajax.json().config.filter( function(item) { return item.id==id } )[0];
-    Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
-                     "Etes-vous sûr de vouloir supprimer cette connexion ?",
-                     selection.thread_tech_id + " - "+selection.description,
-                     function () { PHIDGET_Del_Valider( selection ) } ) ;
-  }
-
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function PHIDGET_Edit_IO (phidget_io_id)
   { selection = $('#idTablePHIDGET_IO').DataTable().row("#"+phidget_io_id).data();
     $('#idPHIDGETEditIOTitre').text( "Configurer "+selection.thread_tech_id+", port "+selection.port );
     $('#idPHIDGETEditIOLibelle').val ( selection.libelle );
-    $('#idPHIDGETEditIOCapteur').val ( selection.capteur );
+    $('#idPHIDGETEditIOCapteur')
+     .replaceWith ( Select ( "idPHIDGETAddIOCapteur", null, Capteurs, selection.capteur ) );
     $('#idPHIDGETEditIOIntervalle').val ( selection.intervalle );
     $('#idPHIDGETEditIOValider').off("click").on( "click", function ()
      { $('#idPHIDGETEditIO').modal("hide");
@@ -108,7 +106,38 @@
      });
     $('#idPHIDGETEditIO').modal("show");
   }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function PHIDGET_Add_IO ()
+  { phidgets = table.ajax.json().phidget;
+    $('#idPHIDGETAddIOTitre').text( "Ajouter une I/O Phidget" );
+    $('#idPHIDGETAddIOThreadTechID')
+     .replaceWith ( Select ( "idPHIDGETAddIOThreadTechID", null,
+                             phidgets.map ( function ( item )
+                                             { return ( { valeur: item.thread_tech_id, texte: item.thread_tech_id + " - " + item.description } ); } ),
+                             null ) );
+    $('#idPHIDGETAddIOPort').val ();
+    $('#idPHIDGETAddIOLibelle').val ();
+    $('#idPHIDGETAddIOCapteur').val ();
+    $('#idPHIDGETAddIOCapteur')
+     .replaceWith ( Select ( "idPHIDGETAddIOCapteur", null, Capteurs, null ) );
+    $('#idPHIDGETAddIOIntervalle').val ();
+    $('#idPHIDGETAddIOValider').off("click").on( "click", function ()
+     { $('#idPHIDGETAddIO').modal("hide");
+       var json_request =
+        { thread_tech_id: $('#idPHIDGETAddIOThreadTechID').val(),
+          intervalle: parseInt($('#idPHIDGETAddIOIntervalle').val()),
+          capteur   : $('#idPHIDGETAddIOCapteur').val(),
+          port      : $('#idPHIDGETAddIOPort').val(),
+          libelle   : $('#idPHIDGETAddIOLibelle').val(),
+        };
 
+       Send_to_API ( "POST", "/phidget/add/io", json_request,
+                     (Response) => { Show_toast_ok ("I/O ajoutée.");
+                                     PHIDGET_Refresh();
+                                   }, null );
+     });
+    $('#idPHIDGETAddIO').modal("show");
+  }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function PHIDGET_Map_DI (phidget_io_id)
   { selection = $('#idTablePHIDGET_DI').DataTable().row("#"+phidget_io_id).data();
