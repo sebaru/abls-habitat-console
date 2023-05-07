@@ -107,73 +107,11 @@
     $('#idPHIDGETEditIO').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function PHIDGET_Add_IO ()
-  { phidgets = $('#idTablePHIDGET').DataTable().ajax.json().phidget;
-    $('#idPHIDGETAddIOTitre').text( "Ajouter une I/O Phidget" );
-    $('#idPHIDGETAddIOThreadTechID')
-     .replaceWith ( Select ( "idPHIDGETAddIOThreadTechID", null,
-                             phidgets.map ( function ( item )
-                                             { return ( { valeur: item.thread_tech_id, texte: item.thread_tech_id + " - " + item.description } ); } ),
-                             null ) );
-    $('#idPHIDGETAddIOPort').val ();
-    $('#idPHIDGETAddIOLibelle').val ();
-    $('#idPHIDGETAddIOCapteur').val ();
-    $('#idPHIDGETAddIOCapteur')
-     .replaceWith ( Select ( "idPHIDGETAddIOCapteur", null, Capteurs, null ) );
-    $('#idPHIDGETAddIOIntervalle').val ();
-    $('#idPHIDGETAddIOValider').off("click").on( "click", function ()
-     { $('#idPHIDGETAddIO').modal("hide");
-       var json_request =
-        { thread_tech_id: $('#idPHIDGETAddIOThreadTechID').val(),
-          intervalle: parseInt($('#idPHIDGETAddIOIntervalle').val()),
-          capteur   : $('#idPHIDGETAddIOCapteur').val(),
-          port      : $('#idPHIDGETAddIOPort').val(),
-          libelle   : $('#idPHIDGETAddIOLibelle').val(),
-        };
-
-       Send_to_API ( "POST", "/phidget/add/io", json_request,
-                     (Response) => { Show_toast_ok ("I/O ajoutée.");
-                                     PHIDGET_Refresh();
-                                   }, null );
-     });
-    $('#idPHIDGETAddIO').modal("show");
-  }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
- function PHIDGET_Map_DI (phidget_io_id)
-  { selection = $('#idTablePHIDGET_DI').DataTable().row("#"+phidget_io_id).data();
+ function PHIDGET_Map (phidget_io_id)
+  { selection = $('#idTablePHIDGET_IO').DataTable().row("#"+phidget_io_id).data();
     $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
-    $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DI" ); } );
-    Common_Updater_Choix_TechID ( "idMODALMap", "DI", selection.tech_id, selection.acronyme );
-    $('#idMODALMapValider').off("click").on( "click", function ()
-     { $('#idMODALMap').modal("hide");
-       COMMON_Map ( selection.thread_tech_id, selection.thread_acronyme,
-                    $('#idMODALMapSelectTechID').val(),  $('#idMODALMapSelectAcronyme').val()
-                  );
-       PHIDGET_Refresh();
-     });
-    $('#idMODALMap').modal("show");
-  }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
- function PHIDGET_Map_DO (phidget_io_id)
-  { selection = $('#idTablePHIDGET_DO').DataTable().row("#"+phidget_io_id).data();
-    $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
-    $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DO" ); } );
-    Common_Updater_Choix_TechID ( "idMODALMap", "DO", selection.tech_id, selection.acronyme );
-    $('#idMODALMapValider').off("click").on( "click", function ()
-     { $('#idMODALMap').modal("hide");
-       COMMON_Map ( selection.thread_tech_id, selection.thread_acronyme,
-                    $('#idMODALMapSelectTechID').val(),  $('#idMODALMapSelectAcronyme').val()
-                  );
-       PHIDGET_Refresh();
-     });
-    $('#idMODALMap').modal("show");
-  }
-/********************************************* Afichage du modal d'eaition synoptique *****************************************/
- function PHIDGET_Map_AI (phidget_io_id)
-  { selection = $('#idTablePHIDGET_AI').DataTable().row("#"+phidget_io_id).data();
-    $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
-    $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "AI" ); } );
-    Common_Updater_Choix_TechID ( "idMODALMap", "AI", selection.tech_id, selection.acronyme );
+    $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", selection.classe ); } );
+    Common_Updater_Choix_TechID ( "idMODALMap", selection.classe, selection.tech_id, selection.acronyme );
     $('#idMODALMapValider').off("click").on( "click", function ()
      { $('#idMODALMap').modal("hide");
        COMMON_Map ( selection.thread_tech_id, selection.thread_acronyme,
