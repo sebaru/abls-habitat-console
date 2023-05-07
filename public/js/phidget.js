@@ -1,15 +1,15 @@
 
  var Capteurs =
-  [ { valeur: "DIGITAL-INPUT",         texte: "DI - DIGITAL-INPUT" },
-    { valeur: "ADP1000-PH",            texte: "AI - ADP1000-PH" },
-    { valeur: "TMP1200_0-PT100-3850",, texte: "AI - TMP1200_0-PT100-3850" },
-    { valeur: "TMP1200_0-PT100-3920",  texte: "AI - TMP1200_0-PT100-3920<" },
-    { valeur: "AC-CURRENT-10A",        texte: "AI - AC-CURRENT-10A" },
-    { valeur: "AC-CURRENT-25A",        texte: "AI - AC-CURRENT-25A" },
-    { valeur: "AC-CURRENT-50A",        texte: "AI - AC-CURRENT-50A" },
-    { valeur: "AC-CURRENT-100A",       texte: "AI - AC-CURRENT-100A" },
-    { valeur: "TEMP_1124_0",           texte: "AI - TEMP_1124_0" },
-    { valeur: "REL2001_0",             texte: "DO - REL2001_0" },
+  [ { valeur: "DIGITAL-INPUT",        texte: "DI - DIGITAL-INPUT" },
+    { valeur: "ADP1000-PH",           texte: "AI - ADP1000-PH" },
+    { valeur: "TMP1200_0-PT100-3850", texte: "AI - TMP1200_0-PT100-3850" },
+    { valeur: "TMP1200_0-PT100-3920", texte: "AI - TMP1200_0-PT100-3920<" },
+    { valeur: "AC-CURRENT-10A",       texte: "AI - AC-CURRENT-10A" },
+    { valeur: "AC-CURRENT-25A",       texte: "AI - AC-CURRENT-25A" },
+    { valeur: "AC-CURRENT-50A",       texte: "AI - AC-CURRENT-50A" },
+    { valeur: "AC-CURRENT-100A",      texte: "AI - AC-CURRENT-100A" },
+    { valeur: "TEMP_1124_0",          texte: "AI - TEMP_1124_0" },
+    { valeur: "REL2001_0",            texte: "DO - REL2001_0" },
   ];
 
 
@@ -35,7 +35,7 @@
   { selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
     Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
-                     selection.thread_tech_id + " - " +s election.hostname + " - " + selection.description,
+                     selection.thread_tech_id + " - " + selection.hostname + " - " + selection.description,
                      function () { Thread_delete ( selection.thread_tech_id, function(Response) { PHIDGET_Refresh(); }, null ); } ) ;
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
@@ -88,7 +88,7 @@
     $('#idPHIDGETEditIOTitre').text( "Configurer "+selection.thread_tech_id+", port "+selection.port );
     $('#idPHIDGETEditIOLibelle').val ( selection.libelle );
     $('#idPHIDGETEditIOCapteur')
-     .replaceWith ( Select ( "idPHIDGETAddIOCapteur", null, Capteurs, selection.capteur ) );
+     .replaceWith ( Select ( "idPHIDGETEditIOCapteur", null, Capteurs, selection.capteur ) );
     $('#idPHIDGETEditIOIntervalle').val ( selection.intervalle );
     $('#idPHIDGETEditIOValider').off("click").on( "click", function ()
      { $('#idPHIDGETEditIO').modal("hide");
@@ -108,7 +108,7 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function PHIDGET_Add_IO ()
-  { phidgets = table.ajax.json().phidget;
+  { phidgets = $('#idTablePHIDGET').DataTable().ajax.json().phidget;
     $('#idPHIDGETAddIOTitre').text( "Ajouter une I/O Phidget" );
     $('#idPHIDGETAddIOThreadTechID')
      .replaceWith ( Select ( "idPHIDGETAddIOThreadTechID", null,

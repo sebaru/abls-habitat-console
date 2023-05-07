@@ -27,7 +27,7 @@
 <!----------------------------------------------------------------------------------------------------------------------------->
  <div class="row m-2">
    <div class ="ml-auto btn-group">
-        <button type="button" onclick="PHIDGET_Add(null)" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une IO</button>
+        <button type="button" onclick="PHIDGET_Add_IO()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une IO</button>
    </div>
  </div>
     <table id="idTablePHIDGET_IO" class="table table-striped table-bordered table-hover w-100">
@@ -129,6 +129,9 @@
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Intervalle</label>
            <input id="idPHIDGETEditIOIntervalle" required type="number" class="form-control" min=1 max=60 placeholder="Intervalle d'acquisition">
+           <div class="input-group-append">
+            <span class="input-group-text form-control">ms</span>
+           </div>
           </div>
         </div>
 
@@ -170,7 +173,7 @@
        <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Port du Hub</label>
-           <input id="idPHIDGETAddIOPort" required type="number" class="form-control" min=1 max=60 placeholder="Port du Hub">
+           <input id="idPHIDGETAddIOPort" required type="number" class="form-control" min=0 max=6 placeholder="Port du Hub">
           </div>
        </div>
 
@@ -185,6 +188,9 @@
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Intervalle</label>
            <input id="idPHIDGETAddIOIntervalle" required type="number" class="form-control" min=1 max=60 placeholder="Intervalle d'acquisition">
+           <div class="input-group-append">
+            <span class="input-group-text form-control">ms</span>
+           </div>
           </div>
         </div>
 
