@@ -47,7 +47,7 @@
        description: $('#idPHIDGETDescription').val(),
        hostname   : $('#idPHIDGETHostname').val(),
        password   : $('#idPHIDGETPassword').val(),
-       serial     : $('#idPHIDGETSerial').val(),
+       serial     : parseInt($('#idPHIDGETSerial').val()),
      };
     Send_to_API ( "POST", "/phidget/set", json_request,
                   (Response) => { Show_toast_ok ("Modifications sauvegardées.");

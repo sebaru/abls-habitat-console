@@ -21,7 +21,7 @@
 
 <hr>
 
-<div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/wago_750342.webp" style="width:80px" alt="Wago 750-342">Configuration des I/O Phidget</h3></div>
+<div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/phidget_hub5000.jpg" style="width:80px" alt="Hub 5000">Configuration des I/O Phidget</h3></div>
 
 <div>
 <!----------------------------------------------------------------------------------------------------------------------------->
