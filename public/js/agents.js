@@ -49,12 +49,19 @@
                      function () { AGENT_Upgrade_Valider( selection ) } ) ;
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function AGENT_Upgrade ( id  )
+ function AGENT_Delete_Valider ( selection )
+  { var json_request = { agent_uuid: selection.agent_uuid };
+    Send_to_API ( 'DELETE', "/agent/delete", json_request, function ()
+     { Show_toast_ok ( "Agent supprimé" );
+     }, null );
+  }
+/************************************ Envoi les infos de modifications synoptique *********************************************/
+ function AGENT_Delete ( id  )
   { selection = $('#idTableAGENT').DataTable().row("#"+id).data();
-    Show_modal_del ( "Upgrader l'agent "+selection.agent_hostname,
-                     "Etes-vous sûr de vouloir upgrader cet agent ?",
+    Show_modal_del ( "Supprimer l'agent "+selection.agent_hostname,
+                     "Etes-vous sûr de vouloir supprimer cet agent ?",
                      selection.agent_hostname + " - "+selection.description,
-                     function () { AGENT_Upgrade_Valider( selection ) } ) ;
+                     function () { AGENT_Delete_Valider( selection ) } ) ;
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
@@ -103,10 +110,11 @@
                  boutons += Bouton_actions_add ( "info", "Promouvoir Master",
                                                  (item.is_master == false ? "AGENT_Set_master" : null),
                                                  item.agent_id, "asterisk", null );
-                 boutons += Bouton_actions_add ( "warning", "Upgrader l'agent",
+                 boutons += Bouton_actions_add ( "primary", "Upgrader l'agent",
                                                  (item.ws_connected ? "AGENT_Upgrade" : null), item.agent_id, "download", null );
-                 boutons += Bouton_actions_add ( "danger", "Restarter l'agent",
+                 boutons += Bouton_actions_add ( "warning", "Restarter l'agent",
                                                  (item.ws_connected ? "AGENT_Reset" : null), item.agent_id, "redo", null );
+                 boutons += Bouton_actions_add ( "danger", "Supprimer l'agent", "AGENT_Delete", item.agent_id, "trash", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
