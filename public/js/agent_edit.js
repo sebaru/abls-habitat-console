@@ -27,12 +27,20 @@
        $("#idAGENTDescription").val( Response.description );
        $("#idAGENTBranche").val( Response.branche );
 
-       $("#idAGENTLink").val( "sudo Watchdogd --link"+
-                               " --api-url " + Response.api_url +
-                               " --domain-uuid " + localStorage.getItem("domain_uuid") +
-                               " --domain-secret '" + Response.domain_secret + "'" +
-                               " --agent-uuid " + Response.agent_uuid
-                            );
+       $("#idAGENTLinkNatif").text( "sudo Watchdogd --save"+
+                                    " --api-url " + Response.api_url +
+                                    " --domain-uuid " + localStorage.getItem("domain_uuid") +
+                                    " --domain-secret '" + Response.domain_secret + "'"
+                                  );
+       $("#idAGENTLinkPodman").text( "podman rm abls-agent; "+
+                                     "podman run -d --name abls-agent "+
+                                     "--restart always -v /dev/log:/dev/log --tz local -p 5559:5559 "+
+                                     "--env ABLS_API_URL="+Response.api_url + " "+
+                                     "--env ABLS_DOMAIN_UUID="+localStorage.getItem("domain_uuid") + " "+
+                                     "--env ABLS_DOMAIN_SECRET='"+Response.domain_secret + "' "+
+                                     "--group-add keep-groups "+
+                                     "docker.io/sebaru/abls-agent:latest "
+                                  );
 
        $("#idAGENTHeadless").replaceWith ( Select ( "idAGENTHeadless", null,
                                                     [ { valeur: true, texte: "Oui" }, { valeur: false, texte: "Non" } ], Response.headless ) );

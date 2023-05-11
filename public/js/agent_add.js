@@ -3,7 +3,7 @@
   {
     Send_to_API ( 'GET', "/domain/get", "domain_uuid="+localStorage.getItem("domain_uuid"), function (Response)
      {
-       $("#idAGENTLinkNatif").text( "sudo Watchdogd --link"+
+       $("#idAGENTLinkNatif").text( "sudo Watchdogd --save"+
                                     " --api-url " + Response.api_url +
                                     " --domain-uuid " + localStorage.getItem("domain_uuid") +
                                     " --domain-secret '" + Response.domain_secret + "'"
@@ -15,7 +15,6 @@
                                      "--env ABLS_DOMAIN_UUID="+localStorage.getItem("domain_uuid") + " "+
                                      "--env ABLS_DOMAIN_SECRET='"+Response.domain_secret + "' "+
                                      "--group-add keep-groups "+
-                                     "--device /dev/serial/ "+
                                      "docker.io/sebaru/abls-agent:latest "
                                   );
      }, null );
