@@ -10,6 +10,18 @@
        if (fonction_ok) fonction_ok(Response);
      }, fonction_nok );
   }
+/********************************************* Reload Process *****************************************************************/
+ function Thread_debug ( thread_tech_id, enable, fonction_ok, fonction_nok )
+  { var json_request =
+     { debug         : enable,
+       thread_tech_id: thread_tech_id,
+     };
+
+    Send_to_API ( "POST", "/thread/debug", json_request, function(Response)
+     { Show_toast_ok ( "Thread "+thread_tech_id+(enable ? " en debug" : " hors debug") +".");
+       if (fonction_ok) fonction_ok(Response);
+     }, fonction_nok );
+  }
 /********************************************* Thread_Delete ******************************************************************/
  function Thread_delete ( thread_tech_id, fonction_ok, fonction_nok )
   { var json_request = { thread_tech_id: thread_tech_id };

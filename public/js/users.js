@@ -4,7 +4,7 @@
   }
 /******************************************************************************************************************************/
  function User_disable_user ( uuid )
-  { /*$("#idButtonSpinner_"+ups_id).show();*/
+  { $("#idButtonSpinner_User_disable_user_"+uuid).show();
     selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
     var json_request =  { user_uuid   : selection.user_uuid, enable : false };
 
@@ -15,7 +15,8 @@
   }
 /******************************************************************************************************************************/
  function User_enable_user ( uuid )
-  { selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
+  { $("#idButtonSpinner_User_enable_user_"+uuid).show();
+    selection = $('#idTableUsers').DataTable().row("#"+uuid).data();
     var json_request =  { user_uuid   : selection.user_uuid, enable : true };
 
     Send_to_API ( 'POST', "/user/set", json_request, function ()

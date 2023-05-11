@@ -10,15 +10,27 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Disable (modbus_id)
-  { $("#idButtonSpinner_"+modbus_id).show();
+  { $("#idButtonSpinner_MODBUS_Disable_"+modbus_id).show();
     selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Enable (modbus_id)
-  { $("#idButtonSpinner_"+modbus_id).show();
+  { $("#idButtonSpinner_MODBUS_Enable_"+modbus_id).show();
     selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function MODBUS_Debug (modbus_id)
+  { $("#idButtonSpinner_MODBUS_Debug_"+modbus_id).show();
+    selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
+    Thread_debug ( selection.thread_tech_id, true, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function MODBUS_Undebug (modbus_id)
+  { $("#idButtonSpinner_MODBUS_Undebug_"+modbus_id).show();
+    selection = $('#idTableMODBUS').DataTable().row("#"+modbus_id).data();
+    Thread_debug ( selection.thread_tech_id, false, function(Response) { MODBUS_Refresh(); }, function(Response) { MODBUS_Refresh(); } );
   }
 /**************************************** Supprime une connexion modbus *******************************************************/
  function MODBUS_Del (modbus_id)
@@ -220,6 +232,14 @@
                 { return( Bouton ( "outline-secondary", "Activer le module", "MODBUS_Enable", item.modbus_id, "Désactivé" ) ); }
               },
           },
+           { "data": null, "title":"Debug", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.debug==true)
+                 { return( Bouton ( "warning", "Désactiver le debug", "MODBUS_Undebug", item.modbus_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le debug", "MODBUS_Debug", item.modbus_id, "Désactivé" ) ); }
+              },
+           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
@@ -329,7 +349,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_DOI", item.modbus_do_id, "pen", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_DO", item.modbus_do_id, "pen", null );
                   boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DO", item.modbus_do_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);

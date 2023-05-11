@@ -4,15 +4,27 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function TELEINFO_Disable (teleinfoedf_id)
-  { $("#idButtonSpinner_"+teleinfoedf_id).show();
+  { $("#idButtonSpinner_TELEINFO_Disable_"+teleinfoedf_id).show();
     selection = $('#idTableTELEINFO').DataTable().row("#"+teleinfoedf_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { TELEINFO_Refresh(); }, function(Response) { TELEINFO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function TELEINFO_Enable (teleinfoedf_id)
-  { $("#idButtonSpinner_"+teleinfoedf_id).show();
+  { $("#idButtonSpinner_TELEINFO_Enable_"+teleinfoedf_id).show();
     selection = $('#idTableTELEINFO').DataTable().row("#"+teleinfoedf_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { TELEINFO_Refresh(); }, function(Response) { TELEINFO_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function TELEINFO_Debug (teleinfoedf_id)
+  { $("#idButtonSpinner_TELEINFO_Debug_"+teleinfoedf_id).show();
+    selection = $('#idTableTELEINFO').DataTable().row("#"+teleinfoedf_id).data();
+    Thread_debug ( selection.thread_tech_id, true, function(Response) { TELEINFO_Refresh(); }, function(Response) { TELEINFO_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function TELEINFO_Undebug (teleinfoedf_id)
+  { $("#idButtonSpinner_TELEINFO_Undebug_"+teleinfoedf_id).show();
+    selection = $('#idTableTELEINFO').DataTable().row("#"+teleinfoedf_id).data();
+    Thread_debug ( selection.thread_tech_id, false, function(Response) { TELEINFO_Refresh(); }, function(Response) { TELEINFO_Refresh(); } );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function TELEINFO_Set ( selection )
@@ -97,6 +109,14 @@
                  { return( Bouton ( "outline-secondary", "Activer la téléinfo",
                                     "TELEINFO_Enable", item.teleinfoedf_id, "Désactivé" ) );
                  }
+              },
+           },
+           { "data": null, "title":"Debug", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.debug==true)
+                 { return( Bouton ( "warning", "Désactiver le debug", "TELEINFO_Undebug", item.teleinfo_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le debug", "TELEINFO_Debug", item.teleinfo_id, "Désactivé" ) ); }
               },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",

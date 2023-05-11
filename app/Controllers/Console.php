@@ -26,6 +26,7 @@ class Console extends BaseController
  public function domains()            { $this->send_page ("domains"); }
  public function modbus()             { $this->send_page ("modbus"); }
  public function phidget()            { $this->send_page ("phidget"); }
+ public function gpiod()              { $this->send_page ("gpiod"); }
  public function smsg()               { $this->send_page ("smsg"); }
  public function threads()            { $this->send_page ("threads"); }
  public function search()             { $this->send_page ("search"); }

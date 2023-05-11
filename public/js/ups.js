@@ -4,15 +4,27 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function UPS_Disable (ups_id)
-  { $("#idButtonSpinner_"+ups_id).show();
+  { $("#idButtonSpinner_UPS_Disable_"+ups_id).show();
     selection = $('#idTableUPS').DataTable().row("#"+ups_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { UPS_Refresh(); }, function(Response) { UPS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function UPS_Enable (ups_id)
-  { $("#idButtonSpinner_"+ups_id).show();
+  { $("#idButtonSpinner_UPS_Enable_"+ups_id).show();
     selection = $('#idTableUPS').DataTable().row("#"+ups_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { UPS_Refresh(); }, function(Response) { UPS_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function UPS_Debug (ups_id)
+  { $("#idButtonSpinner_UPS_Debug_"+ups_id).show();
+    selection = $('#idTableUPS').DataTable().row("#"+ups_id).data();
+    Thread_debug ( selection.thread_tech_id, true, function(Response) { UPS_Refresh(); }, function(Response) { UPS_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function UPS_Undebug (ups_id)
+  { $("#idButtonSpinner_UPS_Undebug_"+ups_id).show();
+    selection = $('#idTableUPS').DataTable().row("#"+ups_id).data();
+    Thread_debug ( selection.thread_tech_id, false, function(Response) { UPS_Refresh(); }, function(Response) { UPS_Refresh(); } );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function UPS_Set ( selection )
@@ -103,6 +115,14 @@
                                      "UPS_Enable", item.ups_id, "Désactivé" ) );
                   }
                },
+           },
+           { "data": null, "title":"Debug", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.debug==true)
+                 { return( Bouton ( "warning", "Désactiver le debug", "UPS_Undebug", item.ups_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le debug", "UPS_Debug", item.ups_id, "Désactivé" ) ); }
+              },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
