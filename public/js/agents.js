@@ -87,10 +87,15 @@
                 return ( Bouton ( color, "Agent is " + mode, null, null, mode ) );
               }
            },
+           { "data": null, "title":"Branche", "className": "align-middle text-center",
+             "render": function (item)
+              { result = Badge ( "secondary", "Branche is "+item.branche, item.branche )
+                return(result);
+              }
+           },
            { "data": null, "title":"Hostname", "className": "align-middle text-center",
              "render": function (item)
               { result = Lien ( "/agent/"+item.agent_uuid, "Voir l'agent", item.agent_hostname + " " );
-                result = result + Badge ( "secondary", "Branche is "+item.branche, item.branche )
                 return(result);
               }
            },
