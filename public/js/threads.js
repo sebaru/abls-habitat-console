@@ -47,17 +47,17 @@
           { "data": null, "title":"Enable", "className": "align-middle text-center",
              "render": function (item)
               { if (item.enable==true)
-                { return( Bouton ( "success", "Désactiver le thread", "THREAD_set_disable", item.tech_id, "Actif" ) ); }
+                { return( Bouton ( "success", "Désactiver le thread", "THREAD_set_disable", item.thread_tech_id, "Actif" ) ); }
                else
-                { return( Bouton ( "outline-secondary", "Activer le thread", "THREAD_set_enable", item.tech_id, "Désactivé" ) ); }
+                { return( Bouton ( "outline-secondary", "Activer le thread", "THREAD_set_enable", item.thread_tech_id, "Désactivé" ) ); }
               },
           },
           { "data": null, "title":"Debug", "className": "align-middle text-center",
             "render": function (item)
              { if (item.debug==true)
-                 { return( Bouton ( "warning", "Désactiver le debug", "THREAD_set_undebug", item.tech_id, "Actif" ) ); }
+                 { return( Bouton ( "warning", "Désactiver le debug", "THREAD_set_undebug", item.thread_tech_id, "Actif" ) ); }
                else
-                { return( Bouton ( "outline-secondary", "Activer le debug", "THREAD_set_debug", item.tech_id, "Désactivé" ) ); }
+                { return( Bouton ( "outline-secondary", "Activer le debug", "THREAD_set_debug", item.thread_tech_id, "Désactivé" ) ); }
              },
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
