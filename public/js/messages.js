@@ -1,4 +1,35 @@
- var SMS_NOTIF = [ "None", "Yes", "GSM_Only", "OVH_Only" ];
+ var SMS_NOTIF = [ { valeur: 0, texte: "None" }, { valeur: 1, texte: "Yes" }, { valeur: 2, texte: "GSM_Only" }, { valeur: 3, texte:"OVH_Only" } ];
+
+/************************************ Envoi les infos de modifications synoptique *********************************************/
+ function MSG_Set ( selection )
+  { var json_request =
+       { tech_id         : selection.tech_id,
+         acronyme        : selection.acronyme,
+         sms_notification: parseInt($('#idMSGEditSmsNotification').val()),
+         sms_libelle     : $('#idMSGEditSmsLibelle').val(),
+         audio_profil    : $('#idMSGEditAudioProfil').val(),
+         audio_libelle   : $('#idMSGEditAudioLibelle').val(),
+         rate_limit      : parseInt($('#idMSGEditRateLimit').val()),
+       };
+
+    Send_to_API ( "POST", "/message/set", json_request, function(Response)
+     { Show_toast_ok ( "Modification sauvegardée.");
+       MSG_Refresh();
+     }, function(Response) { MSG_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function MSG_Edit ( msg_id )
+  { selection = $('#idTableMESSAGES').DataTable().row("#"+msg_id).data();
+    $('#idMSGEditTitre').text("Editer les paramètres du message " + selection.tech_id+":"+selection.acronyme);
+    $('#idMSGEditLibelle').prop ("disabled", true).val( selection.libelle );
+    $('#idMSGEditSmsNotification').replaceWith ( Select ( "idMSGEditSmsNotification", null, SMS_NOTIF, selection.sms_notification ) );
+    $('#idMSGEditSmsLibelle').val( selection.sms_libelle );
+    $('#idMSGEditAudioProfil').val( selection.audio_profil );
+    $('#idMSGEditAudioLibelle').val( selection.audio_libelle );
+    $('#idMSGEditRateLimit').val( selection.rate_limit );
+    $('#idMSGEditValider').off("click").on( "click", function () { MSG_Set(selection); } );
+    $('#idMSGEdit').modal("show");
+  }
 
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
@@ -53,7 +84,7 @@
            },
            { "data": null, "title":"SMS Notification", "className": "align-middle text-center",
              "render": function (item)
-               { return( SMS_NOTIF[item.sms_notification] ); }
+               { return( SMS_NOTIF.map ( function(item) { return(item.texte); } )[item.sms_notification] ); }
            },
            { "data": null, "title":"Libelle SMS", "className": "align-middle text-center",
              "render": function (item)

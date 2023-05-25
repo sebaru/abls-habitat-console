@@ -24,11 +24,11 @@
 </div>
 
 
-<div id="idModalMsg" class="modal fade" tabindex="-1" role="dialog">
+<div id="idMSGEdit" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
-        <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idModelMsgTitre"></span></h5>
+        <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idMSGEditTitre"></span></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -38,14 +38,14 @@
        <div class="col form-group">
 					     <div class="input-group">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Libellé</label>
-						     <input id="idModelMsgLibelle" type="text" class="form-control" disabled placeholder="Libellé du Message">
+						     <input id="idMSGEditLibelle" type="text" class="form-control" disabled placeholder="Libellé du Message">
      					</div>
        </div>
 
        <div class="col form-group">
 					     <div class="input-group">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Zone de Diffusion Sonore</label>
-						     <select id="idModalMsgZoneDiffusion" class="col-7 col-sm-8 custom-select border-info">
+						     <select id="idMSGEditZoneDiffusion" class="col-7 col-sm-8 custom-select border-info">
            </select>
      					</div>
        </div>
@@ -53,18 +53,14 @@
        <div class="col form-group">
 					     <div class="input-group">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Libellé audio</label>
-						     <input id="idModelMsgAudioLibelle" type="text" class="form-control" placeholder="Libellé audio du Message">
+						     <input id="idMSGEditAudioLibelle" type="text" class="form-control" placeholder="Libellé audio du Message">
      					</div>
        </div>
 
        <div class="col form-group">
 					     <div class="input-group">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Envoi SMS</label>
-						     <select id="idModalMsgSMS" class="col-7 col-sm-8 custom-select border-info">
-              <option value="0">Non</option>
-              <option value="1">Oui</option>
-              <option value="2">Gsm Uniquement</option>
-              <option value="3">OVH Uniquement</option>
+						     <select id="idMSGEditSmsNotification" class="col-7 col-sm-8 custom-select border-info">
            </select>
      					</div>
        </div>
@@ -72,14 +68,24 @@
        <div class="col form-group">
 					     <div class="input-group">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Libellé SMS</label>
-						     <input id="idModelMsgSmsLibelle" type="text" class="form-control" placeholder="Libellé SMS du Message">
+						     <input id="idMSGEditSmsLibelle" type="text" class="form-control" placeholder="Libellé SMS du Message">
      					</div>
+       </div>
+
+       <div class="col form-group">
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Rate limit</label>
+           <input id="idMSGRateLimite" type="number" min=0 max=300 class="form-control" placeholder="seconde entre 2 messages">
+           <div class="input-group-append">
+             <div class="input-group-text">secondes</div>
+           </div>
+          </div>
        </div>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
-        <button id="idModelMsgValider" type="button" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-save"></i> Valider</button>
+        <button id="idMSGEditValider" type="button" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-save"></i> Valider</button>
       </div>
     </div>
   </div>
