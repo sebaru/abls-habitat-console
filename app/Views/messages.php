@@ -45,7 +45,7 @@
        <div class="col form-group">
 					     <div class="input-group">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Zone de Diffusion Sonore</label>
-						     <select id="idMSGEditZoneDiffusion" class="col-7 col-sm-8 custom-select border-info">
+						     <select id="idMSGEditAudioZone" class="col-7 col-sm-8 custom-select border-info">
            </select>
      					</div>
        </div>
@@ -66,16 +66,9 @@
        </div>
 
        <div class="col form-group">
-					     <div class="input-group">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Libellé SMS</label>
-						     <input id="idMSGEditSmsLibelle" type="text" class="form-control" placeholder="Libellé SMS du Message">
-     					</div>
-       </div>
-
-       <div class="col form-group">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Rate limit</label>
-           <input id="idMSGRateLimite" type="number" min=0 max=300 class="form-control" placeholder="seconde entre 2 messages">
+           <input id="idMSGEditRateLimit" type="number" required min=0 max=300 class="form-control" placeholder="seconde entre 2 messages">
            <div class="input-group-append">
              <div class="input-group-text">secondes</div>
            </div>
