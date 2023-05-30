@@ -1,9 +1,9 @@
 
  var SourceCode;
 
- function Go_to_mnemos ()
+ function Go_to_messages ()
   { vars = window.location.pathname.split('/');
-    Redirect ( "/tech/mnemos/"+vars[2] );
+    Redirect ( "/messages/"+vars[2] );
   }
  function Go_to_source ()
   { vars = window.location.pathname.split('/');

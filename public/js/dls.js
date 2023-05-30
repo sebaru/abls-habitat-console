@@ -202,7 +202,7 @@
               "render": function (item)
                 { boutons = Bouton_actions_start ();
                   boutons += Bouton_actions_add ( "outline-primary", "Voir le code", "Redirect", "/dls/"+item.tech_id, "code", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir les mnemos", "Redirect", "/mnemos/"+item.tech_id, "book", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Voir les messages", "Redirect", "/messages/"+item.tech_id, "book", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Compiler le module", "Dls_compiler", item.dls_id, "coffee", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les RUN", "Redirect", "/dls/run/"+item.tech_id, "eye", null );
