@@ -55,6 +55,8 @@ $routes->get('/dls/run/(:any)', 'Console::dls_run');
 $routes->get('/dls/(:any)',   'Console::dls_source');
 $routes->get('/atelier/(:any)', 'Console::atelier');
 $routes->get('/synoptiques',  'Console::synoptiques');
+$routes->get('/mnemos/(:any)', 'Console::mnemos');
+$routes->get('/mnemos',        'Console::mnemos');
 $routes->get('/messages/(:any)', 'Console::messages');
 $routes->get('/messages',     'Console::messages');
 $routes->get('/archive',      'Console::archive');

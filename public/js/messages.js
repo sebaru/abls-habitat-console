@@ -6,7 +6,7 @@
   }
 
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function MSG_Set ( selection )
+ function MESSAGE_Set ( selection )
   { var json_request =
        { tech_id         : selection.tech_id,
          acronyme        : selection.acronyme,
@@ -30,7 +30,7 @@
     $('#idMSGEditAudioZone').val( selection.audio_profil );
     $('#idMSGEditAudioLibelle').val( selection.audio_libelle );
     $('#idMSGEditRateLimit').val( selection.rate_limit );
-    $('#idMSGEditValider').off("click").on( "click", function () { MSG_Set(selection); } );
+    $('#idMSGEditValider').off("click").on( "click", function () { MESSAGE_Set(selection); } );
     $('#idMSGEdit').modal("show");
   }
 

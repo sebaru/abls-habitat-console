@@ -215,6 +215,7 @@
           <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-danger"></i> <span>Synoptiques</span> </a>
           <a class="dropdown-item" href="/dls"> <i class="fas fa-code text-primary"></i> <span>Modules D.L.S</span> </a>
           <a class="dropdown-item" href="/messages"> <i class="fas fa-book text-primary"></i> <span>Messages</span> </a>
+          <a class="dropdown-item" href="/mnemos"> <i class="fas fa-book text-success"></i> <span>Bits internes</span> </a>
           <a class="dropdown-item" href="/tableau"> <i class="fas fa-chart-line text-secondary"></i> <span>Tableaux</span> </a>
           <a class="dropdown-item" href="/search"> <i class="fas fa-search text-primary"></i> <span>Dictionnaire</span> </a>
         </div>
