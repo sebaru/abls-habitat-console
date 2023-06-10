@@ -181,7 +181,7 @@
                                                            { valeur: 4, texte: Borne_Type[4] } ],
                                                          selection.type_borne ) );
 
-    $('#idMODBUSEditAIArchivage').replaceWith ( Bouton_Archivage ( "idMODBUSEditAIArchivage", null, selection.archivage ) );
+    $('#idMODBUSEditAIArchivage').replaceWith ( Select ( "idMODBUSEditAIArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idMODBUSEditAIMin').val ( selection.min );
     $('#idMODBUSEditAIMax').val ( selection.max );
     $('#idMODBUSEditAIUnite').val ( selection.unite );
@@ -211,7 +211,7 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "modbus_id",
-       ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "modbus", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "modbus", contentType: "application/json",
                data: function() { return ( "classe=modbus" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -271,7 +271,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_di_id", paging: false,
-         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DI",
+         ajax: { url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DI",
                  contentType: "application/json",
                  data: function() { return ( "classe=DI" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
@@ -318,7 +318,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_do_id", paging: false,
-         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DO",
+         ajax: { url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DO",
                  contentType: "application/json",
                  data: function() { return ( "classe=DO" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
@@ -365,7 +365,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_ai_id", paging: false,
-         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "AI",
+         ajax: { url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "AI",
                  contentType: "application/json",
                  data: function() { return ( "classe=AI" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
