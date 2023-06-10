@@ -1,6 +1,6 @@
 
 
- var Borne_Type = [ "none0", "none1", "none2", "750455 - 4/20 mA", "750461 - Pt-100" ];
+ var Borne_Type = [ "none0", "none1", "750550 - 0/10", "750455 - 4/20 mA", "750461 - Pt-100" ];
 
  function MODBUS_Refresh ( )
   { $('#idTableMODBUS').DataTable().ajax.reload(null, false);
@@ -135,6 +135,21 @@
     $('#idMODALMap').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function MODBUS_Map_AO (modbus_ao_id)
+  { selection = $('#idTableMODBUS_AO').DataTable().row("#"+modbus_ao_id).data();
+    $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "AO" ); } );
+    Common_Updater_Choix_TechID ( "idMODALMap", "AO", selection.tech_id, selection.acronyme );
+    $('#idMODALMapValider').off("click").on( "click", function ()
+     { $('#idMODALMap').modal("hide");
+       COMMON_Map ( selection.thread_tech_id, selection.thread_acronyme,
+                    $('#idMODALMapSelectTechID').val(),  $('#idMODALMapSelectAcronyme').val()
+                  );
+       MODBUS_Refresh();
+     });
+    $('#idMODALMap').modal("show");
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Edit_DI (modbus_di_id)
   { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_di_id).data();
     $('#idMODBUSEditDITitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
@@ -204,6 +219,38 @@
                                    }, null );
      });
     $('#idMODBUSEditAI').modal("show");
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function MODBUS_Edit_AO (modbus_ao_id)
+  { selection = $('#idTableMODBUS_AO').DataTable().row("#"+modbus_ao_id).data();
+    $('#idMODBUSEditAOTitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODBUSEditAOTypeBorne').replaceWith ( Select ( "idMODBUSEditAOTypeBorne", null,
+                                                         [ { valeur: 2, texte: Borne_Type[2] } ],
+                                                         selection.type_borne ) );
+
+    $('#idMODBUSEditAOArchivage').replaceWith ( Bouton_Archivage ( "idMODBUSEditAOArchivage", null, selection.archivage ) );
+    $('#idMODBUSEditAOMin').val ( selection.min );
+    $('#idMODBUSEditAOMax').val ( selection.max );
+    $('#idMODBUSEditAOUnite').val ( selection.unite );
+    $('#idMODBUSEditAOLibelle').val ( selection.libelle );
+    $('#idMODBUSEditAOValider').off("click").on( "click", function ()
+     { $('#idMODBUSEditAO').modal("hide");
+       var json_request =
+        { modbus_ao_id: parseInt(modbus_ao_id),
+          type_borne: parseInt($('#idMODBUSEditAOTypeBorne').val()),
+          min: parseInt($('#idMODBUSEditAOMin').val()),
+          max: parseInt($('#idMODBUSEditAOMax').val()),
+          /*archivage: $('#idMODBUSEditAOArchivage').val(),*/
+          unite: $('#idMODBUSEditAOUnite').val(),
+          libelle: $('#idMODBUSEditAOLibelle').val(),
+        };
+
+       Send_to_API ( "POST", "/modbus/set/ao", json_request,
+                     (Response) => { Show_toast_ok ("Modifications sauvegardées.");
+                                     MODBUS_Refresh();
+                                   }, null );
+     });
+    $('#idMODBUSEditAO').modal("show");
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
@@ -408,6 +455,63 @@
                 { boutons = Bouton_actions_start ();
                   boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_AI", item.modbus_ai_id, "pen", null );
                   boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_AI", item.modbus_ai_id, "directions", null );
+                  boutons += Bouton_actions_end ();
+                  return(boutons);
+                },
+            },
+          ],
+         /*order: [ [0, "desc"] ],*/
+         /*responsive: true,*/
+       }
+     );
+
+    $('#idTableMODBUS_AO').DataTable(
+       { pageLength : 50,
+         fixedHeader: true,
+         rowId: "modbus_ao_id", paging: false,
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "AO",
+                 contentType: "application/json",
+                 data: function() { return ( "classe=AO" ) },
+                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 beforeSend: function (request)
+                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
+                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              }
+               },
+         columns:
+          [ { "data": null, "title":"WAGO TechID", "className": "align-middle text-center",
+              "render": function (item)
+                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+            },
+            { "data": null, "title":"WAGO I/O", "className": "align-middle text-center",
+              "render": function (item)
+                { return( item.thread_acronyme ); }
+            },
+            { "data": null, "title":"Mapped on", "className": "align-middle text-center",
+              "render": function (item)
+                { if(item.tech_id)
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   } else return( "--" );
+                }
+            },
+            { "data": null, "title":"Description", "className": "align-middle text-center",
+              "render": function (item)
+                { if(item.tech_id) { return ( item.libelle ); } else return( "--" ); }
+            },
+            { "data": null, "title":"Type Borne", "className": "align-middle text-center",
+              "render": function (item)
+                { return( Borne_Type[item.type_borne] ); }
+            },
+            { "data": "min", "title":"min", "className": "align-middle text-center" },
+            { "data": "max", "title":"max", "className": "align-middle text-center" },
+            { "data": null, "title":"Unité", "className": "align-middle text-center",
+              "render": function (item)
+                { return( htmlEncode ( item.unite ) ); }
+            },
+            { "data": null, "title":"Actions", "orderable": false, "render": function (item)
+                { boutons = Bouton_actions_start ();
+                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_AO", item.modbus_ao_id, "pen", null );
+                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_AO", item.modbus_ao_id, "directions", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },

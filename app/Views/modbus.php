@@ -220,25 +220,31 @@
 
        <div class="col form-group">
           <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Wago Tech_ID</label>
-           <select id="idMODBUSEditAOWagoTechID" class="custom-select border-info" placeholder="Module WAGO"></select>
-          </div>
-       </div>
-
-       <div class="col form-group">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Wago AO</label>
-           <input id="idMODBUSEditAOWagoTag" type="number" required min=0 max=128 class="form-control" placeholder="AOxx">
-          </div>
-       </div>
-
-       <div class="col form-group">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Type de Borne</label>
-           <select id="idMODBUSEditAOType" class="custom-select border-info">
-             <option value="0">a definir</option>
-             <option value="1">a definir</option>
+           <label class="col-5 col-sm-4 col-form-label text-right">Type de borne</label>
+           <select id="idMODBUSEditAOTypeBorne" class="custom-select border-info">
            </select>
+          </div>
+       </div>
+
+       <div class="col form-group">
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
+           <select id="idMODBUSEditAOArchivage" class="custom-select border-info">
+           </select>
+          </div>
+       </div>
+
+       <div class="col form-group">
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Minimum</label>
+           <input id="idMODBUSEditAOMin" type="number" class="form-control" placeholder="Valeur Min">
+          </div>
+       </div>
+
+       <div class="col form-group">
+          <div class="input-group">
+           <label class="col-5 col-sm-4 col-form-label text-right">Maximum</label>
+           <input id="idMODBUSEditAOMax" type="number" class="form-control" placeholder="Valeur Max">
           </div>
        </div>
 
@@ -251,52 +257,9 @@
 
        <div class="col form-group">
           <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Min</label>
-           <input id="idMODBUSEditAOMin" type="number" class="form-control" placeholder="Valeur Min">
+           <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
+           <input id="idMODBUSEditAOLibelle" type="text" class="form-control" placeholder="Description">
           </div>
-       </div>
-
-       <div class="col form-group">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Max</label>
-           <input id="idMODBUSEditAOMax" type="number" class="form-control" placeholder="Valeur Max">
-          </div>
-       </div>
-
-       <div class="col form-group">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Rechercher une Target</label>
-           <input id="idMODBUSEditAORechercherTechID" oninput="ModbusMap_Update_Choix_Tech_ID('idMODBUSEditAO', 'AO')" type="text" class="col-9 form-control" placeholder="Rechercher un Tech_id">
-          </div>
-       </div>
-
-       <div class="col form-group">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Target TechID</label>
-           <select id="idMODBUSEditAOSelectTechID" onchange="ModbusMap_Update_Choix_Acronyme('idMODBUSEditAO', 'AO')" class="col-9 custom-select border-info"></select>
-          </div>
-       </div>
-
-       <div class="col form-group">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Target Acronyme</label>
-           <select id="idMODBUSEditAOSelectAcronyme" class="col-9 custom-select border-info"></select>
-          </div>
-       </div>
-
-       <div class="col form-group">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Question Vocale</label>
-           <input id="idMODBUSEditMapQuestionVoc" type="text" class="form-control" placeholder="Question vocale associée">
-          </div>
-       </div>
-
-       <div class="col form-group">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Réponse Vocale</label>
-           <input id="idMODBUSEditMapReponseVoc" type="text" class="form-control" placeholder="Réponse vocale associée">
-          </div>
-          <small>$1 est la valeur dynamique du bit interne</small>
        </div>
 
       </div>
