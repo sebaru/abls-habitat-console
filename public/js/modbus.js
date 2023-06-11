@@ -228,7 +228,7 @@
                                                          [ { valeur: 2, texte: Borne_Type[2] } ],
                                                          selection.type_borne ) );
 
-    $('#idMODBUSEditAOArchivage').replaceWith ( Bouton_Archivage ( "idMODBUSEditAOArchivage", null, selection.archivage ) );
+    $('#idMODBUSEditAOArchivage').replaceWith ( Select ( "idMODBUSEditAOArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idMODBUSEditAOMin').val ( selection.min );
     $('#idMODBUSEditAOMax').val ( selection.max );
     $('#idMODBUSEditAOUnite').val ( selection.unite );
