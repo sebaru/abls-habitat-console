@@ -101,7 +101,10 @@
              "render": function (item)
                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
            },
-           { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
+           { "data": null, "title":"Acronyme", "className": "align-middle ",
+             "render": function (item)
+               { return( Lien ( "/courbe/"+item.tech_id+"/"+item.acronyme, "Voir le graphe", item.acronyme ) ); }
+           },
            { "data": null, "title":"Libellé",    "className": "align-middle ",
              "render": function (item)
                { return(htmlEncode(item.libelle)); }
