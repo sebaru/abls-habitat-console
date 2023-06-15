@@ -1,83 +1,58 @@
 /******************************************************************************************************************************/
- function Mnemos_AI_set_archivage ( acronyme )
-  { table = $('#idTableEntreeAna').DataTable();
-    selection = table.ajax.json().AI.filter( function(item) { return (item.acronyme==acronyme) } )[0];
-    var json_request = JSON.stringify(
+ function Mnemos_AI_set_archivage ( mnemo_ai_id )
+  { selection = $('#idTableEntreeAna').DataTable().row("#"+mnemo_ai_id).data();
+    var json_request =
        { classe   : "AI",
          tech_id  : selection.tech_id,
          acronyme : selection.acronyme,
-         archivage: parseInt($('#idAIArchivage'+acronyme).val())
-       }
-     );
+         archivage: parseInt($('#idAIArchivage_'+mnemo_ai_id).val())
+       };
 
-    Send_to_API ( 'POST', "/api/mnemos/set", json_request, function ()
+    Send_to_API ( 'POST', "/mnemos/set", json_request, function ()
      { $('#idTableEntreeAna').DataTable().ajax.reload(null, false);
      });
   }
 /******************************************************************************************************************************/
- function Mnemos_CI_set_archivage ( acronyme )
-  { table = $('#idTableCptImp').DataTable();
-    selection = table.ajax.json().CI.filter( function(item) { return (item.acronyme==acronyme) } )[0];
-    var json_request = JSON.stringify(
+ function Mnemos_CI_set_archivage ( mnemo_ci_id )
+  { selection = $('#idTableCptImp').DataTable().row("#"+mnemo_ci_id).data();
+    var json_request =
        { classe   : "CI",
          tech_id  : selection.tech_id,
          acronyme : selection.acronyme,
-         archivage: parseInt($('#idCIArchivage'+acronyme).val())
-       }
-     );
+         archivage: parseInt($('#idCIArchivage_'+mnemo_ci_id).val())
+       };
 
-    Send_to_API ( 'POST', "/api/mnemos/set", json_request, function ()
+    Send_to_API ( 'POST', "/mnemos/set", json_request, function ()
      { $('#idTableCptImp').DataTable().ajax.reload(null, false);
      });
   }
 /******************************************************************************************************************************/
- function Mnemos_R_set_archivage ( acronyme )
-  { table = $('#idTableRegistre').DataTable();
-    selection = table.ajax.json().R.filter( function(item) { return (item.acronyme==acronyme) } )[0];
-    var json_request = JSON.stringify(
+ function Mnemos_R_set_archivage ( mnemo_registre_id )
+  { selection = $('#idTableRegistre').DataTable().row("#"+mnemo_registre_id).data();
+    var json_request =
        { classe   : "R",
          tech_id  : selection.tech_id,
          acronyme : selection.acronyme,
-         archivage: parseInt($('#idRArchivage'+acronyme).val())
-       }
-     );
+         archivage: parseInt($('#idRArchivage_'+mnemo_registre_id).val())
+       };
 
-    Send_to_API ( 'POST', "/api/mnemos/set", json_request, function ()
+    Send_to_API ( 'POST', "/mnemos/set", json_request, function ()
      { $('#idTableRegistre').DataTable().ajax.reload(null, false);
      });
   }
 /******************************************************************************************************************************/
- function Mnemos_MSG_set ( acronyme )
-  { table = $('#idTableMessage').DataTable();
-    selection = table.ajax.json().MSG.filter( function(item) { return (item.acronyme==acronyme) } )[0];
-    var json_request = JSON.stringify(
-       { classe   : "MSG",
-         tech_id  : selection.tech_id,
-         acronyme : selection.acronyme,
-         rate_limit : parseInt($('#idMSGRateLimit'+acronyme).val()),
-         sms        : parseInt($('#idMSGSms'+acronyme).val()),
-         audio_profil : $('#idMSGProfilAudio'+acronyme).val(),
-         audio_libelle: $('#idMSGLibelleAudio'+acronyme).val(),
-       }
-     );
-
-    Send_to_API ( 'POST', "/api/mnemos/set", json_request, function ()
-     { $('#idTableMessage').DataTable().ajax.reload(null, false);
-     });
-  }
-/******************************************************************************************************************************/
- function Mnemos_HORLOGE_set ( acronyme )
-  { table = $('#idTableHorloge').DataTable();
-    selection = table.ajax.json().HORLOGE.filter( function(item) { return (item.acronyme==acronyme) } )[0];
-    var json_request = JSON.stringify(
+ function Mnemos_HORLOGE_set ( mnemo_horloge_id )
+  { selection = $('#idTableHorloge').DataTable().row("#"+mnemo_horloge_id).data();
+    var json_request =
        { classe   : "HORLOGE",
          tech_id  : selection.tech_id,
          acronyme : selection.acronyme,
-         access_level : parseInt($('#idHORLOGELevel_'+acronyme).val()),
-       }
-     );
+         access_level : parseInt($('#idHORLOGELevel_'+mnemo_horloge_id).val()),
+       };
 
-    Send_to_API ( 'POST', "/api/mnemos/set", json_request, null, null );
+    Send_to_API ( 'POST', "/mnemos/set", json_request, function ()
+     { $('#idTableHorloge').DataTable().ajax.reload(null, false);
+     });
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
@@ -137,7 +112,8 @@
            },
            { "data": null, "title":"Archivage", "className": "",
              "render": function (item)
-               { return(Bouton_Archivage ( "idRArchivage"+item.acronyme, "Mnemos_R_set_archivage('"+item.acronyme+"')", item.archivage )); }
+               { return( Select ( "idRArchivage_"+item.mnemo_registre_id,
+                                  "Mnemos_R_set_archivage('"+item.mnemo_registre_id+"')", ModeArchivage, item.archivage ) ); }
            },
          ],
        }
@@ -172,7 +148,8 @@
            },
            { "data": null, "title":"Archivage", "className": "",
              "render": function (item)
-               { return(Bouton_Archivage ( "idCIArchivage"+item.acronyme, "Mnemos_CI_set_archivage('"+item.acronyme+"')", item.archivage )); }
+               { return( Select ( "idCIArchivage_"+item.mnemo_ci_id,
+                                  "Mnemos_CI_set_archivage('"+item.mnemo_ci_id+"')", ModeArchivage, item.archivage ) ); }
            },
          ],
      });
@@ -197,10 +174,6 @@
            { "data": null, "title":"Libellé",    "className": "align-middle ",
              "render": function (item)
                { return(htmlEncode(item.libelle)); }
-           },
-           { "data": null, "title":"Archivage", "className": "",
-             "render": function (item)
-               { return(Bouton_Archivage ( "idCIArchivage"+item.acronyme, "Mnemos_CH_set_archivage('"+item.acronyme+"')", item.archivage )); }
            },
          ],
      });
