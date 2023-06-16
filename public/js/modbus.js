@@ -1,12 +1,13 @@
 
 
- var Borne_Type = [ "none0", "none1", "750550 - 0/10", "750455 - 4/20 mA", "750461 - Pt-100" ];
+ var Borne_Type = [ "none0", "none1", "750550 - 0/10 V", "750455 - 4/20 mA", "750461 - Pt-100" ];
 
  function MODBUS_Refresh ( )
   { $('#idTableMODBUS').DataTable().ajax.reload(null, false);
     $('#idTableMODBUS_DI').DataTable().ajax.reload(null, false);
     $('#idTableMODBUS_DO').DataTable().ajax.reload(null, false);
     $('#idTableMODBUS_AI').DataTable().ajax.reload(null, false);
+    $('#idTableMODBUS_AO').DataTable().ajax.reload(null, false);
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function MODBUS_Disable (modbus_id)
