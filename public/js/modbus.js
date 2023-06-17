@@ -434,7 +434,8 @@
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
-                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" +
+                              Lien ( "/courbe/"+item.tech_id+"/"+item.acronyme, "Voir le graphe", item.acronyme ) );
                    } else return( "--" );
                 }
             },
@@ -491,7 +492,8 @@
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
-                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) + ":" +
+                              Lien ( "/courbe/"+item.tech_id+"/"+item.acronyme, "Voir le graphe", item.acronyme ) );
                    } else return( "--" );
                 }
             },
