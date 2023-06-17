@@ -241,7 +241,7 @@
           type_borne: parseInt($('#idMODBUSEditAOTypeBorne').val()),
           min: parseInt($('#idMODBUSEditAOMin').val()),
           max: parseInt($('#idMODBUSEditAOMax').val()),
-          /*archivage: $('#idMODBUSEditAOArchivage').val(),*/
+          archivage: $('#idMODBUSEditAOArchivage').val(),
           unite: $('#idMODBUSEditAOUnite').val(),
           libelle: $('#idMODBUSEditAOLibelle').val(),
         };
