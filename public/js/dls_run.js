@@ -234,7 +234,7 @@
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
-               { return ( Lien ("/tech/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
+               { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
            { "data": null, "title":"Etat", "className": "",
              "render": function (item)
@@ -264,7 +264,7 @@
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
-               { return ( Lien ("/tech/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
+               { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
            { "data": null, "title":"Etat", "className": "",
              "render": function (item)
@@ -295,7 +295,7 @@
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
-               { return ( Lien ("/tech/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
+               { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
            { "data": "valeur",     "title":"Valeur",   "className": "align-middle " },
            { "data": "unite",      "title":"Unité",    "className": "align-middle " },
