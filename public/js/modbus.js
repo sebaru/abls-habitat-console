@@ -209,7 +209,7 @@
           type_borne: parseInt($('#idMODBUSEditAITypeBorne').val()),
           min: parseInt($('#idMODBUSEditAIMin').val()),
           max: parseInt($('#idMODBUSEditAIMax').val()),
-          archivage: $('#idMODBUSEditAIArchivage').val(),
+          archivage: parseInt($('#idMODBUSEditAIArchivage').val()),
           unite: $('#idMODBUSEditAIUnite').val(),
           libelle: $('#idMODBUSEditAILibelle').val(),
         };
@@ -241,7 +241,7 @@
           type_borne: parseInt($('#idMODBUSEditAOTypeBorne').val()),
           min: parseInt($('#idMODBUSEditAOMin').val()),
           max: parseInt($('#idMODBUSEditAOMax').val()),
-          archivage: $('#idMODBUSEditAOArchivage').val(),
+          archivage: parseInt($('#idMODBUSEditAOArchivage').val()),
           unite: $('#idMODBUSEditAOUnite').val(),
           libelle: $('#idMODBUSEditAOLibelle').val(),
         };
