@@ -8,7 +8,7 @@
     vars = window.location.pathname.split('/');
     console.debug(vars);
     Charger_syn ( vars[2] );
-	 }
+  }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Charger_syn ( syn_page )
   {
@@ -70,7 +70,9 @@
                                                       { return ( { syn_motif_id: visuel.syn_motif_id,
                                                                    tech_id: visuel.tech_id, acronyme: visuel.acronyme,
                                                                    posx: visuel.posx, posy: visuel.posy, scale: visuel.scale,
-                                                                   angle: visuel.angle } );
+                                                                   angle: visuel.angle,
+                                                                   layer: Trame.index(visuel.svggroupe)
+                                                                 } );
                                                       }
                                                    ),
                     cadrans: Synoptique.cadrans.map( function ( cadran )
