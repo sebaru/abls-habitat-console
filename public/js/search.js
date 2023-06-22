@@ -26,6 +26,8 @@
                    { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.acronyme ) ); }
                   else if (item.classe=="CI")
                    { return( Lien ( "/courbe/"+item.tech_id+"/"+item.acronyme, "Voir le graphe", item.acronyme ) ); }
+                  else if (item.classe=="REGISTRE")
+                   { return( Lien ( "/courbe/"+item.tech_id+"/"+item.acronyme, "Voir le graphe", item.acronyme ) ); }
                   else if (item.classe=="AI")
                    { return( Lien ( "/courbe/"+item.tech_id+"/"+item.acronyme, "Voir le graphe", item.acronyme ) ); }
                   else if (item.classe=="AO")

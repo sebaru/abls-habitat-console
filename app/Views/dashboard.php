@@ -146,11 +146,7 @@
   </div>
 
   <div class="row p-1 justify-content-center">
-   <canvas id="idCourbeDlsNbMSG" class="courbe-dashboard border border-info"></canvas>
-  </div>
-
-  <div class="row p-1 justify-content-center">
-   <canvas id="idCourbeDlsNbVISUEL" class="courbe-dashboard border border-info"></canvas>
+   <canvas id="idCourbeDlsNbApiEnreg" class="courbe-dashboard border border-info"></canvas>
   </div>
 
   <div class="row p-1 justify-content-center">
