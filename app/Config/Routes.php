@@ -46,6 +46,7 @@ $routes->get('/smsg',         'Console::smsg');
 $routes->get('/search',       'Console::search');
 $routes->get('/audio',        'Console::audio');
 $routes->get('/ups',          'Console::ups');
+$routes->get('/phidget',      'Console::phidget');
 $routes->get('/threads',      'Console::threads');
 $routes->get('/teleinfoedf',  'Console::teleinfoedf');
 $routes->get('/meteo',        'Console::meteo');
@@ -54,11 +55,16 @@ $routes->get('/dls/run/(:any)', 'Console::dls_run');
 $routes->get('/dls/(:any)',   'Console::dls_source');
 $routes->get('/atelier/(:any)', 'Console::atelier');
 $routes->get('/synoptiques',  'Console::synoptiques');
+$routes->get('/mnemos/(:any)', 'Console::mnemos');
+$routes->get('/mnemos',        'Console::mnemos');
+$routes->get('/messages/(:any)', 'Console::messages');
+$routes->get('/messages',     'Console::messages');
 $routes->get('/archive',      'Console::archive');
 $routes->get('/user/invite',  'Console::user_invite');
 $routes->get('/user/(:any)',  'Console::user_edit');
 $routes->get('/users',        'Console::users');
 $routes->get('/courbe/(:any)','Console::courbe');
+$routes->get('/command_text', 'Console::command_text');
 $routes->get('(:any)',        'Console::default');
 
 /*

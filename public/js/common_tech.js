@@ -1,3 +1,10 @@
+ var ModeArchivage = [ { valeur: 0, texte: "Aucun" },
+                       { valeur: 1, texte: "Un pour 5 secondes" },
+                       { valeur: 2, texte: "Un par minute" },
+                       { valeur: 3, texte: "Un par heure" },
+                       { valeur: 4, texte: "Un par jour" },
+                     ];
+
 /********************************************* Reload Process *****************************************************************/
  function Thread_enable ( thread_tech_id, enable, fonction_ok, fonction_nok )
   { var json_request =
@@ -10,6 +17,18 @@
        if (fonction_ok) fonction_ok(Response);
      }, fonction_nok );
   }
+/********************************************* Reload Process *****************************************************************/
+ function Thread_debug ( thread_tech_id, enable, fonction_ok, fonction_nok )
+  { var json_request =
+     { debug         : enable,
+       thread_tech_id: thread_tech_id,
+     };
+
+    Send_to_API ( "POST", "/thread/debug", json_request, function(Response)
+     { Show_toast_ok ( "Thread "+thread_tech_id+(enable ? " en debug" : " hors debug") +".");
+       if (fonction_ok) fonction_ok(Response);
+     }, fonction_nok );
+  }
 /********************************************* Thread_Delete ******************************************************************/
  function Thread_delete ( thread_tech_id, fonction_ok, fonction_nok )
   { var json_request = { thread_tech_id: thread_tech_id };
@@ -19,17 +38,6 @@
      }, fonction_nok );
   }
 /********************************************* Renvoi un Select d'archivage ***************************************************/
- function Bouton_Archivage ( id, fonction, selected )
-  { return("<select id='"+id+"' class='custom-select'"+
-           "onchange="+fonction+">"+
-           "<option value='0' "+(selected==0 ? "selected" : "")+">Aucun</option>"+
-           "<option value='1' "+(selected==1 ? "selected" : "")+">Un pour 5 secondes</option>"+
-           "<option value='2' "+(selected==2 ? "selected" : "")+">Un par minute</option>"+
-           "<option value='3' "+(selected==3 ? "selected" : "")+">Un par heure</option>"+
-           "<option value='4' "+(selected==4 ? "selected" : "")+">Un par jour</option>"+
-           "</select>"
-          );
-  }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function COMMON_Map ( thread_tech_id, thread_acronyme, tech_id, acronyme )
   { var json_request =

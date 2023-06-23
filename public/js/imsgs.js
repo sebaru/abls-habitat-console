@@ -5,15 +5,27 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function IMSGS_Disable (imsgs_id)
-  { $("#idButtonSpinner_"+imsgs_id).show();
+  { $("#idButtonSpinner_IMSGS_Disable_"+imsgs_id).show();
     selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function IMSGS_Enable (imsgs_id)
-  { $("#idButtonSpinner_"+imsgs_id).show();
+  { $("#idButtonSpinner_IMSGS_Enable_"+imsgs_id).show();
     selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function IMSGS_Debug (imsgs_id)
+  { $("#idButtonSpinner_IMSGS_Debug_"+imsgs_id).show();
+    selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
+    Thread_debug ( selection.thread_tech_id, true, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function IMSGS_Undebug (imsgs_id)
+  { $("#idButtonSpinner_IMSGS_Undebug_"+imsgs_id).show();
+    selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
+    Thread_debug ( selection.thread_tech_id, false, function(Response) { IMSGS_Refresh(); }, function(Response) { IMSGS_Refresh(); } );
   }
 /************************************ Demande l'envoi d'un IMSGS de test ******************************************************/
  function IMSGS_Test ( imsgs_id )
@@ -107,6 +119,14 @@
                  { return( Bouton ( "outline-secondary", "Activer le compte", "IMSGS_Enable", item.imsgs_id, "Désactivé" ) ); }
                },
            },
+           { "data": null, "title":"Debug", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.debug==true)
+                 { return( Bouton ( "warning", "Désactiver le debug", "IMSGS_Undebug", item.imsgs_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le debug", "IMSGS_Debug", item.imsgs_id, "Désactivé" ) ); }
+              },
+           },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
@@ -137,6 +157,6 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
   }

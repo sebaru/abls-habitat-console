@@ -13,11 +13,21 @@
  <div class="row mx-1">
 			<section id="idSectionHeavySyn" class="col justify-content-center">	</section>
    <div class="col-2 shadow">
-     <label>SelectionTechID</label>   <input id="idSelectionTechID"   type="text" class="form-control" disabled>
-     <label>SelectionAcronyme</label> <input id="idSelectionAcronyme" type="text" class="form-control" disabled>
-     <label>Position</label>  <input id="idPosition"  type="text" class="form-control" disabled>
-     <label>Scale</label>     <input id="idScale"     type="number" class="form-control" step=0.1 min=0.1 max=10>
-     <label>Angle</label>     <input id="idAngle"     type="number" class="form-control" step=1 min=0 max=359>
+     <label>TechID</label>   <input id="idSelectionTechID"   type="text" class="form-control mb-1" disabled>
+     <label>Acronyme</label> <input id="idSelectionAcronyme" type="text" class="form-control mb-1" disabled>
+     <label>Posx</label>     <input id="idPosx"   type="number" class="form-control mb-1" step=1 min=0 max=1920>
+     <label>Posy</label>     <input id="idPosy"   type="number" class="form-control mb-1" step=1 min=0 max=1080>
+     <label>Scale</label>    <input id="idScale"  type="number" class="form-control mb-1" step=0.1 min=0.1 max=10>
+     <label>Angle</label>    <input id="idAngle"  type="number" class="form-control mb-1" step=1 min=0 max=359>
+     <hr>
+     <div class="btn-block btn-group">
+       <button id="idButtonMoveDown" class="form-control btn btn-info"><i class="fas fa-download"></i> Down</button>
+       <button id="idButtonMoveUp"   class="form-control btn btn-info"><i class="fas fa-upload"></i> Up</button>
+     </div>
+     <div class="btn-block btn-group">
+       <button id="idButtonMoveFullDown" class="form-control btn btn-info"><i class="fas fa-download"></i> Full Down</button>
+       <button id="idButtonMoveFullUp"   class="form-control btn btn-info"><i class="fas fa-upload"></i> Full Up</button>
+     </div>
    </div>
  </div>
 

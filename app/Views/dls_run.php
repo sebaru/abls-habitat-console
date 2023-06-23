@@ -23,13 +23,16 @@
      </div>
 </div>
 
+     <div class="table-responsive">
       <table id="idTableEntreeTOR" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-      <hr>
+     </div>
+
+   <hr>
 <!----------------------------------------------------------------------------------------------------------------------------->
  <div class="row m-2">
       <h4><img style="width: 30px" data-toggle="tooltip" title="Entrées ANA"
@@ -39,12 +42,15 @@
      </div>
 </div>
 
+   <div class="table-responsive">
       <table id="idTableEntreeANA" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
+
       <hr>
 <!----------------------------------------------------------------------------------------------------------------------------->
  <div class="row m-2">
@@ -54,14 +60,17 @@
         <button type="button" onclick="Dls_run_refresh('idTableSortieTOR')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+
+   <div class="table-responsive">
       <table id="idTableSortieTOR" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-      <hr>
+   </div>
 
+      <hr>
 <!----------------------------------------------------------------------------------------------------------------------------->
  <div class="row m-2">
       <h4><img style="width: 30px" data-toggle="tooltip" title="Sorties ANA"
@@ -70,12 +79,15 @@
         <button type="button" onclick="Dls_run_refresh('idTableSortieANA')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+
+   <div class="table-responsive">
       <table id="idTableSortieANA" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -86,12 +98,15 @@
         <button type="button" onclick="Dls_run_refresh('idTableRegistre')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+
+   <div class="table-responsive">
       <table id="idTableRegistre" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -102,12 +117,15 @@
         <button type="button" onclick="Dls_run_refresh('idTableCI')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+
+   <div class="table-responsive">
       <table id="idTableCI" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -118,12 +136,15 @@
         <button type="button" onclick="Dls_run_refresh('idTableCH')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+
+   <div class="table-responsive">
       <table id="idTableCH" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -134,12 +155,14 @@
         <button type="button" onclick="Dls_run_refresh('idTableTempo')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+   <div class="table-responsive">
       <table id="idTableTempo" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -150,12 +173,14 @@
         <button type="button" onclick="Dls_run_refresh('idTableWatchdog')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+   <div class="table-responsive">
       <table id="idTableWatchdog" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -166,12 +191,15 @@
         <button type="button" onclick="Dls_run_refresh('idTableMessages')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+
+   <div class="table-responsive">
       <table id="idTableMessages" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -182,12 +210,15 @@
         <button type="button" onclick="Dls_run_refresh('idTableMONO')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+
+   <div class="table-responsive">
       <table id="idTableMONO" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -198,12 +229,15 @@
         <button type="button" onclick="Dls_run_refresh('idTableBI')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+
+   <div class="table-responsive">
       <table id="idTableBI" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -213,12 +247,15 @@
         <button type="button" onclick="Dls_run_refresh('idTableVisuel')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
      </div>
 </div>
+
+   <div class="table-responsive">
       <table id="idTableVisuel" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
+   </div>
       <hr>
 <!-- Container -->
 </div>

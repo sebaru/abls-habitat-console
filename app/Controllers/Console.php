@@ -25,10 +25,13 @@ class Console extends BaseController
  public function domain_edit()        { $this->send_page ("domain_edit"); }
  public function domains()            { $this->send_page ("domains"); }
  public function modbus()             { $this->send_page ("modbus"); }
+ public function phidget()            { $this->send_page ("phidget"); }
+ public function gpiod()              { $this->send_page ("gpiod"); }
  public function smsg()               { $this->send_page ("smsg"); }
  public function threads()            { $this->send_page ("threads"); }
  public function search()             { $this->send_page ("search"); }
  public function synoptiques()        { $this->send_page ("synoptiques"); }
+ public function messages()           { $this->send_page ("messages"); }
  public function audio()              { $this->send_page ("audio"); }
  public function imsgs()              { $this->send_page ("imsgs"); }
  public function ups()                { $this->send_page ("ups"); }
@@ -36,10 +39,12 @@ class Console extends BaseController
  public function dls()                { $this->send_page ("dls"); }
  public function dls_run()            { $this->send_page ("dls_run"); }
  public function dls_source()         { $this->send_page ("dls_source"); }
+ public function mnemos()             { $this->send_page ("mnemos"); }
  public function archive()            { $this->send_page ("archive"); }
  public function user_invite()        { $this->send_page ("user_invite"); }
  public function user_edit()          { $this->send_page ("user_edit"); }
  public function users()              { $this->send_page ("users"); }
+ public function command_text()       { $this->send_page ("command_text"); }
  public function courbe()             { $this->send_page ("courbe"); }
  public function meteo()              { $this->send_page ("meteo"); }
 }

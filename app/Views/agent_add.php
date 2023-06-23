@@ -17,8 +17,15 @@
 
            <div class="row form-group">
              <div class="input-group">
-               <label class="col-4 col-form-label text-right">Commande a passer</label>
-               <textarea id="idAGENTLink" readonly rows="5" type="text" class="form-control" placeholder="Command to link agent"></textarea>
+               <label class="col-4 col-form-label text-right">Pour un agent natif</label>
+               <textarea id="idAGENTLinkNatif" readonly rows="6" type="text" class="form-control" placeholder="Command to link agent"></textarea>
+             </div>
+           </div>
+
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Pour un agent en container</label>
+               <textarea id="idAGENTLinkPodman" readonly rows="6" type="text" class="form-control" placeholder="Command to link agent"></textarea>
              </div>
            </div>
 

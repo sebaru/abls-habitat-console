@@ -1,55 +1,62 @@
  var Synoptique;
  var Trame;
+ var Selection_drag;
+ var Selection_data;
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { console.log ("in load archive !");
     vars = window.location.pathname.split('/');
     console.debug(vars);
     Charger_syn ( vars[2] );
-	 }
+  }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Charger_syn ( syn_page )
   {
-    Trame = Trame_new ("idSectionHeavySyn");
     console.log("------------------------------ Chargement synoptique "+syn_page);
+
+    Trame = Trame_new ("idSectionHeavySyn");
+    Trame.set_grille( 20 );
+    Trame.on ( "mousemove",  function ( event ) { Move_sur_trame ( event ); }, false );
+    Trame.on ( "mouseup",    function ( event ) { Deselectionner( event ) }, false);
+    Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
+    $("#idButtonMoveDown").on("click", function () { if (Selection_data) Selection_data.svggroupe.backward(); } );
+    $("#idButtonMoveUp")  .on("click", function () { if (Selection_data) Selection_data.svggroupe.forward();  } );
+    $("#idButtonMoveFullDown").on("click", function () { if (Selection_data) Selection_data.svggroupe.back(); } );
+    $("#idButtonMoveFullUp")  .on("click", function () { if (Selection_data) Selection_data.svggroupe.front();  } );
+    $("#idScale").on ("change", function (event) { if (Selection_data) Changer_scale (); } );
+    $("#idAngle").on ("change", function (event) { if (Selection_data) Changer_angle (); } );
+    $("#idPosx").on  ("change", function (event) { if (Selection_data) Changer_posx (); } );
+    $("#idPosy").on  ("change", function (event) { if (Selection_data) Changer_posy (); } );
+
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
-     { $("#idAtelierTitle").text( Response.page );
+     { $("#idAtelierTitle").text( Response.page + " #" + Response.syn_id );
        console.log(Response);
        Synoptique = Response;                                                                       /* sauvegarde du pointeur */
        $.each ( Response.visuels, function (i, visuel)
                  { if (visuel.forme == null)
                     { console.log ( "new null at " + visuel.posx + " " + visuel.posy );
-                      visuel.svggroupe = Trame.group().attr("id", "wtd-visu-"+visuel.tech_id+"-"+visuel.acronyme);
-                      Trame.add(visuel.svggroupe);
-                      visuel.svggroupe.add ( SVG_New_from_image ( Trame, visuel.icone+".gif" ) );
-                      SVG_Update_matrice ( visuel );
+                      Trame.new_from_image ( visuel, visuel.icone+".gif" );
                     }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="bouton")
-                    { Trame.new_button ( visuel ); }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="encadre")
-                    { Trame.new_encadre ( visuel ); }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment")
-                    { Trame.new_comment ( visuel ); }
-                   else if (visuel.ihm_affichage=="by_mode")
-                    { Trame.new_from_image( visuel, visuel.forme+"_"+visuel.mode+"."+visuel.extension ); }
-                   else if (visuel.ihm_affichage=="by_color")
-                    { Trame.new_from_image( visuel, visuel.forme+"_"+visuel.color+"."+visuel.extension ); }
-                   else if (visuel.ihm_affichage=="by_mode_color")
-                    { Trame.new_from_image( visuel, visuel.forme+"_"+visuel.mode+"_"+visuel.color+"."+visuel.extension ); }
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="bouton")  { Trame.new_button  ( visuel ); }
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="encadre") { Trame.new_encadre ( visuel ); }
+                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment") { Trame.new_comment ( visuel ); }
+                   else if (visuel.ihm_affichage=="by_mode")       { Trame.new_by_mode ( visuel );       }
+                   else if (visuel.ihm_affichage=="by_color")      { Trame.new_by_color( visuel );       }
+                   else if (visuel.ihm_affichage=="by_mode_color") { Trame.new_by_mode_color ( visuel ); }
                    else if (visuel.ihm_affichage=="static")
-                    { Trame.new_from_image( visuel, visuel.forme+"."+visuel.extension ); }
+                    { Trame.new_static( visuel, visuel.forme+"."+visuel.extension ); }
 
                    if (visuel.svggroupe !== undefined)
-                    { visuel.svggroupe.on ( "click", function (event) { Clic_sur_motif ( visuel, event ) }, false);
-                      visuel.svggroupe.on ( "mousemove", function () { Update_parametre_selection ( visuel ); } );
+                    { visuel.svggroupe.on ( "mousedown", function (event) { Down_sur_visuel ( visuel, event ) }, false);
+                      visuel.svggroupe.css( "cursor", "move" );
                     }
                  }
               );
        $.each ( Response.cadrans, function (i, cadran)
                  { Trame.new_cadran ( cadran );
                    if (cadran.svggroupe !== undefined)
-                    { cadran.svggroupe.on ( "click", function (event) { Clic_sur_motif ( cadran, event ) }, false);
-                      cadran.svggroupe.on ( "mousemove", function () { Update_parametre_selection ( cadran ); } );
+                    { cadran.svggroupe.on ( "mousedown", function (event) { Down_sur_visuel ( cadran, event ); } );
+                      cadran.svggroupe.css( "cursor", "move" );
                     }
                  }
               );
@@ -63,7 +70,9 @@
                                                       { return ( { syn_motif_id: visuel.syn_motif_id,
                                                                    tech_id: visuel.tech_id, acronyme: visuel.acronyme,
                                                                    posx: visuel.posx, posy: visuel.posy, scale: visuel.scale,
-                                                                   angle: visuel.angle } );
+                                                                   angle: visuel.angle,
+                                                                   layer: Trame.index(visuel.svggroupe)
+                                                                 } );
                                                       }
                                                    ),
                     cadrans: Synoptique.cadrans.map( function ( cadran )
@@ -79,89 +88,100 @@ console.debug(request);
      { Show_toast_ok ( "Synoptique "+Synoptique.page+" enregistré"); }, null );
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Deselectionner ( )
-  { if (svg_selected)
-     { if (svg_selected.motif)     { svg_selected.ChangeState ( 0, svg_selected.motif.def_color, false ); }
-       if (svg_selected.rectangle) { svg_selected.ChangeState ( 0, svg_selected.rectangle.def_color, false ); }
-       if (svg_selected.lien)      { svg_selected.ChangeState ( 0, svg_selected.lien.stroke, false ); }
-       if (svg_selected.comment)   { svg_selected.ChangeState ( 0, svg_selected.comment.def_color, false ); }
-     }
-    document.getElementById("WTD-ctrl-panel").innerHTML="Rien n'est sélectionné";
-  }
+ function Deselectionner ( event )
+  { Selection_drag = null; }
+/********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
+ function Down_sur_visuel ( visuel, event )
+  { event.preventDefault();
+    console.log(" Clic sur motif " + visuel.libelle + " offsetx = " + event.offsetX + " offsetY="+event.offsetY + " selected=" + visuel.selected );
+    console.log(" Clic sur motif " + visuel.libelle + " clientX = " + event.clientX + " clientY="+event.clientY + " selected=" + visuel.selected );
+    Selection_drag = Selection_data = visuel;
+    Update_selection_data();
 
-/********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Change_motif_properties ()
-  { svg_selected.motif.posx          = document.getElementById("WTD-ctrl-panel-motif-posx").value;
-    svg_selected.motif.posy          = document.getElementById("WTD-ctrl-panel-motif-posy").value;
-    svg_selected.motif.angle         = document.getElementById("WTD-ctrl-panel-motif-angle").value;
-    svg_selected.motif.scale         = document.getElementById("WTD-ctrl-panel-motif-scale").value;
-    svg_selected.motif.def_color     = document.getElementById("WTD-ctrl-panel-motif-color").value;
-    svg_selected.motif.access_level  = document.getElementById("WTD-ctrl-panel-motif-access-level").value;
-    svg_selected.motif.libelle       = document.getElementById("WTD-ctrl-panel-motif-libelle").value;
-    svg_selected.motif.tech_id       = document.getElementById("WTD-ctrl-panel-motif-tech-id").value;
-    svg_selected.motif.acronyme      = document.getElementById("WTD-ctrl-panel-motif-acronyme").value;
-    svg_selected.motif.clic_tech_id  = document.getElementById("WTD-ctrl-panel-motif-clic-tech-id").value;
-    svg_selected.motif.clic_acronyme = document.getElementById("WTD-ctrl-panel-motif-clic-acronyme").value;
-    svg_selected.UpdateSVGMatrix();
+    const domPoint = new DOMPointReadOnly ( event.clientX, event.clientY );
+    const pt = domPoint.matrixTransform ( document.getElementById("idTrame").getScreenCTM().inverse() )
+
+    console.log("add poignee " + pt.x + " " + pt.y );
+    visuel.clic_x = pt.x;
+    visuel.clic_y = pt.y;
+    /*isuel.svgpoignee = Trame.circle( 40, 40 ).attr("cx", pt.x - visuel.posx ).attr("cy", pt.y-visuel.posy )
+                             .attr("fill", "blue" ).attr("fill-opacity", "0.6" )
+                             .attr("stroke-dasharray", "5 5").attr("stroke-width", 2 ).attr("stroke-linecap", "round")
+                             .attr("stroke", "yellow" ).attr("stroke-opacity", "1" )
+                             .css("cursor", "move");*/
+    /*visuel.svgpoignee.on ( "mousemove",  function (event) { Move_sur_poignee( visuel, event ) }, false);
+    visuel.svgpoignee.on ( "mouseup",    function (event) { Deselectionner( event ) }, false);
+    visuel.svgpoignee.on ( "mouseleave", function (event) { Deselectionner( event ) }, false);
+    visuel.svggroupe.add ( visuel.svgpoignee );*/
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function SvgScreen_to_SVGPoint(x, y)
-  { var trame = document.getElementById("idTrame");
-    var pt = trame.createSVGPoint();
-    pt.x = x;
-    pt.y = y;
-    return pt.matrixTransform(trame.getScreenCTM().inverse());
-  }
-/********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Clic_sur_motif ( visuel, event )
-  { console.log(" Down sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY + " selected=" + visuel.selected );
-    if (visuel.selected != true)
-     { console.log("add poignee");
-       visuel.selected = true;
-       visuel.svgpoignee = Trame.circle( 60 ).attr("cx", 0 ).attr("cy", 0 )
-                                .attr("fill", "lightblue" ).attr("fill-opacity", "0.5" )
-                                .attr("stroke-dasharray", "5 5").attr("stroke-width", 2 ).attr("stroke-linecap", "round")
-                                .attr("stroke", "black" ).attr("stroke-opacity", "1" )
-                                .css("cursor", "pointer");
-       visuel.svgpoignee.on ( "mousemove", function (event) { Move_sur_poignee( visuel, event ) }, false);
-       visuel.svgpoignee.on ( "mouseleave", function (event) { Clic_sur_motif( visuel, event ) }, false);
-       visuel.svggroupe.front().add ( visuel.svgpoignee );
+ function Move_sur_trame ( event )
+  { event.preventDefault();
+    if (!Selection_drag) return;
+    console.log(" Move sur poigne " + Selection.libelle + " clientX = " + event.clientX + " clientY="+event.clientY + " selected=" + Selection.selected );
+    const domPoint = new DOMPointReadOnly(event.clientX, event.clientY)
+    const pt = domPoint.matrixTransform(document.getElementById("idTrame").getScreenCTM().inverse())
+
+    if (event.shiftKey) maille = 1; else maille = Trame.maille;
+
+    var old_x    = parseInt(Selection_drag.posx / maille);
+    var clic_x   = parseInt(Selection_drag.clic_x / maille);
+    var pt_x     = parseInt(pt.x / maille);
+    var delta_x  = pt_x - clic_x;
+    var new_posx = (old_x + delta_x) * maille;
+    if (new_posx<0)    new_posx = 0;
+    if (new_posx>1920) new_posx = 1920;
+    Selection_drag.posx   = new_posx;
+    Selection_drag.clic_x = pt_x * maille;
+
+    var old_y    = parseInt(Selection_drag.posy / maille);
+    var clic_y   = parseInt(Selection_drag.clic_y / maille);
+    var pt_y     = parseInt(pt.y / maille);
+    var delta_y  = pt_y - clic_y;
+    var new_posy = (old_y + delta_y) * maille;
+    if (new_posy<0)    new_posy = 0;
+    if (new_posy>1080) new_posy = 1080;
+    if (new_posy != Selection_drag.posy)
+     { Selection_drag.posy   = new_posy;
+       Selection_drag.clic_y = pt_y * maille;
      }
-    else
-     { visuel.selected = false;
-       visuel.svgpoignee.remove();
-     }
-  }
-/********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Move_sur_poignee ( visuel, event )
-  { console.log(" Move sur motif " + visuel.libelle + " offsetx = " + event.clientX + " offsetY="+event.clientY );
-    var pos = SvgScreen_to_SVGPoint ( event.clientX, event.clientY );
-    visuel.posx = Math.trunc(pos.x);
-    visuel.posy = Math.trunc(pos.y);
-    console.log ( "new posx " + visuel.posx + " : " + visuel.posy );
-    Trame.update_matrice ( visuel );
+
+    Trame.update_matrice ( Selection_drag );
+    Update_selection_data ();
   }
 /********************************************* Appeler quand on change le scale ***********************************************/
- function Changer_scale ( visuel )
-  { visuel.scale = parseFloat($("#idScale").val());
-    console.log(" Change Scale sur motif " + visuel.libelle + " scale = " + visuel.scale );
-    Trame.update_matrice ( visuel );
+ function Changer_posx ( )
+  { Selection_data.posx = parseInt($("#idPosx").val());
+    console.log(" Change Posx sur motif " + Selection_data.libelle + " posx = " + Selection_data.posx );
+    Trame.update_matrice ( Selection_data );
+  }
+/********************************************* Appeler quand on change le scale ***********************************************/
+ function Changer_posy ( )
+  { Selection_data.posy = parseInt($("#idPosy").val());
+    console.log(" Change Posy sur motif " + Selection_data.libelle + " posy = " + Selection_data.posy );
+    Trame.update_matrice ( Selection_data );
+  }
+/********************************************* Appeler quand on change le scale ***********************************************/
+ function Changer_scale ( )
+  { Selection_data.scale = parseFloat($("#idScale").val());
+    console.log(" Change Scale sur motif " + Selection_data.libelle + " scale = " + Selection_data.scale );
+    Trame.update_matrice ( Selection_data );
   }
 /********************************************* Appeler quand on change l'angle ************************************************/
- function Changer_angle ( visuel )
-  { visuel.angle = parseInt($("#idAngle").val());
-    console.log(" Change Angle sur motif " + visuel.libelle + " angle = " + visuel.angle );
-    Trame.update_matrice ( visuel );
+ function Changer_angle ( )
+  { Selection_data.angle = parseInt($("#idAngle").val());
+    console.log(" Change Angle sur motif " + Selection_data.libelle + " angle = " + Selection_data.angle );
+    Trame.update_matrice ( Selection_data );
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
- function Update_parametre_selection ( visuel )
-  { $("#idSelectionTechID").val(visuel.tech_id);
-    $("#idSelectionAcronyme").val(visuel.acronyme);
-    $("#idPosition").val("x:" + visuel.posx+", y:"+visuel.posy);
-    $("#idScale").val(visuel.scale);
-    $("#idScale").off("change").on ("change", function (event) { Changer_scale ( visuel ); } );
-    $("#idAngle").val(visuel.angle);
-    $("#idAngle").off("change").on ("change", function (event) { Changer_angle ( visuel ); } );
+ function Update_selection_data ( )
+  { $("#idSelectionTechID").val(Selection_data.tech_id);
+    $("#idSelectionAcronyme").val(Selection_data.acronyme);
+    $("#idPosition").val("x:" + Selection_data.posx+", y:"+Selection_data.posy);
+    $("#idPosx").val(Selection_data.posx);
+    $("#idPosy").val(Selection_data.posy);
+    $("#idScale").val(Selection_data.scale);
+    $("#idAngle").val(Selection_data.angle);
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Change_lien_properties ()

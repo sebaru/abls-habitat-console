@@ -1,9 +1,9 @@
 
  var SourceCode;
 
- function Go_to_mnemos ()
+ function Go_to_messages ()
   { vars = window.location.pathname.split('/');
-    Redirect ( "/tech/mnemos/"+vars[2] );
+    Redirect ( "/messages/"+vars[2] );
   }
  function Go_to_source ()
   { vars = window.location.pathname.split('/');
@@ -44,7 +44,7 @@
 
     Send_to_API ( "GET", "/dls/source", "tech_id="+vars[2], function(Response)
      { $("#idSourceTitle").text( "(#"+Response.dls_id+") - " + Response.tech_id + " - " + Response.shortname);
-       $("#idSourceSynoptique").text(Response.page);
+       $("#idSourceSynoptique").empty().append( $("<a>").attr("href", "/atelier/"+Response.page).attr("target","_blank").text(Response.page) );
        SourceCode.getDoc().setValue(Response.sourcecode);
        $("#idErrorLog").html(Response.errorlog.replace(/(?:\r\n|\r|\n)/g, '<br>'));
             if (Response.error_count)   { $("#idErrorLog").addClass("alert-danger"); }                        /* Error */

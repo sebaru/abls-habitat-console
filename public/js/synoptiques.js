@@ -4,12 +4,12 @@
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function Synoptique_set_controle_page ( page_initiale )
-  { FormatPage = RegExp(/^[a-zA-Z0-9_ ]+$/);
+  { FormatPage = RegExp(/^[a-zA-Z0-9_\- ]+$/);
     table = $('#idTableSYN').DataTable();
     input = $('#idModalSynEditPage');
     if ( FormatPage.test(input.val())==false )
      { input.addClass("bg-danger");    $('#idModalSynEditValider').attr("disabled", true);
-       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, espaces et _' );
+       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, espaces, - et _' );
      }
     else
      { input.removeClass("bg-danger"); $('#idModalSynEditValider').attr("disabled", false);
@@ -101,8 +101,8 @@
  function SYN_Del ( syn_id )
   { selection = $('#idTableSYN').DataTable().row("#"+syn_id).data();
     Show_modal_del ( "Détruire le synoptique ?",
-                     "Etes-vous sur de vouloir supprimer le synoptique suivant et toutes ses dépendances (DLS, mnémoniques, ...) ?",
-                     selection.page+" - "+selection.libelle,
+                     "Etes-vous sur de vouloir supprimer le synoptique suivant ?",
+                     selection.page+" ("+selection.libelle + ") et RECURSIVEMENT toutes ses dépendances (sous-synoptiques, DLS, mnémoniques, ...)",
                      function () { Valide_del_synoptique(selection); } );
   }
 
@@ -122,19 +122,21 @@
 
     images = [ "syn_maison.png", "syn_communication.png", "syn_reseau.png",
                "syn_buanderie.png", "syn_camera.png", "syn_chambre_double.png", "syn_chambre_simple.png",
-               "syn_cuisine.png", "syn_garage.png", "syn_cour.png", "syn_jardin.png", "syn_piscine.png",
-               "syn_salle_de_bain.png", "syn_salon.png", "syn_jeux.png", "syn_tele.png",
-               "syn_ouvrants.png", "syn_volets.png",
+               "syn_cuisine.png", "syn_garage.png", "syn_cour.png",
+               "syn_jardin.png", "syn_arrosage_1.svg", "syn_arrosage_2.svg", "syn_tondeuse.svg",
+               "syn_piscine.png", "syn_puit.svg",
+               "syn_salle_de_bain.png", "syn_congelateur.svg", "syn_salon.png", "syn_jeux.png", "syn_tele.png",
+               "syn_ouvrants.png", "syn_volets.png", "syn_velux.svg",
                "syn_luminaires.png", "syn_spot.png", "syn_sonorisation.png",
-               "syn_maintenance.png", "syn_parametres.png", "syn_horloge.png",
-               "syn_confort.png", "syn_vmc.png", "syn_energie.png", "syn_chaudiere.png", "syn_electricite.png",
-               "syn_ups.png", "syn_panneau_solaire.png"
+               "syn_confort.png", "syn_vmc.png", "syn_energie.png", "syn_chaudiere.png", "syn_electricite.png", "syn_chauffe_eau.svg",
+               "syn_ups.png", "syn_panneau_solaire.png", "syn_essence.svg",
+               "syn_acces.svg", "syn_maintenance.png", "syn_parametres.png", "syn_menu_parametres.png", "syn_horloge.png",
              ];
 
     liste = $("#idSynEditImageListe");
     liste.empty();
     images.forEach ( function (element)
-                      { liste.append( $("<img>").addClass("wtd-synoptique-preview m-1")
+                      { liste.append( $("<img>").addClass("wtd-synoptique-preview m-1").css("cursor","pointer")
                              .attr("name", element).attr("src", "https://static.abls-habitat.fr/img/"+element)
                              .click ( function () { Valide_edit_image(syn_id, element); } ) );
                       } );
@@ -167,10 +169,6 @@
               "render": function (item)
                 { return( Badge_Access_level ( item.access_level ) ); }
             },
-            { "data": null, "title":"Affichage Full", "className": "align-middle text-center",
-              "render": function (item)
-                { if (item.mode_affichage==true) return( "Mode Full" ); else return ("Mode Simple"); }
-            },
             { "data": null, "title": "Parent", "className": "align-middle text-center",
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.ppage, "Voir le synoptique "+item.plibelle, item.ppage ) ); },
@@ -199,7 +197,7 @@
             }
           ],
          /*order: [ [0, "desc"] ],*/
-         responsive: true,
+         /*responsive: true,*/
        }
      );
   }

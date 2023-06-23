@@ -4,15 +4,27 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function SMSG_Disable (smsg_id)
-  { $("#idButtonSpinner_"+smsg_id).show();
+  { $("#idButtonSpinner_SMSG_Disable_"+smsg_id).show();
     selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { SMSG_Refresh(); }, function(Response) { SMSG_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function SMSG_Enable (smsg_id)
-  { $("#idButtonSpinner_"+smsg_id).show();
+  { $("#idButtonSpinner_SMSG_Enable_"+smsg_id).show();
     selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { SMSG_Refresh(); }, function(Response) { SMSG_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function SMSG_Debug (smsg_id)
+  { $("#idButtonSpinner_SMSG_Debug_"+smsg_id).show();
+    selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
+    Thread_debug ( selection.thread_tech_id, true, function(Response) { SMSG_Refresh(); }, function(Response) { SMSG_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function SMSG_Undebug (smsg_id)
+  { $("#idButtonSpinner_SMSG_Undebug_"+smsg_id).show();
+    selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
+    Thread_debug ( selection.thread_tech_id, false, function(Response) { SMSG_Refresh(); }, function(Response) { SMSG_Refresh(); } );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function SMSG_Set ( selection )
@@ -122,6 +134,14 @@
                  { return( Bouton ( "outline-secondary", "Activer le gsm", "SMSG_Enable", item.smsg_id, "Désactivé" ) ); }
                },
            },
+           { "data": null, "title":"Debug", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.debug==true)
+                 { return( Bouton ( "warning", "Désactiver le debug", "SMSG_Undebug", item.smsg_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le debug", "SMSG_Debug", item.smsg_id, "Désactivé" ) ); }
+              },
+           },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
@@ -153,7 +173,7 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
   }

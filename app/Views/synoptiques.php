@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
  <div class="row m-2">
-   <h3><i class="fas fa-mimage text-primary"></i> Liste des Synoptiques</strong></h3>
+   <h3><i class="fas fa-image text-primary"></i> Liste des Synoptiques</strong></h3>
 
    <div class ="ml-auto btn-group align-items-start">
         <button type="button" onclick="SYN_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un Synoptique</button>

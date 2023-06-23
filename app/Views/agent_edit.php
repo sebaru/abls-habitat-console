@@ -88,8 +88,15 @@
 
            <div class="row form-group">
              <div class="input-group">
-               <label class="col-4 col-form-label text-right">Commande de lien</label>
-               <textarea id="idAGENTLink" readonly rows="5" type="text" class="form-control" placeholder="Command to link agent"></textarea>
+               <label class="col-4 col-form-label text-right">Lier un agent natif</label>
+               <textarea id="idAGENTLinkNatif" readonly rows="5" type="text" class="form-control" placeholder="Link a native agent"></textarea>
+             </div>
+           </div>
+
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Lier un agent en container</label>
+               <textarea id="idAGENTLinkPodman" readonly rows="7" type="text" class="form-control" placeholder="Link a container agent"></textarea>
              </div>
            </div>
 

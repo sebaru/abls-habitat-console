@@ -49,12 +49,19 @@
                      function () { AGENT_Upgrade_Valider( selection ) } ) ;
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function AGENT_Upgrade ( id  )
+ function AGENT_Delete_Valider ( selection )
+  { var json_request = { agent_uuid: selection.agent_uuid };
+    Send_to_API ( 'DELETE', "/agent/delete", json_request, function ()
+     { Show_toast_ok ( "Agent supprimé" );
+     }, null );
+  }
+/************************************ Envoi les infos de modifications synoptique *********************************************/
+ function AGENT_Delete ( id  )
   { selection = $('#idTableAGENT').DataTable().row("#"+id).data();
-    Show_modal_del ( "Upgrader l'agent "+selection.agent_hostname,
-                     "Etes-vous sûr de vouloir upgrader cet agent ?",
+    Show_modal_del ( "Supprimer l'agent "+selection.agent_hostname,
+                     "Etes-vous sûr de vouloir supprimer cet agent ?",
                      selection.agent_hostname + " - "+selection.description,
-                     function () { AGENT_Upgrade_Valider( selection ) } ) ;
+                     function () { AGENT_Delete_Valider( selection ) } ) ;
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
@@ -71,25 +78,30 @@
              },
        rowId: "agent_id",
        columns:
-         [ { "data": null, "title":"Connected", "className": "align-middle text-center",
+         [ { "data": null, "title":"Status", "className": "align-middle text-center",
              "render": function (item)
-              { if (item.ws_connected==true)
-                 { return( Bouton ( "success", "Agent connecté", null, null, "Yes" ) ); }
-                else
-                 { return( Bouton ( "outline-danger", "Agent déconnecté", null, null, "No" ) ); }
+              { var color, mode, connect;
+                if (item.ws_connected==true) { color = "success";   }
+                                        else { color = "danger"; }
+                if (item.is_master==true) { mode = "Master"; } else { mode = "Slave"; }
+                return ( Bouton ( color, "Agent is " + mode, null, null, mode ) );
+              }
+           },
+           { "data": null, "title":"Branche", "className": "align-middle text-center",
+             "render": function (item)
+              { result = Badge ( "secondary", "Branche is "+item.branche, item.branche )
+                return(result);
               }
            },
            { "data": null, "title":"Hostname", "className": "align-middle text-center",
              "render": function (item)
-              { result = Lien ( "/agent/"+item.agent_uuid, "Démarré le "+item.start_time, item.agent_hostname ) + "<br>";
-                if (item.is_master==true) result = result + Badge ( "info", "Agent is Master", "Master" );
-                                     else result = result + Badge ( "secondary", "Agent is Slave", "Slave" );
+              { result = Lien ( "/agent/"+item.agent_uuid, "Voir l'agent", item.agent_hostname + " " );
                 return(result);
               }
            },
            { "data": null, "title":"Version", "className": "align-middle text-center",
              "render": function (item)
-              { return( item.version + "<br>" + Badge ( "secondary", "Branche is "+item.branche, item.branche ) );
+              { return( item.version + "<br>" + item.start_time );
               }
            },
            { "data": null, "title":"Description", "className": "align-middle ",
@@ -103,16 +115,17 @@
                  boutons += Bouton_actions_add ( "info", "Promouvoir Master",
                                                  (item.is_master == false ? "AGENT_Set_master" : null),
                                                  item.agent_id, "asterisk", null );
-                 boutons += Bouton_actions_add ( "warning", "Upgrader l'agent",
+                 boutons += Bouton_actions_add ( "primary", "Upgrader l'agent",
                                                  (item.ws_connected ? "AGENT_Upgrade" : null), item.agent_id, "download", null );
-                 boutons += Bouton_actions_add ( "danger", "Restarter l'agent",
+                 boutons += Bouton_actions_add ( "warning", "Restarter l'agent",
                                                  (item.ws_connected ? "AGENT_Reset" : null), item.agent_id, "redo", null );
+                 boutons += Bouton_actions_add ( "danger", "Supprimer l'agent", "AGENT_Delete", item.agent_id, "trash", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
            }
          ],
        order: [ [0, "desc"] ],
-       responsive: true,
+       responsive: false,
      });
   }

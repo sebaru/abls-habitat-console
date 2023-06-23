@@ -8,23 +8,28 @@
         <meta name="google" content="notranslate">
         <meta name="robots" content="noindex, nofollow">
         <link rel="icon" href="https://static.abls-habitat.fr/img/abls.svg">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/fh-3.1.7/r-2.2.5/datatables.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/codemirror.min.css">
         <style>
-        input:focus { outline: 0 0 0 0  !important;
-                      box-shadow: 0 0 0 0 !important;
-                    }
 
+        body { padding-top: 80px;
+               padding-bottom: 40px;
+             }
+
+        .toast { transform: translateX(-50%); }
 
         .navbar { background-color: rgba(30,28,56,0.8);
                 }
-        .toast { transform: translateX(-50%); }
         .nav-link {
                   }
         .nav-link:hover { /*color: white !important; attention, cible aussi les nav-tabs */
                           background-color: #48BBC0;
                         }
+        input:focus { outline: 0 0 0 0  !important;
+                      box-shadow: 0 0 0 0 !important;
+                    }
+
         .courbe-dashboard { height: 300px; }
 
         .wtd-synoptique-preview { height: 80px; }
@@ -178,7 +183,7 @@
 
 <!----------------------------------------------------------------------------------------------------------------------------->
 <header>
- <nav class="navbar navbar-dark  navbar-expand-lg sticky-top shadow mb-2"> <!-- fixed-top -->
+ <nav class="navbar navbar-dark  navbar-expand-lg fixed-top shadow mb-2"> <!-- fixed-top -->
   <a class="navbar-brand" href="/"><img src="https://static.abls-habitat.fr/img/abls.svg" alt="ABLS Logo" width=50></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggled" aria-controls="navbar-toggled" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -189,7 +194,7 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle" href="#" id="navbarDOMAINE" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fort-awesome text-primary"></i> <span id="idNavDomainName">Domaine</span>
+          <i class="fas fa-globe text-primary"></i> <span id="idNavDomainName">Domaine</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
           <a class="dropdown-item" href="/dashboard"> <i class="fas fa-tachometer-alt text-primary"></i> Dashboard</a>
@@ -198,7 +203,7 @@
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/domain_maintenance"> <i class="fas fa-wrench text-warning"></i> Maintenance</a>
-          <a class="dropdown-item" href="/domains"> <i class="fas fa-fort-awesome text-primary"></i> Mes domaines</a>
+          <a class="dropdown-item" href="/domains"> <i class="fas fa-globe text-primary"></i> Mes domaines</a>
       </li>
 
 
@@ -209,6 +214,8 @@
         <div class="dropdown-menu" aria-labelledby="navbarCONFIG">
           <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-danger"></i> <span>Synoptiques</span> </a>
           <a class="dropdown-item" href="/dls"> <i class="fas fa-code text-primary"></i> <span>Modules D.L.S</span> </a>
+          <a class="dropdown-item" href="/messages"> <i class="fas fa-book text-primary"></i> <span>Messages</span> </a>
+          <a class="dropdown-item" href="/mnemos"> <i class="fas fa-book text-success"></i> <span>Bits internes</span> </a>
           <a class="dropdown-item" href="/tableau"> <i class="fas fa-chart-line text-secondary"></i> <span>Tableaux</span> </a>
           <a class="dropdown-item" href="/search"> <i class="fas fa-search text-primary"></i> <span>Dictionnaire</span> </a>
         </div>
@@ -228,7 +235,7 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarDOCS" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-book text-primary"></i> Documentation</span>
+          <i class="fas fa-question-circle text-primary"></i> Aide</span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
           <a class="dropdown-item" href="https://docs.abls-habitat.fr"><i class="fas fa-book"></i> <span> Portail de documentation</span></a>
@@ -247,6 +254,7 @@
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
           <a class="dropdown-item" href="/user/me" id="idHrefUsername"><i class="fas fa-user text-info"></i> Mon Profil</a>
+          <a class="dropdown-item" href="<?php echo getenv("IDP_URL"); ?>/realms/<?php echo getenv("IDP_REALM");?>/account/"><i class="fas fa-user text-info"></i> Mon Compte</a>
           <a class="dropdown-item" href="/user/invite"><i class="fas fa-user-friends text-info"></i> Inviter</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/users"><i class="fas fa-users-cog text-info"></i> <span>Utilisateurs</span></a>
@@ -261,3 +269,4 @@
 </nav>
 </header>
 <?php if ( getenv("CI_ENVIRONMENT") == "development" ) { echo "<div class='alert alert-warning'>Instance de DEV</div>"; } ?>
+<div id="idDomainNotification" class='alert alert-info m-1' style="display:none" role="status"></div>

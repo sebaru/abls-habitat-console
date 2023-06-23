@@ -11,12 +11,14 @@
 
 <hr>
 
+   <div class="table-responsive">
     <table id="idTableUsers" class="table table-striped table-bordered table-hover">
       <thead class="thead-dark">
 				  </thead>
 			   <tbody>
       </tbody>
     </table>
+   </div>
 
 <!-- Container -->
 </div>

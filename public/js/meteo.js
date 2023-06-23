@@ -5,15 +5,27 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function METEO_Disable (meteo_id)
-  { $("#idButtonSpinner_"+meteo_id).show();
+  { $("#idButtonSpinner_METEO_Disable_"+meteo_id).show();
     selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
     Thread_enable ( selection.thread_tech_id, false, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function METEO_Enable (meteo_id)
-  { $("#idButtonSpinner_"+modbus_id).show();
+ function METEO_Enable (modbus_id)
+  { $("#idButtonSpinner_METEO_Enable_"+meteo_id).show();
     selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function METEO_Debug (modbus_id)
+  { $("#idButtonSpinner_METEO_Debug_"+modbus_id).show();
+    selection = $('#idTableMETEO').DataTable().row("#"+modbus_id).data();
+    Thread_debug ( selection.thread_tech_id, true, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function METEO_Undebug (modbus_id)
+  { $("#idButtonSpinner_METEO_Undebug_"+modbus_id).show();
+    selection = $('#idTableMETEO').DataTable().row("#"+modbus_id).data();
+    Thread_debug ( selection.thread_tech_id, false, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function METEO_Test ( meteo_id )
@@ -107,6 +119,14 @@
                  { return( Bouton ( "outline-secondary", "Activer le compte", "METEO_Enable", item.meteo_id, "Désactivé" ) ); }
                },
            },
+           { "data": null, "title":"Debug", "className": "align-middle text-center",
+             "render": function (item)
+              { if (item.debug==true)
+                 { return( Bouton ( "warning", "Désactiver le debug", "METEO_Undebug", item.meteo_id, "Actif" ) ); }
+                else
+                 { return( Bouton ( "outline-secondary", "Activer le debug", "METEO_Debug", item.meteo_id, "Désactivé" ) ); }
+              },
+           },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
@@ -132,6 +152,6 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
   }

@@ -82,7 +82,7 @@
     $('#idTableEntreeTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -92,9 +92,13 @@
        rowId: "di_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
-           { "data": null, "title":"Map on", "className": "align-middle ",
+           { "data": null, "title":"Map on", "className": "align-middle text-center",
              "render": function (item)
-               { if (item.thread_tech_id==null) return("Not Mapped");
+               { if (item.thread_tech_id==null)
+                  { if (item.acronyme.endsWith("_CLIC")) return("Clic Synoptique");
+                    if (item.acronyme == "OSYN_ACQUIT") return("Clic Synoptique");
+                    return ( "Not Mapped" );
+                  }
                  else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
                },
            },
@@ -115,13 +119,13 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableEntreeANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -132,7 +136,7 @@
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
-               { return ( Lien ("/tech/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
+               { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
            { "data": null, "title":"Map on", "className": "align-middle ",
              "render": function (item)
@@ -148,16 +152,15 @@
                                      else { return( Bouton ( "warning", "Pb !", null, null, "Non" ) ); }
                },
            },
-           { "data": "last_arch", "title":"last_arch", "className": "align-middle text-center " },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableSortieTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -190,13 +193,13 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableSortieANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -204,23 +207,25 @@
                             }
              },
        rowId: "ao_id",
-       columns: [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
+       columns: [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
+                    "render": function (item)
+                     { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); }
+                  },
                   { "data": null, "title":"Map on", "className": "align-middle ",
                     "render": function (item)
                       { if (item.thread_tech_id==null) return("Not Mapped");
                         else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
                       },
                   },
-                  { "data": "libelle",    "title":"Libellé",    "className": "align-middle " },
                 ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableCI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -231,7 +236,7 @@
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
-               { return ( Lien ("/tech/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
+               { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
            { "data": null, "title":"Etat", "className": "",
              "render": function (item)
@@ -244,13 +249,13 @@
            { "data": "unite",      "title":"Unité", "className": "text-center align-middle " },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableCH').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -261,7 +266,7 @@
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
-               { return ( Lien ("/tech/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
+               { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
            { "data": null, "title":"Etat", "className": "",
              "render": function (item)
@@ -275,13 +280,13 @@
                },
            },         ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableRegistre').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -292,19 +297,19 @@
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
-               { return ( Lien ("/tech/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
+               { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
            { "data": "valeur",     "title":"Valeur",   "className": "align-middle " },
            { "data": "unite",      "title":"Unité",    "className": "align-middle " },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableTempo').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "TEMPO" }, dataSrc: "TEMPO",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "TEMPO" }, dataSrc: "TEMPO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -328,13 +333,13 @@
            { "data": "date_on",    "title":"date_on",  "className": "align-middle  text-center" },
            { "data": "date_off",   "title":"date_off", "className": "align-middle  text-center" },
          ],
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableMONO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -360,13 +365,13 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableBI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -393,14 +398,14 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
 
     $('#idTableVisuel').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -413,21 +418,27 @@
            { "data": "libelle",    "title":"Libellé",     "className": "align-middle text-center" },
            { "data": "mode",       "title":"Mode",        "className": "align-middle text-center" },
            { "data": "color",      "title":"Couleur",     "className": "align-middle text-center" },
-           { "data": null, "title":"Cligno", "className": "align-middle ",
+           { "data": null, "title":"Cligno", "className": "align-middle text-center",
              "render": function (item)
                { if (item.cligno==true) { return( Bouton ( "outline-success", "Le visuel clignote", null, null, "Oui" ) );          }
                                    else { return( Bouton ( "outline-secondary", "Le visuel ne clignote pas", null, null, "Non" ) ); }
                },
            },
+           { "data": null, "title":"Disable", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.disable==true) { return( Bouton ( "outline-secondary", "Le visuel est désactivé", null, null, "Oui" ) ); }
+                                    else { return( Bouton ( "outline-success", "Le visuel est activé", null, null, "Non" ) ); }
+               },
+           },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableWatchdog').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -449,13 +460,13 @@
            },
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTableMessages').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: {	url : "https://"+master+":5559/dls/run",	type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
+       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -482,7 +493,7 @@
            }
          ],
        /*order: [ [0, "desc"] ],*/
-       responsive: true,
+       /*responsive: true,*/
      });
 
     $('#idTabEntreeTor').tab('show');

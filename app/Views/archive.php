@@ -58,12 +58,14 @@
 
  <h3><i class="fas fa-database text-primary"></i> Gestion des tables d'archivage</h3>
 
+   <div class="table-responsive">
     <table id="idTableArchive" class="table table-striped table-bordered table-hover w-100">
       <thead class="thead-dark">
       </thead>
       <tbody>
       </tbody>
     </table>
+   </div>
 
 <!-- Container -->
 </div>
