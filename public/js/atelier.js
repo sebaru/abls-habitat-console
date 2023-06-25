@@ -19,10 +19,15 @@
     Trame.on ( "mousemove",  function ( event ) { Move_sur_trame ( event ); }, false );
     Trame.on ( "mouseup",    function ( event ) { Deselectionner( event ) }, false);
     Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
-    $("#idButtonMoveDown").on("click", function () { if (Selection_data) Selection_data.svggroupe.backward(); } );
-    $("#idButtonMoveUp")  .on("click", function () { if (Selection_data) Selection_data.svggroupe.forward();  } );
-    $("#idButtonMoveFullDown").on("click", function () { if (Selection_data) Selection_data.svggroupe.back(); } );
-    $("#idButtonMoveFullUp")  .on("click", function () { if (Selection_data) Selection_data.svggroupe.front();  } );
+
+    $("#idButtonMoveDown").on("click", function ()
+      { if (Selection_data && Trame.index(Selection_data) > 0) { Selection_data.svggroupe.backward(); Update_selection_data(); }  } );
+    $("#idButtonMoveUp")  .on("click", function () { if (Selection_data) { Selection_data.svggroupe.forward(); Update_selection_data(); }  } );
+
+    $("#idButtonMoveFullDown").on("click", function ()
+      { if (Selection_data && Trame.index(Selection_data) > 1) { Selection_data.svggroupe.back().forward(); Update_selection_data(); }  } );
+    $("#idButtonMoveFullUp")  .on("click", function () { if (Selection_data) { Selection_data.svggroupe.front(); Update_selection_data(); }  } );
+
     $("#idScale").on ("change", function (event) { if (Selection_data) Changer_scale (); } );
     $("#idAngle").on ("change", function (event) { if (Selection_data) Changer_angle (); } );
     $("#idPosx").on  ("change", function (event) { if (Selection_data) Changer_posx (); } );
@@ -182,6 +187,7 @@ console.debug(request);
     $("#idPosy").val(Selection_data.posy);
     $("#idScale").val(Selection_data.scale);
     $("#idAngle").val(Selection_data.angle);
+    $("#idLayer").val(Trame.index(Selection_data.svggroupe));
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Change_lien_properties ()
