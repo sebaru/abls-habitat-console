@@ -21,11 +21,11 @@
     Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
 
     $("#idButtonMoveDown").on("click", function ()
-      { if (Selection_data && Trame.index(Selection_data) > 0) { Selection_data.svggroupe.backward(); Update_selection_data(); }  } );
+      { if (Selection_data && Trame.index(Selection_data) > 1) { Selection_data.svggroupe.backward(); Update_selection_data(); }  } );
     $("#idButtonMoveUp")  .on("click", function () { if (Selection_data) { Selection_data.svggroupe.forward(); Update_selection_data(); }  } );
 
     $("#idButtonMoveFullDown").on("click", function ()
-      { if (Selection_data && Trame.index(Selection_data) > 1) { Selection_data.svggroupe.back().forward(); Update_selection_data(); }  } );
+      { if (Selection_data ) { Selection_data.svggroupe.back().forward(); Update_selection_data(); }  } );
     $("#idButtonMoveFullUp")  .on("click", function () { if (Selection_data) { Selection_data.svggroupe.front(); Update_selection_data(); }  } );
 
     $("#idScale").on ("change", function (event) { if (Selection_data) Changer_scale (); } );
