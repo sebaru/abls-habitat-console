@@ -57,6 +57,7 @@ $routes->get('/atelier/(:any)', 'Console::atelier');
 $routes->get('/synoptiques',  'Console::synoptiques');
 $routes->get('/mnemos/(:any)', 'Console::mnemos');
 $routes->get('/mnemos',        'Console::mnemos');
+$routes->get('/tableau',       'Console::tableau');
 $routes->get('/messages/(:any)', 'Console::messages');
 $routes->get('/messages',     'Console::messages');
 $routes->get('/archive',      'Console::archive');

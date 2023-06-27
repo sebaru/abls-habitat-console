@@ -21,7 +21,7 @@
     Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
 
     $("#idButtonMoveDown").on("click", function ()
-      { if (Selection_data && Trame.index(Selection_data.svggroupe) > 0) { Selection_data.svggroupe.backward(); Update_selection_data(); }  } );
+      { if (Selection_data && Trame.index(Selection_data.svggroupe) > 1) { Selection_data.svggroupe.backward(); Update_selection_data(); }  } );
     $("#idButtonMoveUp")  .on("click", function () { if (Selection_data) { Selection_data.svggroupe.forward(); Update_selection_data(); }  } );
 
     $("#idButtonMoveFullDown").on("click", function ()
