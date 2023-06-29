@@ -81,17 +81,9 @@
              "render": function (item)
                { return( htmlEncode(item.audio_profil) ); }
            },
-           { "data": null, "title":"Libelle Audio", "className": "align-middle text-center",
-             "render": function (item)
-               { return( htmlEncode(item.audio_libelle) ); }
-           },
            { "data": null, "title":"SMS Notification", "className": "align-middle text-center",
              "render": function (item)
                { return( SMS_NOTIF.map ( function(item) { return(item.texte); } )[item.sms_notification] ); }
-           },
-           { "data": null, "title":"Rate_Limit", "className": "align-middle text-center",
-             "render": function (item)
-               { return( item.rate_limit ); }
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
