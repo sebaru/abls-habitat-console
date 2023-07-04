@@ -207,17 +207,20 @@
                             }
              },
        rowId: "ao_id",
-       columns: [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
-                    "render": function (item)
-                     { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); }
-                  },
-                  { "data": null, "title":"Map on", "className": "align-middle ",
-                    "render": function (item)
-                      { if (item.thread_tech_id==null) return("Not Mapped");
-                        else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
-                      },
-                  },
-                ],
+       columns:
+         [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
+             "render": function (item)
+              { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); }
+           },
+           { "data": null, "title":"Map on", "className": "align-middle ",
+             "render": function (item)
+               { if (item.thread_tech_id==null) return("Not Mapped");
+                 else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
+               },
+           },
+           { "data": "valeur", "title":"Valeur", "className": "align-middle text-center " },
+           { "data": "unite", "title":"Unité", "className": "align-middle text-center " },
+         ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
      });
