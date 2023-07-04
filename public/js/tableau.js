@@ -43,8 +43,7 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function TABLEAU_Edit ( tableau_id )
-  { table = $('#idTableTableau').DataTable();
-    selection = table.ajax.json().tableaux.filter( function(item) { return item.tableau_id==tableau_id } )[0];
+  { selection = $('#idTableTableau').DataTable().row("#"+tableau_id).data();
     $('#idTableauEditTitre').text ( "Modifier le tableau " + selection.titre + "?" );
     Select_from_api ( "idTableauEditPage", "/syn/list", null, "synoptiques", "syn_id", function(item)
                         { return(item.page+" - "+htmlEncode(item.libelle)); }, selection.syn_id );
@@ -62,7 +61,7 @@
     $('#idTableTableau').DataTable(
        { pageLength : 25,
          fixedHeader: true,
-         ajax: {	url : $ABLS_API+"/tableau/list", type : "GET", dataSrc: "tableaux", contentType: "application/json",
+         ajax: { url : $ABLS_API+"/tableau/list", type : "GET", dataSrc: "tableaux", contentType: "application/json",
                  data: function() { if (syn_id != null) return ( "syn_id="+syn_id ); else return (""); },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
@@ -79,7 +78,7 @@
                 { boutons = Bouton_actions_start ();
                   /*boutons += Bouton_actions_add ( "secondary", "Voir le tableau", "Redirect", "/"+item.page, "chart-line", null );*/
                   boutons += Bouton_actions_add ( "outline-primary", "Configurer", "TABLEAU_Edit", item.tableau_id, "pen", null );
-                  boutons += Bouton_actions_add ( "outline-secondary", "Editer les courbes", "Redirect", "/tableau_map?tableau_id="+item.tableau_id, "pen", null );
+                  boutons += Bouton_actions_add ( "outline-secondary", "Editer les courbes", "Redirect", "/tableau/"+item.tableau_id, "pen", null );
                   boutons += Bouton_actions_add ( "danger", "Supprimer ce tableau", "TABLEAU_Delete", item.tableau_id, "trash", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
