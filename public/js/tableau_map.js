@@ -41,16 +41,20 @@
 
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { Send_to_API ( "GET", "/tableau/list", null, function(Response)
-     { tableau = Response.tableaux.filter( function(item) { return item.id==Get_url_parameter("tableau_id") } )[0];
-       $('#idTableauTitle').text(tableau.titre);
+  { vars = window.location.pathname.split('/');
+    var Tableau_id = vars[2];
+    if (Tableau_id == null) Redirect ("/tableau");
+
+    Send_to_API ( "GET", "/tableau/list", null, function(Response)
+     { tableau = Response.tableaux.filter( function(item) { return item.tableau_id==Tableau_id } )[0];
+       if (tableau) $('#idTableauTitle').text(tableau.titre);
      }, null );
 
     $('#idTableTableauMap').DataTable(
        { pageLength : 25,
          fixedHeader: true,
          ajax: { url : $ABLS_API+"/tableau/map/list", type : "GET", dataSrc: "tableau_map", contentType: "application/json",
-                 data: data: { tableau_id: Get_url_parameter("tableau_id") },
+                 data: { tableau_id: Tableau_id },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('Authorization', 'Bearer ' + Token);
