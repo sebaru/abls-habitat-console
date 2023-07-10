@@ -26,7 +26,7 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Tableau_Map_Valide_delete ( tableau_map_id )
   { var json_request = { id: tableau_map_id };
-    Send_to_API ( "DELETE", "/tableau/map/del", json_request, function (Response)
+    Send_to_API ( "DELETE", "/tableau/map/delete", json_request, function (Response)
      { $('#idTableTableauMap').DataTable().ajax.reload(null, false);
      }, null );
   }
