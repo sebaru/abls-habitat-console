@@ -24,8 +24,8 @@
      }, null );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
- function Tableau_Map_Valide_delete ( tableau_map_id )
-  { var json_request = { id: tableau_map_id };
+ function Tableau_Map_Valide_delete ( selection )
+  { var json_request = { tableau_map_id: selection.tableau_map_id };
     Send_to_API ( "DELETE", "/tableau/map/delete", json_request, function (Response)
      { $('#idTableTableauMap').DataTable().ajax.reload(null, false);
      }, null );
@@ -36,7 +36,7 @@
     Show_modal_del ( "Supprimer la courbe du tableau ?",
                      "Etes-vous sur de vouloir supprimer la courbe suivante ?",
                      selection.tech_id+":"+selection.acronyme,
-                     function () { Tableau_Map_Valide_delete(selection.tableau_map_id); } );
+                     function () { Tableau_Map_Valide_delete(selection); } );
   }
 
 /********************************************* Appelé au chargement de la page ************************************************/
