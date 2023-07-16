@@ -15,7 +15,7 @@
  function Tableau_Map_Set ( tableau_map_id )
   { selection = $('#idTableTableauMap').DataTable().row("#"+tableau_map_id).data();
     var json_request =
-       { tableau_map_id: tableau_map_id,
+       { tableau_map_id: parseInt(tableau_map_id),
          tech_id : $('#idTableauMapTechId_'+tableau_map_id).val(),
          acronyme: $('#idTableauMapAcronyme_'+tableau_map_id).val(),
          color   : $('#idTableauMapColor_'+tableau_map_id).val(),
