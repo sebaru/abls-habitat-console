@@ -84,8 +84,8 @@
             },
             { "data": null, "title":"Couleur", "className": "align-middle ",
               "render": function (item)
-                { return( Input ( "text", "idTableauMapColor_"+item.id,
-                                  "Tableau_Map_Set('"+item.id+"')",
+                { return( Input ( "text", "idTableauMapColor_"+item.tableau_map_id,
+                                  "Tableau_Map_Set('"+item.tableau_map_id+"')",
                                   "Quelle est la couleur de la courbe ?",
                                   item.color )
                         );
