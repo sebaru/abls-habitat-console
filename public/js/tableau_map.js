@@ -7,7 +7,7 @@
          acronyme: "New_acronyme",
          color   : "#00F",
        };
-    Send_to_API ( "POST", "/tableau/map/set", json_request, function (Response)
+    Send_to_API ( "POST", "/tableau/map/add", json_request, function (Response)
      { $('#idTableTableauMap').DataTable().ajax.reload(null, false);
      }, null );
   }
