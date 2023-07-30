@@ -7,6 +7,7 @@
        log_level  : parseInt($("#idAGENTLogLevel").val()),
        log_msrv   : ($("#idAGENTLogMSRV").val()=="true" ? true : false),
        log_bus    : ($("#idAGENTLogBUS").val()=="true" ? true : false),
+       log_dls    : ($("#idAGENTLogDLS").val()=="true" ? true : false),
        branche    : $("#idAGENTBranche").val(),
      };
     Send_to_API ( 'POST', "/agent/set", json_request, function ()
@@ -48,6 +49,8 @@
                                                    [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ], Response.log_msrv ) );
        $("#idAGENTLogBUS").replaceWith ( Select ( "idAGENTLogBUS", null,
                                                   [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ], Response.log_bus ) );
+       $("#idAGENTLogDLS").replaceWith ( Select ( "idAGENTLogDLS", null,
+                                                  [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ], Response.log_dls ) );
        $("#idAGENTLogLevel").replaceWith ( Select ( "idAGENTLogLevel", null,
                                                     [ { valeur: 7, texte: "Debug" },  { valeur: 6, texte: "Info" },
                                                       { valeur: 5, texte: "Notice" }, { valeur: 4, texte: "Warning" },
