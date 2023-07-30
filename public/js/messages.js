@@ -1,4 +1,9 @@
- var SMS_NOTIF = [ { valeur: 0, texte: "None" }, { valeur: 1, texte: "Yes" }, { valeur: 2, texte: "GSM_Only" }, { valeur: 3, texte:"OVH_Only" } ];
+ var TXT_NOTIF = [ { valeur: 0, texte: "None" },
+                   { valeur: 1, texte: "Yes" },
+                   { valeur: 2, texte: "GSM_Only" },
+                   { valeur: 3, texte: "OVH_Only" }
+                   { valeur: 4, texte: "CHAT_Only" }
+                 ];
 
 /************************************ Demande de refresh **********************************************************************/
  function MESSAGE_Refresh ( )
@@ -10,7 +15,7 @@
   { var json_request =
        { tech_id         : selection.tech_id,
          acronyme        : selection.acronyme,
-         sms_notification: parseInt($('#idMSGEditSmsNotification').val()),
+         txt_notification: parseInt($('#idMSGEditTxtNotification').val()),
          audio_zone      : $('#idMSGEditAudioZone').val(),
          audio_libelle   : $('#idMSGEditAudioLibelle').val(),
          rate_limit      : parseInt($('#idMSGEditRateLimit').val()),
@@ -26,7 +31,7 @@
   { selection = $('#idTableMESSAGES').DataTable().row("#"+msg_id).data();
     $('#idMSGEditTitre').text("Editer les paramètres du message " + selection.tech_id+":"+selection.acronyme);
     $('#idMSGEditLibelle').prop ("disabled", true).val( selection.libelle );
-    $('#idMSGEditSmsNotification').replaceWith ( Select ( "idMSGEditSmsNotification", null, SMS_NOTIF, selection.sms_notification ) );
+    $('#idMSGEditTxtNotification').replaceWith ( Select ( "idMSGEditTxtNotification", null, TXT_NOTIF, selection.txt_notification ) );
     $('#idMSGEditAudioZone').val( selection.audio_profil );
     $('#idMSGEditAudioLibelle').val( selection.audio_libelle );
     $('#idMSGEditRateLimit').val( selection.rate_limit );
@@ -83,7 +88,7 @@
            },
            { "data": null, "title":"SMS Notification", "className": "align-middle text-center",
              "render": function (item)
-               { return( SMS_NOTIF.map ( function(item) { return(item.texte); } )[item.sms_notification] ); }
+               { return( TXT_NOTIF.map ( function(item) { return(item.texte); } )[item.txt_notification] ); }
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
