@@ -1,7 +1,7 @@
  var TXT_NOTIF = [ { valeur: 0, texte: "None" },
                    { valeur: 1, texte: "Yes" },
                    { valeur: 2, texte: "GSM_Only" },
-                   { valeur: 3, texte: "OVH_Only" }
+                   { valeur: 3, texte: "OVH_Only" },
                    { valeur: 4, texte: "CHAT_Only" }
                  ];
 
@@ -58,14 +58,14 @@
        columns:
          [ { "data": null, "title":"Type", "className": "align-middle text-center",
              "render": function (item)
-               {      if (item.typologie==0) { img = "info.svg";           title = "etat";         }
-                 else if (item.typologie==1) { img = "bouclier_orange.svg"; title = "alerte";      }
-                 else if (item.typologie==2) { img = "pignon_orange.svg";   title = "defaut";      }
-                 else if (item.typologie==3) { img = "pignon_red.svg";      title = "alarme";      }
-                 else if (item.typologie==4) { img = "bouclier_green.svg";  title = "veille";      }
-                 else if (item.typologie==5) { img = "info.svg";            title = "attente";     }
-                 else if (item.typologie==6) { img = "croix_red.svg";       title = "danger";      }
-                 else if (item.typologie==7) { img = "croix_orange.svg";    title = "derangement"; }
+               {      if (item.typologie==0) { img = "info.svg";            title = "etat";         }
+                 else if (item.typologie==1) { img = "bouclier_orange.svg"; title = "alerte";       }
+                 else if (item.typologie==2) { img = "pignon_orange.svg";   title = "defaut";       }
+                 else if (item.typologie==3) { img = "pignon_red.svg";      title = "alarme";       }
+                 else if (item.typologie==4) { img = "bouclier_green.svg";  title = "veille";       }
+                 else if (item.typologie==5) { img = "notification.svg";    title = "notification"; }
+                 else if (item.typologie==6) { img = "croix_red.svg";       title = "danger";       }
+                 else if (item.typologie==7) { img = "croix_orange.svg";    title = "derangement";  }
                  return("<img width='30px' src='https://static.abls-habitat.fr/img/"+img+"' title='"+title+"'>");
                }
            },
