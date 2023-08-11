@@ -27,6 +27,12 @@
      { Show_toast_ok ( "Notif saved." );
      }, null );
   }
+/************************************ Vide le tampon des visuels **************************************************************/
+ function Api_Reload_Icons ()
+  { Send_to_API ( "POST", "/api/reload_icons", null, function(Response)
+     { Show_toast_ok ( "Icons reloaded." );
+     }, null );
+  }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { console.log ("in load domain !");
@@ -36,5 +42,6 @@
     $("#idDomainHorlogeReload")  .off("click").click( function () { Domain_Send_to_Agent( "RELOAD_HORLOGE_TICK" ); } );
     $("#idDomainHorlogeClearVisuel").off("click").click( function () { Domain_Clear_Visuels(); } );
     $("#idDomainUserNotifSend")  .off("click").click( function () { Domain_User_Notif(); } );
+    $("#idApiReloadIcons").off("click").click( function () { Api_Reload_Icons(); } );
   }
 /******************************************************************************************************************************/

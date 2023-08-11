@@ -9,7 +9,7 @@
 <!-- Encadré Maintenance ------------------------------------------------------------------------------------------------------>
 
        <div class="card m-1 shadow">
-         <div class="card-header"> <i class="fas fa-wrench text-warning"></i> <label>Maintenance</label> </div>
+         <div class="card-header"> <i class="fas fa-wrench text-warning"></i> <label>Domain Maintenance</label> </div>
          <div class="card-body">
 
            <div class="row form-group">
@@ -56,8 +56,22 @@
               </button>
          </div>
 -->
-       </div>
+ </div>
 
+
+ <div class="card m-1 shadow">
+         <div class="card-header"> <i class="fas fa-wrench text-danger"></i> <label>API Maintenance</label> </div>
+         <div class="card-body">
+
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-6 col-form-label text-right">Rechargement des icones en base</label>
+               <button id="idApiReloadIcons" type="button" class="col-6 btn btn-block btn-secondary"><i class="fas fa-redo"></i> Reload</button>
+             </div>
+           </div>
+
+         </div>
+ </div>
 
 <script src="/js/domain_maintenance.js" type="text/javascript"></script>
 <!-- Container -->
