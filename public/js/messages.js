@@ -86,7 +86,7 @@
              "render": function (item)
                { return( htmlEncode(item.audio_profil) ); }
            },
-           { "data": null, "title":"SMS Notification", "className": "align-middle text-center",
+           { "data": null, "title":"Notification", "className": "align-middle text-center",
              "render": function (item)
                { return( TXT_NOTIF.map ( function(item) { return(item.texte); } )[item.txt_notification] ); }
            },
