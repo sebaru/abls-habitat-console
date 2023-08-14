@@ -197,7 +197,10 @@
                           Badge ( "secondary", "Nombre de ligne", item.nbr_ligne.toString() ) );
                 }
             },
-            { "data": "compil_date", "title":"Date Compil", "className": "align-middle text-center " },
+            { "data": null, "title":"Date Compil", "className": "align-middle text-center ",
+              "render": function (item)
+                { return( item.compil_date + "<br>" + item.compil_user ); }
+            },
             { "data": null, "title":"Actions", "orderable": false, "className": "align-middle",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
