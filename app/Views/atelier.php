@@ -19,6 +19,7 @@
      <label>Posy</label>     <input id="idPosy"   type="number" class="form-control mb-1" step=1 min=0 max=1080>
      <label>Scale</label>    <input id="idScale"  type="number" class="form-control mb-1" step=0.1 min=0.1 max=10>
      <label>Angle</label>    <input id="idAngle"  type="number" class="form-control mb-1" step=1 min=0 max=359>
+     <label>Valeur</label>   <input id="idValeur" type="number" class="form-control mb-1" step=0.1>
      <hr>
      <label>Layer</label>    <input id="idLayer"  type="number" class="form-control mb-1" disabled>
      <div class="btn-block btn-group">

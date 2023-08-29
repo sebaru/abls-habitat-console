@@ -32,6 +32,7 @@
     $("#idAngle").on ("change", function (event) { if (Selection_data) Changer_angle (); } );
     $("#idPosx").on  ("change", function (event) { if (Selection_data) Changer_posx (); } );
     $("#idPosy").on  ("change", function (event) { if (Selection_data) Changer_posy (); } );
+    $("#idValeur").on("change", function (event) { if (Selection_data) Changer_valeur (); } );
 
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
      { $("#idAtelierTitle").text( Response.page + " #" + Response.syn_id );
@@ -166,6 +167,14 @@ console.debug(request);
   { Selection_data.posy = parseInt($("#idPosy").val());
     console.log(" Change Posy sur motif " + Selection_data.libelle + " posy = " + Selection_data.posy );
     Trame.update_matrice ( Selection_data );
+  }
+/********************************************* Appeler quand on change le scale ***********************************************/
+ function Changer_valeur ( )
+  { if (Selection_data.InsideSVG_Set_state)
+     { Selection_data.valeur = parseFloat($("#idValeur").val());
+       Selection_data.InsideSVG_Set_state ( Selection_data );
+       console.log(" Change Valeur sur motif " + Selection_data.valeur );
+     }
   }
 /********************************************* Appeler quand on change le scale ***********************************************/
  function Changer_scale ( )
