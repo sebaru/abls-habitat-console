@@ -421,6 +421,7 @@
            { "data": "libelle",    "title":"Libellé",     "className": "align-middle text-center" },
            { "data": "mode",       "title":"Mode",        "className": "align-middle text-center" },
            { "data": "color",      "title":"Couleur",     "className": "align-middle text-center" },
+           { "data": "valeur",     "title":"Valeur",      "className": "align-middle text-center" },
            { "data": null, "title":"Cligno", "className": "align-middle text-center",
              "render": function (item)
                { if (item.cligno==true) { return( Bouton ( "outline-success", "Le visuel clignote", null, null, "Oui" ) );          }
