@@ -72,6 +72,13 @@
              </div>
            </div>
 
+           <div class="row form-group">
+             <div class="input-group">
+               <label class="col-4 col-form-label text-right">Log DLS</label>
+               <select id="idAGENTLogDLS" class="form-control"></select>
+             </div>
+           </div>
+
          </div>
 
          <div class="card-footer d-flex">

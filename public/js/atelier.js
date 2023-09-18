@@ -19,14 +19,20 @@
     Trame.on ( "mousemove",  function ( event ) { Move_sur_trame ( event ); }, false );
     Trame.on ( "mouseup",    function ( event ) { Deselectionner( event ) }, false);
     Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
-    $("#idButtonMoveDown").on("click", function () { if (Selection_data) Selection_data.svggroupe.backward(); } );
-    $("#idButtonMoveUp")  .on("click", function () { if (Selection_data) Selection_data.svggroupe.forward();  } );
-    $("#idButtonMoveFullDown").on("click", function () { if (Selection_data) Selection_data.svggroupe.back(); } );
-    $("#idButtonMoveFullUp")  .on("click", function () { if (Selection_data) Selection_data.svggroupe.front();  } );
+
+    $("#idButtonMoveDown").on("click", function ()
+      { if (Selection_data && Trame.index(Selection_data.svggroupe) > 1) { Selection_data.svggroupe.backward(); Update_selection_data(); }  } );
+    $("#idButtonMoveUp")  .on("click", function () { if (Selection_data) { Selection_data.svggroupe.forward(); Update_selection_data(); }  } );
+
+    $("#idButtonMoveFullDown").on("click", function ()
+      { if (Selection_data) { Selection_data.svggroupe.back().forward(); Update_selection_data(); }  } );
+    $("#idButtonMoveFullUp")  .on("click", function () { if (Selection_data) { Selection_data.svggroupe.front(); Update_selection_data(); }  } );
+
     $("#idScale").on ("change", function (event) { if (Selection_data) Changer_scale (); } );
     $("#idAngle").on ("change", function (event) { if (Selection_data) Changer_angle (); } );
     $("#idPosx").on  ("change", function (event) { if (Selection_data) Changer_posx (); } );
     $("#idPosy").on  ("change", function (event) { if (Selection_data) Changer_posy (); } );
+    $("#idValeur").on("change", function (event) { if (Selection_data) Changer_valeur (); } );
 
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
      { $("#idAtelierTitle").text( Response.page + " #" + Response.syn_id );
@@ -37,13 +43,14 @@
                     { console.log ( "new null at " + visuel.posx + " " + visuel.posy );
                       Trame.new_from_image ( visuel, visuel.icone+".gif" );
                     }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="bouton")  { Trame.new_button  ( visuel ); }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="encadre") { Trame.new_encadre ( visuel ); }
-                   else if (visuel.ihm_affichage=="complexe" && visuel.forme=="comment") { Trame.new_comment ( visuel ); }
-                   else if (visuel.ihm_affichage=="by_mode")       { Trame.new_by_mode ( visuel );       }
-                   else if (visuel.ihm_affichage=="by_color")      { Trame.new_by_color( visuel );       }
-                   else if (visuel.ihm_affichage=="by_mode_color") { Trame.new_by_mode_color ( visuel ); }
-                   else if (visuel.ihm_affichage=="static")
+                   else if (visuel.controle=="complexe" && visuel.forme=="bouton")  { Trame.new_button  ( visuel ); }
+                   else if (visuel.controle=="complexe" && visuel.forme=="encadre") { Trame.new_encadre ( visuel ); }
+                   else if (visuel.controle=="complexe" && visuel.forme=="comment") { Trame.new_comment ( visuel ); }
+                   else if (visuel.controle=="by_mode")       { Trame.new_by_mode ( visuel );       }
+                   else if (visuel.controle=="by_color")      { Trame.new_by_color( visuel );       }
+                   else if (visuel.controle=="by_mode_color") { Trame.new_by_mode_color ( visuel ); }
+                   else if (visuel.controle=="by_js")         { Trame.new_by_js ( visuel );         }
+                   else if (visuel.controle=="static")
                     { Trame.new_static( visuel, visuel.forme+"."+visuel.extension ); }
 
                    if (visuel.svggroupe !== undefined)
@@ -162,6 +169,14 @@ console.debug(request);
     Trame.update_matrice ( Selection_data );
   }
 /********************************************* Appeler quand on change le scale ***********************************************/
+ function Changer_valeur ( )
+  { if (Selection_data.InsideSVG_Set_state)
+     { Selection_data.valeur = parseFloat($("#idValeur").val());
+       Selection_data.InsideSVG_Set_state ( Selection_data );
+       console.log(" Change Valeur sur motif " + Selection_data.valeur );
+     }
+  }
+/********************************************* Appeler quand on change le scale ***********************************************/
  function Changer_scale ( )
   { Selection_data.scale = parseFloat($("#idScale").val());
     console.log(" Change Scale sur motif " + Selection_data.libelle + " scale = " + Selection_data.scale );
@@ -182,6 +197,7 @@ console.debug(request);
     $("#idPosy").val(Selection_data.posy);
     $("#idScale").val(Selection_data.scale);
     $("#idAngle").val(Selection_data.angle);
+    $("#idLayer").val(Trame.index(Selection_data.svggroupe));
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Change_lien_properties ()

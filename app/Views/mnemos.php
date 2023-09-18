@@ -1,7 +1,7 @@
 <div class="container">
 
  <div class="row m-2">
-   <h3><i class="fas fa-book text-success"></i> Liste des Mnémoniques</h3>
+   <h3><i class="fas fa-book text-success"></i> Configuration des Mnémoniques</h3>
  </div>
 
 <hr>

@@ -7,8 +7,8 @@ class Console extends BaseController
 
  public function send_page ( $page )
   { echo view('header');
-	   echo view($page);
-	   echo view('footer');
+    echo view($page);
+    echo view('footer');
   }
 
  public function default()
@@ -36,6 +36,8 @@ class Console extends BaseController
  public function imsgs()              { $this->send_page ("imsgs"); }
  public function ups()                { $this->send_page ("ups"); }
  public function teleinfoedf()        { $this->send_page ("teleinfoedf"); }
+ public function tableau()            { $this->send_page ("tableau"); }
+ public function tableau_map()        { $this->send_page ("tableau_map"); }
  public function dls()                { $this->send_page ("dls"); }
  public function dls_run()            { $this->send_page ("dls_run"); }
  public function dls_source()         { $this->send_page ("dls_source"); }
