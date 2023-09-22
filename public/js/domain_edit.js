@@ -54,6 +54,7 @@
   { var json_request =
        { domain_uuid: domain_uuid,
          domain_name       : $("#idDomainName").val(),
+         bus_is_ssl        : ($("#idDomainBusIsSSL").val()==1 ? true : false),
        };
 
     Send_to_API ( "POST", "/domain/set", json_request, function(Response)
@@ -66,6 +67,7 @@
  function Load_page ()
   { console.log ("in load domain !");
     vars = window.location.pathname.split('/');
+    if (vars[2] == "me") vars[2] = localStorage.getItem("domain_uuid");
 
     Send_to_API ( 'GET', "/domain/get", "domain_uuid="+vars[2], function (Response)
      {
@@ -73,6 +75,8 @@
        $("#idDomainUuid").val( Response.domain_uuid );
        $("#idDomainName").val( Response.domain_name )
                          .prop("disabled", (Response.access_level < 8) );
+       $("#idDomainBusIsSSL").replaceWith ( Select ( "idDomainBusIsSSL", null,
+                                                     [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.bus_is_ssl ) );
 
        $("#idDomainDateCreate").val( Response.date_create );
        $("#idDomainAccessLevel").html( Badge_Access_level ( Response.access_level ) + " - " + Access_level_description[Response.access_level].name );

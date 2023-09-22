@@ -201,9 +201,9 @@
           <a class="dropdown-item" href="/agents"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
           <a class="dropdown-item" href="/threads"><i class="fas fa-microchip text-primary"></i> <span>Threads</span></a>
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
-          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/domain/me"> <i class="fas fa-wrench text-primary"></i> Configurer</a>
           <a class="dropdown-item" href="/domain_maintenance"> <i class="fas fa-wrench text-warning"></i> Maintenance</a>
-          <a class="dropdown-item" href="/domains"> <i class="fas fa-globe text-primary"></i> Mes domaines</a>
+          <a class="dropdown-item" href="/domains"> <i class="fas fa-globe text-primary"></i> Changer</a>
       </li>
 
 

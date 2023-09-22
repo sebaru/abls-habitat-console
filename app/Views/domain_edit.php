@@ -39,6 +39,13 @@
 
            <div class="row form-group">
              <div class="input-group">
+               <label class="col-4 col-form-label text-right">Bus is SSL</label>
+               <select id="idDomainBusIsSSL" class="form-control"></select>
+             </div>
+           </div>
+
+           <div class="row form-group">
+             <div class="input-group">
                <label class="col-4 col-form-label text-right">Domain UUID</label>
                <input disabled id="idDomainUuid" type="text" class="form-control" placeholder="Domain UUID">
              </div>
