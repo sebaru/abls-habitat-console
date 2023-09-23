@@ -141,7 +141,11 @@
                               { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                                 request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               },
-                 complete: function (data) { localStorage.setItem ( "master_hostname", data.responseJSON.master_hostname ); }
+                 complete: function (data)
+                            { var scheme="http";
+                              if (data.responseJSON.bus_is_ssl) scheme = "https";
+                              localStorage.setItem ( "master_url", scheme + "://" + data.responseJSON.master_hostname + ":5559" );
+                            }
                },
          columns:
           [ { "data": "dls_id", "title":"#ID", "className": "align-middle  text-center" },
