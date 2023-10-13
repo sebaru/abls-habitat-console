@@ -8,7 +8,7 @@
         <meta name="google" content="notranslate">
         <meta name="robots" content="noindex, nofollow">
         <link rel="icon" href="https://static.abls-habitat.fr/img/abls.svg">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/codemirror.min.css">
         <style>
@@ -52,7 +52,7 @@
 <div class="position-fixed" style="top: 3rem; left: 50%; z-index:9999">
   <div id="idToastStatusOK" data-delay="3000" class="toast hide bg-primary" role="status">
    <div class="toast-header">
-     <strong class="mr-auto"> Résultat de la commande</strong>
+     <strong class="me-auto"> Résultat de la commande</strong>
      <!--<small>11 mins ago</small>-->
      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
        <span aria-hidden="true">&times;</span>
@@ -67,7 +67,7 @@
 <div class="position-fixed" style="top: 3rem; left: 50%; z-index:9999">
   <div id="idToastStatusKO" data-delay="3000" class="toast hide bg-danger" role="status">
    <div class="toast-header">
-     <strong class="mr-auto"> Résultat de la commande</strong>
+     <strong class="me-auto"> Résultat de la commande</strong>
      <!--<small>11 mins ago</small>-->
      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
        <span aria-hidden="true">&times;</span>
@@ -151,21 +151,21 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Rechercher une Target</label>
            <input id="idMODALMapRechercherTechID" type="text" class="col-7 form-control" placeholder="Rechercher un Tech_id">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Target TechID</label>
            <select id="idMODALMapSelectTechID" required class="col-7 custom-select border-info"></select>
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Target Acronyme</label>
            <select id="idMODALMapSelectAcronyme" required class="col-7 custom-select border-info"></select>
@@ -183,17 +183,18 @@
 
 <!----------------------------------------------------------------------------------------------------------------------------->
 <header>
- <nav class="navbar navbar-dark  navbar-expand-lg fixed-top shadow mb-2"> <!-- fixed-top -->
+ <nav class="navbar navbar-dark navbar-expand-lg fixed-top shadow mb-2"> <!-- fixed-top -->
+ <div class="container-fluid">
   <a class="navbar-brand" href="/"><img src="https://static.abls-habitat.fr/img/abls.svg" alt="ABLS Logo" width=50></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggled" aria-controls="navbar-toggled" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbar-toggled" aria-controls="navbar-toggled" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbar-toggled">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav me-auto">
 
       <li class="nav-item dropdown">
-        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarDOMAINE" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarDOMAINE" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-globe text-primary"></i> <span id="idNavDomainName">Domaine</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
@@ -208,7 +209,7 @@
 
 
       <li class="nav-item dropdown">
-        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarCONFIG" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarCONFIG" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-wrench text-primary"></i> Configuration
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarCONFIG">
@@ -234,7 +235,7 @@
       <a href="<?php echo getenv("HOME_URL"); ?>" class="nav-link rounded" target="_blank"><i class="fas fa-home text-primary"></i> <span> Vue Cliente</span></a>
 
       <li class="nav-item dropdown">
-        <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarDOCS" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarDOCS" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-question-circle text-primary"></i> Aide</span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
@@ -248,7 +249,7 @@
 
 
       <li class="nav-item dropdown">
-        <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarUSER" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarUSER" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user  text-warning"></i> <span id="idUsername">-</span>
         </a>
 
@@ -266,7 +267,9 @@
     </ul>
 
   </div>
-</nav>
+ </div>
+ </nav>
+
 </header>
 <?php if ( getenv("CI_ENVIRONMENT") == "development" ) { echo "<div class='alert alert-warning'>Instance de DEV</div>"; } ?>
 <div id="idDomainNotification" class='alert alert-info m-1' style="display:none" role="status"></div>

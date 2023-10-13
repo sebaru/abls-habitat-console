@@ -3,7 +3,7 @@
  <div class="row m-2">
    <h3><i class="fas fa-image text-primary"></i> Edition graphique du synoptique <strong id="idAtelierTitle"></strong></h3>
 
-   <div class ="ml-auto btn-group align-items-start">
+   <div class ="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="Atelier_Sauvegarder_synoptique()" class="btn btn-success"><i class="fas fa-save"></i> Sauvegarder</button>
          <!-- <button type="button" class="btn btn-sm btn-primary rounded-circle"><i class="fas fa-plus"></i></button>-->
    </div>

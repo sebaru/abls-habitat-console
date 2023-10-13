@@ -3,7 +3,7 @@
  <div class="row m-2">
    <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/sms.jpg" style="width:80px" alt="Configuration SMS">Configuration des SMSG</h3></div>
 
-   <div class ="ml-auto btn-group align-items-center">
+   <div class ="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="SMSG_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un GSM</button>
         <button type="button" onclick="SMSG_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
         <!-- <button type="button" class="btn btn-sm btn-primary rounded-circle"><i class="fas fa-plus"></i></button>-->
@@ -14,7 +14,7 @@
 
    <div class="table-responsive">
      <table id="idTableSMSG" class="table table-striped table-bordered table-hover">
-       <thead class="thead-dark">
+       <thead class="table-dark">
        </thead>
        <tbody>
        </tbody>
@@ -36,28 +36,28 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">SMSG Tech_ID</label>
            <input id="idSMSGTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du SMS">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">SMSG Description</label>
            <input id="idSMSGDescription" type="text" class="form-control" placeholder="Description du téléphone et/ou sa position">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">OVH Service Name</label>
            <input id="idSMSGOVHServiceName" type="text" class="form-control" placeholder="OVH Service Name (sms-xxxxxx-1)">
@@ -65,21 +65,21 @@
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">OVH Application Key</label>
            <input id="idSMSGOVHApplicationKey" type="text" class="form-control" placeholder="OVH Application Key">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">OVH Application Secret</label>
            <input id="idSMSGOVHApplicationSecret" type="text" class="form-control" placeholder="OVH Application Secret">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">OVH Consumer Key</label>
            <input id="idSMSGOVHConsumerKey" type="text" class="form-control" placeholder="OVH Consumer Key">

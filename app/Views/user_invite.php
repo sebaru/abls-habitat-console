@@ -12,7 +12,7 @@
          <div class="card-header"> <i class="fas fa-pen text-primary"></i> <label>Coordonnées de la personne</label> </div>
          <div class="card-body">
 
-           <div class="row form-group">
+           <div class="row ">
              <div class="input-group">
                <label class="col-4 col-form-label text-right">New Friend Email</label>
                <div class="input-group-prepend"> <div class="input-group-text">@</div> </div>
@@ -20,10 +20,10 @@
              </div>
            </div>
 
-           <div class="row form-group">
+           <div class="row ">
              <div class="input-group">
                <label class="col-4 col-form-label text-right">New Friend Access Level</label>
-               <div class="input-group-prepend"> <div class="input-group-text"><i class="fas fa-star text-primary"></i></div> </div>
+               <div class="input-group-text"><i class="fas fa-star text-primary"></i></div>
                <select id="idUserInviteAccessLevel" class="custom-select"></select>
              </div>
            </div>
@@ -31,7 +31,7 @@
          </div>
 
          <div class="card-footer d-flex">
-              <button id="idUserInviteValider" type="button" class="btn btn-primary ml-auto">
+              <button id="idUserInviteValider" type="button" class="btn btn-primary ms-auto">
                 <i class="fas fa-user-friends"></i> Inviter
               </button>
          </div>

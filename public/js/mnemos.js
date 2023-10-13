@@ -240,6 +240,4 @@
           }
         ],
      });
-
-    $('#idTabRegistre').tab('show');
   }

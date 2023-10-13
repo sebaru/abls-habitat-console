@@ -3,7 +3,7 @@
  <div class="row m-2">
    <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/audio.png" style="width:80px" alt="Configuration Audio">Connecteurs AUDIO</h3></div>
 
-   <div class ="ml-auto btn-group align-items-center">
+   <div class ="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="AUDIO_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une connexion</button>
         <button type="button" onclick="AUDIO_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
    </div>
@@ -13,7 +13,7 @@
 
    <div class="table-responsive">
      <table id="idTableAUDIO" class="table table-striped table-bordered table-hover">
-       <thead class="thead-dark">
+       <thead class="table-dark">
        </thead>
        <tbody>
        </tbody>
@@ -35,35 +35,35 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Tech_ID</label>
            <input id="idAUDIOTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du thread AUDIO">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Language</label>
            <input id="idAUDIOLanguage" type="text" class="form-control" placeholder="fr for french">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Device</label>
            <input id="idAUDIODevice" type="text" class="form-control" placeholder="default device">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idAUDIODescription" type="text" class="form-control" placeholder="Description de la zone de diffusion">

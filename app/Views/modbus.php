@@ -3,7 +3,7 @@
  <div class="row m-2">
    <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/wago_750342.webp" style="width:80px" alt="Wago 750-342">Liste des Modules WAGO sur Modbus</h3></div>
 
-   <div class ="ml-auto btn-group align-items-center">
+   <div class ="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="MODBUS_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un module</button>
         <button type="button" onclick="MODBUS_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
    </div>
@@ -13,7 +13,7 @@
 
    <div class="table-responsive">
     <table id="idTableMODBUS" class="table table-striped table-bordered table-hover">
-      <thead class="thead-dark">
+      <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
@@ -25,23 +25,23 @@
 <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/wago_750342.webp" style="width:80px" alt="Wago 750-342">Configuration des I/O WAGO</h3></div>
 
 <ul class="nav nav-tabs" role="tablist">
-  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#idTabEntreeTor">
-        <img style="width: 30px" data-toggle="tooltip" title="Entrées TOR" src="https://static.abls-habitat.fr/img/entree.png" />Entrées TOR</a></li>
-  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#idTabEntreeAna">
-        <img style="width: 30px" data-toggle="tooltip" title="Entrées ANA" src="https://static.abls-habitat.fr/img/entree_analogique.png" />Entrées ANA</a></li>
-  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#idTabSortieTor">
-        <img style="width: 30px" data-toggle="tooltip" title="Sorties TOR" src="https://static.abls-habitat.fr/img/sortie.png" />Sorties TOR</a></li>
-  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#idTabSortieAna">
-        <img style="width: 30px" data-toggle="tooltip" title="Sorties ANA" src="https://static.abls-habitat.fr/img/sortie_analogique.png" />Sorties ANA</a></li>
+  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#idTabEntreeTor">
+        <img style="width: 30px" data-bs-toggle="tooltip" title="Entrées TOR" src="https://static.abls-habitat.fr/img/entree.png" />Entrées TOR</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#idTabEntreeAna">
+        <img style="width: 30px" data-bs-toggle="tooltip" title="Entrées ANA" src="https://static.abls-habitat.fr/img/entree_analogique.png" />Entrées ANA</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#idTabSortieTor">
+        <img style="width: 30px" data-bs-toggle="tooltip" title="Sorties TOR" src="https://static.abls-habitat.fr/img/sortie.png" />Sorties TOR</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#idTabSortieAna">
+        <img style="width: 30px" data-bs-toggle="tooltip" title="Sorties ANA" src="https://static.abls-habitat.fr/img/sortie_analogique.png" />Sorties ANA</a></li>
 </ul>
 
 <div class="tab-content">
 
 <!----------------------------------------------------------------------------------------------------------------------------->
-<div id="idTabEntreeTor" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+<div id="idTabEntreeTor" class="tab-pane fade in table-responsive mt-1 show active" role="tabpanel">
 
     <table id="idTableMODBUS_DI" class="table table-striped table-bordered table-hover w-100">
-      <thead class="thead-dark">
+      <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
@@ -52,7 +52,7 @@
 <div id="idTabSortieTor" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
 
     <table id="idTableMODBUS_DO" class="table table-striped table-bordered table-hover w-100">
-      <thead class="thead-dark">
+      <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
@@ -62,7 +62,7 @@
 <div id="idTabEntreeAna" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
 
     <table id="idTableMODBUS_AI" class="table table-striped table-bordered table-hover w-100">
-      <thead class="thead-dark">
+      <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
@@ -72,7 +72,7 @@
 <div id="idTabSortieAna" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
 
     <table id="idTableMODBUS_AO" class="table table-striped table-bordered table-hover w-100">
-      <thead class="thead-dark">
+      <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
@@ -95,7 +95,7 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditDILibelle" type="text" class="form-control" placeholder="Description">
@@ -124,7 +124,7 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditDOLibelle" type="text" class="form-control" placeholder="Description">
@@ -153,7 +153,7 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Type de borne</label>
            <select id="idMODBUSEditAITypeBorne" class="custom-select border-info">
@@ -161,7 +161,7 @@
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
            <select id="idMODBUSEditAIArchivage" class="custom-select border-info">
@@ -169,28 +169,28 @@
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Minimum</label>
            <input id="idMODBUSEditAIMin" type="number" class="form-control" placeholder="Valeur Min">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Maximum</label>
            <input id="idMODBUSEditAIMax" type="number" class="form-control" placeholder="Valeur Max">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Unité</label>
            <input id="idMODBUSEditAIUnite" type="text" class="form-control" placeholder="°C, km/h, ...">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditAILibelle" type="text" class="form-control" placeholder="Description">
@@ -218,7 +218,7 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Type de borne</label>
            <select id="idMODBUSEditAOTypeBorne" class="custom-select border-info">
@@ -226,7 +226,7 @@
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
            <select id="idMODBUSEditAOArchivage" class="custom-select border-info">
@@ -234,28 +234,28 @@
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Minimum</label>
            <input id="idMODBUSEditAOMin" type="number" class="form-control" placeholder="Valeur Min">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Maximum</label>
            <input id="idMODBUSEditAOMax" type="number" class="form-control" placeholder="Valeur Max">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Unité</label>
            <input id="idMODBUSEditAOUnite" type="text" class="form-control" placeholder="°C, km/h, ...">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditAOLibelle" type="text" class="form-control" placeholder="Description">
@@ -284,51 +284,47 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">TechID</label>
            <input id="idMODBUSTechID" required type="text" class="form-control" placeholder="Tech ID du module">
           </div>
         </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSDescription" type="text" class="form-control" placeholder="Ou est le module ?">
           </div>
         </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Hostname</label>
            <input id="idMODBUSHostname" required type="text" class="form-control" placeholder="@IP ou hostname">
           </div>
         </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Watchdog</label>
            <input id="idMODBUSWatchdog" type="number" class="form-control" min=10 max=1200 placeholder="Nombre de 1/10 de secondes avant de couper les sorties">
-           <div class="input-group-append">
-            <span class="input-group-text">1/10 secondes</span>
-           </div>
+           <span class="input-group-text">1/10 secondes</span>
           </div>
         </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group align-items-center ">
            <label class="col-5 col-sm-4 col-form-label text-right">Max Requetes/sec</label>
            <input id="idMODBUSMaxRequestParSec" type="number" class="form-control" min=1 max=100 placeholder="Nombre de requetes max par seconde">
-           <div class="input-group-append">
             <span class="input-group-text form-control">par seconde</span>
-           </div>
           </div>
         </div>
 

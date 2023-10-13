@@ -3,7 +3,7 @@
  <div class="row m-2">
    <div class="col-auto"><h3><img src="https://static.abls-habitat.fr//img/meteo.svg" style="width:80px" alt="Récupération Météo">Configuration de la météo</h3></div>
 
-   <div class="ml-auto btn-group align-items-start">
+   <div class="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="METEO_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une connexion</button>
         <button type="button" onclick="METEO_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
         <!-- <button type="button" class="btn btn-sm btn-primary rounded-circle"><i class="fas fa-plus"></i></button>-->
@@ -14,7 +14,7 @@
 
    <div class="table-responsive">
      <table id="idTableMETEO" class="table table-striped table-bordered table-hover">
-       <thead class="thead-dark">
+       <thead class="table-dark">
        </thead>
        <tbody>
        </tbody>
@@ -35,28 +35,28 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Tech_ID</label>
            <input id="idMETEOTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du Thread METEO">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Token API</label>
            <input id="idMETEOToken" type="text" class="form-control" placeholder="Token API METEO Concept">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Code Insee Commune</label>
            <input id="idMETEOCodeInsee" type="text" class="form-control" placeholder="Code Insee de la commune">
@@ -64,7 +64,7 @@
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMETEODescription" type="text" class="form-control" placeholder="Description de la source">

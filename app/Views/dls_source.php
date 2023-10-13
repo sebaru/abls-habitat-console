@@ -3,7 +3,7 @@
  <div class="row m-2">
    <h3><i class="fas fa-code text-primary"></i> Edition D.L.S <strong id="idSourceTitle"></strong></h3>
 
-   <div class ="ml-auto btn-group align-items-start">
+   <div class ="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="Compiler()" class="btn btn-outline-success"><i class="fas fa-coffee"></i> Compiler</button>
         <button type="button" onclick="Go_to_dls_run()"class="btn btn-info"><i class="fas fa-eye"></i> RUN</button>
         <button type="button" onclick="Go_to_messages()" class="btn btn-primary"><i class="fas fa-book"></i> Messages</button>

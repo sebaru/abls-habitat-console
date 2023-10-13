@@ -3,7 +3,7 @@
  <div class="row m-2">
    <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/imsgs.png" style="width:80px" alt="Configuration IMSGS">Configuration Messagerie Instantanée</h3></div>
 
-   <div class="ml-auto btn-group align-items-center">
+   <div class="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="IMSGS_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une connexion</button>
         <button type="button" onclick="IMSGS_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
         <!-- <button type="button" class="btn btn-sm btn-primary rounded-circle"><i class="fas fa-plus"></i></button>-->
@@ -14,7 +14,7 @@
 
    <div class="table-responsive">
      <table id="idTableIMSGS" class="table table-striped table-bordered table-hover">
-       <thead class="thead-dark">
+       <thead class="table-dark">
        </thead>
        <tbody>
        </tbody>
@@ -35,38 +35,36 @@
       </div>
       <div class="modal-body">
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">IMSG Tech_ID</label>
            <input id="idIMSGSTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du Thread">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idIMSGSDescription" type="text" class="form-control" placeholder="Description du module">
           </div>
         </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">XMPP JabberID</label>
-           <div class="input-group-prepend">
              <div class="input-group-text">@</div>
-           </div>
            <input id="idIMSGSJabberID" type="email" class="form-control" placeholder="username@server.tld">
           </div>
        </div>
 
-       <div class="col form-group">
+       <div class="col ">
           <div class="input-group">
            <label class="col-5 col-sm-4 col-form-label text-right">XMPP Password</label>
            <input id="idIMSGSPassword" type="password" class="form-control" placeholder="">
