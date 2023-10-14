@@ -89,7 +89,7 @@
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
         <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idMODBUSEditDITitre"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -105,7 +105,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
         <button id="idMODBUSEditDIValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
       </div>
     </div>
@@ -118,7 +118,7 @@
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
         <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idMODBUSEditDOTitre"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -134,7 +134,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
         <button id="idMODBUSEditDOValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
       </div>
     </div>
@@ -147,7 +147,7 @@
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
         <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idMODBUSEditAITitre"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -200,7 +200,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
         <button id="idMODBUSEditAIValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
       </div>
     </div>
@@ -212,7 +212,7 @@
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
         <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idMODBUSEditAOTitre"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -264,7 +264,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
         <button id="idMODBUSEditAOValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
       </div>
     </div>
@@ -278,7 +278,7 @@
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
         <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idMODBUSTitre"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -329,8 +329,8 @@
         </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
-        <button id="idMODBUSValider" type="button" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-save"></i> Valider</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button id="idMODBUSValider" type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="fas fa-save"></i> Valider</button>
       </div>
     </div>
   </div>

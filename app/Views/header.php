@@ -54,7 +54,7 @@
    <div class="toast-header">
      <strong class="me-auto"> Résultat de la commande</strong>
      <!--<small>11 mins ago</small>-->
-     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+     <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
        <span aria-hidden="true">&times;</span>
      </button>
    </div>
@@ -69,7 +69,7 @@
    <div class="toast-header">
      <strong class="me-auto"> Résultat de la commande</strong>
      <!--<small>11 mins ago</small>-->
-     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+     <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
        <span aria-hidden="true">&times;</span>
      </button>
    </div>
@@ -84,7 +84,7 @@
     <div class="modal-content">
       <div class="modal-header bg-warning">
         <h5 class="modal-title text-justify"><i class="fas fa-exclamation-circle"></i>Erreur</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -92,7 +92,7 @@
         <p id="idModalDetail">Une erreur est survenue !</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -103,7 +103,7 @@
     <div class="modal-content">
       <div class="modal-header bg-info">
         <h5 class="modal-title text-justify"><i class="fas fa-info-circle"></i>Information</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -111,7 +111,7 @@
         <p id="idModalInfoDetail">Une information est disponible</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -122,7 +122,7 @@
     <div class="modal-content ">
       <div class="modal-header bg-danger text-white">
         <h5 class="modal-title text-justify"><i class="fas fa-trash"></i> <span id="idModalDelTitre"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -132,8 +132,8 @@
         <strong id="idModalDelDetails"></strong>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
-        <button id="idModalDelValider" type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-trash"></i> Valider</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button id="idModalDelValider" type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-trash"></i> Valider</button>
       </div>
     </div>
   </div>
@@ -145,7 +145,7 @@
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
         <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idMODALMapTitre"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -174,7 +174,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
         <button id="idMODALMapValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
       </div>
     </div>
