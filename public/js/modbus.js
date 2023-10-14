@@ -177,7 +177,7 @@
     $('#idMODBUSEditDOValider').off("click").on( "click", function ()
      { $('#idMODBUSEditDO').modal("hide");
        var json_request =
-        { modbus_do_id: parseInt(modbus_di_id),
+        { modbus_do_id: parseInt(modbus_do_id),
           libelle: $('#idMODBUSEditDOLibelle').val(),
         };
 
