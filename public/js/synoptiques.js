@@ -8,13 +8,9 @@
     table = $('#idTableSYN').DataTable();
     input = $('#idModalSynEditPage');
     if ( FormatPage.test(input.val())==false )
-     { input.addClass("bg-danger");    $('#idModalSynEditValider').attr("disabled", true);
-       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, espaces, - et _' );
-     }
+     { input.addClass("bg-danger");    $('#idModalSynEditValider').attr("disabled", true);  }
     else
-     { input.removeClass("bg-danger"); $('#idModalSynEditValider').attr("disabled", false);
-       Popover_hide( input );
-     }
+     { input.removeClass("bg-danger"); $('#idModalSynEditValider').attr("disabled", false); }
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function SYN_Set ( syn_id )

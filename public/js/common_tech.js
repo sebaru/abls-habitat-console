@@ -56,7 +56,6 @@
     if ( FormatPage.test(input.val())==false )
      { input.addClass("bg-danger");
        $('#'+id_modal+'Valider').attr("disabled", true);
-       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, _ et .' );
      }
     else
      { Send_to_API ( "GET", "/mnemos/tech_ids", null, function(Response)
@@ -65,12 +64,10 @@
               (tech_id_initial == null || tech_id_initial != tech_id) )
            { input.addClass("bg-danger");
              $('#'+id_modal+'Valider').attr("disabled", true);
-             Popover_show ( input, 'Erreur !', 'Ce tech_id est déjà pris' );
            }
           else
            { input.removeClass("bg-danger");
              $('#'+id_modal+'Valider').attr("disabled", false);
-             Popover_hide(input);
            }
         });
      }
@@ -83,12 +80,10 @@
     if ( FormatTag.test(input.val())==false )
      { input.addClass("bg-danger");
        $('#'+id_modal+'Valider').attr("disabled", true);
-       Popover_show ( input, 'Attention', 'Ce champ doit être numérique' );
      }
     else
      { input.removeClass("bg-danger");
        $('#'+id_modal+'Valider').attr("disabled", false);
-       Popover_hide(input);
      }
   }
 /********************************************* Controle du saisie du modal ****************************************************/

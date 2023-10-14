@@ -76,15 +76,15 @@
     input = $('#idModalDlsEditTechID');
 
     if ( FormatPage.test(input.val())==false )
-     { input.addClass("bg-danger");    $('#idModalDlsEditValider').attr("disabled", true);
-       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, _ et .' );
+     { input.addClass("bg-danger");
+       $('#idModalDlsEditValider').attr("disabled", true);
      }
     else if ( (table.ajax.json().dls.filter( function(item)                                   /* Si tech_id deja existant */
                                               { return item.tech_id.toUpperCase()==input.val().toUpperCase() } )[0] !== undefined &&
               (tech_id_initial == null || input.val().toUpperCase() != tech_id_initial.toUpperCase()) )
        )
-     { input.addClass("bg-danger");    $('#idModalDlsEditValider').attr("disabled", true);
-       Popover_show ( input, 'Erreur !', 'Ce nom est déjà pris' );
+     { input.addClass("bg-danger");
+       $('#idModalDlsEditValider').attr("disabled", true);
      }
     else
      { if (tech_id_initial !== null && input.val().toUpperCase() != tech_id_initial.toUpperCase())
@@ -92,7 +92,6 @@
        else
         { $('#idModalDlsEditValider').addClass("btn-primary").removeClass("btn-danger").text("Valider"); }
        input.removeClass("bg-danger"); $('#idModalDlsEditValider').attr("disabled", false);
-       Popover_hide(input);
      }
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
