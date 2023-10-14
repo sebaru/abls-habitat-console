@@ -23,7 +23,7 @@
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">My Permissions level</label>
                <div class="input-group-text"><i class="fas fa-star text-primary"></i></div>
                <span class='form-control' id="idDomainAccessLevel"></span>
@@ -31,14 +31,14 @@
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Domain Name</label>
                <input id="idDomainName" type="text" class="form-control" placeholder="Short name of domain">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Domain UUID</label>
                <input disabled id="idDomainUuid" type="text" class="form-control" placeholder="Domain UUID">
              </div>
@@ -52,7 +52,7 @@
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Creation date</label>
                <input disabled id="idDomainDateCreate" type="text" class="form-control" placeholder="when the domain was created">
              </div>
@@ -78,7 +78,7 @@
          <div class="card-body collapse" id="idAdvancedOptions">
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">New Email Owner<br><small class="text-danger">Cannot be Undone</small></label>
                <input id="idDomainNewOwnerEmail" type="text" class="form-control" placeholder="New Owner Email">
                <button id="idDomainTransferButton" class="col-2 ml-1 form-control btn btn-danger">Transfer</button>

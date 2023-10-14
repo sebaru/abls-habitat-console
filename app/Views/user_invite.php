@@ -13,7 +13,7 @@
          <div class="card-body">
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">New Friend Email</label>
                <div class="input-group-prepend"> <div class="input-group-text">@</div> </div>
                <input id="idUserInviteEmail" type="email" class="form-control" placeholder="New Friend Email">
@@ -21,7 +21,7 @@
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">New Friend Access Level</label>
                <div class="input-group-text"><i class="fas fa-star text-primary"></i></div>
                <select id="idUserInviteAccessLevel" class="custom-select"></select>

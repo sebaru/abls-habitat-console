@@ -13,28 +13,28 @@
          <div class="card-body">
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">User UUID</label>
                <input id="idUserUUID" disabled type="text" class="form-control" placeholder="User UUID">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">User Email</label>
                <input id="idUserEmail" disabled type="text" class="form-control" placeholder="User Email">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">User Name</label>
                <input id="idUserName" type="text" class="form-control" placeholder="User Shortname">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Permissions level</label>
                <div class="input-group-text"><i class="fas fa-star text-primary"></i></div>
                <span class='form-control' id="idUserAccessLevel"></span>
@@ -42,21 +42,21 @@
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">User Phone</label>
                <input id="idUserPhone" type="text" class="form-control" placeholder="User phone">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">User XMPP</label>
                <input id="idUserXmpp" type="text" class="form-control" placeholder="User instant message">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Notifications textuelles<br><small class="text-dark">par GSM ou IMSG</small></label>
                <select id="idUserWannaBeNotified" class="custom-select"></select>
              </div>

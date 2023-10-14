@@ -35,30 +35,30 @@
       </div>
       <div class="modal-body">
 
-       <div class="col ">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Synoptique du module</label>
+       <div class="col">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-center">Synoptique du module</label>
            <select id="idModalDlsEditPage" class="custom-select border-info"></select>
           </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">TechID du module</label>
+       <div class="col">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-center">TechID du module</label>
             <input id="idModalDlsEditTechID" type="text" class="form-control" maxlength="32" placeholder="TechID du module DLS">
            </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">ShortName</label>
+       <div class="col">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-center">ShortName</label>
            <input id="idModalDlsEditShortname" type="text" class="form-control" placeholder="Nom court du module DLS">
           </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group">
-           <label class="col-5 col-sm-4 col-form-label text-right">Description du module</label>
+       <div class="col">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-center">Description du module</label>
            <input id="idModalDlsEditDescription" type="text" class="form-control" placeholder="Description du module D.L.S">
           </div>
         </div>

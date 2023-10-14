@@ -36,28 +36,28 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Tech_ID</label>
            <input id="idMETEOTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du Thread METEO">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Token API</label>
            <input id="idMETEOToken" type="text" class="form-control" placeholder="Token API METEO Concept">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Code Insee Commune</label>
            <input id="idMETEOCodeInsee" type="text" class="form-control" placeholder="Code Insee de la commune">
            <a target="_blank" href="https://api.meteo-concept.com/login" class="col-3 col-sm-2 col-form-label">Creer un token</a>
@@ -65,7 +65,7 @@
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMETEODescription" type="text" class="form-control" placeholder="Description de la source">
           </div>

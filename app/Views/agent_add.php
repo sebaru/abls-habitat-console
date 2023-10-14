@@ -16,14 +16,14 @@
          <div class="card-body">
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Pour un agent natif</label>
                <textarea id="idAGENTLinkNatif" readonly rows="6" type="text" class="form-control" placeholder="Command to link agent"></textarea>
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Pour un agent en container</label>
                <textarea id="idAGENTLinkPodman" readonly rows="6" type="text" class="form-control" placeholder="Command to link agent"></textarea>
              </div>

@@ -36,28 +36,28 @@
       <div class="modal-body">
 
        <div class="col ">
-					     <div class="input-group">
+					     <div class="input-group mb-1">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Page du Parent</label>
 						     <select id="idModalSynEditPPage" class="col-7 col-sm-8 custom-select border-info"></select>
      					</div>
        </div>
 
        <div class="col ">
-					     <div class="input-group">
+					     <div class="input-group mb-1">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Nom de la Page</label>
 						     <input id="idModalSynEditPage" type="text" class="form-control" placeholder="Titre du synoptique">
      					</div>
        </div>
 
        <div class="col ">
-					     <div class="input-group">
+					     <div class="input-group mb-1">
 						     <label class="col-5 col-sm-4 col-form-label text-right"><i class="fas fa-star"></i> Level</label>
 						     <input id="idModalSynEditAccessLevel" type="number" class="form-control" min=0 max=9 placeholder="Level">
      					</div>
        </div>
 
        <div class="col ">
-					     <div class="input-group">
+					     <div class="input-group mb-1">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Mode d'Affichage</label>
 						     <select id="idModalSynEditAffichage" class="col-7 col-sm-8 custom-select border-info">
              <option value="0">Mode Simple</option>
@@ -67,7 +67,7 @@
        </div>
 
        <div class="col ">
-					     <div class="input-group">
+					     <div class="input-group mb-1">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Libellé du synoptique</label>
 						     <input id="idModalSynEditLibelle" type="text" class="form-control" placeholder="Libellé du synoptique">
      					</div>

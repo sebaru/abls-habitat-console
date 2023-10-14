@@ -96,7 +96,7 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditDILibelle" type="text" class="form-control" placeholder="Description">
           </div>
@@ -125,7 +125,7 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditDOLibelle" type="text" class="form-control" placeholder="Description">
           </div>
@@ -154,7 +154,7 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Type de borne</label>
            <select id="idMODBUSEditAITypeBorne" class="custom-select border-info">
            </select>
@@ -162,7 +162,7 @@
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
            <select id="idMODBUSEditAIArchivage" class="custom-select border-info">
            </select>
@@ -170,28 +170,28 @@
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Minimum</label>
            <input id="idMODBUSEditAIMin" type="number" class="form-control" placeholder="Valeur Min">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Maximum</label>
            <input id="idMODBUSEditAIMax" type="number" class="form-control" placeholder="Valeur Max">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Unité</label>
            <input id="idMODBUSEditAIUnite" type="text" class="form-control" placeholder="°C, km/h, ...">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditAILibelle" type="text" class="form-control" placeholder="Description">
           </div>
@@ -219,7 +219,7 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Type de borne</label>
            <select id="idMODBUSEditAOTypeBorne" class="custom-select border-info">
            </select>
@@ -227,7 +227,7 @@
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
            <select id="idMODBUSEditAOArchivage" class="custom-select border-info">
            </select>
@@ -235,28 +235,28 @@
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Minimum</label>
            <input id="idMODBUSEditAOMin" type="number" class="form-control" placeholder="Valeur Min">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Maximum</label>
            <input id="idMODBUSEditAOMax" type="number" class="form-control" placeholder="Valeur Max">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Unité</label>
            <input id="idMODBUSEditAOUnite" type="text" class="form-control" placeholder="°C, km/h, ...">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditAOLibelle" type="text" class="form-control" placeholder="Description">
           </div>
@@ -285,35 +285,35 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">TechID</label>
            <input id="idMODBUSTechID" required type="text" class="form-control" placeholder="Tech ID du module">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSDescription" type="text" class="form-control" placeholder="Ou est le module ?">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Hostname</label>
            <input id="idMODBUSHostname" required type="text" class="form-control" placeholder="@IP ou hostname">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Watchdog</label>
            <input id="idMODBUSWatchdog" type="number" class="form-control" min=10 max=1200 placeholder="Nombre de 1/10 de secondes avant de couper les sorties">
            <span class="input-group-text">1/10 secondes</span>

@@ -36,35 +36,35 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Tech_ID</label>
            <input id="idAUDIOTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du thread AUDIO">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Language</label>
            <input id="idAUDIOLanguage" type="text" class="form-control" placeholder="fr for french">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Device</label>
            <input id="idAUDIODevice" type="text" class="form-control" placeholder="default device">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idAUDIODescription" type="text" class="form-control" placeholder="Description de la zone de diffusion">
           </div>

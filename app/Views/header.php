@@ -152,21 +152,21 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Rechercher une Target</label>
            <input id="idMODALMapRechercherTechID" type="text" class="col-7 form-control" placeholder="Rechercher un Tech_id">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Target TechID</label>
            <select id="idMODALMapSelectTechID" required class="col-7 custom-select border-info"></select>
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Target Acronyme</label>
            <select id="idMODALMapSelectAcronyme" required class="col-7 custom-select border-info"></select>
           </div>

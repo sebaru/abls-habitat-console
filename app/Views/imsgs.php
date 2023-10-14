@@ -36,28 +36,28 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">IMSG Tech_ID</label>
            <input id="idIMSGSTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du Thread">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idIMSGSDescription" type="text" class="form-control" placeholder="Description du module">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">XMPP JabberID</label>
              <div class="input-group-text">@</div>
            <input id="idIMSGSJabberID" type="email" class="form-control" placeholder="username@server.tld">
@@ -65,7 +65,7 @@
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">XMPP Password</label>
            <input id="idIMSGSPassword" type="password" class="form-control" placeholder="">
           </div>

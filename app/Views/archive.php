@@ -12,7 +12,7 @@
          <div class="card-body">
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Durée de retention</label>
                <input id="idArchiveDBRetention" type="number" min="1" class="form-control" placeholder="Nombre de jours de retention">
                <span class="input-group-text">jours</span>
@@ -20,7 +20,7 @@
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Nombre d'archives</label>
                <input id="idArchiveNumber" type="text" disabled class="form-control" placeholder="Nombre d'enregistrements">
                <span class="input-group-text">archives</span>
@@ -28,7 +28,7 @@
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Taille de base de données</label>
                <input id="idArchiveDatabaseSize" type="text" disabled class="form-control" placeholder="Volume de stockage">
                <span class="input-group-text">MB</span>
@@ -36,7 +36,7 @@
            </div>
 
            <div class="row ">
-             <div class="input-group">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Nombre de tables</label>
                <input id="idArchiveTableNumber" type="text" disabled class="form-control" placeholder="Nombre de tables">
                <span class="input-group-text">tables</span>

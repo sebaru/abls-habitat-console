@@ -51,42 +51,42 @@
 
       <div class="modal-body">
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">TechID</label>
            <input id="idPHIDGETTechID" required type="text" class="form-control" placeholder="Tech ID du module">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idPHIDGETDescription" type="text" class="form-control" placeholder="Ou est le hub ?">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Hostname</label>
            <input id="idPHIDGETHostname" required type="text" class="form-control" maxlength="32" placeholder="@IP ou hostname">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Mot de passe</label>
            <input id="idPHIDGETPassword" required type="text" class="form-control" placeholder="Mot de passe de connexion">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Serial Number</label>
            <input id="idPHIDGETSerial" required type="number" class="form-control" placeholder="Serial Number">
           </div>
@@ -114,14 +114,14 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Type de Capteur</label>
            <select id="idPHIDGETEditIOCapteur" class="custom-select border-info"></select>
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Intervalle</label>
            <input id="idPHIDGETEditIOIntervalle" required type="number" class="form-control" min=1 max=60 placeholder="Intervalle d'acquisition">
             <span class="input-group-text form-control">ms</span>
@@ -129,7 +129,7 @@
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idPHIDGETEditIOLibelle" type="text" class="form-control" placeholder="Description">
           </div>

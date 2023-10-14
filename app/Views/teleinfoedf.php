@@ -37,28 +37,28 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">TELEINFO Tech_ID</label>
            <input id="idTELEINFOTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du TELEINFO">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">TELEINFO Description</label>
            <input id="idTELEINFODescription" type="text" class="form-control" placeholder="Description du téléphone et/ou sa position">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Port Device</label>
            <input id="idTELEINFOPort" type="text" class="form-control" placeholder="FileSystem device /dev/xxx">
           </div>

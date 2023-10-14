@@ -36,42 +36,42 @@
       <div class="modal-body">
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
            <select id="idTargetAgent" class="custom-select border-info"></select>
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">UPS Tech_ID</label>
            <input id="idUPSTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID de l'UPS">
           </div>
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">UPS Name</label>
            <input id="idUPSName" required type="text" class="form-control" maxlength="32" placeholder="Nom de l'onduleur">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">UPS Host</label>
            <input id="idUPSHost" required type="text" class="form-control" placeholder="@IP ou hostname de l'onduleur">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Admin Username</label>
            <input id="idUPSAdminUsername" type="text" class="form-control" placeholder="Username de connexion à l'UPS">
           </div>
         </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Admin Password</label>
            <input id="idUPSAdminPassword" type="text" class="form-control" placeholder="Password de connexion à l'UPS">
           </div>

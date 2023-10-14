@@ -36,14 +36,14 @@
       <div class="modal-body">
 
        <div class="col ">
-					     <div class="input-group">
+					     <div class="input-group mb-1">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Libellé</label>
 						     <input id="idMSGEditLibelle" type="text" class="form-control" disabled placeholder="Libellé du Message">
      					</div>
        </div>
 
        <div class="col ">
-					     <div class="input-group">
+					     <div class="input-group mb-1">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Zone de Diffusion Sonore</label>
 						     <select id="idMSGEditAudioZone" class="col-7 col-sm-8 custom-select border-info">
            </select>
@@ -51,14 +51,14 @@
        </div>
 
        <div class="col ">
-					     <div class="input-group">
+					     <div class="input-group mb-1">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Libellé audio</label>
 						     <input id="idMSGEditAudioLibelle" type="text" class="form-control" placeholder="Libellé audio du Message">
      					</div>
        </div>
 
        <div class="col ">
-					     <div class="input-group">
+					     <div class="input-group mb-1">
 						     <label class="col-5 col-sm-4 col-form-label text-right">Notification texte</label>
 						     <select id="idMSGEditTxtNotification" class="col-7 col-sm-8 custom-select border-info">
            </select>
@@ -66,7 +66,7 @@
        </div>
 
        <div class="col ">
-          <div class="input-group">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Rate limit</label>
            <input id="idMSGEditRateLimit" type="number" required min=0 max=300 class="form-control" placeholder="seconde entre 2 messages">
              <div class="input-group-text">secondes</div>
