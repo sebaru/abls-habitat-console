@@ -13,6 +13,7 @@
  <div class="row mx-1">
 			<section id="idSectionHeavySyn" class="col justify-content-center">	</section>
    <div class="col-2 shadow">
+     <label>DLS Owner</label><input id="idSelectionDLSOwner" type="text" class="form-control mb-1" disabled>
      <label>TechID</label>   <input id="idSelectionTechID"   type="text" class="form-control mb-1" disabled>
      <label>Acronyme</label> <input id="idSelectionAcronyme" type="text" class="form-control mb-1" disabled>
      <label>Posx</label>     <input id="idPosx"   type="number" class="form-control mb-1" step=1 min=0 max=1920>
