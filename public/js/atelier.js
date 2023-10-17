@@ -190,7 +190,7 @@ console.debug(request);
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Update_selection_data ( )
-  { $("#idSelectionDLSOwner").val(Selection_data.dls_owner_shortname);
+  { $("#idSelectionDLS").val(Selection_data.dls_shortname);
     $("#idSelectionTechID").val(Selection_data.tech_id);
     $("#idSelectionAcronyme").val(Selection_data.acronyme);
     $("#idPosition").val("x:" + Selection_data.posx+", y:"+Selection_data.posy);
