@@ -17,9 +17,10 @@
        acronyme: acronyme,
        valeur: valeur
      });
-    let response = await fetch ("https://"+master+":5559/dls/run/set",
+    let response = await fetch ( localStorage.getItem( "master_url" ) + "/dls/run/set",
                                  { method: 'POST', headers: { 'Content-Type': 'application/json;charset=utf-8' },
-                                   body: json_request });
+                                   body: json_request
+                                 });
     if (response.ok)
      { $('#'+table).DataTable().ajax.reload(null, false); }
   }
