@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
  <div class="row m-2">
-   <h3><i class="fas fa-image text-primary"></i> Edition graphique du synoptique <strong id="idAtelierTitle"></strong></h3>
+   <h3><i class="fas fa-image text-primary"></i> Edition graphique du synoptique <strong id="idAtelierTitle"></strong> (1920x1080)</h3>
 
    <div class ="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="Atelier_Sauvegarder_synoptique()" class="btn btn-success"><i class="fas fa-save"></i> Sauvegarder</button>

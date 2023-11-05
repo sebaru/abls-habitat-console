@@ -15,7 +15,7 @@
     console.log("------------------------------ Chargement synoptique "+syn_page);
 
     Trame = Trame_new ("idSectionHeavySyn");
-    Trame.set_grille( 20 );
+    Trame.set_grille( 25 );
     Trame.on ( "mousemove",  function ( event ) { Move_sur_trame ( event ); }, false );
     Trame.on ( "mouseup",    function ( event ) { Deselectionner( event ) }, false);
     Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
