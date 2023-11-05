@@ -393,7 +393,7 @@
             },
             { "data": null, "title":"Description", "className": "align-middle text-center",
               "render": function (item)
-                { if(item.tech_id) { return ( item.libelle ); } else return( "--" ); }
+                { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
@@ -441,7 +441,7 @@
             },
             { "data": null, "title":"Description", "className": "align-middle text-center",
               "render": function (item)
-                { if(item.tech_id) { return ( item.libelle ); } else return( "--" ); }
+                { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Type Borne", "className": "align-middle text-center",
               "render": function (item)
@@ -499,7 +499,7 @@
             },
             { "data": null, "title":"Description", "className": "align-middle text-center",
               "render": function (item)
-                { if(item.tech_id) { return ( item.libelle ); } else return( "--" ); }
+                { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Type Borne", "className": "align-middle text-center",
               "render": function (item)
