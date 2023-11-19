@@ -58,6 +58,13 @@
 
        <div class="col">
           <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-center">Package source</label>
+           <input id="idModalDlsEditPackage" type="text" class="form-control" placeholder="Package source">
+          </div>
+       </div>
+
+       <div class="col">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-center">Description du module</label>
            <input id="idModalDlsEditDescription" type="text" class="form-control" placeholder="Description du module D.L.S">
           </div>

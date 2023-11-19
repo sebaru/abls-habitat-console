@@ -58,6 +58,7 @@
   { var json_request =
        { syn_id    : parseInt($('#idModalDlsEditPage').val()),
          shortname : $('#idModalDlsEditShortname').val(),
+         package   : $('#idModalDlsEditPackage').val(),
          name      : $('#idModalDlsEditDescription').val(),
          tech_id   : $('#idModalDlsEditTechID').val().toUpperCase(),
        };
@@ -101,6 +102,7 @@
     $('#idModalDlsEditTechID').val("");
     Dls_Set_controle_techid ( null );
     $('#idModalDlsEditShortname').val("");
+    $('#idModalDlsEditPackage').val("");
     $('#idModalDlsEditDescription').val("");
     $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(0); } );
     Send_to_API ( "GET", "/syn/list", null, function (Response)
@@ -118,6 +120,7 @@
     $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid(selection.tech_id); } );
     Dls_Set_controle_techid ( selection.tech_id );
     $('#idModalDlsEditShortname').val(selection.shortname);
+    $('#idModalDlsEditPackage').val(selection.package);
     $('#idModalDlsEditDescription').val(selection.name);
     $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(selection.dls_id); } );
     Send_to_API ( "GET", "/syn/list", null, function (Response)
