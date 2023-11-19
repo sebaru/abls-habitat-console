@@ -102,7 +102,7 @@
     $('#idModalDlsEditTechID').val("");
     Dls_Set_controle_techid ( null );
     $('#idModalDlsEditShortname').val("");
-    $('#idModalDlsEditPackage').val("");
+    $('#idModalDlsEditPackage').val("custom");
     $('#idModalDlsEditDescription').val("");
     $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(0); } );
     Send_to_API ( "GET", "/syn/list", null, function (Response)
