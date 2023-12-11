@@ -28,12 +28,6 @@
  function Dls_run_refresh ( table )
   { $('#'+table).DataTable().ajax.reload(null, false); }
 /******************************************************************************************************************************/
- function Dls_run_DI_set ( acronyme )
-  { Dls_run_set ( "idTableEntreeTOR", "DI", acronyme, true ); }
-/******************************************************************************************************************************/
- function Dls_run_DI_reset ( acronyme )
-  { Dls_run_set ( "idTableEntreeTOR", "DI", acronyme, false ); }
-/******************************************************************************************************************************/
  function Dls_run_MONO_set ( acronyme )
   { Dls_run_set ( "idTableBool", "MONO", acronyme, true ); }
 /******************************************************************************************************************************/
@@ -42,12 +36,6 @@
 /******************************************************************************************************************************/
  function Dls_run_BI_reset ( acronyme )
   { Dls_run_set ( "idTableBool", "BI", acronyme, false ); }
-/******************************************************************************************************************************/
- function Dls_run_DO_set ( acronyme )
-  { Dls_run_set ( "idTableSortieTOR", "DO", acronyme, true ); }
-/******************************************************************************************************************************/
- function Dls_run_DO_reset ( acronyme )
-  { Dls_run_set ( "idTableSortieTOR", "DO", acronyme, false ); }
 /******************************************************************************************************************************/
  function Dls_run_MSG_set ( acronyme )
   { Dls_run_set ( "idTableMessages", "MSG", acronyme, true ); }
@@ -109,15 +97,6 @@
                                  else { return( Bouton ( "outline-secondary", "Désactivée", null, null, "Inactive" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
-             "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "success", "Activer l'entrée", "Dls_run_DI_set", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_add ( "secondary", "Désactiver l'entrée", "Dls_run_DI_reset", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_end ();
-                 return(boutons);
-               },
-           }
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -183,15 +162,6 @@
                                  else { return( Bouton ( "outline-secondary", "Désactivée", null, null, "Inactive" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
-             "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "success", "Activer la sortie", "Dls_run_DO_set", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_add ( "secondary", "Désactiver la sortie", "Dls_run_DO_reset", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_end ();
-                 return(boutons);
-               },
-           }
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
