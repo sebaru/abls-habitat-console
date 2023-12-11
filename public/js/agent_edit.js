@@ -30,6 +30,7 @@
 
        $("#idAGENTLinkNatif").text( "sudo Watchdogd --save"+
                                     " --api-url " + Response.api_url +
+                                    " --agent-uuid " + Response.agent_uuid +
                                     " --domain-uuid " + localStorage.getItem("domain_uuid") +
                                     " --domain-secret '" + Response.domain_secret + "'"
                                   );
@@ -37,6 +38,7 @@
                                      "podman run -d --name abls-agent "+
                                      "--restart always -v /dev/log:/dev/log --tz local -p 5559:5559 "+
                                      "--env ABLS_API_URL="+Response.api_url + " "+
+                                     "--env ABLS_AGENT_UUID="+Response.agent_uuid +
                                      "--env ABLS_DOMAIN_UUID="+localStorage.getItem("domain_uuid") + " "+
                                      "--env ABLS_DOMAIN_SECRET='"+Response.domain_secret + "' "+
                                      "--group-add keep-groups "+
