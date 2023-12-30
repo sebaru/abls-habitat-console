@@ -159,6 +159,7 @@
      { $('#idMODBUSEditDI').modal("hide");
        var json_request =
         { modbus_di_id: parseInt(modbus_di_id),
+          flip: (parseInt($('#idMODBUSEditDIFlip').val()) == 1 ? true : false),
           libelle: $('#idMODBUSEditDILibelle').val(),
         };
 
@@ -337,6 +338,7 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
+            { "data": "flip", "title":"Flip", "className": "align-middle text-center" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)

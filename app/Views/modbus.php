@@ -97,6 +97,16 @@
 
        <div class="col ">
           <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Flip</label>
+						     <select id="idMODBUSEditDIFlip" class="col-7 col-sm-8 custom-select border-info">
+             <option value="0">Non - logique normale</option>
+             <option value="1">Oui - logique inversée</option>
+           </select>
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditDILibelle" type="text" class="form-control" placeholder="Description">
           </div>
