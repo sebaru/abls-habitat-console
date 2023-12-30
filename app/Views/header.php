@@ -186,7 +186,7 @@
  <nav class="navbar navbar-dark navbar-expand-lg fixed-top shadow mb-2"> <!-- fixed-top -->
  <div class="container-fluid">
   <a class="navbar-brand" href="/"><img src="https://static.abls-habitat.fr/img/abls.svg" alt="ABLS Logo" width=50></a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbar-toggled" aria-controls="navbar-toggled" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggled" aria-controls="navbar-toggled" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
