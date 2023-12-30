@@ -100,12 +100,14 @@
     $('#idPHIDGETEditIOLibelle').val ( selection.libelle );
     $('#idPHIDGETEditIOCapteur')
      .replaceWith ( Select ( "idPHIDGETEditIOCapteur", null, Capteurs, selection.capteur ) );
+    $('#idPHIDGETEditIOArchivage').replaceWith ( Select ( "idPHIDGETEditAIArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idPHIDGETEditIOIntervalle').val ( selection.intervalle );
     $('#idPHIDGETEditIOValider').off("click").on( "click", function ()
      { $('#idPHIDGETEditIO').modal("hide");
        var json_request =
         { phidget_io_id: parseInt(phidget_io_id),
           intervalle: parseInt($('#idPHIDGETEditIOIntervalle').val()),
+          archivage: parseInt($('#idPHIDGETEditAIArchivage').val()),
           capteur: $('#idPHIDGETEditIOCapteur').val(),
           libelle: $('#idPHIDGETEditIOLibelle').val(),
         };
