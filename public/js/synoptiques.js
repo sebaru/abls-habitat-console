@@ -134,7 +134,7 @@
     liste.empty();
     images.forEach ( function (element)
                       { liste.append( $("<img>").addClass("wtd-synoptique-preview m-1").css("cursor","pointer")
-                             .attr("name", element).attr("src", "https://static.abls-habitat.fr/img/"+element)
+                             .attr("name", element).attr("src", localStorage.getItem("static_data_url")+"/img/"+element)
                              .click ( function () { Valide_edit_image(syn_id, element); } ) );
                       } );
     $('#idSynEditImage').modal("show");
@@ -159,7 +159,7 @@
           [ { "data": "syn_id", "title": "#", "className": "align-middle text-center" },
             { "data": null, "title":"Aperçu", "className": "align-middle text-center",
               "render": function (item)
-                { target = "https://static.abls-habitat.fr/img/"+item.image;
+                { target = localStorage.getItem("static_data_url")+"/img/"+item.image;
                   return( "<img src='"+target+"' class='wtd-synoptique-preview' loading=lazy alt='No Image !' onclick='SYN_Edit_image("+item.syn_id+")' />" ); }
             },
             { "data": null, "title":"<i class='fas fa-star'></i> Level", "className": "align-middle text-center",
