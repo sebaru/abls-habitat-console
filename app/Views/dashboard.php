@@ -40,6 +40,7 @@
     <div class="card-body">
       <ul>
       <li><h6 class="card-text"><span id="idNbrDls">-</span> <a href="/dls">Module(s)</a> </h6></li>
+      <li><h6 class="card-text"><span id="idNbrDlsError">-</span> Errors</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsLignes">-</span> Lignes</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsBI">-</span> Bistables</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsMONO">-</span> Monostables</h6></li>

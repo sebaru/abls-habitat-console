@@ -9,6 +9,7 @@
        $("#idNbrSynsMotifs").text(Response.nbr_syns_motifs);
        $("#idNbrSynsLiens").text(Response.nbr_syns_liens);
        $("#idNbrDls").text(Response.nbr_dls);
+       $("#idNbrDlsError").text(Response.nbr_dls_error);
        $("#idNbrDlsLignes").text(Response.nbr_dls_lignes);
        $("#idNbrDlsDI").text(Response.nbr_dls_di);
        $("#idNbrDlsDO").text(Response.nbr_dls_do);
