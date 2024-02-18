@@ -63,7 +63,7 @@
                  else if (item.typologie==2) { img = "pignon_orange.svg";   title = "defaut";       }
                  else if (item.typologie==3) { img = "pignon_red.svg";      title = "alarme";       }
                  else if (item.typologie==4) { img = "bouclier_green.svg";  title = "veille";       }
-                 else if (item.typologie==5) { img = "notification.svg";    title = "notification"; }
+                 else if (item.typologie==5) { img = "panneau_danger.svg";  title = "notification"; }
                  else if (item.typologie==6) { img = "croix_red.svg";       title = "danger";       }
                  else if (item.typologie==7) { img = "croix_orange.svg";    title = "derangement";  }
                  return("<img width='30px' src='https://static.abls-habitat.fr/img/"+img+"' title='"+title+"'>");
