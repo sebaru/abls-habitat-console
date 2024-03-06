@@ -33,6 +33,7 @@
        thread_tech_id : $('#idAUDIOTechID').val().toUpperCase(),
        language       : $('#idAUDIOLanguage').val(),
        device         : $('#idAUDIODevice').val(),
+       volume         : parseInt($('#idAUDIOVolume').val()),
        description    : $('#idAUDIODescription').val(),
      };
 
@@ -63,6 +64,7 @@
     $('#idAUDIOLanguage').val( selection.language );
     $('#idAUDIODevice').val( selection.device );
     $('#idAUDIODescription').val( selection.description );
+    $('#idAUDIOVolume').val( selection.volume );
     $('#idAUDIOValider').off("click").on( "click", function () { AUDIO_Set(selection); } );
     $('#idAUDIOEdit').modal("show");
   }
@@ -75,6 +77,7 @@
     $('#idAUDIOLanguage').val( "" );
     $('#idAUDIODevice').val( "" );
     $('#idAUDIODescription').val( "" );
+    $('#idAUDIOVolume').val( 100 );
     $('#idAUDIOValider').off("click").on( "click", function () { AUDIO_Set(null); } );
     $('#idAUDIOEdit').modal("show");
   }
@@ -136,6 +139,10 @@
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
              "render": function (item)
                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+           },
+           { "data": null, "title":"Volume", "className": "align-middle text-center",
+             "render": function (item)
+               { return( item.volume+" %" ); }
            },
            { "data": null, "title":"Description", "className": "align-middle text-center",
              "render": function (item)

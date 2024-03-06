@@ -70,6 +70,13 @@
           </div>
        </div>
 
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Volume</label>
+           <input id="idAUDIOVolume" type="number" min="0" max="100" class="form-control" placeholder="Volume de sortie">
+          </div>
+       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
         <button id="idAUDIOValider" type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="fas fa-save"></i> Valider</button>
