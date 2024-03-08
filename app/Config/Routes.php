@@ -49,6 +49,7 @@ $routes->get('/ups',          'Console::ups');
 $routes->get('/phidget',      'Console::phidget');
 $routes->get('/threads',      'Console::threads');
 $routes->get('/teleinfoedf',  'Console::teleinfoedf');
+$routes->get('/shelly',       'Console::shelly');
 $routes->get('/meteo',        'Console::meteo');
 $routes->get('/dls',          'Console::dls');
 $routes->get('/dls/run/(:any)', 'Console::dls_run');

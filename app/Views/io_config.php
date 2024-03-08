@@ -109,6 +109,16 @@
    </div>
  </div>
 
+ <div class="card shadow m-1 bg-light">
+   <div class="card-header text-center">Les Shelly</div>
+   <div class="card-body text-center">
+     <a href="/shelly"><img src="https://static.abls-habitat.fr/img/shelly.jpg" class="card-img-top wtd-img-card" alt="Shelly"></a>
+   </div>
+   <div class="card-footer text-center">
+        <button type="button" onclick="Redirect('/shelly')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+   </div>
+ </div>
+
 </div>
 
 <hr>
