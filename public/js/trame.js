@@ -218,7 +218,7 @@
                                texte.text ( result );
                              }
                             else if (this.classe=="CI")
-                             { texte.text( etat.valeur.toString() + " " + etat.unite ); }
+                             { texte.text( (etat.valeur * etat.multi).toFixed(0).toString() + " " + etat.unite ); }
                             else if (this.classe=="REGISTRE" && this.forme=="horaire")
                              { var heure = Math.trunc(etat.valeur);
                                var minute = Math.trunc((etat.valeur - heure)*100); if (minute > 59) minute = 59;
@@ -246,6 +246,7 @@
        visuel.svggroupe.add ( texte );
 
        visuel.Set_state = function ( etat ) { texte.text ( etat.valeur.toString() ); };
+       visuel.Set_state ( visuel );
        this.update_matrice ( visuel );
        return(visuel);
      }
@@ -269,8 +270,9 @@
                              var minutes   = Math.floor(temps / 60);
                              var secondes  = temps % 60;
                              var result    = (heures<10 ? "0" : "") + heures + ":" +  ("0"+minutes).slice(-2) + ":" +  ("0"+secondes).slice(-2)
-                                texte.text ( result );
+                             texte.text ( result );
                            }
+       visuel.Set_state ( visuel );
        this.update_matrice ( visuel );
        return(visuel);
      }
