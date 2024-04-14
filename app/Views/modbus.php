@@ -107,6 +107,14 @@
 
        <div class="col ">
           <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
+           <select id="idMODBUSEditDIArchivage" class="custom-select border-info">
+           </select>
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditDILibelle" type="text" class="form-control" placeholder="Description">
           </div>
@@ -133,6 +141,14 @@
         </button>
       </div>
       <div class="modal-body">
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
+           <select id="idMODBUSEditDOArchivage" class="custom-select border-info">
+           </select>
+          </div>
+       </div>
 
        <div class="col ">
           <div class="input-group mb-1">
@@ -232,6 +248,14 @@
           <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Type de borne</label>
            <select id="idMODBUSEditAOTypeBorne" class="custom-select border-info">
+           </select>
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
+           <select id="idMODBUSEditAOArchivage" class="custom-select border-info">
            </select>
           </div>
        </div>

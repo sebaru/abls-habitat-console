@@ -154,12 +154,14 @@
  function MODBUS_Edit_DI (modbus_di_id)
   { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_di_id).data();
     $('#idMODBUSEditDITitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODBUSEditDIArchivage').replaceWith ( Select ( "idMODBUSEditDIArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idMODBUSEditDILibelle').val ( selection.libelle );
     $('#idMODBUSEditDIValider').off("click").on( "click", function ()
      { $('#idMODBUSEditDI').modal("hide");
        var json_request =
         { modbus_di_id: parseInt(modbus_di_id),
           flip: (parseInt($('#idMODBUSEditDIFlip').val()) == 1 ? true : false),
+          archivage: parseInt($('#idMODBUSEditDIArchivage').val()),
           libelle: $('#idMODBUSEditDILibelle').val(),
         };
 
@@ -174,11 +176,13 @@
  function MODBUS_Edit_DO (modbus_do_id)
   { selection = $('#idTableMODBUS_DO').DataTable().row("#"+modbus_do_id).data();
     $('#idMODBUSEditDOTitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODBUSEditDOArchivage').replaceWith ( Select ( "idMODBUSEditDOArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idMODBUSEditDOLibelle').val ( selection.libelle );
     $('#idMODBUSEditDOValider').off("click").on( "click", function ()
      { $('#idMODBUSEditDO').modal("hide");
        var json_request =
         { modbus_do_id: parseInt(modbus_do_id),
+          archivage: parseInt($('#idMODBUSEditDOArchivage').val()),
           libelle: $('#idMODBUSEditDOLibelle').val(),
         };
 

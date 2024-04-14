@@ -1,8 +1,10 @@
- var ModeArchivage = [ { valeur: 0, texte: "Aucun" },
-                       { valeur: 1, texte: "Un pour 5 secondes" },
-                       { valeur: 2, texte: "Un par minute" },
-                       { valeur: 3, texte: "Un par heure" },
-                       { valeur: 4, texte: "Un par jour" },
+ var ModeArchivage = [ { valeur: 0,      texte: "Aucun" },
+                       { valeur: 50,     texte: "Toutes les 5 secondes" },
+                       { valeur: 600,    texte: "Toutes les minutes" },
+                       { valeur: 3000,   texte: "Toutes les 5 minutes" },
+                       { valeur: 36000,  texte: "Toutes les heures" },
+                       { valeur: 72000,  texte: "Toutes les 2 heures" },
+                       { valeur: 864000, texte: "Tous les jours" },
                      ];
 
 /********************************************* Reload Process *****************************************************************/
