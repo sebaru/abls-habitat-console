@@ -64,6 +64,13 @@
           </div>
        </div>
 
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Mode</label>
+           <select id="idTELEINFOStandard" class="custom-select border-info"></select>
+          </div>
+       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
         <button id="idTELEINFOValider" type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="fas fa-save"></i> Valider</button>
