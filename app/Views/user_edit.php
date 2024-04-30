@@ -50,6 +50,20 @@
 
            <div class="row ">
              <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">Free SMS Api USER</label>
+               <input id="idUserFreeSmsApiUser" type="text" class="form-control" placeholder="Free Api User to send SMS">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">Free SMS Api KEY</label>
+               <input id="idUserFreeSmsApiKey" type="text" class="form-control" placeholder="Free Api key to send SMS">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">User XMPP</label>
                <input id="idUserXmpp" type="text" class="form-control" placeholder="User instant message">
              </div>

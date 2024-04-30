@@ -5,6 +5,8 @@
          name             : $("#idUserName").val(),
          xmpp             : $("#idUserXmpp").val(),
          phone            : $("#idUserPhone").val(),
+         free_sms_api_key : $("#idUserFreeSmsApiKey").val(),
+         free_sms_api_user: $("#idUserFreeSmsApiUser").val(),
          can_send_txt_cde : ($("#idUserCanSendTxtCde").val()==1 ? true : false),
          wanna_be_notified: ($("#idUserWannaBeNotified").val()==1 ? true : false),
        };
@@ -45,6 +47,8 @@
        $("#idUserEmail").val( Response.email );
        $("#idUserName").val( Response.username );
        $("#idUserPhone").val( Response.phone );
+       $("#idUserFreeSmsApiKey").val( Response.free_sms_api_key );
+       $("#idUserFreeSmsApiUser").val( Response.free_sms_api_user );
        $("#idUserXmpp").val( Response.xmpp );
        if (TokenParsed.sub == Response.user_uuid)
           { $("#idUserAccessLevel").html ( Badge_Access_level (Response.access_level) + " - " + Access_level_description[Response.access_level].name ); }
