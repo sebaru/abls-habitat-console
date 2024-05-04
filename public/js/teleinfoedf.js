@@ -125,9 +125,9 @@
            { "data": null, "title":"Debug", "className": "align-middle text-center",
              "render": function (item)
               { if (item.debug==true)
-                 { return( Bouton ( "warning", "Désactiver le debug", "TELEINFO_Undebug", item.teleinfo_id, "Actif" ) ); }
+                 { return( Bouton ( "warning", "Désactiver le debug", "TELEINFO_Undebug", item.teleinfoedf_id, "Actif" ) ); }
                 else
-                 { return( Bouton ( "outline-secondary", "Activer le debug", "TELEINFO_Debug", item.teleinfo_id, "Désactivé" ) ); }
+                 { return( Bouton ( "outline-secondary", "Activer le debug", "TELEINFO_Debug", item.teleinfoedf_id, "Désactivé" ) ); }
               },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
