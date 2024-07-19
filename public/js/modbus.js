@@ -299,7 +299,10 @@
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center " },
           { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center " },
-          { "data": "hostname", "title":"Hostname", "className": "align-middle text-center " },
+          { "data": null, "title":"Hostname", "className": "align-middle text-center",
+            "render": function (item)
+              { return( Lien ( "http://"+item.hostname, "Voir le composant", item.hostname ) ); }
+          },
           { "data": "max_request_par_sec", "title":"Max Requete/s", "className": "align-middle text-center " },
           { "data": null, "title":"Last Comm", "className": "align-middle text-center",
             "render": function (item)
