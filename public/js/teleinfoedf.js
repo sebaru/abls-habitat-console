@@ -84,7 +84,7 @@
      }, function(Response) { TELEINFO_Refresh(); } );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
- function TELEINFO_Del ( id )
+ function TELEINFO_Del ( teleinfoedf_id )
   { selection = $('#idTableTELEINFO').DataTable().row("#"+teleinfoedf_id).data();
     Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
