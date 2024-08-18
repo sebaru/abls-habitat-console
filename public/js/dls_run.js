@@ -293,10 +293,10 @@
        rowId: "tempo_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
-           { "data": null, "title":"Etat", "className": "align-middle ",
+           { "data": null, "title":"Etat", "className": "align-middle text-center",
              "render": function (item)
-               { if (item.etat==true) { return( Bouton ( "success", "La tempo compte le temps", null, null, "En décompte" ) );        }
-                                 else { return( Bouton ( "outline-secondary", "La tempo ne compte pas", null, null, "Stoppée" ) ); }
+               { if (item.etat==true) { return( Bouton ( "success", "La tempo est à 1", null, null, "1" ) );        }
+                                 else { return( Bouton ( "outline-secondary", "La tempo est à 0", null, null, "0" ) ); }
                },
            },
            { "data": "status",     "title":"Status",   "className": "align-middle  text-center" },
