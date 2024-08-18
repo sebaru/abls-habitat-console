@@ -53,7 +53,7 @@
        <div class="col ">
           <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">TELEINFO Description</label>
-           <input id="idTELEINFODescription" type="text" class="form-control" placeholder="Description du téléphone et/ou sa position">
+           <input id="idTELEINFODescription" type="text" class="form-control" placeholder="Description du compteur et/ou sa position">
           </div>
        </div>
 
