@@ -71,36 +71,33 @@
      });
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
- function Dls_Set_controle_techid ( tech_id_initial )
+ function Dls_Set_controle_techid ( inputid )
   { FormatPage = RegExp(/^[a-zA-Z0-9_\.]+$/);
-    table = $('#idTableDLS').DataTable();
-    input = $('#idModalDlsEditTechID');
-
+    table  = $('#idTableDLS').DataTable();
+    input  = $('#'+inputid+'TechID');
+    bouton = $('#'+inputid+'Valider');
+console.log("inputid="+inputid);
+console.log('#'+inputid+'TechID');
     if ( FormatPage.test(input.val())==false )
      { input.addClass("bg-danger");
-       $('#idModalDlsEditValider').attr("disabled", true);
+       bouton.attr("disabled", true);
      }
-    else if ( (table.ajax.json().dls.filter( function(item)                                   /* Si tech_id deja existant */
-                                              { return item.tech_id.toUpperCase()==input.val().toUpperCase() } )[0] !== undefined &&
-              (tech_id_initial == null || input.val().toUpperCase() != tech_id_initial.toUpperCase()) )
-       )
+    else if ( table.ajax.json().dls.filter( function(item)                                        /* Si tech_id deja existant */
+                                              { return item.tech_id.toUpperCase()==input.val().toUpperCase() } )[0] !== undefined )
      { input.addClass("bg-danger");
-       $('#idModalDlsEditValider').attr("disabled", true);
+       bouton.attr("disabled", true);
      }
     else
-     { if (tech_id_initial !== null && input.val().toUpperCase() != tech_id_initial.toUpperCase())
-        { $('#idModalDlsEditValider').addClass("btn-danger").removeClass("btn-primary").text("Tout Recompiler"); }
-       else
-        { $('#idModalDlsEditValider').addClass("btn-primary").removeClass("btn-danger").text("Valider"); }
-       input.removeClass("bg-danger"); $('#idModalDlsEditValider').attr("disabled", false);
+     { input.removeClass("bg-danger");
+       bouton.attr("disabled", false);
      }
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function Show_Modal_Dls_Add ( )
   { $('#idModalDlsEditTitre').text("Ajouter un D.L.S");
-    $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid(null); } );
+    $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid('idModalDlsEdit'); } );
+    Dls_Set_controle_techid('idModalDlsEdit');
     $('#idModalDlsEditTechID').val("");
-    Dls_Set_controle_techid ( null );
     $('#idModalDlsEditShortname').val("");
     $('#idModalDlsEditPackage').val("custom");
     $('#idModalDlsEditDescription').val("");
@@ -117,8 +114,6 @@
   { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
     $('#idModalDlsEditTitre').text("Modifier le D.L.S " + selection.tech_id );
     $('#idModalDlsEditTechID').val(selection.tech_id);
-    $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid(selection.tech_id); } );
-    Dls_Set_controle_techid ( selection.tech_id );
     $('#idModalDlsEditShortname').val(selection.shortname);
     $('#idModalDlsEditPackage').val(selection.package);
     $('#idModalDlsEditDescription').val(selection.name);
@@ -130,6 +125,29 @@
        $('#idModalDlsEditPage').val(selection.syn_id);
      }, null );
     $('#idModalDlsEdit').modal("show");
+  }
+/************************************ Envoi les infos de modifications synoptique *********************************************/
+ function Dls_Rename ( dls_id )
+  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
+    var json_request =
+       { old_tech_id : selection.tech_id,
+         new_tech_id : $('#idModalDlsRenameTechID').val().toUpperCase(),
+       };
+
+    Send_to_API ( "POST", "/dls/rename", json_request, function(Response)
+     { Show_toast_ok("D.L.S "+json_request.old_tech_id+" renommé en " + json_request.new_tech_id );
+       DLS_Refresh();
+     });
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function Show_Modal_Dls_Rename ( dls_id )
+  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
+    $('#idModalDlsRenameTitre').text("Renommer le D.L.S " + selection.tech_id );
+    $('#idModalDlsRenameTechID').val("");
+    $('#idModalDlsRenameTechID').off("input").on("input", function () { Dls_Set_controle_techid('idModalDlsRename'); } );
+    Dls_Set_controle_techid('idModalDlsRename');                           /* Pour mettre a jour le bg-color a l'init fenetre */
+    $('#idModalDlsRenameValider').off("click").on("click", function () { Dls_Rename(selection.dls_id); } );
+    $('#idModalDlsRename').modal("show");
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
@@ -183,7 +201,7 @@
                 { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.name ) );
                 }
             },
-            { "data": null, "title":"Compil", "className": "align-middle ",
+            { "data": null, "title":"Statut", "className": "align-middle text-center",
               "render": function (item)
                 { if (item.compil_status==false)
                    { return( Bouton ( "secondary", "Not compiled", null, null, "Not compiled" ) ); }
@@ -216,6 +234,8 @@
                   boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Compiler le module", "Dls_compiler", item.dls_id, "coffee", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les RUN", "Redirect", "/dls/run/"+item.tech_id, "eye", null );
+                  boutons += Bouton_actions_add ( "warning", "Renommer le plugin",
+                                                  (item.tech_id != "SYS" ? "Show_Modal_Dls_Rename" : null), item.dls_id, "exchange", null );
                   boutons += Bouton_actions_add ( "danger", "Supprimer le plugin", "Show_Modal_Dls_Del", item.dls_id, "trash", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
