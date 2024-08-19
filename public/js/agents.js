@@ -80,12 +80,10 @@
        columns:
          [ { "data": null, "title":"Status", "className": "align-middle text-center",
              "render": function (item)
-              { var color, mode, connect;
-                if (item.ws_connected==true) { color = "success";   }
-                                        else { color = "danger"; }
-                if (item.is_master==true) { mode = "Master"; } else { mode = "Slave"; }
-                return ( Bouton ( color, "Agent is " + mode, null, null, mode ) );
-              }
+               { var mode, color;
+                 if (item.is_alive) { mode = "Master"; color = "success"; } else { mode = "Slave"; color = "danger"; }
+                 return ( Bouton ( color, mode, null, null, mode ) );
+               }
            },
            { "data": null, "title":"Branche", "className": "align-middle text-center",
              "render": function (item)
@@ -101,7 +99,12 @@
            },
            { "data": null, "title":"Version", "className": "align-middle text-center",
              "render": function (item)
-              { return( item.version + "<br>" + item.start_time );
+              { return( item.version );
+              }
+           },
+           { "data": null, "title":"Start/Heartbeat", "className": "align-middle text-center",
+             "render": function (item)
+              { return( item.start_time +"<br>" + item.heartbeat_time);
               }
            },
            { "data": null, "title":"Description", "className": "align-middle ",
@@ -115,11 +118,9 @@
                  boutons += Bouton_actions_add ( "info", "Promouvoir Master",
                                                  (item.is_master == false ? "AGENT_Set_master" : null),
                                                  item.agent_id, "asterisk", null );
-                 boutons += Bouton_actions_add ( "primary", "Upgrader l'agent",
-                                                 (item.ws_connected ? "AGENT_Upgrade" : null), item.agent_id, "download", null );
-                 boutons += Bouton_actions_add ( "warning", "Restarter l'agent",
-                                                 (item.ws_connected ? "AGENT_Reset" : null), item.agent_id, "redo", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer l'agent", "AGENT_Delete", item.agent_id, "trash", null );
+                 boutons += Bouton_actions_add ( "primary", "Upgrader l'agent",  (item.is_alive ? "AGENT_Upgrade" : null), item.agent_id, "download", null );
+                 boutons += Bouton_actions_add ( "warning", "Restarter l'agent", (item.is_alive ? "AGENT_Reset" : null),   item.agent_id, "redo", null );
+                 boutons += Bouton_actions_add ( "danger",  "Supprimer l'agent", "AGENT_Delete",  item.agent_id, "trash", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
