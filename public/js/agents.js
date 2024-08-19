@@ -6,7 +6,7 @@
   { var json_request = { agent_uuid: selection.agent_uuid };
     Send_to_API ( 'POST', "/agent/reset", json_request, function ()
      { Show_toast_ok ( "Attendez 10 secondes" );
-       setTimeout ( function () { AGENT_Refresh (); }, 10000 );
+       /*setTimeout ( function () { AGENT_Refresh (); }, 10000 );*/
      }, null );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
@@ -22,7 +22,7 @@
   { var json_request = { agent_uuid: selection.agent_uuid };
     Send_to_API ( 'POST', "/agent/set_master", json_request, function ()
      { Show_toast_ok ( "Attendez 10 secondes" );
-       setTimeout ( function () { AGENT_Refresh (); }, 10000 );
+       /*setTimeout ( function () { AGENT_Refresh (); }, 10000 );*/
      }, null );
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
@@ -129,4 +129,5 @@
        order: [ [0, "desc"] ],
        responsive: false,
      });
+    setInterval ( function () { AGENT_Refresh (); }, 10000 );
   }
