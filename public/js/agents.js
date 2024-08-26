@@ -81,7 +81,8 @@
          [ { "data": null, "title":"Status", "className": "align-middle text-center",
              "render": function (item)
                { var mode, color;
-                 if (item.is_alive) { mode = "Master"; color = "success"; } else { mode = "Slave"; color = "danger"; }
+                 if (item.is_master) { mode = "Master";   } else { mode = "Slave";   }
+                 if (item.is_alive)  { color = "success"; } else { color = "danger"; }
                  return ( Bouton ( color, mode, null, null, mode ) );
                }
            },
