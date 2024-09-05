@@ -76,8 +76,7 @@
     table  = $('#idTableDLS').DataTable();
     input  = $('#'+inputid+'TechID');
     bouton = $('#'+inputid+'Valider');
-console.log("inputid="+inputid);
-console.log('#'+inputid+'TechID');
+
     if ( FormatPage.test(input.val())==false )
      { input.addClass("bg-danger");
        bouton.attr("disabled", true);
@@ -95,7 +94,8 @@ console.log('#'+inputid+'TechID');
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function Show_Modal_Dls_Add ( )
   { $('#idModalDlsEditTitre').text("Ajouter un D.L.S");
-    $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid('idModalDlsEdit'); } );
+    $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid('idModalDlsEdit'); } )
+                              .attr("disabled", false );
     Dls_Set_controle_techid('idModalDlsEdit');
     $('#idModalDlsEditTechID').val("");
     $('#idModalDlsEditShortname').val("");
@@ -113,7 +113,8 @@ console.log('#'+inputid+'TechID');
  function Show_Modal_Dls_Edit ( dls_id )
   { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
     $('#idModalDlsEditTitre').text("Modifier le D.L.S " + selection.tech_id );
-    $('#idModalDlsEditTechID').val(selection.tech_id);
+    $('#idModalDlsEditTechID').val(selection.tech_id)
+                              .attr("disabled", false );
     $('#idModalDlsEditShortname').val(selection.shortname);
     $('#idModalDlsEditPackage').val(selection.package);
     $('#idModalDlsEditDescription').val(selection.name);
