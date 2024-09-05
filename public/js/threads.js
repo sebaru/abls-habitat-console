@@ -36,13 +36,17 @@
              },
        /*rowId: "thread_id",*/
        columns:
-        [ { "data": null, "title":"Agent", "className": "align-middle text-center",
+        [ { "data": null, "title":"Tech_id", "className": "align-middle text-center",
+            "render": function (item)
+              { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+          },
+          { "data": null, "title":"Agent", "className": "align-middle text-center",
             "render": function (item)
               { return( htmlEncode(item.agent_hostname) ); }
           },
           { "data": null, "title":"Classe", "className": "align-middle text-center",
             "render": function (item)
-              { return( Lien ( "/"+item.thread_classe, "Voir le connecteur", htmlEncode(item.thread_classe) ) ); }
+              { return( Lien ( "/"+item.thread_classe, "Voir la configuration du connecteur", htmlEncode(item.thread_classe) ) ); }
           },
           { "data": null, "title":"Enable", "className": "align-middle text-center",
              "render": function (item)
@@ -52,6 +56,12 @@
                 { return( Bouton ( "outline-secondary", "Activer le thread", "THREAD_set_enable", item.thread_tech_id, "Désactivé" ) ); }
               },
           },
+           { "data": null, "title":"Connexion", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
+                 return( Badge( "info", "Déconnecté", "Déconnecté" ) );
+               },
+           },
           { "data": null, "title":"Debug", "className": "align-middle text-center",
             "render": function (item)
              { if (item.debug==true)
@@ -60,17 +70,7 @@
                 { return( Bouton ( "outline-secondary", "Activer le debug", "THREAD_set_debug", item.thread_tech_id, "Désactivé" ) ); }
              },
           },
-          { "data": null, "title":"Tech_id", "className": "align-middle text-center",
-            "render": function (item)
-              { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
-          },
           { "data": "description", "title":"Description", "className": "align-middle " },
-          { "data": null, "title":"Last Comm", "className": "align-middle text-center",
-            "render": function (item)
-              { if (item.last_comm==null) return( Badge( "info", "Thread à l'arret", "Stopped" ) );
-                return( htmlEncode ( item.last_comm ) );
-              },
-          },
         ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/

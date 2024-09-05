@@ -177,10 +177,10 @@
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center " },
           { "data": "password", "title":"Password", "className": "align-middle text-center " },
           { "data": "serial", "title":"Serial Number", "className": "align-middle text-center " },
-          { "data": null, "title":"Last Comm", "className": "align-middle text-center",
+          { "data": null, "title":"Connexion", "className": "align-middle text-center",
             "render": function (item)
-              { if (item.last_comm==null) return( Badge( "info", "Thread à l'arret", "Stopped" ) );
-                return( htmlEncode ( item.last_comm ) );
+              { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
+                return( Badge( "info", "Déconnecté", "Déconnecté" ) );
               },
           },
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
