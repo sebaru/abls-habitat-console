@@ -264,7 +264,7 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "modbus_id",
-       ajax: { url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "modbus", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "modbus", contentType: "application/json",
                data: function() { return ( "classe=modbus" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)

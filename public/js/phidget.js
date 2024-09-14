@@ -139,7 +139,7 @@
   { $('#idTablePHIDGET').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/phidget/list", type : "GET", dataSrc: "phidget", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "phidget", contentType: "application/json",
                data: function() { return ( "classe=phidget" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
