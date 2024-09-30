@@ -47,8 +47,8 @@
                     { if(visuel.forme=="bouton")  { Trame.new_button  ( visuel ); }
                       if(visuel.forme=="encadre") { Trame.new_encadre ( visuel ); }
                       if(visuel.forme=="comment") { Trame.new_comment ( visuel ); }
-                      if (visuel.forme=="cadran" && visuel.mode=="texte")   { Trame.new_cadran_texte   ( visuel ); }
-                      if (visuel.forme=="cadran" && visuel.mode=="horaire") { Trame.new_cadran_horaire ( visuel ); }
+                      if(visuel.forme=="cadran" && visuel.mode=="texte")   { Trame.new_cadran_texte   ( visuel ); }
+                      if(visuel.forme=="cadran" && visuel.mode=="horaire") { Trame.new_cadran_horaire ( visuel ); }
                     }
                    else if (visuel.controle=="by_mode")       { Trame.new_by_mode ( visuel );       }
                    else if (visuel.controle=="by_color")      { Trame.new_by_color( visuel );       }
