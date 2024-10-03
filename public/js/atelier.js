@@ -86,13 +86,6 @@
                                                                  } );
                                                       }
                                                    ),
-                    cadrans: Synoptique.cadrans.map( function ( cadran )
-                                                      { return ( { syn_cadran_id: cadran.syn_cadran_id,
-                                                                   tech_id: cadran.tech_id, acronyme: cadran.acronyme,
-                                                                   posx: cadran.posx, posy: cadran.posy, scale: cadran.scale,
-                                                                   angle: cadran.angle } );
-                                                      }
-                                                   ),
                   };
 console.debug(request);
     Send_to_API ( "POST", "/syn/save", request, function(Response)
