@@ -17,39 +17,29 @@
        acronyme: acronyme,
        valeur: valeur
      });
-    let response = await fetch ( localStorage.getItem( "master_url" ) + "/dls/run/set",
+   /* let response = await fetch ( localStorage.getItem( "master_url" ) + "/dls/run/set",
                                  { method: 'POST', headers: { 'Content-Type': 'application/json;charset=utf-8' },
                                    body: json_request
                                  });
     if (response.ok)
-     { $('#'+table).DataTable().ajax.reload(null, false); }
+     { $('#'+table).DataTable().ajax.reload(null, false); }*/
   }
 /******************************************************************************************************************************/
  function Dls_run_refresh ( table )
   { $('#'+table).DataTable().ajax.reload(null, false); }
 /******************************************************************************************************************************/
  function Dls_run_MONO_set ( acronyme )
-  { Dls_run_set ( "idTableBool", "MONO", acronyme, true ); }
+  { Dls_run_set ( "idTableMONO", "MONO", acronyme, true ); }
 /******************************************************************************************************************************/
  function Dls_run_BI_set ( acronyme )
-  { Dls_run_set ( "idTableBool", "BI", acronyme, true ); }
+  { Dls_run_set ( "idTableBI", "BI", acronyme, true ); }
 /******************************************************************************************************************************/
  function Dls_run_BI_reset ( acronyme )
-  { Dls_run_set ( "idTableBool", "BI", acronyme, false ); }
-/******************************************************************************************************************************/
- function Dls_run_MSG_set ( acronyme )
-  { Dls_run_set ( "idTableMessages", "MSG", acronyme, true ); }
-/******************************************************************************************************************************/
- function Dls_run_MSG_reset ( acronyme )
-  { Dls_run_set ( "idTableMessages", "MSG", acronyme, false ); }
-
+  { Dls_run_set ( "idTableBI", "BI", acronyme, false ); }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { vars = window.location.pathname.split('/');
     if (vars[3] == null) Redirect ("/dls");
-
-    master_url = localStorage.getItem( "master_url" );
-    if (master_url == null) Redirect("/dls");
 
     $('#idTitle').html(vars[3]);
 
@@ -63,7 +53,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "di_id",
+       rowId: "mnemo_di_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Map on", "className": "align-middle text-center",
@@ -97,7 +87,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "ai_id",
+       rowId: "mnemo_ai_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -132,7 +122,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "do_id",
+       rowId: "mnemo_do_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Map on", "className": "align-middle ",
@@ -162,7 +152,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "ao_id",
+       rowId: "mnemo_ao_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -191,7 +181,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "ci_id",
+       rowId: "mnemo_ci_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -221,7 +211,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "ch_id",
+       rowId: "mnemo_ch_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -252,7 +242,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "registre_id",
+       rowId: "mnemo_registre_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -275,7 +265,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "mono_id",
+       rowId: "mnemo_mono_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -284,14 +274,14 @@
                                  else { return( Bouton ( "outline-secondary", "Le bit est a 0", null, null, "0" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
+        /*   { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
                  boutons += Bouton_actions_add ( "success", "Activer le bit", "Dls_run_MONO_set", item.acronyme, "power-off", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
-           }
+           }*/
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -307,7 +297,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "bi_id",
+       rowId: "mnemo_bi_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -316,7 +306,7 @@
                                  else { return( Bouton ( "outline-secondary", "Le bit est a 0", null, null, "0" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
+       /*    { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
                  boutons += Bouton_actions_add ( "success", "Activer le bit", "Dls_run_BI_set", item.acronyme, "power-off", null );
@@ -324,7 +314,7 @@
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
-           }
+           }*/
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -341,7 +331,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "visuel_id",
+       rowId: "mnemo_visuel_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",    "className": "align-middle text-center" },
            { "data": "libelle",    "title":"Libellé",     "className": "align-middle text-center" },
@@ -383,10 +373,10 @@
                                  else { return( Bouton ( "warning", "Le compteur est échu", null, null, "échu" ) ); }
                },
            },
-           { "data": null, "title":"Reste en décompte", "className": "align-middle text-center",
+        /*   { "data": null, "title":"Reste en décompte", "className": "align-middle text-center",
              "render": function (item)
                { return ( item.decompte/10.0 + "s" ); },
-           },
+           },*/
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -402,7 +392,7 @@
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "msg_id",
+       rowId: "mnemo_msg_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -411,15 +401,6 @@
                                  else { return( Bouton ( "outline-secondary", "Le message est a 0", null, null, "Inactif" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
-             "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "success", "Activer le message", "Dls_run_MSG_set", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_add ( "secondary", "Désactiver le message", "Dls_run_MSG_reset", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_end ();
-                 return(boutons);
-               },
-           }
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
