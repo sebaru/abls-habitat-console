@@ -53,25 +53,10 @@
 
     $('#idTitle').html(vars[3]);
 
-    $("#idAlertAgentNotConnected").hide();
-    fetch ( master_url + "/status",
-            { method: 'GET', headers: { 'Content-Type': 'application/json;charset=utf-8',
-                                        'Authorization': 'Bearer ' + Token,
-                                        'X-ABLS-DOMAIN': localStorage.getItem("domain_uuid")
-                                      }
-            })
-         .then ( () => { } )
-         .catch ( () => { $("#idAlertAgentNotConnected")
-                          .html("Error when connecting, things you can do:<br>"+
-                                "1/ See <a target=_blank href='"+master_url+"/status'>Agent Status</a>, accept SSL Exception and reload this page.<br>"+
-                                "2/ Check DNS configuration for <strong>"+master_url+"</strong> URL"
-                               )
-                          .slideDown(); } );
-
     $('#idTableEntreeTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -105,7 +90,7 @@
     $('#idTableEntreeANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -140,7 +125,7 @@
     $('#idTableSortieTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -170,7 +155,7 @@
     $('#idTableSortieANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -199,7 +184,7 @@
     $('#idTableCI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -229,7 +214,7 @@
     $('#idTableCH').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
+       ajax: { url : $ABLS_API+"/dls/run",  type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -260,7 +245,7 @@
     $('#idTableRegistre').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -280,40 +265,10 @@
        /*responsive: true,*/
      });
 
-    $('#idTableTempo').DataTable(
-     { pageLength : 50,
-       fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "TEMPO" }, dataSrc: "TEMPO",
-               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
-                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
-             },
-       rowId: "tempo_id",
-       columns:
-         [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
-           { "data": null, "title":"Etat", "className": "align-middle text-center",
-             "render": function (item)
-               { if (item.etat==true) { return( Bouton ( "success", "La tempo est à 1", null, null, "1" ) );        }
-                                 else { return( Bouton ( "outline-secondary", "La tempo est à 0", null, null, "0" ) ); }
-               },
-           },
-           { "data": "status",     "title":"Status",   "className": "align-middle  text-center" },
-           { "data": "daa",        "title":"daa",      "className": "align-middle  text-center" },
-           { "data": "dma",        "title":"dma",      "className": "align-middle  text-center" },
-           { "data": "dMa",        "title":"dMa",      "className": "align-middle  text-center" },
-           { "data": "dad",        "title":"dad",      "className": "align-middle  text-center" },
-           { "data": "date_on",    "title":"date_on",  "className": "align-middle  text-center" },
-           { "data": "date_off",   "title":"date_off", "className": "align-middle  text-center" },
-         ],
-       /*responsive: true,*/
-     });
-
     $('#idTableMONO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -345,7 +300,7 @@
     $('#idTableBI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -379,7 +334,7 @@
     $('#idTableVisuel').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -392,7 +347,6 @@
            { "data": "libelle",    "title":"Libellé",     "className": "align-middle text-center" },
            { "data": "mode",       "title":"Mode",        "className": "align-middle text-center" },
            { "data": "color",      "title":"Couleur",     "className": "align-middle text-center" },
-           { "data": "valeur",     "title":"Valeur",      "className": "align-middle text-center" },
            { "data": null, "title":"Cligno", "className": "align-middle text-center",
              "render": function (item)
                { if (item.cligno==true) { return( Bouton ( "outline-success", "Le visuel clignote", null, null, "Oui" ) );          }
@@ -413,7 +367,7 @@
     $('#idTableWatchdog').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -441,7 +395,7 @@
     $('#idTableMessages').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : master_url + "/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);

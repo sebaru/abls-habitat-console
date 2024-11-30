@@ -12,8 +12,6 @@
 </div>
 <hr>
 
-<div id="idAlertAgentNotConnected" class='alert alert-danger'></div>
-
 <!----------------------------------------------------------------------------------------------------------------------------->
  <div class="row m-2">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Entrées TOR"
@@ -145,43 +143,7 @@
         </tbody>
       </table>
    </div>
-      <hr>
-
-<!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
-      <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Temporisations"
-                       src="https://static.abls-habitat.fr/img/sablier.png" /> Temporisations</h4>
-     <div class="ms-auto">
-        <button type="button" onclick="Dls_run_refresh('idTableTempo')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
-     </div>
-</div>
-   <div class="table-responsive">
-      <table id="idTableTempo" class="table table-striped table-bordered table-hover">
-        <thead class="table-dark">
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-   </div>
-      <hr>
-
-<!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
-      <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Watchdogs"
-                       src="https://static.abls-habitat.fr/img/countdown.svg" /> Watchdogs</h4>
-     <div class="ms-auto">
-        <button type="button" onclick="Dls_run_refresh('idTableWatchdog')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
-     </div>
-</div>
-   <div class="table-responsive">
-      <table id="idTableWatchdog" class="table table-striped table-bordered table-hover">
-        <thead class="table-dark">
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-   </div>
-      <hr>
+<hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
  <div class="row m-2">
