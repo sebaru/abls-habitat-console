@@ -1,12 +1,41 @@
     <div class="container">
 
  <div class="row m-2">
-   <h3><i class="fas fa-globe text-primary"></i> Maintenance du domaine <strong>'<span id="idDomainLabel"></span>'</strong></h3>
+   <h3><i class="fas fa-globe text-primary"></i> Maintenances du domaine <strong>'<span id="idDomainLabel"></span>'</strong></h3>
  </div>
 
 <hr>
 
-<!-- Encadré Maintenance ------------------------------------------------------------------------------------------------------>
+<!-- Encadré Maintenance D.L.S ------------------------------------------------------------------------------------------------>
+
+       <div class="card m-1 shadow">
+         <div class="card-header"> <i class="fas fa-code text-warning"></i> <label>D.L.S Maintenance</label> </div>
+         <div class="card-body">
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-6 col-form-label text-right">Renommer un D.L.S</label>
+               <input id="idDomainDLSRenameSRC"   type="text" class="col-2 form-control mr-1" placeholder="Tech_id Source">
+               <input id="idDomainDLSRenameDST"   type="text" class="col-2 form-control mr-1" placeholder="Tech_id Destination">
+               <button id="idDomainDLSRenameSend" type="button" class="col-1 btn btn-block btn-primary"><i class="fas fa-message"></i> Rename DLS</button>
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-6 col-form-label text-right">Renommer un bit D.L.S</label>
+               <input id="idDomainDLSRenameTechIDSRC"   type="text" class="col-1 form-control mr-1" placeholder="Tech_id Source">
+               <input id="idDomainDLSRenameAcronymeSRC" type="text" class="col-1 form-control mr-1" placeholder="Acronyme Source">
+               <input id="idDomainDLSRenameTechIDDST"   type="text" class="col-1 form-control mr-1" placeholder="Tech_id Destination">
+               <input id="idDomainDLSRenameAcronymeDST" type="text" class="col-1 form-control mr-1" placeholder="Acronyme Destination">
+               <button id="idDomainDLSRenameBITSend"    type="button" class="col-1 btn btn-block btn-primary"><i class="fas fa-message"></i> Rename</button>
+             </div>
+           </div>
+
+         </div>
+ </div>
+
+<!-- Encadré Maintenance Domaine ---------------------------------------------------------------------------------------------->
 
        <div class="card m-1 shadow">
          <div class="card-header"> <i class="fas fa-wrench text-warning"></i> <label>Domain Maintenance</label> </div>
@@ -58,6 +87,8 @@
 -->
  </div>
 
+
+<!-- Encadré Maintenance API -------------------------------------------------------------------------------------------------->
 
  <div class="card m-1 shadow">
          <div class="card-header"> <i class="fas fa-wrench text-danger"></i> <label>API Maintenance</label> </div>
