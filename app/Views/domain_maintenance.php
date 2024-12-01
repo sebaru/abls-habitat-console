@@ -9,26 +9,42 @@
 <!-- Encadré Maintenance D.L.S ------------------------------------------------------------------------------------------------>
 
        <div class="card m-1 shadow">
-         <div class="card-header"> <i class="fas fa-code text-warning"></i> <label>D.L.S Maintenance</label> </div>
+         <div class="card-header"> <i class="fas fa-code text-warning"></i> <label>Renommer un bit D.L.S</label> </div>
          <div class="card-body">
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-6 col-form-label text-right">Renommer un D.L.S</label>
-               <input id="idDomainDLSRenameSRC"   type="text" class="col-2 form-control mr-1" placeholder="Tech_id Source">
-               <input id="idDomainDLSRenameDST"   type="text" class="col-2 form-control mr-1" placeholder="Tech_id Destination">
-               <button id="idDomainDLSRenameSend" type="button" class="col-1 btn btn-block btn-primary"><i class="fas fa-message"></i> Rename DLS</button>
+               <label class="col-6 col-form-label">Tech_ID source</label>
+               <input id="idDomainDLSRenameBITTechIDSRC"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id source">
              </div>
            </div>
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-6 col-form-label text-right">Renommer un bit D.L.S</label>
-               <input id="idDomainDLSRenameTechIDSRC"   type="text" class="col-1 form-control mr-1" placeholder="Tech_id Source">
-               <input id="idDomainDLSRenameAcronymeSRC" type="text" class="col-1 form-control mr-1" placeholder="Acronyme Source">
-               <input id="idDomainDLSRenameTechIDDST"   type="text" class="col-1 form-control mr-1" placeholder="Tech_id Destination">
-               <input id="idDomainDLSRenameAcronymeDST" type="text" class="col-1 form-control mr-1" placeholder="Acronyme Destination">
-               <button id="idDomainDLSRenameBITSend"    type="button" class="col-1 btn btn-block btn-primary"><i class="fas fa-message"></i> Rename</button>
+               <label class="col-6 col-form-label">Acronyme source</label>
+               <input id="idDomainDLSRenameBITAcronymeSRC" type="text" class="col-6 form-control mr-1" placeholder="Acronyme source">
+             </div>
+           </div>
+
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-6 col-form-label">Tech_ID destination</label>
+               <input id="idDomainDLSRenameBITTechIDDST"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id destination">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-6 col-form-label text-right">Acronyme destination</label>
+               <input id="idDomainDLSRenameBITAcronymeDST" type="text" class="col-6 form-control mr-1" placeholder="Acronyme destination">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-10"> </label>
+               <button id="idDomainDLSRenameBITButton"     type="button" class="col-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Rename</button>
              </div>
            </div>
 
@@ -38,7 +54,7 @@
 <!-- Encadré Maintenance Domaine ---------------------------------------------------------------------------------------------->
 
        <div class="card m-1 shadow">
-         <div class="card-header"> <i class="fas fa-wrench text-warning"></i> <label>Domain Maintenance</label> </div>
+         <div class="card-header"> <i class="fas fa-wrench text-warning"></i> <label>Maintenance Domaine</label> </div>
          <div class="card-body">
 
            <div class="row ">
@@ -91,7 +107,7 @@
 <!-- Encadré Maintenance API -------------------------------------------------------------------------------------------------->
 
  <div class="card m-1 shadow">
-         <div class="card-header"> <i class="fas fa-wrench text-danger"></i> <label>API Maintenance</label> </div>
+         <div class="card-header"> <i class="fas fa-wrench text-danger"></i> <label>Maintenance API</label> </div>
          <div class="card-body">
 
            <div class="row ">

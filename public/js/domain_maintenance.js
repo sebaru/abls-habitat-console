@@ -33,10 +33,25 @@
      { Show_toast_ok ( "Icons reloaded." );
      }, null );
   }
+/************************************ Envoi les infos de modifications d'un bit interne ***************************************/
+ function Domain_Rename_DLS_bit ( )
+  { var json_request =
+       { old_tech_id  : $("#idDomainDLSRenameBITTechIDSRC").val().toUpperCase(),
+         new_tech_id  : $("#idDomainDLSRenameBITTechIDDST").val().toUpperCase(),
+         old_acronyme : $("#idDomainDLSRenameBITAcronymeSRC").val().toUpperCase(),
+         new_acronyme : $("#idDomainDLSRenameBITAcronymeDST").val().toUpperCase(),
+       };
+
+    Send_to_API ( "POST", "/dls/rename/bit", json_request, function(Response)
+     { Show_toast_ok("Bit "+json_request.old_tech_id+":"+json_request.old_acronyme+" renommé en " +
+                            json_request.new_tech_id+":"+json_request.new_acronyme );
+     });
+  }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { console.log ("in load domain !");
     $("#idDomainLabel").text( localStorage.getItem("domain_name") );
+    $("#idDomainDLSRenameBITButton").off("click").click( function () { Domain_Rename_DLS_bit(); } );
     $("#idDomainCompilAllButton").off("click").click( function () { Domain_Compil_all_DLS(); } );
     $("#idDomainRemap")          .off("click").click( function () { Domain_Send_to_Agent( "REMAP" ); } );
     $("#idDomainHorlogeReload")  .off("click").click( function () { Domain_Send_to_Agent( "RELOAD_HORLOGE_TICK" ); } );
