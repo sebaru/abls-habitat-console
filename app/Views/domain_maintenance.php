@@ -6,7 +6,38 @@
 
 <hr>
 
-<!-- Encadré Maintenance D.L.S ------------------------------------------------------------------------------------------------>
+
+<!-- Encadré Maintenance D.L.S Tech_ID ---------------------------------------------------------------------------------------->
+
+       <div class="card m-1 shadow">
+         <div class="card-header"> <i class="fas fa-code text-warning"></i> <label>Renommer un Module D.L.S</label> </div>
+         <div class="card-body">
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-6 col-form-label">Tech_ID source</label>
+               <input id="idDomainDLSRenameDLSTechIDOLD"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id source">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-6 col-form-label">Tech_ID destination</label>
+               <input id="idDomainDLSRenameDLSTechIDNEW"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id destination">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-10"> </label>
+               <button id="idDomainDLSRenameDLSButton"     type="button" class="col-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Renommer DLS</button>
+             </div>
+           </div>
+
+         </div>
+ </div>
+
+<!-- Encadré Maintenance D.L.S Bit -------------------------------------------------------------------------------------------->
 
        <div class="card m-1 shadow">
          <div class="card-header"> <i class="fas fa-code text-warning"></i> <label>Renommer un bit D.L.S</label> </div>
@@ -14,37 +45,29 @@
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-6 col-form-label">Tech_ID source</label>
-               <input id="idDomainDLSRenameBITTechIDSRC"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id source">
+               <label class="col-6 col-form-label">Tech_ID</label>
+               <input id="idDomainDLSRenameBITTechID"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id">
              </div>
            </div>
 
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-6 col-form-label">Acronyme source</label>
-               <input id="idDomainDLSRenameBITAcronymeSRC" type="text" class="col-6 form-control mr-1" placeholder="Acronyme source">
-             </div>
-           </div>
-
-
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-6 col-form-label">Tech_ID destination</label>
-               <input id="idDomainDLSRenameBITTechIDDST"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id destination">
+               <input id="idDomainDLSRenameBITAcronymeOLD" type="text" class="col-6 form-control mr-1" placeholder="Acronyme source">
              </div>
            </div>
 
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-6 col-form-label text-right">Acronyme destination</label>
-               <input id="idDomainDLSRenameBITAcronymeDST" type="text" class="col-6 form-control mr-1" placeholder="Acronyme destination">
+               <input id="idDomainDLSRenameBITAcronymeNEW" type="text" class="col-6 form-control mr-1" placeholder="Acronyme destination">
              </div>
            </div>
 
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-10"> </label>
-               <button id="idDomainDLSRenameBITButton"     type="button" class="col-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Rename</button>
+               <button id="idDomainDLSRenameBITButton"     type="button" class="col-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Renommer BIT</button>
              </div>
            </div>
 

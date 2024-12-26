@@ -127,29 +127,6 @@
      }, null );
     $('#idModalDlsEdit').modal("show");
   }
-/************************************ Envoi les infos de modifications synoptique *********************************************/
- function Dls_Rename ( dls_id )
-  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request =
-       { old_tech_id : selection.tech_id,
-         new_tech_id : $('#idModalDlsRenameTechID').val().toUpperCase(),
-       };
-
-    Send_to_API ( "POST", "/dls/rename", json_request, function(Response)
-     { Show_toast_ok("D.L.S "+json_request.old_tech_id+" renommé en " + json_request.new_tech_id );
-       DLS_Refresh();
-     });
-  }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
- function Show_Modal_Dls_Rename ( dls_id )
-  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    $('#idModalDlsRenameTitre').text("Renommer le D.L.S " + selection.tech_id );
-    $('#idModalDlsRenameTechID').val("");
-    $('#idModalDlsRenameTechID').off("input").on("input", function () { Dls_Set_controle_techid('idModalDlsRename'); } );
-    Dls_Set_controle_techid('idModalDlsRename');                           /* Pour mettre a jour le bg-color a l'init fenetre */
-    $('#idModalDlsRenameValider').off("click").on("click", function () { Dls_Rename(selection.dls_id); } );
-    $('#idModalDlsRename').modal("show");
-  }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { $('#idTableDLS').DataTable(
@@ -233,8 +210,6 @@
                   boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Compiler le module", "Dls_compiler", item.dls_id, "coffee", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les RUN", "Redirect", "/dls/run/"+item.tech_id, "eye", null );
-                  boutons += Bouton_actions_add ( "warning", "Renommer le plugin",
-                                                  (item.tech_id != "SYS" ? "Show_Modal_Dls_Rename" : null), item.dls_id, "exchange", null );
                   boutons += Bouton_actions_add ( "danger", "Supprimer le plugin", "Show_Modal_Dls_Del", item.dls_id, "trash", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
