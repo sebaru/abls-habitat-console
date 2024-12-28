@@ -78,31 +78,4 @@
   </div>
 </div>
 
-<div id="idModalDlsRename" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content ">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idModalDlsRenameTitre"></span></h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-       <div class="col">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-center">Nouveau Tech_id du module</label>
-            <input id="idModalDlsRenameTechID" type="text" class="form-control" maxlength="32" placeholder="Nouveau TechID du module DLS">
-          </div>
-       </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
-        <button id="idModalDlsRenameValider" type="button" class="btn btn-warning" data-bs-dismiss="modal"><i class="fas fa-save"></i> Valider et recompiler tout</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script src="/js/dls.js" type="text/javascript"></script>

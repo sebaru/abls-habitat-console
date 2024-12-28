@@ -17,18 +17,6 @@
     var json_request = { tech_id : selection.tech_id, enable: false };
     Send_to_API ( 'POST', "/dls/enable", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" désactivé"); DLS_Refresh(); });
   }
-/******************************************************************************************************************************/
- function Dls_debug_plugin ( dls_id )
-  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id, debug: true };
-    Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" en debug"); DLS_Refresh(); });
-  }
-/******************************************************************************************************************************/
- function Dls_undebug_plugin ( dls_id )
-  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id, debug: false };
-    Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" hors debug"); DLS_Refresh(); });
-  }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Valider_Dls_Del ( selection )
   { var json_request = { tech_id : selection.tech_id };
@@ -154,13 +142,6 @@
                    { return( Bouton ( "outline-secondary", "Activer le plugin", "Dls_start_plugin", item.dls_id, "Désactivé" ) ); }
                   return( Bouton ( "outline-secondary", "Compilation nécéssaire", null, null, "Désactivé" ) );
                 }
-            },
-            { "data": null, title:"Debug",  "className": "text-center align-middle", "render": function (item)
-              { if (item.debug==true)
-                 { return( Bouton ( "warning", "Désactiver le debug", "Dls_undebug_plugin", item.dls_id, "Actif" ) ); }
-                else
-                 { return( Bouton ( "outline-secondary", "Activer le débug", "Dls_debug_plugin", item.dls_id, "Désactivé" ) ); }
-              }
             },
             { "data": null, "title":"TechID", "className": "align-middle text-center",
               "render": function (item)
