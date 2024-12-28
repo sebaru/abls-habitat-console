@@ -53,7 +53,8 @@
  function Domain_Save ( domain_uuid )
   { var json_request =
        { domain_uuid: domain_uuid,
-         domain_name       : $("#idDomainName").val(),
+         domain_name: $("#idDomainName").val(),
+         debug_dls  : ($("#idDomainDebugDls").val()==1 ? true : false),
        };
 
     Send_to_API ( "POST", "/domain/set", json_request, function(Response)
@@ -98,6 +99,9 @@
        $("#idDomainDeleteButton")     .off("click").click( function () { Domain_Delete( vars[2] ); } )
                                       .prop("disabled", (Response.access_level < 9) );
        $("#idDomainDeleteText")       .prop("disabled", (Response.access_level < 9) );
+       $("#idDomainDebugDls").replaceWith ( Select ( "idDomainDebugDls", null,
+                                            [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.debug_dls ) );
+
      }, null );
   }
 /******************************************************************************************************************************/

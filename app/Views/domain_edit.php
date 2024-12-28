@@ -58,7 +58,15 @@
              </div>
            </div>
 
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">Debug Traduction D.L.S</label>
+               <select id="idDomainDebugDls" class="custom-select"></select>
+             </div>
+           </div>
+
          </div>
+
 
          <div class="card-footer d-flex">
               <button id="idDomainChangeImageButton" type="button" class="btn btn-primary ms-auto">
