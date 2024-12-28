@@ -60,6 +60,14 @@
 
            <div class="row ">
              <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">Notification aux utilisateurs</label>
+               <input id="idDomainNotif" type="text" class="form-control" placeholder="Notification aux utilisateurs">
+             </div>
+           </div>
+
+
+           <div class="row ">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Debug Traduction D.L.S</label>
                <select id="idDomainDebugDls" class="custom-select"></select>
              </div>

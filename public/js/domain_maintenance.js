@@ -21,13 +21,6 @@
      }, null );
   }
 /************************************ Vide le tampon des visuels **************************************************************/
- function Domain_User_Notif ()
-  { var json_request = { notif: $("#idDomainUserNotif").val() }
-    Send_to_API ( "POST", "/domain/set_notif", json_request, function(Response)
-     { Show_toast_ok ( "Notif saved." );
-     }, null );
-  }
-/************************************ Vide le tampon des visuels **************************************************************/
  function Api_Reload_Icons ()
   { Send_to_API ( "POST", "/api/reload_icons", null, function(Response)
      { Show_toast_ok ( "Icons reloaded." );
@@ -67,7 +60,6 @@
     $("#idDomainRemap")          .off("click").click( function () { Domain_Send_to_Agent( "REMAP" ); } );
     $("#idDomainHorlogeReload")  .off("click").click( function () { Domain_Send_to_Agent( "RELOAD_HORLOGE_TICK" ); } );
     $("#idDomainHorlogeClearVisuel").off("click").click( function () { Domain_Clear_Visuels(); } );
-    $("#idDomainUserNotifSend")  .off("click").click( function () { Domain_User_Notif(); } );
     $("#idApiReloadIcons").off("click").click( function () { Api_Reload_Icons(); } );
   }
 /******************************************************************************************************************************/

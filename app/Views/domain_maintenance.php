@@ -108,14 +108,6 @@
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-6 col-form-label text-right">Notification aux utilisateurs</label>
-               <input id="idDomainUserNotif" type="text" class="col-4 form-control mr-1" placeholder="Notification aux utilisateurs">
-               <button id="idDomainUserNotifSend" type="button" class="col-2 btn btn-block btn-primary"><i class="fas fa-message"></i> Send</button>
-             </div>
-           </div>
-
          </div>
 <!--
          <div class="card-footer d-flex">

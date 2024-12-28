@@ -54,6 +54,7 @@
   { var json_request =
        { domain_uuid: domain_uuid,
          domain_name: $("#idDomainName").val(),
+         notif:       $("#idDomainNotif").val(),
          debug_dls  : ($("#idDomainDebugDls").val()==1 ? true : false),
        };
 
@@ -101,6 +102,7 @@
        $("#idDomainDeleteText")       .prop("disabled", (Response.access_level < 9) );
        $("#idDomainDebugDls").replaceWith ( Select ( "idDomainDebugDls", null,
                                             [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.debug_dls ) );
+       $("#idDomainNotif").val( Response.notif );
 
      }, null );
   }
