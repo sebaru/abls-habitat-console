@@ -42,7 +42,20 @@
     if (vars[3] == null) Redirect ("/dls");
 
     $('#idTitle').html(vars[3]);
-
+    setInterval( function()
+                  { Dls_run_refresh ( "idTableEntreeTOR" );
+                    Dls_run_refresh ( "idTableEntreeANA" );
+                    Dls_run_refresh ( "idTableSortieTOR" );
+                    Dls_run_refresh ( "idTableSortieANA" );
+                    Dls_run_refresh ( "idTableCI"        );
+                    Dls_run_refresh ( "idTableCH"        );
+                    Dls_run_refresh ( "idTableMONO"      );
+                    Dls_run_refresh ( "idTableBI"        );
+                    Dls_run_refresh ( "idTableRegistre"  );
+                    Dls_run_refresh ( "idTableVisuel"    );
+                  },
+                 5000
+               );
     $('#idTableEntreeTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
