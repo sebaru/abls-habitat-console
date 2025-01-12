@@ -65,6 +65,12 @@
              </div>
            </div>
 
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">TechID de l'Audio principal</label>
+               <input id="idDomainAudioTechID" type="text" class="form-control" placeholder="TechID du thread principal AUDIO">
+             </div>
+           </div>
 
            <div class="row ">
              <div class="input-group mb-1">
