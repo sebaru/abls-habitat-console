@@ -75,19 +75,19 @@
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Atelier_Sauvegarder_synoptique ()
-  { var Motifs=[], Liens=[], Rectangles=[], Comments=[];
-    var request = { syn_id: Synoptique.syn_id,
+  { var request = { syn_id: Synoptique.syn_id,
                     visuels: Synoptique.visuels.map( function ( visuel )
-                                                      { return ( { syn_motif_id: visuel.syn_motif_id,
+                                                      { console.debug(visuel);
+                                                        return ( { syn_motif_id: visuel.syn_motif_id,
                                                                    tech_id: visuel.tech_id, acronyme: visuel.acronyme,
                                                                    posx: visuel.posx, posy: visuel.posy, scale: visuel.scale,
                                                                    angle: visuel.angle,
-                                                                   layer: Trame.index(visuel.svggroupe)
+                                                                   layer: (visuel.svggroupe ? Trame.index(visuel.svggroupe) : 0)
                                                                  } );
                                                       }
                                                    ),
                   };
-console.debug(request);
+    console.debug(request);
     Send_to_API ( "POST", "/syn/save", request, function(Response)
      { Show_toast_ok ( "Synoptique "+Synoptique.page+" enregistré"); }, null );
   }
