@@ -39,7 +39,8 @@
        console.log(Response);
        Synoptique = Response;                                                                       /* sauvegarde du pointeur */
        $.each ( Response.visuels, function (i, visuel)
-                 { if (visuel.forme == null)
+                 { visuel.noshow=false;                                       /* Dans l'atelier, tous les visuels sont "show" */
+                   if (visuel.forme == null)
                     { console.log ( "new null at " + visuel.posx + " " + visuel.posy );
                       Trame.new_from_image ( visuel, visuel.icone+".gif" );
                     }
