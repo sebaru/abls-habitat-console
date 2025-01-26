@@ -31,7 +31,12 @@
                     }
 
         .courbe-dashboard { height: 300px; }
-
+        .wtd-menu
+          { border-radius: 20%;
+            max-width: 48px;
+            max-height: 48px;
+            cursor: pointer;
+          }
         .wtd-synoptique-preview { height: 80px; }
         .wtd-img-bit-interne { width: 40px; }
         .wtd-img-card { object-fit: contain; max-height: 196px; max-width: 196px; padding: 10px; }
@@ -185,7 +190,14 @@
 <header>
  <nav class="navbar navbar-dark navbar-expand-lg fixed-top shadow mb-2"> <!-- fixed-top -->
  <div class="container-fluid">
-  <a class="navbar-brand" href="/"><img src="https://static.abls-habitat.fr/img/abls.svg" alt="ABLS Logo" width=50></a>
+
+  <ul class="navbar-nav">
+    <a class="nav-item" href="#">
+      <img id ="idNavImgTopSyn" src="" alt=""
+           class="wtd-menu" data-bs-toggle='tooltip' data-placement='bottom' title="Aller à l'accueil">
+    </a>
+  </ul>
+
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggled" aria-controls="navbar-toggled" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
