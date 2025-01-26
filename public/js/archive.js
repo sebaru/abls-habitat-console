@@ -45,6 +45,7 @@
              [ { "data": "tech_id", "title":"Tech_id", "className": "align-middle text-center" },
                { "data": "acronyme", "title":"Acronyme", "className": "align-middle text-center" },
                { "data": "rows", "title":"Nombre d'enregistrements", "className": "align-middle text-center" },
+               { "data": "date_create", "title":"Date création", "className": "align-middle text-center" },
                { "data": "last_update", "title":"Dernier enregistrement", "className": "align-middle text-center" },
                { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
                  "render": function (item)
