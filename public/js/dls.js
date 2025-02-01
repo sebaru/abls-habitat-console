@@ -172,7 +172,9 @@
             { "data": null, "title":"Stats", "className": "align-middle text-center",
               "render": function (item)
                 { return( Badge ( "primary", "Nombre de compilation", item.nbr_compil.toString() ) + "<br>" +
-                          Badge ( "secondary", "Nombre de ligne", item.nbr_ligne.toString() ) );
+                          Badge ( "secondary", "Nombre de ligne", item.nbr_ligne.toString() ) + "<br>" +
+                          Badge ( "success", "Temps de compilation", item.compil_time.toString() )
+                        );
                 }
             },
             { "data": null, "title":"Date Compil", "className": "align-middle text-center ",
