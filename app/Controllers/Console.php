@@ -40,6 +40,8 @@ class Console extends BaseController
  public function tableau()            { $this->send_page ("tableau"); }
  public function tableau_map()        { $this->send_page ("tableau_map"); }
  public function dls()                { $this->send_page ("dls"); }
+ public function dls_packages()       { $this->send_page ("dls_packages"); }
+ public function dls_package()        { $this->send_page ("dls_package"); }
  public function dls_params()         { $this->send_page ("dls_params"); }
  public function dls_run()            { $this->send_page ("dls_run"); }
  public function dls_source()         { $this->send_page ("dls_source"); }

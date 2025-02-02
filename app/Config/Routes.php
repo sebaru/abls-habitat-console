@@ -52,6 +52,8 @@ $routes->get('/teleinfoedf',  'Console::teleinfoedf');
 $routes->get('/shelly',       'Console::shelly');
 $routes->get('/meteo',        'Console::meteo');
 $routes->get('/dls',          'Console::dls');
+$routes->get('/dls/packages', 'Console::dls_packages');
+$routes->get('/dls/packages/(:any)', 'Console::dls_package');
 $routes->get('/dls/run/(:any)', 'Console::dls_run');
 $routes->get('/dls/params/(:any)', 'Console::dls_params');
 $routes->get('/dls/(:any)',   'Console::dls_source');
