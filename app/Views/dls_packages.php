@@ -4,7 +4,7 @@
    <div class="col-auto"><h3><i class="fas fa-code text-secondary"></i> Liste des Packages D.L.S</h3></div>
 
    <div class ="col-auto ms-auto btn-group align-items-center">
-        <button type="button" onclick="Show_Modal_Dls_Pkg_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un Package</button>
+        <button type="button" onclick="Show_Modal_DLS_Pkg_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un Package</button>
          <!-- <button type="button" class="btn btn-sm btn-primary rounded-circle"><i class="fas fa-plus"></i></button>-->
    </div>
  </div>
@@ -36,14 +36,14 @@
 
        <div class="col">
           <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-center">Synoptique du module</label>
+           <label class="col-5 col-sm-4 col-form-label text-center">Nom</label>
             <input id="idModalDlsPkgEditName" type="text" class="form-control" maxlength="32" placeholder="Nom du package">
           </div>
        </div>
 
        <div class="col">
           <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-center">TechID du module</label>
+           <label class="col-5 col-sm-4 col-form-label text-center">Description</label>
             <input id="idModalDlsPkgEditDescription" type="text" class="form-control" maxlength="128" placeholder="Description du package">
            </div>
        </div>
