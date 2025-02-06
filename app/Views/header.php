@@ -221,15 +221,25 @@
 
 
       <li class="nav-item dropdown">
-        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarCONFIG" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-wrench text-primary"></i> Configuration
+        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarSYNOPTIQUE" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-image text-primary"></i> Synoptiques
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarCONFIG">
+        <div class="dropdown-menu" aria-labelledby="navbarSYNOPTIQUE">
           <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-danger"></i> <span>Synoptiques</span> </a>
+          <a class="dropdown-item" href="/tableau"> <i class="fas fa-chart-line text-secondary"></i> <span>Tableaux</span> </a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarDLS" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-wrench text-primary"></i> D.L.S
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDLS">
           <a class="dropdown-item" href="/dls"> <i class="fas fa-code text-primary"></i> <span>Modules D.L.S</span> </a>
           <a class="dropdown-item" href="/messages"> <i class="fas fa-book text-primary"></i> <span>Messages</span> </a>
           <a class="dropdown-item" href="/mnemos"> <i class="fas fa-book text-success"></i> <span>Bits internes</span> </a>
-          <a class="dropdown-item" href="/tableau"> <i class="fas fa-chart-line text-secondary"></i> <span>Tableaux</span> </a>
+          <hr>
+          <a class="dropdown-item" href="/dls/packages"> <i class="fas fa-code text-secondary"></i> <span>Packages</span> </a>
           <a class="dropdown-item" href="/search"> <i class="fas fa-search text-primary"></i> <span>Dictionnaire</span> </a>
         </div>
       </li>
