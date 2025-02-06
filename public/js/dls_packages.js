@@ -82,7 +82,7 @@
                 { return( Lien ( "/dls/package/"+item.name, "Voir la source", item.description ) );
                 }
             },
-            { "data": null, "title":"Actions", "orderable": false, "className": "align-middle",
+            { "data": null, "title":"Actions", "orderable": false, "className": "align-middle  text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
                   boutons += Bouton_actions_add ( "outline-secondary", "Voir le code", "Redirect", "/dls/package/"+item.name, "code", null );
