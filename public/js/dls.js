@@ -145,17 +145,26 @@
             },
             { "data": null, "title":"TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) );
+                { if (item.package == "" || item.package == "custom")
+                   { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
+                  else
+                   { return( Lien ( "/dls/params/"+item.tech_id, "Voir les paramètres", item.tech_id ) ); }
                 }
             },
             { "data": null, "title":"Nom court", "className": "align-middle",
               "render": function (item)
-                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.shortname ) );
+                { if (item.package == "" || item.package == "custom")
+                   { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.shortname ) ); }
+                  else
+                   { return( Lien ( "/dls/params/"+item.tech_id, "Voir les paramètres", item.shortname ) ); }
                 }
             },
             { "data": null, "title":"Libellé", "className": "align-middle ",
               "render": function (item)
-                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.name ) );
+                { if (item.package == "" || item.package == "custom")
+                   { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.name ) ); }
+                  else
+                   { return( Lien ( "/dls/params/"+item.tech_id, "Voir les paramètres", item.name ) ); }
                 }
             },
             { "data": null, "title":"Statut", "className": "align-middle text-center",
