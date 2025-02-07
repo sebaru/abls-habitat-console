@@ -20,12 +20,23 @@
   { var json_request =
        { name        : $('#idModalDlsPkgEditName').val(),
          description : $('#idModalDlsPkgEditDescription').val(),
+         dls_package_id: dls_package_id,
        };
-    if (dls_package_id>0) json_request.dls_package_id = dls_package_id;                                 /* Ajout ou édition ? */
 
     Send_to_API ( "POST", "/dls/package/set", json_request, function(Response)
-     {      if (dls_package_id>0) Show_toast_ok("D.L.S Package "+json_request.name+" mis à jour");
-       else if (dls_package_id>0) Show_toast_ok("D.L.S Package "+json_request.name+" ajouté");
+     { Show_toast_ok("D.L.S Package "+json_request.name+" mis à jour");
+       DLS_Pkg_Refresh();
+     });
+  }
+/************************************ Envoi les infos de modifications synoptique *********************************************/
+ function DLS_Pkg_Add ( )
+  { var json_request =
+       { name        : $('#idModalDlsPkgEditName').val(),
+         description : $('#idModalDlsPkgEditDescription').val(),
+       };
+
+    Send_to_API ( "POST", "/dls/package/add", json_request, function(Response)
+     { Show_toast_ok("D.L.S Package "+json_request.name+" ajouté");
        DLS_Pkg_Refresh();
      });
   }
@@ -34,7 +45,7 @@
   { $('#idModalDlsPkgEditTitre').text("Ajouter un Package D.L.S");
     $('#idModalDlsPkgEditName').val("");
     $('#idModalDlsPkgEditDescription').val("");
-    $('#idModalDlsPkgEditValider').off("click").on("click", function () { DLS_Pkg_Set(0); } );
+    $('#idModalDlsPkgEditValider').off("click").on("click", function () { DLS_Pkg_Add(); } );
     $('#idModalDlsPkgEdit').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
@@ -52,7 +63,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "dls_package_id",
-         ajax: { url : $ABLS_API+"/dls/package/list", type : "GET", dataSrc: "dls", contentType: "application/json",
+         ajax: { url : $ABLS_API+"/dls/package/list", type : "GET", dataSrc: "dls_packages", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -71,10 +82,10 @@
                 { return( Lien ( "/dls/package/"+item.name, "Voir la source", item.description ) );
                 }
             },
-            { "data": null, "title":"Actions", "orderable": false, "className": "align-middle",
+            { "data": null, "title":"Actions", "orderable": false, "className": "align-middle  text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-secondary", "Voir le code", "Redirect", "/dls/package/"+item.name, "code", null ); }
+                  boutons += Bouton_actions_add ( "outline-secondary", "Voir le code", "Redirect", "/dls/package/"+item.name, "code", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_DLS_Pkg_Edit", item.dls_package_id, "pen", null );
                   boutons += Bouton_actions_add ( "danger", "Supprimer le package", "Show_Modal_DLS_Pkg_Del", item.dls_package_id, "trash", null );
                   boutons += Bouton_actions_end ();
