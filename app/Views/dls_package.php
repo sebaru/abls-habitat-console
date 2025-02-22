@@ -5,6 +5,7 @@
 
    <div class ="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="Dls_Pkg_Save()" class="btn btn-success"><i class="fas fa-save"></i> Sauver</button>
+        <button type="button" onclick="Dls_Pkg_Compil()" class="btn btn-outline-success"><i class="fas fa-coffee"></i> Compiler Tout</button>
         <button type="button" onclick=Redirect("/dls/packages") class="btn btn-secondary"><i class="fas fa-list"></i> Liste Packages</button>
          <!-- <button type="button" class="btn btn-sm btn-primary rounded-circle"><i class="fas fa-plus"></i></button>-->
    </div>

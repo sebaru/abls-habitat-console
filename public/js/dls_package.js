@@ -1,11 +1,19 @@
 
  var Package;
  var SourceCode;
+/********************************************* Appelé lors du clic sur compil all package *************************************/
+ function Dls_Pkg_Compil ()
+  { var json_request =
+     { dls_package_id : Package.dls_package_id,
+     };
 
-/********************************************* Appelé au chargement de la page ************************************************/
+    Send_to_API ( "POST", "/dls/compil_all", json_request, function(Response)
+     { Show_toast_ok ( "Compilations en cours." );
+     }, null );
+  }
+/********************************************* Appelé lors du clic sur Save ***************************************************/
  function Dls_Pkg_Save ()
-  { vars = window.location.pathname.split('/');
-    var json_request =
+  { var json_request =
      { dls_package_id : Package.dls_package_id,
        sourcecode     : SourceCode.getDoc().getValue(),
      };

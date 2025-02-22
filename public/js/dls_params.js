@@ -3,7 +3,7 @@
   { selection = $('#idTableDlsParams').DataTable().row("#"+dls_param_id).data();
     var json_request =
        { dls_param_id: parseInt(dls_param_id),
-         libelle : $('#idDlsParamLibelle_'+dls_param_id).val(),
+         valeur : $('#idDlsParamValeur_'+dls_param_id).val(),
        };
     Send_to_API ( "POST", "/dls/params/set", json_request, function (Response)
      { $('#idTableDlsParams').DataTable().ajax.reload(null, false);
@@ -31,12 +31,13 @@
          rowId: "dls_param_id",
          columns:
           [ { "data": "acronyme", "title":"Acronyme", "className": "align-middle text-center " },
-            { "data": null, "title":"Libellé", "className": "align-middle ",
+            { "data": "libelle", "title":"Libellé", "className": "align-middle text-center " },
+            { "data": null, "title":"Valeur", "className": "align-middle ",
               "render": function (item)
-                { return( Input ( "text", "idDlsParamLibelle_"+item.dls_param_id,
+                { return( Input ( "text", "idDlsParamValeur_"+item.dls_param_id,
                                   "Dls_Param_Set('"+item.dls_param_id+"')",
                                   "Quelle est le libellé associé ?",
-                                  item.libelle )
+                                  item.valeur )
                         );
                 }
             },
