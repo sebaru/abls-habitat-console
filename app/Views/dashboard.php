@@ -147,11 +147,11 @@
   </div>
 
   <div class="row p-1 justify-content-center">
-   <canvas id="idCourbeDlsNbApiEnreg" class="courbe-dashboard border border-info"></canvas>
+   <canvas id="idCourbeDlsNbMotifs" class="courbe-dashboard border border-info"></canvas>
   </div>
 
   <div class="row p-1 justify-content-center">
-   <canvas id="idCourbeDlsNbARCHIVE" class="courbe-dashboard border border-info"></canvas>
+   <canvas id="idCourbeDlsNbPlugins" class="courbe-dashboard border border-info"></canvas>
   </div>
 
   <div class="row p-1 justify-content-center">
