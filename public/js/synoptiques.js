@@ -73,7 +73,7 @@
                                                                            return(0);
                                                                          } ),
              function ( i, syn )
-              { $('#idModalSynEditPPage').append("<option value='"+syn.syn_id+"'>"+syn.page+"</option>"); } );
+              { $('#idModalSynEditPPage').append("<option value='"+syn.syn_id+"'>"+syn.page+" (#"+syn.syn_id+")</option>"); } );
     $('#idModalSynEditPPage').val ( selection.pid );
     if (syn_id==1) $('#idModalSynEditPPage').attr("disabled", true );
               else $('#idModalSynEditPPage').attr("disabled", false );
