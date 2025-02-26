@@ -12,7 +12,16 @@
   { Redirect ( "/dls/run/"+Dls.tech_id );
   }
 /********************************************* Appelé au chargement de la page ************************************************/
- function Compiler_valider ()
+ function Dls_Restart ()
+  { var json_request =
+     { tech_id : Dls.tech_id,
+     };
+
+    Send_to_API ( "POST", "/dls/restart", json_request, function(Response)
+     { Show_toast_ok ( "DLS "+ Dls.tech_id + " re-starté." ); }, null );
+  }
+/********************************************* Appelé au chargement de la page ************************************************/
+ function Dls_Compiler_valider ()
   { var json_request =
      { tech_id : Dls.tech_id,
        sourcecode: SourceCode.getDoc().getValue(),
@@ -28,23 +37,23 @@
      }, null );
   }
 /********************************************* Appelé au chargement de la page ************************************************/
- function Compiler ()
+ function Dls_Compiler ()
   { if (SourceCode.getDoc().getValue().length == 0)
      { Show_Error ( "Un plugin vide n'est pas autorisé" );
        return;
      }
 
-    if (Dls.nbr_ligne <= 50) { Compiler_valider (); return; }
+    if (Dls.nbr_ligne <= 50) { Dls_Compiler_valider (); return; }
     var min = Dls.nbr_ligne * 0.8;
     var max = Dls.nbr_ligne * 1.2;
     if (SourceCode.lineCount() < min || SourceCode.lineCount() > max)
      { Show_modal_del ( "Confirmation de compilation",
                         "Beaucoup de lignes ont été modifiées. Etes-vous sûr d'appliquer ces changements ?",
                         "Nombre de lignes avant édition: "+ Dls.nbr_ligne +". Après édition: " + SourceCode.lineCount() + ".",
-                        function () { Compiler_valider(); } );
+                        function () { Dls_Compiler_valider(); } );
        return;
      }
-    else Compiler_valider ();
+    else Dls_Compiler_valider ();
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()

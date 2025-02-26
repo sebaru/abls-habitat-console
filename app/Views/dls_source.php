@@ -4,7 +4,8 @@
    <h3><i class="fas fa-code text-primary"></i> Edition D.L.S <strong id="idSourceTitle"></strong></h3>
 
    <div class ="col-auto ms-auto btn-group align-items-center">
-        <button type="button" onclick="Compiler()" class="btn btn-outline-success"><i class="fas fa-coffee"></i> Compiler</button>
+        <button type="button" onclick="Dls_Compiler()" class="btn btn-outline-success"><i class="fas fa-coffee"></i> Compiler</button>
+        <button type="button" onclick="Dls_Restart()" class="btn btn-warning"><i class="fas fa-redo"></i> Restart</button>
         <button type="button" onclick="Go_to_dls_run()"class="btn btn-info"><i class="fas fa-eye"></i> RUN</button>
         <button type="button" onclick="Go_to_messages()" class="btn btn-primary"><i class="fas fa-book"></i> Messages</button>
         <button type="button" onclick=Redirect("/dls") class="btn btn-secondary"><i class="fas fa-list"></i> Liste DLS</button>
