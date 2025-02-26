@@ -34,16 +34,15 @@
        return;
      }
 
-    if (Dls.nbr_ligne > 50)
-     { var min = Dls.nbr_ligne * 0.8;
-       var max = Dls.nbr_ligne * 1.2;
-       if (SourceCode.lineCount() < min || SourceCode.lineCount() > max)
-        { Show_modal_del ( "Confirmation de compilation",
-                           "Beaucoup de lignes ont été modifiées. Etes-vous sûr d'appliquer ces changements ?",
-                           "Nombre de lignes avant édition: "+ Dls.nbr_ligne +". Après édition: " + SourceCode.lineCount() + ".",
-                           function () { Compiler_valider(); } );
-          return;
-        }
+    if (Dls.nbr_ligne <= 50) { Compiler_valider (); return; }
+    var min = Dls.nbr_ligne * 0.8;
+    var max = Dls.nbr_ligne * 1.2;
+    if (SourceCode.lineCount() < min || SourceCode.lineCount() > max)
+     { Show_modal_del ( "Confirmation de compilation",
+                        "Beaucoup de lignes ont été modifiées. Etes-vous sûr d'appliquer ces changements ?",
+                        "Nombre de lignes avant édition: "+ Dls.nbr_ligne +". Après édition: " + SourceCode.lineCount() + ".",
+                        function () { Compiler_valider(); } );
+       return;
      }
     else Compiler_valider ();
   }
