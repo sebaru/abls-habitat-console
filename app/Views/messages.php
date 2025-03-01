@@ -59,8 +59,16 @@
 
        <div class="col ">
 					     <div class="input-group mb-1">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Notification texte</label>
-						     <select id="idMSGEditTxtNotification" class="col-7 col-sm-8 custom-select border-info">
+						     <label class="col-5 col-sm-4 col-form-label text-right">Notification GSM</label>
+						     <select id="idMSGEditNotifSMSG" class="col-7 col-sm-8 custom-select border-info">
+           </select>
+     					</div>
+       </div>
+
+       <div class="col ">
+					     <div class="input-group mb-1">
+						     <label class="col-5 col-sm-4 col-form-label text-right">Notification CHAT</label>
+						     <select id="idMSGEditNotifIMSG" class="col-7 col-sm-8 custom-select border-info">
            </select>
      					</div>
        </div>
