@@ -18,7 +18,7 @@
   { var json_request =
        { tech_id         : selection.tech_id,
          acronyme        : selection.acronyme,
-         notif_gsm       : parseInt($('#idMSGEditNotifSMSG').val()),
+         notif_sms       : parseInt($('#idMSGEditNotifSMSG').val()),
          notif_chat      : parseInt($('#idMSGEditNotifIMSG').val()),
          audio_zone      : $('#idMSGEditAudioZone').val(),
          audio_libelle   : $('#idMSGEditAudioLibelle').val(),
@@ -35,7 +35,7 @@
   { selection = $('#idTableMESSAGES').DataTable().row("#"+msg_id).data();
     $('#idMSGEditTitre').text("Editer les paramètres du message " + selection.tech_id+":"+selection.acronyme);
     $('#idMSGEditLibelle').prop ("disabled", true).val( selection.libelle );
-    $('#idMSGEditNotifSMSG').replaceWith ( Select ( "idMSGEditNotifSMSG", null, SMSG_NOTIF, selection.notif_gsm ) );
+    $('#idMSGEditNotifSMSG').replaceWith ( Select ( "idMSGEditNotifSMSG", null, SMSG_NOTIF, selection.notif_sms ) );
     $('#idMSGEditNotifIMSG').replaceWith ( Select ( "idMSGEditNotifIMSG", null, IMSG_NOTIF, selection.notif_chat ) );
     $('#idMSGEditAudioZone').val( selection.audio_profil );
     $('#idMSGEditAudioLibelle').val( selection.audio_libelle );
@@ -93,7 +93,7 @@
            },
            { "data": null, "title":"GSM", "className": "align-middle text-center",
              "render": function (item)
-               { return( SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_gsm); } )[0].texte ); }
+               { return( SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms); } )[0].texte ); }
            },
            { "data": null, "title":"Chat", "className": "align-middle text-center",
              "render": function (item)
