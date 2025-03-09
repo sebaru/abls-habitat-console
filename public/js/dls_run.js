@@ -207,7 +207,6 @@
                },
            },
            { "data": "valeur",     "title":"Valeur",     "className": "text-center align-middle" },
-           { "data": "multi",      "title":"Multiplicateur", "className": "text-center align-middle " },
            { "data": "unite",      "title":"Unité", "className": "text-center align-middle " },
          ],
        /*order: [ [0, "desc"] ],*/
