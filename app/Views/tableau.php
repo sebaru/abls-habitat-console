@@ -13,8 +13,8 @@
 <div class="table-responsive">
   <table id="idTableTableau" class="table table-striped table-bordered table-hover">
     <thead class="table-dark">
-				</thead>
-			 <tbody>
+    </thead>
+    <tbody>
     </tbody>
   </table>
 </div>
@@ -35,17 +35,24 @@
       <div class="modal-body">
 
        <div class="col ">
-					     <div class="input-group mb-1">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Synoptique parent</label>
-						     <select id="idTableauEditPage" class="col-7 col-sm-8 custom-select border-info"></select>
-     					</div>
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Synoptique parent</label>
+           <select id="idTableauEditPage" class="col-7 col-sm-8 custom-select border-info"></select>
+          </div>
        </div>
 
        <div class="col ">
-					     <div class="input-group mb-1">
-						     <label class="col-5 col-sm-4 col-form-label text-right">Titre du tableau</label>
-						     <input id="idTableauEditLibelle" type="text" class="form-control" placeholder="Titre du tableau">
-     					</div>
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Titre du tableau</label>
+           <input id="idTableauEditLibelle" type="text" class="form-control" placeholder="Titre du tableau">
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Mode</label>
+           <select id="idTableauEditMode" class="col-7 col-sm-8 custom-select border-info"></select>
+          </div>
        </div>
 
       </div>

@@ -1,3 +1,7 @@
+ var ModeTableau = [ { valeur: 0, color: "info", tooltip: "Affichage en tant que courbes", texte: "Courbe" },
+                     { valeur: 1, color: "warning", tooltip: "Affichage en tant que valeurs",texte: "Valeur" },
+                   ];
+
 /************************************ Demande de refresh **********************************************************************/
  function TABLEAU_Refresh ( )
   { $('#idTableTableau').DataTable().ajax.reload(null, false);
@@ -8,6 +12,7 @@
     Select_from_api ( "idTableauEditPage", "/syn/list", null, "synoptiques", "syn_id", function (item)
      { return ( item.page+" - "+htmlEncode(item.libelle) ); }, Get_url_parameter("syn_id") );
 
+    $('#idTableauEditMode').replaceWith ( Select ( "idTableauEditMode", null, ModeTableau, 0 ) );
     $('#idTableauEditLibelle').val( "" );
     $('#idTableauEditValider').attr( "onclick", "TABLEAU_Set(null)" );
     $('#idTableauEdit').modal("show");
@@ -17,6 +22,7 @@
   { selection = $('#idTableTableau').DataTable().row("#"+tableau_id).data();
     var json_request =
        { titre:  $('#idTableauEditLibelle').val(),
+         mode:   parseInt($('#idTableauEditMode').val()),
          syn_id: parseInt($('#idTableauEditPage').val()),
        }
     if (tableau_id!=null) json_request.tableau_id = selection.tableau_id;
@@ -48,6 +54,7 @@
     Select_from_api ( "idTableauEditPage", "/syn/list", null, "synoptiques", "syn_id", function(item)
                         { return(item.page+" - "+htmlEncode(item.libelle)); }, selection.syn_id );
 
+    $('#idTableauEditMode').replaceWith ( Select ( "idTableauEditMode", null, ModeTableau, selection.mode ) );
     $('#idTableauEditLibelle').val( selection.titre );
     $('#idTableauEditValider').attr( "onclick", "TABLEAU_Set('"+selection.tableau_id+"')" );
     $('#idTableauEdit').modal("show");
@@ -71,8 +78,14 @@
                },
          rowId: "tableau_id",
          columns:
-          [ { "data": "page", "title":"Page", "className": "align-middle text-center" },
-            { "data": "titre", "title":"Titre", "className": "align-middle" },
+          [ { "data": "page", "title":"Page", "className": "text-center" },
+            { "data": "titre", "title":"Titre", "className": "" },
+            { "data": null, "title":"Mode", "className": "text-center",
+              "render": function (item)
+                { mode = ModeTableau.find ( (element) => element.valeur == item.mode );
+                  return( Badge ( mode.color, mode.tooltip, mode.texte ) );
+                }
+            },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
