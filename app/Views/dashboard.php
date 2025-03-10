@@ -155,6 +155,10 @@
   </div>
 
   <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsNbErrors" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
    <canvas id="idCourbeDlsNbLigne" class="courbe-dashboard border border-info"></canvas>
   </div>
 
