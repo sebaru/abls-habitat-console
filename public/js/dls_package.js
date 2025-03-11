@@ -3,7 +3,11 @@
  var SourceCode;
 /********************************************* Appelé lors du clic sur compil all package *************************************/
  function Dls_Pkg_Compil ()
-  { var json_request =
+  { if (!Package) { Show_Error("Package is null"); return; }
+    if (Package.dls_package_id == undefined) { Show_Error("dls_package_id is undefined"); return; }
+    if (Package.dls_package_id == 0) { Show_Error("dls_package_id is 0"); return; }
+
+    var json_request =
      { dls_package_id : Package.dls_package_id,
      };
 
