@@ -370,89 +370,71 @@
     else if (period=="DAY")  setInterval( function() { window.location.reload(); }, 300000);
     else setInterval( function() { window.location.reload(); }, 600000);*/
   }
-
-/********************************* Chargement d'une courbe dans u synoptique 1 au démrrage ************************************/
- function Charger_plusieurs_courbes ( idChart, tableau_map, period )
-  { var chartElement = document.getElementById(idChart);
-    if (!chartElement) { console.log("Charger_plusieurs_courbes: Erreur chargement chartElement " + idChart ); return; }
-
-    if (period===undefined) period="HOUR";
-    var json_request =
-     { courbes: tableau_map.map( function (item)
-                                  { return( { tech_id: item.tech_id, acronyme: item.acronyme } ) } ),
-       period : period
-     };
-
-    Send_to_API ( "POST", "/archive/get", json_request, function(Response)
-     { var dates;
-       var ctx = chartElement.getContext('2d');
-       if (!ctx) { console.log("Charger_plusieurs_courbes: Erreur chargement context " + json_request ); return; }
-
-       if (period=="HOUR") dates = Response.valeurs.map( function(item) { return item.date.split(' ')[1]; } );
-                      else dates = Response.valeurs.map( function(item) { return item.date; } );
-       var data = { labels: dates,
-                    datasets: [],
-                  }
-       for (i=0; i<tableau_map.length; i++)
-        { data.datasets.push ( { label: Response["courbe"+(i+1)].libelle+ " ("+Response["courbe"+(i+1)].unite+")",
-                                 borderColor: tableau_map[i].color,
-                                 /*backgroundColor: "rgba(0, 0, 0, 0.5)",*/
-                                 backgroundColor: tableau_map[i].color,/*"rgba(100, 100, 100, 0.1)",*/
-                                 borderWidth: "1",
-                                 tension: "0.1",
-                                 radius: "1",
-                                 data: Response.valeurs.map( function(item) { return(item["moyenne"+(i+1)]); } ),
-                                 yAxisID: "B",
-                               });
-        }
-console.debug(data);
-       var options = { maintainAspectRatio: false,
-                       scales: { yAxes: [ { id: "B", type: "linear", position: "right",
-                                            scaleLabel: { display: false, labelString: tableau_map[0].unite }
-                                          },
-                                        ]
-                               }
-                     };
-       if (Charts != null && Charts[idChart] != null)
-        { Charts[idChart].ctx.destroy();
-          if (Charts[idChart].timeout != null) clearTimeout ( Charts[idChart].timeout );
-        } else Charts[idChart] = new Object ();
-
-       Charts[idChart].ctx = new Chart(ctx, { type: 'line', data: data, options: options } );
-       if (period == "HOUR")
-        { Charts[idChart].timeout = setTimeout ( function()                                                  /* Update graphe */
-           { Charger_plusieurs_courbes ( idChart, tableau_map, period ); }, 60000 );
-        }
-     });
-  }
 /********************************* Chargement d'une courbe dans 1 synoptique **************************************************/
- function Charger_tableau_by_courbe ( idDest, tableau, tableau_map, period )
-  { var idTableau = "idTableau-"+tableau.tableau_id;
+ function Charger_tableau_by_courbe ( idDest, tableau, tableau_map )
+  { console.debug(tableau);
+    var idTableau = "idTableau-"+tableau.tableau_id;
     var chartElement = document.getElementById(idTableau);                 /* Tableau existant ? Sinon on l'ajoute à l'idDest */
     if (!chartElement)
-     { $("#"+idDest).append( $("<div></div>").addClass("col")
-                             .append( $("<h2></h2").addClass("text-white text-center").append (tableau.titre) )
+     { $("#"+idDest).append( $("<div></div>").addClass("col").attr("id", idTableau+"-div")
+                             .append ( $("<div></div").addClass("d-flex align-items-center")
+                                       .append ( $("<h2></h2>").addClass("flex-grow-1 text-white text-center").append (tableau.titre)
+                                               )
+                                       .append ( $("<div></div>").addClass(" w-auto btn-group align-items-center")
+                                                 .append ( $("<i></i>").addClass("fas fa-clock text-primary mr-2" ) )
+                                                 .append ( $( "<select></select" )
+                                                           .attr("id", idTableau+"-select")
+                                                           .addClass("custom-select")
+                                                           .append ( $("<option></option>").attr("value", "HOUR").append("Heure") )
+                                                           .append ( $("<option></option>").attr("value", "DAY").append("Jour") )
+                                                           .append ( $("<option></option>").attr("value", "WEEK").append("Mois") )
+                                                           .append ( $("<option></option>").attr("value", "MONTH").append("Heure") )
+                                                           .append ( $("<option></option>").attr("value", "YEAR").append("Année") )
+                                                           .append ( $("<option></option>").attr("value", "ALL").append("Tout") )
+                                                         )
+                                               )
+                                     )
                              .append( $("<canvas></canvas>").attr("id", idTableau).addClass("wtd-courbe") )
                            );
+       Charts[idTableau] = new Object ();
+       Charts[idTableau].period = "HOUR";
+
+       $("#"+idTableau+"-select").off("change").on("change", function ()
+        { var new_period = $("#"+idTableau+"-select").val()
+          console.log("Change period for "+idTableau+" to " + new_period);
+          Charts[idTableau].period = new_period;
+          Charger_tableau_by_courbe ( idDest, tableau, tableau_map )
+        });
+
+       $("#"+idTableau+"-div").on("remove", function ()
+        { Charts[idTableau].ctx.destroy();
+          if (Charts[idTableau].timeout != null) clearTimeout ( Charts[idTableau].timeout );
+          Charts[idTableau] = null;
+        });
      }
 
     var chartElement = document.getElementById(idTableau);                                          /* On récupère le tableau */
-    if (!chartElement) { console.log("Charger_tableau_by_courbe: Erreur chargement chartElement " + idTableau ); return; }
+    if (!chartElement) { console.log("Erreur chargement chartElement " + idTableau ); return; }
 
-    if (period===undefined) period="HOUR";
+    if (Charts[idTableau].period == "HOUR" && Charts[idTableau].timeout == null)
+        { Charts[idTableau].timeout = setTimeout ( function()                                                /* Update graphe */
+           { Charger_tableau_by_courbe ( idDest, tableau, tableau_map ); }, 60000 );
+        }
+    else if (Charts[idTableau].timeout != null) clearTimeout ( Charts[idTableau].timeout );
+
     var json_request =
      { courbes: tableau_map.map( function (item)
                                   { return( { tech_id: item.tech_id, acronyme: item.acronyme } ) } ),
-       period : period
+       period : Charts[idTableau].period
      };
 
     Send_to_API ( "POST", "/archive/get", json_request, function(Response)
      { var dates;
        var ctx = chartElement.getContext('2d');
-       if (!ctx) { console.log("Charger_tableau_by_courbe: Erreur chargement context " + json_request ); return; }
+       if (!ctx) { console.log("Erreur chargement context " + json_request ); return; }
 
-       if (period=="HOUR") dates = Response.valeurs.map( function(item) { return item.date.split(' ')[1]; } );
-                      else dates = Response.valeurs.map( function(item) { return item.date; } );
+       if (Charts[idTableau].period=="HOUR") dates = Response.valeurs.map( function(item) { return item.date.split(' ')[1]; } );
+                                        else dates = Response.valeurs.map( function(item) { return item.date; } );
        var data = { labels: dates,
                     datasets: [],
                   }
@@ -465,38 +447,38 @@ console.debug(data);
                                  tension: "0.1",
                                  radius: "1",
                                  data: Response.valeurs.map( function(item) { return(item["moyenne"+(i+1)]); } ),
-                                 yAxisID: "B",
                                });
         }
 console.debug(data);
-       var options = { maintainAspectRatio: false,
-                       scales: { yAxes: [ { id: "B", type: "linear", position: "right",
-                                            scaleLabel: { display: false, labelString: tableau_map[0].unite }
-                                          },
-                                        ]
-                               }
-                     };
-       if (Charts != null && Charts[idTableau] != null)
-        { Charts[idTableau].ctx.destroy();
-          if (Charts[idTableau].timeout != null) clearTimeout ( Charts[idTableau].timeout );
-        } else Charts[idTableau] = new Object ();
+       var options = { maintainAspectRatio: true,
+                       scales: { x: { ticks: { color: "white" } },
+                                 y: { ticks: { color: "white" } }
+                               },
+                       plugins: { legend: { labels: { color: "white" } }
+                                },
 
-       Charts[idTableau].ctx = new Chart(ctx, { type: 'line', data: data, options: options } );
-       if (period == "HOUR")
-        { Charts[idTableau].timeout = setTimeout ( function()                                                /* Update graphe */
-           { Charger_tableau_by_courbe ( idDest, tableau, tableau_map, period ); }, 60000 );
+                     };
+
+
+
+       if (!Charts[idTableau].ctx)
+        { Charts[idTableau].ctx = new Chart(ctx, { type: 'line', data: data, options: options } ); }
+       else
+        { Charts[idTableau].ctx.data = data;
+          Charts[idTableau].ctx.options = options;
+          Charts[idTableau].ctx.update();
         }
+
      });
-    $('#'+idTableau).off("click").on("click", function () { Redirect("/tableau/"+tableau.tableau_id+"/HOUR"); } );
   }
 /********************************* Chargement d'une courbe dans 1 synoptique **************************************************/
  function Charger_tableau_by_table ( idDest, tableau, tableau_map, period )
   { var idTableau = "idTableau-"+tableau.tableau_id;
     var tableElement = document.getElementById(idTableau);                 /* Tableau existant ? Sinon on l'ajoute à l'idDest */
     if (!tableElement)
-     { $("#"+idDest).append( $("<div></div>").addClass("col table-responsive")
+     { $("#"+idDest).append( $("<div></div>").addClass("col table-responsive").attr("id", idTableau+"-div")
                              .append( $("<h2></h2").addClass("text-white text-center").append (tableau.titre) )
-                             .append( $("<table></table>").attr("id", idTableau).addClass("table table-dark w-100") )
+                             .append( $("<table></table>").attr("id", idTableau).addClass("table table-dark") )
                            );
      }
 
@@ -506,10 +488,11 @@ console.debug(data);
                                   { return( { tech_id: item.tech_id, acronyme: item.acronyme } ) } ),
        period : period
      };
+
     var colonnes = [];
     colonnes.push ( { "data": "date", "title":"Date", "className": "text-center" } );
     for (var i=0; i<json_request.courbes.length; i++)
-     { colonnes.push ( { "data": "moyenne"+(i+1), "title":"Date", "className": "text-center" } ); }
+     { colonnes.push ( { "data": "moyenne"+(i+1), "title":"Valeur", "className": "text-center" } ); }
 
     $('#'+idTableau).DataTable(
        { pageLength : 25,

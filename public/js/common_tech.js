@@ -1,10 +1,10 @@
- var ModeArchivage = [ { valeur: 0,      texte: "Aucun" },
-                       { valeur: 50,     texte: "Toutes les 5 secondes" },
-                       { valeur: 600,    texte: "Toutes les minutes" },
-                       { valeur: 3000,   texte: "Toutes les 5 minutes" },
-                       { valeur: 36000,  texte: "Toutes les heures" },
+ var ModeArchivage = [ { valeur: 864000, texte: "Tous les jours" },
                        { valeur: 72000,  texte: "Toutes les 2 heures" },
-                       { valeur: 864000, texte: "Tous les jours" },
+                       { valeur: 36000,  texte: "Toutes les heures" },
+                       { valeur: 3000,   texte: "Toutes les 5 minutes" },
+                       { valeur: 600,    texte: "Toutes les minutes" },
+                       { valeur: 50,     texte: "Toutes les 5 secondes" },
+                       { valeur: 0,      texte: "Aucun" },
                      ];
 
 /********************************************* Reload Process *****************************************************************/
@@ -39,7 +39,6 @@
        if (fonction_ok) fonction_ok(Response);
      }, fonction_nok );
   }
-/********************************************* Renvoi un Select d'archivage ***************************************************/
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function COMMON_Map ( thread_tech_id, thread_acronyme, tech_id, acronyme )
   { var json_request =
