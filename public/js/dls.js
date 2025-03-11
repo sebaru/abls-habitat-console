@@ -134,13 +134,12 @@
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.page, item.page ) + "<br>#" + item.syn_id ); },
             },
-            { "data": null, "title":"Started", "className": "align-middle  text-center",
+            { "data": null, "title":"Enabled", "className": "align-middle  text-center",
               "render": function (item)
                 { if (item.enable==true)
                    { return( Bouton ( "success", "Désactiver le plugin", "Dls_stop_plugin", item.dls_id, "Actif" ) ); }
-                  if (item.compil_status==true) /* Si compil OK ou warning */
+                  else
                    { return( Bouton ( "outline-secondary", "Activer le plugin", "Dls_start_plugin", item.dls_id, "Désactivé" ) ); }
-                  return( Bouton ( "outline-secondary", "Compilation nécéssaire", null, null, "Désactivé" ) );
                 }
             },
             { "data": null, "title":"TechID", "className": "align-middle text-center",
