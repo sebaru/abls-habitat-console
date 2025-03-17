@@ -7,6 +7,20 @@
                        { valeur: 0,      texte: "Aucun" },
                      ];
 
+ var myDLSLangageRegex = [ { regex: /\/\*[^*]*\*+(?:[^*\/][^*]*\*+)*\//, token: "comment" }, // Commentaires #
+                           { regex: /"(?:[^\\]|\\.)*?"/, token: "string" }, // Chaînes de caractères
+                           { regex: "/\b_[A-Z].*/", token: "type" }, // Mots-clés
+                           { regex: "#define", token: "def" }, // Mots-clés
+                           { regex: "#param", token: "def" }, // Mots-clés
+                           { regex: "<->", token: "operator" }, // Mots-clés
+                           { regex: "->", token: "operator" }, // Mots-clés
+                           { regex: "-", token: "operator" }, // Mots-clés
+                           { regex: "=", token: "operator" }, // Mots-clés
+                           { regex: /\d+/, token: "number" }, // Nombres
+                           { regex: /[A-Z][A-Za-z0-9_]*/, token: "variable" }, // Variables
+                           { regex: /\b_[A-Z]*\b/g, token: "keyword" }, // Variables
+                         ];
+
 /********************************************* Reload Process *****************************************************************/
  function Thread_enable ( thread_tech_id, enable, fonction_ok, fonction_nok )
   { var json_request =

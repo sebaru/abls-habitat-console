@@ -37,7 +37,10 @@
     if (vars[3] == null) Redirect ("/dls/packages");
     Name = vars[3];
 
-    SourceCode = CodeMirror.fromTextArea( document.getElementById("idSourceCode"), { lineNumbers: true } );
+    CodeMirror.defineSimpleMode("myDLSLangage", { start: myDLSLangageRegex });
+    SourceCode = CodeMirror.fromTextArea( document.getElementById("idSourceCode"),
+                                          { mode: "myDLSLangage", lineNumbers: true, theme: "material" }
+                                        );
     SourceCode.setSize( null, "100%");
 
     Send_to_API ( "GET", "/dls/package/source", "name="+Name, function(Response)

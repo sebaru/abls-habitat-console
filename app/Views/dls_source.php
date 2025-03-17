@@ -33,5 +33,4 @@
 <!-- Container -->
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js" type="text/javascript"></script>
 <script src="/js/dls_source.js" type="text/javascript"></script>
