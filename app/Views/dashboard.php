@@ -8,7 +8,7 @@
 
 <div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -28,7 +28,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -50,7 +50,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -68,7 +68,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -89,7 +89,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1t">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -107,7 +107,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">

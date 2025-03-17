@@ -61,7 +61,24 @@
   { vars = window.location.pathname.split('/');
     if (vars[2] == null) Redirect ("/dls");
 
-    SourceCode = CodeMirror.fromTextArea( document.getElementById("idSourceCode"), { lineNumbers: true } );
+    CodeMirror.defineSimpleMode("myDLSLangage",
+     { start: [ { regex: /\/\*[^*]*\*+(?:[^*\/][^*]*\*+)*\//, token: "comment" }, // Commentaires #
+                { regex: /"(?:[^\\]|\\.)*?"/, token: "string" }, // Chaînes de caractères
+                { regex: "/\b_[A-Z].*/", token: "type" }, // Mots-clés
+                { regex: "#define", token: "def" }, // Mots-clés
+                { regex: "#param", token: "def" }, // Mots-clés
+                { regex: "<->", token: "operator" }, // Mots-clés
+                { regex: "->", token: "operator" }, // Mots-clés
+                { regex: "-", token: "operator" }, // Mots-clés
+                { regex: /\d+/, token: "number" }, // Nombres
+                { regex: /[A-Z][A-Za-z0-9_]*/, token: "variable" }, // Variables
+                { regex: /\b_[A-Z]*\b/g, token: "keyword" }, // Variables
+              ]
+     });
+
+    SourceCode = CodeMirror.fromTextArea( document.getElementById("idSourceCode"),
+                                          { mode: "myDLSLangage", lineNumbers: true, theme: "material" }
+                                        );
     SourceCode.setSize( null, "100%");
 
     Send_to_API ( "GET", "/dls/source", "tech_id="+vars[2], function(Response)
