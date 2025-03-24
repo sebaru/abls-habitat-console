@@ -15,7 +15,7 @@
   { if ( localStorage.getItem("domain_uuid") == null ) $("#idAlertNoDomain").slideDown("slow");
                                                  else  $("#idAlertNoDomain").slideUp("slow");
 
-    let card = $("<div id='idpluscard'>").addClass("card shadow m-1 bg-light");
+    let card = $("<div id='idpluscard'>").addClass("card shadow m-1");
     let header = $("<h5>").text( "Nouveau" );
     card.append ( $("<div>").addClass("card-header text-center").append(header) );
 
@@ -33,7 +33,7 @@
 
     Send_to_API ( "GET", "/domain/list", null, function (Response)
      { Response.domains.forEach ( function (element, index)
-        { let card = $("<div>").addClass("card shadow m-1 bg-light");
+        { let card = $("<div>").addClass("card shadow m-1");
 
           let header = $("<h5>").html( Badge_Access_level ( element.access_level ) + " " + element.domain_name );
           card.append ( $("<div>").addClass("card-header text-center").append(header) );

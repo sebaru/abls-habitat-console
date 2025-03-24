@@ -61,7 +61,10 @@
   { vars = window.location.pathname.split('/');
     if (vars[2] == null) Redirect ("/dls");
 
-    SourceCode = CodeMirror.fromTextArea( document.getElementById("idSourceCode"), { lineNumbers: true } );
+    CodeMirror.defineSimpleMode("myDLSLangage", { start: myDLSLangageRegex });
+    SourceCode = CodeMirror.fromTextArea( document.getElementById("idSourceCode"),
+                                          { mode: "myDLSLangage", lineNumbers: true, theme: "material" }
+                                        );
     SourceCode.setSize( null, "100%");
 
     Send_to_API ( "GET", "/dls/source", "tech_id="+vars[2], function(Response)
