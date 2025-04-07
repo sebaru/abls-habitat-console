@@ -11,7 +11,7 @@ class Console extends BaseController
     echo view('footer');
   }
 
- public function default()
+ public function index()
   { return redirect()->to(base_url("/dashboard")); }
 
  public function dashboard()          { $this->send_page ("dashboard"); }
