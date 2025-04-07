@@ -1,5 +1,5 @@
 #!/bin/sh
-composer update
+rm -rf vendor; composer update
 cp ./vendor/codeigniter4/framework/app/Config/Exceptions.php app/Config/
 cp ./vendor/codeigniter4/framework/public/index.php public/
 cp ./vendor/codeigniter4/framework/app/Config/App.php app/Config/
