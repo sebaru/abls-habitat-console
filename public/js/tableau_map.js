@@ -98,7 +98,7 @@
                 { return( Input ( "number", "idTableauMapMulti_"+item.tableau_map_id,
                                   "Tableau_Map_Set('"+item.tableau_map_id+"')",
                                   "Quelle est le multiplicateur de la courbe ?",
-                                  item.multi )
+                                  item.multi.toString() )
                         );
                 }
             },
@@ -107,7 +107,7 @@
                 { return( Input ( "number", "idTableauMapOffset_"+item.tableau_map_id,
                                   "Tableau_Map_Set('"+item.tableau_map_id+"')",
                                   "Quelle est l'offset de la courbe ?",
-                                  item.offset )
+                                  item.offset.toString() )
                         );
                 }
             },
