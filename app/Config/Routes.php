@@ -48,4 +48,4 @@ $routes->get('/user/(:any)',  'Console::user_edit');
 $routes->get('/users',        'Console::users');
 $routes->get('/courbe/(:any)','Console::courbe');
 $routes->get('/command_text', 'Console::command_text');
-$routes->get('(:any)',        'Console::default');
+$routes->get('/(:any)',       'Console::index');

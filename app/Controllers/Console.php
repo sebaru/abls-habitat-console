@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 class Console extends BaseController
 {
-
  public function send_page ( $page )
   { echo view('header');
     echo view($page);
