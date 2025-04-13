@@ -1,9 +1,25 @@
- var ModeArchivage = [ { valeur: 0, texte: "Aucun" },
-                       { valeur: 1, texte: "Un pour 5 secondes" },
-                       { valeur: 2, texte: "Un par minute" },
-                       { valeur: 3, texte: "Un par heure" },
-                       { valeur: 4, texte: "Un par jour" },
+ var ModeArchivage = [ { valeur: 864000, texte: "Tous les jours" },
+                       { valeur: 72000,  texte: "Toutes les 2 heures" },
+                       { valeur: 36000,  texte: "Toutes les heures" },
+                       { valeur: 3000,   texte: "Toutes les 5 minutes" },
+                       { valeur: 600,    texte: "Toutes les minutes" },
+                       { valeur: 50,     texte: "Toutes les 5 secondes" },
+                       { valeur: 0,      texte: "Aucun" },
                      ];
+
+ var myDLSLangageRegex = [ { regex: /\/\*[^*]*\*+(?:[^*\/][^*]*\*+)*\//, token: "comment" }, // Commentaires #
+                           { regex: /"(?:[^\\]|\\.)*?"/, token: "string" }, // Chaînes de caractères
+                           { regex: "/\b_[A-Z].*/", token: "type" }, // Mots-clés
+                           { regex: "#define", token: "def" }, // Mots-clés
+                           { regex: "#param", token: "def" }, // Mots-clés
+                           { regex: "<->", token: "operator" }, // Mots-clés
+                           { regex: "->", token: "operator" }, // Mots-clés
+                           { regex: "-", token: "operator" }, // Mots-clés
+                           { regex: "=", token: "operator" }, // Mots-clés
+                           { regex: /\d+/, token: "number" }, // Nombres
+                           { regex: /[A-Z][A-Za-z0-9_]*/, token: "variable" }, // Variables
+                           { regex: /\b_[A-Z]*\b/g, token: "keyword" }, // Variables
+                         ];
 
 /********************************************* Reload Process *****************************************************************/
  function Thread_enable ( thread_tech_id, enable, fonction_ok, fonction_nok )
@@ -37,7 +53,6 @@
        if (fonction_ok) fonction_ok(Response);
      }, fonction_nok );
   }
-/********************************************* Renvoi un Select d'archivage ***************************************************/
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function COMMON_Map ( thread_tech_id, thread_acronyme, tech_id, acronyme )
   { var json_request =
@@ -56,7 +71,6 @@
     if ( FormatPage.test(input.val())==false )
      { input.addClass("bg-danger");
        $('#'+id_modal+'Valider').attr("disabled", true);
-       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, _ et .' );
      }
     else
      { Send_to_API ( "GET", "/mnemos/tech_ids", null, function(Response)
@@ -65,12 +79,10 @@
               (tech_id_initial == null || tech_id_initial != tech_id) )
            { input.addClass("bg-danger");
              $('#'+id_modal+'Valider').attr("disabled", true);
-             Popover_show ( input, 'Erreur !', 'Ce tech_id est déjà pris' );
            }
           else
            { input.removeClass("bg-danger");
              $('#'+id_modal+'Valider').attr("disabled", false);
-             Popover_hide(input);
            }
         });
      }
@@ -83,12 +95,10 @@
     if ( FormatTag.test(input.val())==false )
      { input.addClass("bg-danger");
        $('#'+id_modal+'Valider').attr("disabled", true);
-       Popover_show ( input, 'Attention', 'Ce champ doit être numérique' );
      }
     else
      { input.removeClass("bg-danger");
        $('#'+id_modal+'Valider').attr("disabled", false);
-       Popover_hide(input);
      }
   }
 /********************************************* Controle du saisie du modal ****************************************************/

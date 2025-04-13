@@ -154,11 +154,14 @@
  function MODBUS_Edit_DI (modbus_di_id)
   { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_di_id).data();
     $('#idMODBUSEditDITitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODBUSEditDIArchivage').replaceWith ( Select ( "idMODBUSEditDIArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idMODBUSEditDILibelle').val ( selection.libelle );
     $('#idMODBUSEditDIValider').off("click").on( "click", function ()
      { $('#idMODBUSEditDI').modal("hide");
        var json_request =
         { modbus_di_id: parseInt(modbus_di_id),
+          flip: (parseInt($('#idMODBUSEditDIFlip').val()) == 1 ? true : false),
+          archivage: parseInt($('#idMODBUSEditDIArchivage').val()),
           libelle: $('#idMODBUSEditDILibelle').val(),
         };
 
@@ -173,11 +176,13 @@
  function MODBUS_Edit_DO (modbus_do_id)
   { selection = $('#idTableMODBUS_DO').DataTable().row("#"+modbus_do_id).data();
     $('#idMODBUSEditDOTitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODBUSEditDOArchivage').replaceWith ( Select ( "idMODBUSEditDOArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idMODBUSEditDOLibelle').val ( selection.libelle );
     $('#idMODBUSEditDOValider').off("click").on( "click", function ()
      { $('#idMODBUSEditDO').modal("hide");
        var json_request =
-        { modbus_do_id: parseInt(modbus_di_id),
+        { modbus_do_id: parseInt(modbus_do_id),
+          archivage: parseInt($('#idMODBUSEditDOArchivage').val()),
           libelle: $('#idMODBUSEditDOLibelle').val(),
         };
 
@@ -259,7 +264,7 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "modbus_id",
-       ajax: { url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "modbus", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "modbus", contentType: "application/json",
                data: function() { return ( "classe=modbus" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -294,12 +299,15 @@
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center " },
           { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center " },
-          { "data": "hostname", "title":"Hostname", "className": "align-middle text-center " },
-          { "data": "max_request_par_sec", "title":"Max Requete/s", "className": "align-middle text-center " },
-          { "data": null, "title":"Last Comm", "className": "align-middle text-center",
+          { "data": null, "title":"Hostname", "className": "align-middle text-center",
             "render": function (item)
-              { if (item.last_comm==null) return( Badge( "info", "Thread à l'arret", "Stopped" ) );
-                return( htmlEncode ( item.last_comm ) );
+              { return( Lien ( "http://"+item.hostname, "Voir le composant", item.hostname ) ); }
+          },
+          { "data": "max_request_par_sec", "title":"Max Requete/s", "className": "align-middle text-center " },
+          { "data": null, "title":"Connexion", "className": "align-middle text-center",
+            "render": function (item)
+              { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
+                return( Badge( "info", "Déconnecté", "Déconnecté" ) );
               },
           },
           { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center", "render": function (item)
@@ -337,10 +345,12 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
+            { "data": "flip", "title":"Flip", "className": "align-middle text-center" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
-                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" +
+                              Lien ( "/courbe/"+item.tech_id+"/"+item.acronyme, "Voir le graphe", item.acronyme ) );
                    } else return( "--" );
                 }
             },
@@ -387,13 +397,14 @@
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
-                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" +
+                              Lien ( "/courbe/"+item.tech_id+"/"+item.acronyme, "Voir le graphe", item.acronyme ) );
                    } else return( "--" );
                 }
             },
             { "data": null, "title":"Description", "className": "align-middle text-center",
               "render": function (item)
-                { if(item.tech_id) { return ( item.libelle ); } else return( "--" ); }
+                { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
@@ -441,7 +452,7 @@
             },
             { "data": null, "title":"Description", "className": "align-middle text-center",
               "render": function (item)
-                { if(item.tech_id) { return ( item.libelle ); } else return( "--" ); }
+                { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Type Borne", "className": "align-middle text-center",
               "render": function (item)
@@ -499,7 +510,7 @@
             },
             { "data": null, "title":"Description", "className": "align-middle text-center",
               "render": function (item)
-                { if(item.tech_id) { return ( item.libelle ); } else return( "--" ); }
+                { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Type Borne", "className": "align-middle text-center",
               "render": function (item)

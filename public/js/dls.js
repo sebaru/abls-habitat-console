@@ -17,18 +17,6 @@
     var json_request = { tech_id : selection.tech_id, enable: false };
     Send_to_API ( 'POST', "/dls/enable", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" désactivé"); DLS_Refresh(); });
   }
-/******************************************************************************************************************************/
- function Dls_debug_plugin ( dls_id )
-  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id, debug: true };
-    Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" en debug"); DLS_Refresh(); });
-  }
-/******************************************************************************************************************************/
- function Dls_undebug_plugin ( dls_id )
-  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
-    var json_request = { tech_id : selection.tech_id, debug: false };
-    Send_to_API ( 'POST', "/dls/debug", json_request, function () { Show_toast_ok("D.L.S "+selection.tech_id+" hors debug"); DLS_Refresh(); });
-  }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Valider_Dls_Del ( selection )
   { var json_request = { tech_id : selection.tech_id };
@@ -58,6 +46,7 @@
   { var json_request =
        { syn_id    : parseInt($('#idModalDlsEditPage').val()),
          shortname : $('#idModalDlsEditShortname').val(),
+         package   : $('#idModalDlsEditPackage').val(),
          name      : $('#idModalDlsEditDescription').val(),
          tech_id   : $('#idModalDlsEditTechID').val().toUpperCase(),
        };
@@ -70,38 +59,35 @@
      });
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
- function Dls_Set_controle_techid ( tech_id_initial )
+ function Dls_Set_controle_techid ( inputid )
   { FormatPage = RegExp(/^[a-zA-Z0-9_\.]+$/);
-    table = $('#idTableDLS').DataTable();
-    input = $('#idModalDlsEditTechID');
+    table  = $('#idTableDLS').DataTable();
+    input  = $('#'+inputid+'TechID');
+    bouton = $('#'+inputid+'Valider');
 
     if ( FormatPage.test(input.val())==false )
-     { input.addClass("bg-danger");    $('#idModalDlsEditValider').attr("disabled", true);
-       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, _ et .' );
+     { input.addClass("bg-danger");
+       bouton.attr("disabled", true);
      }
-    else if ( (table.ajax.json().dls.filter( function(item)                                   /* Si tech_id deja existant */
-                                              { return item.tech_id.toUpperCase()==input.val().toUpperCase() } )[0] !== undefined &&
-              (tech_id_initial == null || input.val().toUpperCase() != tech_id_initial.toUpperCase()) )
-       )
-     { input.addClass("bg-danger");    $('#idModalDlsEditValider').attr("disabled", true);
-       Popover_show ( input, 'Erreur !', 'Ce nom est déjà pris' );
+    else if ( table.ajax.json().dls.filter( function(item)                                        /* Si tech_id deja existant */
+                                              { return item.tech_id.toUpperCase()==input.val().toUpperCase() } )[0] !== undefined )
+     { input.addClass("bg-danger");
+       bouton.attr("disabled", true);
      }
     else
-     { if (tech_id_initial !== null && input.val().toUpperCase() != tech_id_initial.toUpperCase())
-        { $('#idModalDlsEditValider').addClass("btn-danger").removeClass("btn-primary").text("Tout Recompiler"); }
-       else
-        { $('#idModalDlsEditValider').addClass("btn-primary").removeClass("btn-danger").text("Valider"); }
-       input.removeClass("bg-danger"); $('#idModalDlsEditValider').attr("disabled", false);
-       Popover_hide(input);
+     { input.removeClass("bg-danger");
+       bouton.attr("disabled", false);
      }
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function Show_Modal_Dls_Add ( )
   { $('#idModalDlsEditTitre').text("Ajouter un D.L.S");
-    $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid(null); } );
+    $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid('idModalDlsEdit'); } )
+                              .attr("disabled", false );
+    Dls_Set_controle_techid('idModalDlsEdit');
     $('#idModalDlsEditTechID').val("");
-    Dls_Set_controle_techid ( null );
     $('#idModalDlsEditShortname').val("");
+    $('#idModalDlsEditPackage').val("custom");
     $('#idModalDlsEditDescription').val("");
     $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(0); } );
     Send_to_API ( "GET", "/syn/list", null, function (Response)
@@ -115,10 +101,10 @@
  function Show_Modal_Dls_Edit ( dls_id )
   { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
     $('#idModalDlsEditTitre').text("Modifier le D.L.S " + selection.tech_id );
-    $('#idModalDlsEditTechID').val(selection.tech_id);
-    $('#idModalDlsEditTechID').off("input").on("input", function () { Dls_Set_controle_techid(selection.tech_id); } );
-    Dls_Set_controle_techid ( selection.tech_id );
+    $('#idModalDlsEditTechID').val(selection.tech_id)
+                              .attr("disabled", false );
     $('#idModalDlsEditShortname').val(selection.shortname);
+    $('#idModalDlsEditPackage').val(selection.package);
     $('#idModalDlsEditDescription').val(selection.name);
     $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(selection.dls_id); } );
     Send_to_API ( "GET", "/syn/list", null, function (Response)
@@ -141,7 +127,6 @@
                               { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                                 request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               },
-                 complete: function (data) { localStorage.setItem ( "master_hostname", data.responseJSON.master_hostname ); }
                },
          columns:
           [ { "data": "dls_id", "title":"#ID", "className": "align-middle  text-center" },
@@ -149,38 +134,39 @@
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.page, item.page ) + "<br>#" + item.syn_id ); },
             },
-            { "data": null, "title":"Started", "className": "align-middle  text-center",
+            { "data": null, "title":"Enabled", "className": "align-middle  text-center",
               "render": function (item)
                 { if (item.enable==true)
                    { return( Bouton ( "success", "Désactiver le plugin", "Dls_stop_plugin", item.dls_id, "Actif" ) ); }
-                  if (item.compil_status==true) /* Si compil OK ou warning */
+                  else
                    { return( Bouton ( "outline-secondary", "Activer le plugin", "Dls_start_plugin", item.dls_id, "Désactivé" ) ); }
-                  return( Bouton ( "outline-secondary", "Compilation nécéssaire", null, null, "Désactivé" ) );
                 }
-            },
-            { "data": null, title:"Debug",  "className": "text-center align-middle", "render": function (item)
-              { if (item.debug==true)
-                 { return( Bouton ( "warning", "Désactiver le debug", "Dls_undebug_plugin", item.dls_id, "Actif" ) ); }
-                else
-                 { return( Bouton ( "outline-secondary", "Activer le débug", "Dls_debug_plugin", item.dls_id, "Désactivé" ) ); }
-              }
             },
             { "data": null, "title":"TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) );
+                { if (item.package == "" || item.package == "custom")
+                   { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
+                  else
+                   { return( Lien ( "/dls/params/"+item.tech_id, "Voir les paramètres", item.tech_id ) ); }
                 }
             },
             { "data": null, "title":"Nom court", "className": "align-middle",
               "render": function (item)
-                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.shortname ) );
+                { if (item.package == "" || item.package == "custom")
+                   { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.shortname ) ); }
+                  else
+                   { return( Lien ( "/dls/params/"+item.tech_id, "Voir les paramètres", item.shortname ) ); }
                 }
             },
             { "data": null, "title":"Libellé", "className": "align-middle ",
               "render": function (item)
-                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.name ) );
+                { if (item.package == "" || item.package == "custom")
+                   { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.name ) ); }
+                  else
+                   { return( Lien ( "/dls/params/"+item.tech_id, "Voir les paramètres", item.name ) ); }
                 }
             },
-            { "data": null, "title":"Compil", "className": "align-middle ",
+            { "data": null, "title":"Statut", "className": "align-middle text-center",
               "render": function (item)
                 { if (item.compil_status==false)
                    { return( Bouton ( "secondary", "Not compiled", null, null, "Not compiled" ) ); }
@@ -194,7 +180,9 @@
             { "data": null, "title":"Stats", "className": "align-middle text-center",
               "render": function (item)
                 { return( Badge ( "primary", "Nombre de compilation", item.nbr_compil.toString() ) + "<br>" +
-                          Badge ( "secondary", "Nombre de ligne", item.nbr_ligne.toString() ) );
+                          Badge ( "secondary", "Nombre de ligne", item.nbr_ligne.toString() ) + "<br>" +
+                          Badge ( "success", "Temps de compilation", item.compil_time.toString() )
+                        );
                 }
             },
             { "data": null, "title":"Date Compil", "className": "align-middle text-center ",
@@ -204,7 +192,11 @@
             { "data": null, "title":"Actions", "orderable": false, "className": "align-middle",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir le code", "Redirect", "/dls/"+item.tech_id, "code", null );
+                  if (item.package == "" || item.package == "custom")
+                   { boutons += Bouton_actions_add ( "outline-primary", "Voir le code", "Redirect", "/dls/"+item.tech_id, "code", null ); }
+                  else
+                   { boutons += Bouton_actions_add ( "outline-primary", "Paramétrer", "Redirect", "/dls/params/"+item.tech_id, "wrench", null ); }
+
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les messages", "Redirect", "/messages/"+item.tech_id, "book", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Compiler le module", "Dls_compiler", item.dls_id, "coffee", null );

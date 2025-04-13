@@ -19,6 +19,8 @@
          tech_id : $('#idTableauMapTechId_'+tableau_map_id).val(),
          acronyme: $('#idTableauMapAcronyme_'+tableau_map_id).val(),
          color   : $('#idTableauMapColor_'+tableau_map_id).val(),
+         multi   : parseInt($('#idTableauMapMulti_'+tableau_map_id).val()),
+         offset  : parseInt($('#idTableauMapOffset_'+tableau_map_id).val()),
        };
     Send_to_API ( "POST", "/tableau/map/set", json_request, function (Response)
      { $('#idTableTableauMap').DataTable().ajax.reload(null, false);
@@ -88,6 +90,24 @@
                                   "Tableau_Map_Set('"+item.tableau_map_id+"')",
                                   "Quelle est la couleur de la courbe ?",
                                   item.color )
+                        );
+                }
+            },
+            { "data": null, "title":"Multiplicateur", "className": "align-middle ",
+              "render": function (item)
+                { return( Input ( "number", "idTableauMapMulti_"+item.tableau_map_id,
+                                  "Tableau_Map_Set('"+item.tableau_map_id+"')",
+                                  "Quelle est le multiplicateur de la courbe ?",
+                                  item.multi.toString() )
+                        );
+                }
+            },
+            { "data": null, "title":"Offset", "className": "align-middle ",
+              "render": function (item)
+                { return( Input ( "number", "idTableauMapOffset_"+item.tableau_map_id,
+                                  "Tableau_Map_Set('"+item.tableau_map_id+"')",
+                                  "Quelle est l'offset de la courbe ?",
+                                  item.offset.toString() )
                         );
                 }
             },

@@ -4,14 +4,13 @@ namespace App\Controllers;
 
 class Console extends BaseController
 {
-
  public function send_page ( $page )
   { echo view('header');
     echo view($page);
     echo view('footer');
   }
 
- public function default()
+ public function index()
   { return redirect()->to(base_url("/dashboard")); }
 
  public function dashboard()          { $this->send_page ("dashboard"); }
@@ -25,6 +24,7 @@ class Console extends BaseController
  public function domain_edit()        { $this->send_page ("domain_edit"); }
  public function domains()            { $this->send_page ("domains"); }
  public function modbus()             { $this->send_page ("modbus"); }
+ public function shelly()             { $this->send_page ("shelly"); }
  public function phidget()            { $this->send_page ("phidget"); }
  public function gpiod()              { $this->send_page ("gpiod"); }
  public function smsg()               { $this->send_page ("smsg"); }
@@ -39,6 +39,9 @@ class Console extends BaseController
  public function tableau()            { $this->send_page ("tableau"); }
  public function tableau_map()        { $this->send_page ("tableau_map"); }
  public function dls()                { $this->send_page ("dls"); }
+ public function dls_packages()       { $this->send_page ("dls_packages"); }
+ public function dls_package()        { $this->send_page ("dls_package"); }
+ public function dls_params()         { $this->send_page ("dls_params"); }
  public function dls_run()            { $this->send_page ("dls_run"); }
  public function dls_source()         { $this->send_page ("dls_source"); }
  public function mnemos()             { $this->send_page ("mnemos"); }

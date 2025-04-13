@@ -100,12 +100,14 @@
     $('#idPHIDGETEditIOLibelle').val ( selection.libelle );
     $('#idPHIDGETEditIOCapteur')
      .replaceWith ( Select ( "idPHIDGETEditIOCapteur", null, Capteurs, selection.capteur ) );
+    $('#idPHIDGETEditIOArchivage').replaceWith ( Select ( "idPHIDGETEditIOArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idPHIDGETEditIOIntervalle').val ( selection.intervalle );
     $('#idPHIDGETEditIOValider').off("click").on( "click", function ()
      { $('#idPHIDGETEditIO').modal("hide");
        var json_request =
         { phidget_io_id: parseInt(phidget_io_id),
           intervalle: parseInt($('#idPHIDGETEditIOIntervalle').val()),
+          archivage: parseInt($('#idPHIDGETEditIOArchivage').val()),
           capteur: $('#idPHIDGETEditIOCapteur').val(),
           libelle: $('#idPHIDGETEditIOLibelle').val(),
         };
@@ -137,7 +139,7 @@
   { $('#idTablePHIDGET').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/phidget/list", type : "GET", dataSrc: "phidget", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "phidget", contentType: "application/json",
                data: function() { return ( "classe=phidget" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -175,10 +177,10 @@
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center " },
           { "data": "password", "title":"Password", "className": "align-middle text-center " },
           { "data": "serial", "title":"Serial Number", "className": "align-middle text-center " },
-          { "data": null, "title":"Last Comm", "className": "align-middle text-center",
+          { "data": null, "title":"Connexion", "className": "align-middle text-center",
             "render": function (item)
-              { if (item.last_comm==null) return( Badge( "info", "Thread à l'arret", "Stopped" ) );
-                return( htmlEncode ( item.last_comm ) );
+              { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
+                return( Badge( "info", "Déconnecté", "Déconnecté" ) );
               },
           },
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",

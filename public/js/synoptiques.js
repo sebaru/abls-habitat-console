@@ -8,13 +8,9 @@
     table = $('#idTableSYN').DataTable();
     input = $('#idModalSynEditPage');
     if ( FormatPage.test(input.val())==false )
-     { input.addClass("bg-danger");    $('#idModalSynEditValider').attr("disabled", true);
-       Popover_show ( input, 'Caractères autorisés', 'lettres, chiffres, espaces, - et _' );
-     }
+     { input.addClass("bg-danger");    $('#idModalSynEditValider').attr("disabled", true);  }
     else
-     { input.removeClass("bg-danger"); $('#idModalSynEditValider').attr("disabled", false);
-       Popover_hide( input );
-     }
+     { input.removeClass("bg-danger"); $('#idModalSynEditValider').attr("disabled", false); }
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function SYN_Set ( syn_id )
@@ -77,7 +73,7 @@
                                                                            return(0);
                                                                          } ),
              function ( i, syn )
-              { $('#idModalSynEditPPage').append("<option value='"+syn.syn_id+"'>"+syn.page+"</option>"); } );
+              { $('#idModalSynEditPPage').append("<option value='"+syn.syn_id+"'>"+syn.page+" (#"+syn.syn_id+")</option>"); } );
     $('#idModalSynEditPPage').val ( selection.pid );
     if (syn_id==1) $('#idModalSynEditPPage').attr("disabled", true );
               else $('#idModalSynEditPPage').attr("disabled", false );
@@ -124,13 +120,14 @@
                "syn_buanderie.png", "syn_camera.png", "syn_chambre_double.png", "syn_chambre_simple.png",
                "syn_cuisine.png", "syn_garage.png", "syn_cour.png",
                "syn_jardin.png", "syn_arrosage_1.svg", "syn_arrosage_2.svg", "syn_tondeuse.svg",
-               "syn_piscine.png", "syn_chimie.svg", "syn_puit.svg",
+               "syn_robinet.svg", "syn_piscine.png", "syn_chimie.svg", "syn_puit.svg",
                "syn_salle_de_bain.png", "syn_congelateur.svg", "syn_salon.png", "syn_jeux.png", "syn_tele.png",
                "syn_ouvrants.png", "syn_volets.png", "syn_velux.svg",
-               "syn_soleil.svg",
-               "syn_luminaires.png", "syn_spot.png", "syn_sonorisation.png",
-               "syn_confort.png", "syn_vmc.png", "syn_energie.png", "syn_chaudiere.png", "syn_electricite.png", "syn_chauffe_eau.svg",
-               "syn_ups.png", "syn_panneau_solaire.png", "syn_essence.svg",
+               "syn_soleil.svg", "syn_luminaires.png", "syn_spot.png", "syn_sonorisation.png",
+               "syn_confort.png", "syn_ventilateur.svg", "syn_energie.png",
+               "syn_electricite.png", "syn_shelly.jpg", "syn_linky.jpg", "syn_ups.png", "syn_panneau_solaire.png",
+               "syn_chaudiere.png", "syn_chauffe_eau.svg",
+               "syn_essence.svg",
                "syn_acces.svg", "syn_maintenance.png", "syn_parametres.png", "syn_menu_parametres.png", "syn_horloge.png",
              ];
 
@@ -138,7 +135,7 @@
     liste.empty();
     images.forEach ( function (element)
                       { liste.append( $("<img>").addClass("wtd-synoptique-preview m-1").css("cursor","pointer")
-                             .attr("name", element).attr("src", "https://static.abls-habitat.fr/img/"+element)
+                             .attr("name", element).attr("src", localStorage.getItem("static_data_url")+"/img/"+element)
                              .click ( function () { Valide_edit_image(syn_id, element); } ) );
                       } );
     $('#idSynEditImage').modal("show");
@@ -163,7 +160,7 @@
           [ { "data": "syn_id", "title": "#", "className": "align-middle text-center" },
             { "data": null, "title":"Aperçu", "className": "align-middle text-center",
               "render": function (item)
-                { target = "https://static.abls-habitat.fr/img/"+item.image;
+                { target = localStorage.getItem("static_data_url")+"/img/"+item.image;
                   return( "<img src='"+target+"' class='wtd-synoptique-preview' loading=lazy alt='No Image !' onclick='SYN_Edit_image("+item.syn_id+")' />" ); }
             },
             { "data": null, "title":"<i class='fas fa-star'></i> Level", "className": "align-middle text-center",
@@ -187,7 +184,7 @@
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  if (item.mode_affichage==true) boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", '/atelier/'+item.page, "image", null );
+                  if (item.mode_affichage==true) boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Configurer", "SYN_Edit", item.syn_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line", null );

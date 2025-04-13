@@ -1,18 +1,22 @@
 <div class="container">
 
- <div class="row m-2">
-   <div class="col-auto"><h3><i class="fas fa-search text-primary"></i> Recherche dans le dictionnaire</h3></div>
+       <div class="card m-1 shadow">
+         <div class="card-header"> <i class="fas fa-search text-primary"></i> <label>Recherche dans le dictionnaire</label> </div>
+         <div class="card-body">
 
-   <div class ="ml-auto btn-group align-items-start">
-         <button type="button" onclick="SEARCH_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
-   </div>
- </div>
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">Doit contenir</label>
+               <input id="idSearchQuery" type="text" class="form-control" placeholder="Recherche a effectuer">
+             </div>
+           </div>
 
-<hr>
+         </div>
+       </div>
 
    <div class="table-responsive">
     <table id="idTableSearchResults" class="table table-striped table-bordered table-hover">
-      <thead class="thead-dark">
+      <thead class="table-dark">
 				  </thead>
 			   <tbody>
       </tbody>

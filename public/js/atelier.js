@@ -15,7 +15,7 @@
     console.log("------------------------------ Chargement synoptique "+syn_page);
 
     Trame = Trame_new ("idSectionHeavySyn");
-    Trame.set_grille( 20 );
+    Trame.set_grille( 25 );
     Trame.on ( "mousemove",  function ( event ) { Move_sur_trame ( event ); }, false );
     Trame.on ( "mouseup",    function ( event ) { Deselectionner( event ) }, false);
     Trame.on ( "mouseleave", function ( event ) { Deselectionner( event ) }, false);
@@ -39,13 +39,18 @@
        console.log(Response);
        Synoptique = Response;                                                                       /* sauvegarde du pointeur */
        $.each ( Response.visuels, function (i, visuel)
-                 { if (visuel.forme == null)
+                 { visuel.noshow=false;                                       /* Dans l'atelier, tous les visuels sont "show" */
+                   if (visuel.forme == null)
                     { console.log ( "new null at " + visuel.posx + " " + visuel.posy );
                       Trame.new_from_image ( visuel, visuel.icone+".gif" );
                     }
-                   else if (visuel.controle=="complexe" && visuel.forme=="bouton")  { Trame.new_button  ( visuel ); }
-                   else if (visuel.controle=="complexe" && visuel.forme=="encadre") { Trame.new_encadre ( visuel ); }
-                   else if (visuel.controle=="complexe" && visuel.forme=="comment") { Trame.new_comment ( visuel ); }
+                   else if (visuel.controle=="complexe")
+                    { if(visuel.forme=="bouton")  { Trame.new_button  ( visuel ); }
+                      if(visuel.forme=="encadre") { Trame.new_encadre ( visuel ); }
+                      if(visuel.forme=="comment") { Trame.new_comment ( visuel ); }
+                      if(visuel.forme=="cadran" && visuel.mode=="texte")   { Trame.new_cadran_texte   ( visuel ); }
+                      if(visuel.forme=="cadran" && visuel.mode=="horaire") { Trame.new_cadran_horaire ( visuel ); }
+                    }
                    else if (visuel.controle=="by_mode")       { Trame.new_by_mode ( visuel );       }
                    else if (visuel.controle=="by_color")      { Trame.new_by_color( visuel );       }
                    else if (visuel.controle=="by_mode_color") { Trame.new_by_mode_color ( visuel ); }
@@ -71,26 +76,19 @@
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Atelier_Sauvegarder_synoptique ()
-  { var Motifs=[], Liens=[], Rectangles=[], Comments=[];
-    var request = { syn_id: Synoptique.syn_id,
+  { var request = { syn_id: Synoptique.syn_id,
                     visuels: Synoptique.visuels.map( function ( visuel )
-                                                      { return ( { syn_motif_id: visuel.syn_motif_id,
+                                                      { console.debug(visuel);
+                                                        return ( { syn_motif_id: visuel.syn_motif_id,
                                                                    tech_id: visuel.tech_id, acronyme: visuel.acronyme,
                                                                    posx: visuel.posx, posy: visuel.posy, scale: visuel.scale,
                                                                    angle: visuel.angle,
-                                                                   layer: Trame.index(visuel.svggroupe)
+                                                                   layer: (visuel.svggroupe ? Trame.index(visuel.svggroupe) : 0)
                                                                  } );
                                                       }
                                                    ),
-                    cadrans: Synoptique.cadrans.map( function ( cadran )
-                                                      { return ( { syn_cadran_id: cadran.syn_cadran_id,
-                                                                   tech_id: cadran.tech_id, acronyme: cadran.acronyme,
-                                                                   posx: cadran.posx, posy: cadran.posy, scale: cadran.scale,
-                                                                   angle: cadran.angle } );
-                                                      }
-                                                   ),
                   };
-console.debug(request);
+    console.debug(request);
     Send_to_API ( "POST", "/syn/save", request, function(Response)
      { Show_toast_ok ( "Synoptique "+Synoptique.page+" enregistré"); }, null );
   }
@@ -190,7 +188,8 @@ console.debug(request);
   }
 /********************************************* Appeler quand l'utilisateur selectionne un motif *******************************/
  function Update_selection_data ( )
-  { $("#idSelectionTechID").val(Selection_data.tech_id);
+  { $("#idSelectionDLS").val(Selection_data.dls_tech_id);
+    $("#idSelectionTechID").val(Selection_data.tech_id);
     $("#idSelectionAcronyme").val(Selection_data.acronyme);
     $("#idPosition").val("x:" + Selection_data.posx+", y:"+Selection_data.posy);
     $("#idPosx").val(Selection_data.posx);

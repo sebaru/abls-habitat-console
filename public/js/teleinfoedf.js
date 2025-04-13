@@ -33,6 +33,8 @@
        thread_tech_id: $('#idTELEINFOTechID').val().toUpperCase(),
        description:    $('#idTELEINFODescription').val(),
        port:           $('#idTELEINFOPort').val(),
+       standard:       $('#idTELEINFOStandard').val() == "true",
+       /*standard:       (parseInt($('#idTELEINFOStandard').val()) == 1 ? true : false),*/
      };
 
     Send_to_API ( "POST", "/teleinfoedf/set", json_request, function(Response)
@@ -49,6 +51,11 @@
     $('#idTELEINFOTitre').text("Editer la connexion GSM " + selection.thread_tech_id);
     $('#idTELEINFOTechID').prop ("disabled", true).val( selection.thread_tech_id );
     $('#idTELEINFODescription').val( selection.description );
+    $('#idTELEINFOStandard').replaceWith (
+                                           Select ( "idTELEINFOStandard", null,
+                                                    [ { valeur: false, texte: "Historique" }, { valeur: true, texte: "Standard" } ],
+                                                    selection.standard )
+                                         );
     $('#idTELEINFOPort').val( selection.port );
     $('#idTELEINFOValider').off("click").on( "click", function () { TELEINFO_Set(selection); } );
     $('#idTELEINFOEdit').modal("show");
@@ -61,6 +68,10 @@
     $('#idTELEINFOTechID').prop ("disabled", false).val("").off("input").on("input", function () { Controle_thread_tech_id( "idTELEINFO", null ); } );
     $('#idTELEINFODescription').val("");
     $('#idTELEINFOPort').val("");
+    $('#idTELEINFOStandard').replaceWith ( Select ( "idTELEINFOStandard", null,
+                                                    [ { valeur: false, texte: "Historique" }, { valeur: true, texte: "Standard" } ],
+                                                    false )
+                                         );
     $('#idTELEINFOValider').off("click").on( "click", function () { TELEINFO_Set(null); } );
     $('#idTELEINFOEdit').modal("show");
   }
@@ -73,7 +84,7 @@
      }, function(Response) { TELEINFO_Refresh(); } );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
- function TELEINFO_Del ( id )
+ function TELEINFO_Del ( teleinfoedf_id )
   { selection = $('#idTableTELEINFO').DataTable().row("#"+teleinfoedf_id).data();
     Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
@@ -114,9 +125,9 @@
            { "data": null, "title":"Debug", "className": "align-middle text-center",
              "render": function (item)
               { if (item.debug==true)
-                 { return( Bouton ( "warning", "Désactiver le debug", "TELEINFO_Undebug", item.teleinfo_id, "Actif" ) ); }
+                 { return( Bouton ( "warning", "Désactiver le debug", "TELEINFO_Undebug", item.teleinfoedf_id, "Actif" ) ); }
                 else
-                 { return( Bouton ( "outline-secondary", "Activer le debug", "TELEINFO_Debug", item.teleinfo_id, "Désactivé" ) ); }
+                 { return( Bouton ( "outline-secondary", "Activer le debug", "TELEINFO_Debug", item.teleinfoedf_id, "Désactivé" ) ); }
               },
            },
            { "data": null, "title":"Tech_id", "className": "align-middle text-center",
@@ -125,10 +136,16 @@
            },
            { "data": "description", "title":"Description", "className": "align-middle " },
            { "data": "port", "title":"Device Port", "className": "align-middle " },
-           { "data": null, "title":"Last Comm", "className": "align-middle text-center",
+           { "data": null, "title":"Mode", "className": "align-middle text-center",
              "render": function (item)
-               { if (item.last_comm==null) return( Badge( "info", "Thread à l'arret", "Stopped" ) );
-                 return( htmlEncode ( item.last_comm ) );
+              { if (item.standard) return ( Bouton( "info", "Mode TIC Standard", null, null, "Standard" ) );
+                                   return ( Bouton( "secondary", "Mode TIC Historique", null, null, "Historique" ) );
+              },
+           },
+           { "data": null, "title":"Connexion", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
+                 return( Badge( "info", "Déconnecté", "Déconnecté" ) );
                },
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",

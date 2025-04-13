@@ -144,7 +144,6 @@
              "render": function (item)
                { return(htmlEncode(item.libelle)); }
            },
-           { "data": "multi",      "title":"Multi.",   "className": "align-middle text-center " },
            { "data": null,      "title":"Unité",    "className": "align-middle hidden-xs",
              "render": function (item)
                { return(htmlEncode(item.unite)); }
@@ -240,6 +239,4 @@
           }
         ],
      });
-
-    $('#idTabRegistre').tab('show');
   }

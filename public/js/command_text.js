@@ -50,7 +50,7 @@
           [ { "data": "thread_acronyme", "title":"Texte Source", "className": "align-middle text-center" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)                { if(item.tech_id)
-                   { return ( Lien ( "/dls_source/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
             },

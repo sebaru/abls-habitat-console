@@ -8,7 +8,7 @@
 
 <div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -28,7 +28,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -40,6 +40,7 @@
     <div class="card-body">
       <ul>
       <li><h6 class="card-text"><span id="idNbrDls">-</span> <a href="/dls">Module(s)</a> </h6></li>
+      <li><h6 class="card-text"><span id="idNbrDlsError">-</span> Errors</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsLignes">-</span> Lignes</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsBI">-</span> Bistables</h6></li>
       <li><h6 class="card-text"><span id="idNbrDlsMONO">-</span> Monostables</h6></li>
@@ -49,7 +50,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -67,7 +68,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -88,7 +89,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1t">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -106,7 +107,7 @@
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
 
- <div class="card shadow m-1 bg-light">
+ <div class="card shadow m-1">
     <div class="card-header">
       <div class="row">
         <div class="col-4">
@@ -146,11 +147,15 @@
   </div>
 
   <div class="row p-1 justify-content-center">
-   <canvas id="idCourbeDlsNbApiEnreg" class="courbe-dashboard border border-info"></canvas>
+   <canvas id="idCourbeDlsNbMotifs" class="courbe-dashboard border border-info"></canvas>
   </div>
 
   <div class="row p-1 justify-content-center">
-   <canvas id="idCourbeDlsNbARCHIVE" class="courbe-dashboard border border-info"></canvas>
+   <canvas id="idCourbeDlsNbPlugins" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsNbErrors" class="courbe-dashboard border border-info"></canvas>
   </div>
 
   <div class="row p-1 justify-content-center">

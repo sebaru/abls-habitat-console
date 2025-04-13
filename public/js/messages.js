@@ -1,10 +1,13 @@
- var TXT_NOTIF = [ { valeur: 0, texte: "None" },
-                   { valeur: 1, texte: "Yes" },
-                   { valeur: 2, texte: "GSM_Only" },
-                   { valeur: 3, texte: "OVH_Only" },
-                   { valeur: 4, texte: "CHAT_Only" }
-                 ];
+ var SMSG_NOTIF = [ { valeur: -1, texte: "Use DLS Settings" },
+                    { valeur:  0, texte: "No" },
+                    { valeur:  1, texte: "Yes" },
+                    { valeur:  2, texte: "OVH_Only" },
+                  ];
 
+ var IMSG_NOTIF = [ { valeur: -1, texte: "Use DLS Settings" },
+                    { valeur:  0, texte: "No" },
+                    { valeur:  1, texte: "Yes" },
+                  ];
 /************************************ Demande de refresh **********************************************************************/
  function MESSAGE_Refresh ( )
   { $('#idTableMESSAGES').DataTable().ajax.reload(null, false);
@@ -15,7 +18,8 @@
   { var json_request =
        { tech_id         : selection.tech_id,
          acronyme        : selection.acronyme,
-         txt_notification: parseInt($('#idMSGEditTxtNotification').val()),
+         notif_sms       : parseInt($('#idMSGEditNotifSMSG').val()),
+         notif_chat      : parseInt($('#idMSGEditNotifIMSG').val()),
          audio_zone      : $('#idMSGEditAudioZone').val(),
          audio_libelle   : $('#idMSGEditAudioLibelle').val(),
          rate_limit      : parseInt($('#idMSGEditRateLimit').val()),
@@ -31,7 +35,8 @@
   { selection = $('#idTableMESSAGES').DataTable().row("#"+msg_id).data();
     $('#idMSGEditTitre').text("Editer les paramètres du message " + selection.tech_id+":"+selection.acronyme);
     $('#idMSGEditLibelle').prop ("disabled", true).val( selection.libelle );
-    $('#idMSGEditTxtNotification').replaceWith ( Select ( "idMSGEditTxtNotification", null, TXT_NOTIF, selection.txt_notification ) );
+    $('#idMSGEditNotifSMSG').replaceWith ( Select ( "idMSGEditNotifSMSG", null, SMSG_NOTIF, selection.notif_sms ) );
+    $('#idMSGEditNotifIMSG').replaceWith ( Select ( "idMSGEditNotifIMSG", null, IMSG_NOTIF, selection.notif_chat ) );
     $('#idMSGEditAudioZone').val( selection.audio_profil );
     $('#idMSGEditAudioLibelle').val( selection.audio_libelle );
     $('#idMSGEditRateLimit').val( selection.rate_limit );
@@ -63,7 +68,7 @@
                  else if (item.typologie==2) { img = "pignon_orange.svg";   title = "defaut";       }
                  else if (item.typologie==3) { img = "pignon_red.svg";      title = "alarme";       }
                  else if (item.typologie==4) { img = "bouclier_green.svg";  title = "veille";       }
-                 else if (item.typologie==5) { img = "notification.svg";    title = "notification"; }
+                 else if (item.typologie==5) { img = "panneau_danger.svg";  title = "notification"; }
                  else if (item.typologie==6) { img = "croix_red.svg";       title = "danger";       }
                  else if (item.typologie==7) { img = "croix_orange.svg";    title = "derangement";  }
                  return("<img width='30px' src='https://static.abls-habitat.fr/img/"+img+"' title='"+title+"'>");
@@ -86,9 +91,13 @@
              "render": function (item)
                { return( htmlEncode(item.audio_profil) ); }
            },
-           { "data": null, "title":"Notification", "className": "align-middle text-center",
+           { "data": null, "title":"GSM", "className": "align-middle text-center",
              "render": function (item)
-               { return( TXT_NOTIF.map ( function(item) { return(item.texte); } )[item.txt_notification] ); }
+               { return( SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms); } )[0].texte ); }
+           },
+           { "data": null, "title":"Chat", "className": "align-middle text-center",
+             "render": function (item)
+               { return( IMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_chat); } )[0].texte ); }
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)

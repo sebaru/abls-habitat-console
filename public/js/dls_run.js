@@ -17,79 +17,56 @@
        acronyme: acronyme,
        valeur: valeur
      });
-    let response = await fetch ("https://"+master+":5559/dls/run/set",
+   /* let response = await fetch ( localStorage.getItem( "master_url" ) + "/dls/run/set",
                                  { method: 'POST', headers: { 'Content-Type': 'application/json;charset=utf-8' },
-                                   body: json_request });
+                                   body: json_request
+                                 });
     if (response.ok)
-     { $('#'+table).DataTable().ajax.reload(null, false); }
+     { $('#'+table).DataTable().ajax.reload(null, false); }*/
   }
 /******************************************************************************************************************************/
  function Dls_run_refresh ( table )
   { $('#'+table).DataTable().ajax.reload(null, false); }
 /******************************************************************************************************************************/
- function Dls_run_DI_set ( acronyme )
-  { Dls_run_set ( "idTableEntreeTOR", "DI", acronyme, true ); }
-/******************************************************************************************************************************/
- function Dls_run_DI_reset ( acronyme )
-  { Dls_run_set ( "idTableEntreeTOR", "DI", acronyme, false ); }
-/******************************************************************************************************************************/
  function Dls_run_MONO_set ( acronyme )
-  { Dls_run_set ( "idTableBool", "MONO", acronyme, true ); }
+  { Dls_run_set ( "idTableMONO", "MONO", acronyme, true ); }
 /******************************************************************************************************************************/
  function Dls_run_BI_set ( acronyme )
-  { Dls_run_set ( "idTableBool", "BI", acronyme, true ); }
+  { Dls_run_set ( "idTableBI", "BI", acronyme, true ); }
 /******************************************************************************************************************************/
  function Dls_run_BI_reset ( acronyme )
-  { Dls_run_set ( "idTableBool", "BI", acronyme, false ); }
-/******************************************************************************************************************************/
- function Dls_run_DO_set ( acronyme )
-  { Dls_run_set ( "idTableSortieTOR", "DO", acronyme, true ); }
-/******************************************************************************************************************************/
- function Dls_run_DO_reset ( acronyme )
-  { Dls_run_set ( "idTableSortieTOR", "DO", acronyme, false ); }
-/******************************************************************************************************************************/
- function Dls_run_MSG_set ( acronyme )
-  { Dls_run_set ( "idTableMessages", "MSG", acronyme, true ); }
-/******************************************************************************************************************************/
- function Dls_run_MSG_reset ( acronyme )
-  { Dls_run_set ( "idTableMessages", "MSG", acronyme, false ); }
-
+  { Dls_run_set ( "idTableBI", "BI", acronyme, false ); }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { vars = window.location.pathname.split('/');
     if (vars[3] == null) Redirect ("/dls");
 
-    master = localStorage.getItem( "master_hostname" );
-    if (master == null) Redirect("/dls");
-
     $('#idTitle').html(vars[3]);
-
-    $("#idAlertAgentNotConnected").hide();
-    fetch ("https://"+master+":5559/status",
-            { method: 'GET', headers: { 'Content-Type': 'application/json;charset=utf-8',
-                                        'Authorization': 'Bearer ' + Token,
-                                        'X-ABLS-DOMAIN': localStorage.getItem("domain_uuid")
-                                      }
-            })
-         .then ( () => { } )
-         .catch ( () => { $("#idAlertAgentNotConnected")
-                          .html("Error when connecting, things you can do:<br>"+
-                                "1/ See <a target=_blank href='https://"+master+":5559/status'>Agent Status</a>, accept SSL Exception and reload this page.<br>"+
-                                "2/ Check DNS configuration for <strong>"+master+"</strong> hostname"
-                               )
-                          .slideDown(); } );
-
+    setInterval( function()
+                  { Dls_run_refresh ( "idTableEntreeTOR" );
+                    Dls_run_refresh ( "idTableEntreeANA" );
+                    Dls_run_refresh ( "idTableSortieTOR" );
+                    Dls_run_refresh ( "idTableSortieANA" );
+                    Dls_run_refresh ( "idTableCI"        );
+                    Dls_run_refresh ( "idTableCH"        );
+                    Dls_run_refresh ( "idTableMONO"      );
+                    Dls_run_refresh ( "idTableBI"        );
+                    Dls_run_refresh ( "idTableRegistre"  );
+                    Dls_run_refresh ( "idTableVisuel"    );
+                  },
+                 5000
+               );
     $('#idTableEntreeTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "di_id",
+       rowId: "mnemo_di_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Map on", "className": "align-middle text-center",
@@ -108,15 +85,6 @@
                                  else { return( Bouton ( "outline-secondary", "Désactivée", null, null, "Inactive" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
-             "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "success", "Activer l'entrée", "Dls_run_DI_set", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_add ( "secondary", "Désactiver l'entrée", "Dls_run_DI_reset", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_end ();
-                 return(boutons);
-               },
-           }
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -125,14 +93,14 @@
     $('#idTableEntreeANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "ai_id",
+       rowId: "mnemo_ai_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -160,14 +128,14 @@
     $('#idTableSortieTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "do_id",
+       rowId: "mnemo_do_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Map on", "className": "align-middle ",
@@ -182,15 +150,6 @@
                                  else { return( Bouton ( "outline-secondary", "Désactivée", null, null, "Inactive" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
-             "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "success", "Activer la sortie", "Dls_run_DO_set", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_add ( "secondary", "Désactiver la sortie", "Dls_run_DO_reset", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_end ();
-                 return(boutons);
-               },
-           }
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -199,14 +158,14 @@
     $('#idTableSortieANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "ao_id",
+       rowId: "mnemo_ao_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -228,14 +187,14 @@
     $('#idTableCI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "ci_id",
+       rowId: "mnemo_ci_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -248,7 +207,6 @@
                },
            },
            { "data": "valeur",     "title":"Valeur",     "className": "text-center align-middle" },
-           { "data": "multi",      "title":"Multiplicateur", "className": "text-center align-middle " },
            { "data": "unite",      "title":"Unité", "className": "text-center align-middle " },
          ],
        /*order: [ [0, "desc"] ],*/
@@ -258,14 +216,14 @@
     $('#idTableCH').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
+       ajax: { url : $ABLS_API+"/dls/run",  type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "ch_id",
+       rowId: "mnemo_ch_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -289,14 +247,14 @@
     $('#idTableRegistre').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "registre_id",
+       rowId: "mnemo_registre_id",
        columns:
          [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
@@ -309,47 +267,17 @@
        /*responsive: true,*/
      });
 
-    $('#idTableTempo').DataTable(
-     { pageLength : 50,
-       fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "TEMPO" }, dataSrc: "TEMPO",
-               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
-                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
-             },
-       rowId: "tempo_id",
-       columns:
-         [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
-           { "data": null, "title":"Etat", "className": "align-middle ",
-             "render": function (item)
-               { if (item.etat==true) { return( Bouton ( "success", "La tempo compte le temps", null, null, "En décompte" ) );        }
-                                 else { return( Bouton ( "outline-secondary", "La tempo ne compte pas", null, null, "Stoppée" ) ); }
-               },
-           },
-           { "data": "status",     "title":"Status",   "className": "align-middle  text-center" },
-           { "data": "daa",        "title":"daa",      "className": "align-middle  text-center" },
-           { "data": "dma",        "title":"dma",      "className": "align-middle  text-center" },
-           { "data": "dMa",        "title":"dMa",      "className": "align-middle  text-center" },
-           { "data": "dad",        "title":"dad",      "className": "align-middle  text-center" },
-           { "data": "date_on",    "title":"date_on",  "className": "align-middle  text-center" },
-           { "data": "date_off",   "title":"date_off", "className": "align-middle  text-center" },
-         ],
-       /*responsive: true,*/
-     });
-
     $('#idTableMONO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "mono_id",
+       rowId: "mnemo_mono_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -358,14 +286,14 @@
                                  else { return( Bouton ( "outline-secondary", "Le bit est a 0", null, null, "0" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
+        /*   { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
                  boutons += Bouton_actions_add ( "success", "Activer le bit", "Dls_run_MONO_set", item.acronyme, "power-off", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
-           }
+           }*/
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -374,14 +302,14 @@
     $('#idTableBI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "bi_id",
+       rowId: "mnemo_bi_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -390,7 +318,7 @@
                                  else { return( Bouton ( "outline-secondary", "Le bit est a 0", null, null, "0" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
+       /*    { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
                  boutons += Bouton_actions_add ( "success", "Activer le bit", "Dls_run_BI_set", item.acronyme, "power-off", null );
@@ -398,7 +326,7 @@
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },
-           }
+           }*/
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -408,20 +336,19 @@
     $('#idTableVisuel').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "visuel_id",
+       rowId: "mnemo_visuel_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",    "className": "align-middle text-center" },
            { "data": "libelle",    "title":"Libellé",     "className": "align-middle text-center" },
            { "data": "mode",       "title":"Mode",        "className": "align-middle text-center" },
            { "data": "color",      "title":"Couleur",     "className": "align-middle text-center" },
-           { "data": "valeur",     "title":"Valeur",      "className": "align-middle text-center" },
            { "data": null, "title":"Cligno", "className": "align-middle text-center",
              "render": function (item)
                { if (item.cligno==true) { return( Bouton ( "outline-success", "Le visuel clignote", null, null, "Oui" ) );          }
@@ -442,7 +369,7 @@
     $('#idTableWatchdog').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -458,10 +385,10 @@
                                  else { return( Bouton ( "warning", "Le compteur est échu", null, null, "échu" ) ); }
                },
            },
-           { "data": null, "title":"Reste en décompte", "className": "align-middle text-center",
+        /*   { "data": null, "title":"Reste en décompte", "className": "align-middle text-center",
              "render": function (item)
                { return ( item.decompte/10.0 + "s" ); },
-           },
+           },*/
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
@@ -470,14 +397,14 @@
     $('#idTableMessages').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "https://"+master+":5559/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
-       rowId: "msg_id",
+       rowId: "mnemo_msg_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -486,19 +413,8 @@
                                  else { return( Bouton ( "outline-secondary", "Le message est a 0", null, null, "Inactif" ) ); }
                },
            },
-           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
-             "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "success", "Activer le message", "Dls_run_MSG_set", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_add ( "secondary", "Désactiver le message", "Dls_run_MSG_reset", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_end ();
-                 return(boutons);
-               },
-           }
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/
      });
-
-    $('#idTabEntreeTor').tab('show');
   }

@@ -9,6 +9,7 @@
        $("#idNbrSynsMotifs").text(Response.nbr_syns_motifs);
        $("#idNbrSynsLiens").text(Response.nbr_syns_liens);
        $("#idNbrDls").text(Response.nbr_dls);
+       $("#idNbrDlsError").text(Response.nbr_dls_error);
        $("#idNbrDlsLignes").text(Response.nbr_dls_lignes);
        $("#idNbrDlsDI").text(Response.nbr_dls_di);
        $("#idNbrDlsDO").text(Response.nbr_dls_do);
@@ -37,8 +38,9 @@
     Charger_une_courbe ( "idCourbeDlsTourParSec", "SYS", "DLS_TOUR_PER_SEC", "HOUR" );
     Charger_une_courbe ( "idCourbeDlsBitParSec",  "SYS", "DLS_BIT_PER_SEC", "HOUR" );
     Charger_une_courbe ( "idCourbeDlsAttente",    "SYS", "DLS_WAIT", "HOUR" );
-    Charger_une_courbe ( "idCourbeDlsNbApiEnreg", "SYS", "NBR_API_ENREG_QUEUE", "HOUR" );
-    Charger_une_courbe ( "idCourbeDlsNbARCHIVE",  "SYS", "NBR_ARCHIVE_QUEUE", "HOUR" );
+    Charger_une_courbe ( "idCourbeDlsNbMotifs",   "SYS", "NBR_MOTIFS", "MONTH" );
+    Charger_une_courbe ( "idCourbeDlsNbPlugins",  "SYS", "NBR_DLS", "MONTH" );
+    Charger_une_courbe ( "idCourbeDlsNbErrors",   "SYS", "NBR_DLS_ERROR", "MONTH" );
     Charger_une_courbe ( "idCourbeDlsNbLigne",    "SYS", "NBR_LIGNE_DLS", "MONTH" );
     Charger_une_courbe ( "idCourbeDlsMaxRss",     "SYS", "MAXRSS", "WEEK" );
   }
