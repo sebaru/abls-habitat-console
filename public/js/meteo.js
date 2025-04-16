@@ -10,19 +10,19 @@
     Thread_enable ( selection.thread_tech_id, false, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function METEO_Enable (modbus_id)
+ function METEO_Enable (meteo_id)
   { $("#idButtonSpinner_METEO_Enable_"+meteo_id).show();
     selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function METEO_Debug (modbus_id)
+ function METEO_Debug (meteo_id)
   { $("#idButtonSpinner_METEO_Debug_"+modbus_id).show();
     selection = $('#idTableMETEO').DataTable().row("#"+modbus_id).data();
     Thread_debug ( selection.thread_tech_id, true, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function METEO_Undebug (modbus_id)
+ function METEO_Undebug (meteo_id)
   { $("#idButtonSpinner_METEO_Undebug_"+modbus_id).show();
     selection = $('#idTableMETEO').DataTable().row("#"+modbus_id).data();
     Thread_debug ( selection.thread_tech_id, false, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
