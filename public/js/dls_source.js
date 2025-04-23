@@ -33,8 +33,7 @@
        $("#idErrorLog").removeClass("alert-info alert-warning alert-danger alert-success");
             if (Response.error_count)   { $("#idErrorLog").addClass("alert-danger"); }                               /* Error */
        else if (Response.warning_count) { $("#idErrorLog").addClass("alert-warning"); }                                 /* OK */
-       else { $("#idErrorLog").addClass("alert-success").html("No error"); Dls_Restart(); }
-
+       else { $("#idErrorLog").addClass("alert-success").html("No error"); }
      }, null );
   }
 /********************************************* Appelé au chargement de la page ************************************************/
