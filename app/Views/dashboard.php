@@ -163,6 +163,10 @@
   </div>
 
   <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsNbArchives" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
    <canvas id="idCourbeDlsMaxRss" class="courbe-dashboard border border-info"></canvas>
   </div>
 
