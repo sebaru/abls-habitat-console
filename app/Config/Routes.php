@@ -20,6 +20,7 @@ $routes->get('/agents',       'Console::agents');
 $routes->get('/modbus',       'Console::modbus');
 $routes->get('/imsgs',        'Console::imsgs');
 $routes->get('/smsg',         'Console::smsg');
+$routes->get('/gpiod',        'Console::gpiod');
 $routes->get('/search',       'Console::search');
 $routes->get('/audio',        'Console::audio');
 $routes->get('/ups',          'Console::ups');
