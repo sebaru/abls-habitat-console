@@ -165,8 +165,8 @@
     $('#idTableGPIOD_IO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/gpiod/list", type : "GET", dataSrc: "gpiod_ios", contentType: "application/json",
-               /*data: function() { return ( "classe=gpiod" ); },*/
+       ajax: { url : $ABLS_API+"/gpiod/list", type : "GET", dataSrc: "IO", contentType: "application/json",
+               data: function() { return ( "classe=io" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
