@@ -1,17 +1,13 @@
 
- var Capteurs =
-  [ { valeur: "DIGITAL-INPUT",        texte: "DI - DIGITAL-INPUT" },
-    { valeur: "ADP1000-PH",           texte: "AI - ADP1000-PH" },
-    { valeur: "TMP1200_0-PT100-3850", texte: "AI - TMP1200_0-PT100-3850" },
-    { valeur: "TMP1200_0-PT100-3920", texte: "AI - TMP1200_0-PT100-3920<" },
-    { valeur: "AC-CURRENT-10A",       texte: "AI - AC-CURRENT-10A" },
-    { valeur: "AC-CURRENT-25A",       texte: "AI - AC-CURRENT-25A" },
-    { valeur: "AC-CURRENT-50A",       texte: "AI - AC-CURRENT-50A" },
-    { valeur: "AC-CURRENT-100A",      texte: "AI - AC-CURRENT-100A" },
-    { valeur: "TEMP_1124_0",          texte: "AI - TEMP_1124_0" },
-    { valeur: "REL2001_0",            texte: "DO - REL2001_0" },
+ var Modes_InOut =
+  [ { valeur: false, texte: "DI - DIGITAL-INPUT" },
+    { valeur: true, texte: "DO - DIGITAL OUTPUT" },
   ];
 
+ var Modes_ActiveLow =
+  [ { valeur: false, texte: "FALSE" },
+    { valeur: true, texte: "TRUE" },
+  ];
 
 /************************************ Demande de refresh **********************************************************************/
  function GPIOD_Refresh ( )
@@ -76,16 +72,19 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function GPIOD_Edit_IO (gpiod_io_id)
   { selection = $('#idTableGPIOD_IO').DataTable().row("#"+gpiod_io_id).data();
-    $('#idGPIODEditIOTitre').text( "Configurer "+selection.thread_tech_id+", port "+selection.port );
+    $('#idGPIODEditIOTitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idGPIODEditIOLibelle').val ( selection.libelle );
-    $('#idGPIODEditIOCapteur')
-     .replaceWith ( Select ( "idGPIODEditIOCapteur", null, Capteurs, selection.capteur ) );
+    $('#idGPIODEditIOModeInOut')
+     .replaceWith ( Select ( "idGPIODEditIOModeInOut", null, Modes_InOut, selection.mode_inout ) );
+    $('#idGPIODEditIOModeActiveLow')
+     .replaceWith ( Select ( "idGPIODEditIOModeActiveLow", null, Modes_ActiveLow, selection.mode_activelow ) );
     $('#idGPIODEditIOValider').off("click").on( "click", function ()
      { $('#idGPIODEditIO').modal("hide");
        var json_request =
-        { gpiod_io_id: parseInt(gpiod_io_id),
-          capteur: $('#idGPIODEditIOCapteur').val(),
-          libelle: $('#idGPIODEditIOLibelle').val(),
+        { gpiod_io_id   : parseInt(gpiod_io_id),
+          mode_inout    : $('#idGPIODEditIOModeInOut').val() == "true",
+          mode_activelow: $('#idGPIODEditIOModeActiveLow').val() == "true",
+          libelle       : $('#idGPIODEditIOLibelle').val(),
         };
 
        Send_to_API ( "POST", "/gpiod/set/io", json_request,
@@ -194,17 +193,13 @@
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },
-            { "data": null, "title":"Numéro", "className": "align-middle text-center",
-              "render": function (item)
-                { return ( htmlEncode("IO"+item.num) ); }
-            },
             { "data": null, "title":"In / Out", "className": "align-middle text-center",
               "render": function (item)
                 { return ( (item.mode_inout ? "OUT" : "IN" ) ); }
             },
             { "data": null, "title":"ActiveLow", "className": "align-middle text-center",
               "render": function (item)
-                { return ( (item.mode_activelow ? "FALSE" : "TRUE") ); }
+                { return ( (item.mode_activelow ? "TRUE" : "FALSE") ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
