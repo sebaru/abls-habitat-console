@@ -194,6 +194,18 @@
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },
+            { "data": null, "title":"Numéro", "className": "align-middle text-center",
+              "render": function (item)
+                { return ( htmlEncode("IO"+item.num) ); }
+            },
+            { "data": null, "title":"In / Out", "className": "align-middle text-center",
+              "render": function (item)
+                { return ( (item.mode_inout ? "OUT" : "IN" ) ); }
+            },
+            { "data": null, "title":"ActiveLow", "className": "align-middle text-center",
+              "render": function (item)
+                { return ( (item.mode_activelow ? "FALSE" : "TRUE") ); }
+            },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_actions_start ();
                   boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "GPIOD_Edit_IO", item.gpiod_io_id, "pen", null );
