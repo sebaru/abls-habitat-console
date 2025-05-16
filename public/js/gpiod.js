@@ -103,7 +103,7 @@
          if (selection.mode_inout == 0) classe = "DI";
     else if (selection.mode_inout == 1) classe = "DO";
 
-    $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", selection.classe ); } );
+    $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", classe ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", selection.classe, selection.tech_id, selection.acronyme );
     $('#idMODALMapValider').off("click").on( "click", function ()
      { $('#idMODALMap').modal("hide");
