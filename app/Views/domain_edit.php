@@ -75,6 +75,27 @@
 
            <div class="row ">
              <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">URL du repository</label>
+               <input id="idDomainGitRepoURL" type="text" class="form-control" placeholder="(optional) Git Repo URL">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">Token du repository</label>
+               <input id="idDomainGitRepoToken" type="text" class="form-control" placeholder="Git Repo token">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">Clef d'API Mistral.AI</label>
+               <input id="idDomainMistralAPIKey" type="text" class="form-control" placeholder="Mistral API Key">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Debug Traduction D.L.S</label>
                <select id="idDomainDebugDls" class="custom-select"></select>
              </div>
