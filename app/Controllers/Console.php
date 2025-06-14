@@ -4,14 +4,13 @@ namespace App\Controllers;
 
 class Console extends BaseController
 {
-
  public function send_page ( $page )
   { echo view('header');
     echo view($page);
     echo view('footer');
   }
 
- public function default()
+ public function index()
   { return redirect()->to(base_url("/dashboard")); }
 
  public function dashboard()          { $this->send_page ("dashboard"); }

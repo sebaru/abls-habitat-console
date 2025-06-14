@@ -52,11 +52,14 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Domain_Save ( domain_uuid )
   { var json_request =
-       { domain_uuid  : domain_uuid,
-         domain_name  : $("#idDomainName").val(),
-         notif        : $("#idDomainNotif").val(),
-         audio_tech_id: $("#idDomainAudioTechID").val(),
-         debug_dls    : ($("#idDomainDebugDls").val()==1 ? true : false),
+       { domain_uuid   : domain_uuid,
+         domain_name   : $("#idDomainName").val(),
+         notif         : $("#idDomainNotif").val(),
+         audio_tech_id : $("#idDomainAudioTechID").val(),
+         git_repo_url  : $("#idDomainGitRepoURL").val(),
+         git_repo_token: $("#idDomainGitRepoToken").val(),
+         mistral_api_key: $("#idDomainMistralAPIKey").val(),
+         debug_dls     : ($("#idDomainDebugDls").val()==1 ? true : false),
        };
 
     Send_to_API ( "POST", "/domain/set", json_request, function(Response)
@@ -104,6 +107,9 @@
        $("#idDomainDebugDls").replaceWith ( Select ( "idDomainDebugDls", null,
                                             [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.debug_dls ) );
        $("#idDomainNotif").val( Response.notif );
+       $("#idDomainGitRepoURL").val( Response.git_repo_url );
+       $("#idDomainGitRepoToken").val( "" );
+       $("#idDomainMistralAPIKey").val( "" );
        $("#idDomainAudioTechID").val( Response.audio_tech_id );
 
      }, null );
