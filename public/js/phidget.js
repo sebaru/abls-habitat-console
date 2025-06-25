@@ -2,6 +2,7 @@
  var Capteurs =
   [ { valeur: "DIGITAL-INPUT",        texte: "DI - DIGITAL-INPUT" },
     { valeur: "ADP1000-PH",           texte: "AI - ADP1000-PH" },
+    { valeur: "ADP1000-ORP",          texte: "AI - ADP1000-ORP" },
     { valeur: "TMP1200_0-PT100-3850", texte: "AI - TMP1200_0-PT100-3850" },
     { valeur: "TMP1200_0-PT100-3920", texte: "AI - TMP1200_0-PT100-3920<" },
     { valeur: "AC-CURRENT-10A",       texte: "AI - AC-CURRENT-10A" },
