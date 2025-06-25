@@ -93,11 +93,23 @@
            },
            { "data": null, "title":"GSM", "className": "align-middle text-center",
              "render": function (item)
-               { return( SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms); } )[0].texte ); }
+               { var result = SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms); } )[0].texte;
+                 if (item.notif_sms == -1)
+                 result = result + "(=" +
+                                   SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms_by_dls); } )[0].texte +
+                                   ")";
+                 return ( result );
+               }
            },
            { "data": null, "title":"Chat", "className": "align-middle text-center",
              "render": function (item)
-               { return( IMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_chat); } )[0].texte ); }
+               { var result = IMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_chat); } )[0].texte;
+                 if (item.notif_chat == -1)
+                 result = result + "(=" +
+                                   IMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_chat_by_dls); } )[0].texte +
+                                   ")";
+                 return ( result );
+               }
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
