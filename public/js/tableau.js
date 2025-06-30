@@ -1,7 +1,6 @@
- var ModeTableau = [ { valeur: 0, color: "info", tooltip: "Affichage en tant que courbes", texte: "Courbe" },
-                     { valeur: 1, color: "warning", tooltip: "Affichage en tant que valeurs",texte: "Valeur" },
+ var ModeTableau = [ { valeur: 0, color: "info",    tooltip: "Affichage en tant que courbes", texte: "Courbe" },
+                     { valeur: 1, color: "warning", tooltip: "Affichage en tant que valeurs", texte: "Valeur" },
                    ];
-
 /************************************ Demande de refresh **********************************************************************/
  function TABLEAU_Refresh ( )
   { $('#idTableTableau').DataTable().ajax.reload(null, false);
