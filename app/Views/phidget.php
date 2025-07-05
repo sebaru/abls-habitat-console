@@ -129,7 +129,7 @@
        <div class="col ">
           <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Intervalle</label>
-           <input id="idPHIDGETEditIOIntervalle" required type="number" class="form-control" min=1 max=60 placeholder="Intervalle d'acquisition">
+           <input id="idPHIDGETEditIOIntervalle" required type="number" class="form-control" min=1000 max=60000 placeholder="Intervalle d'acquisition">
             <span class="input-group-text form-control">ms</span>
           </div>
         </div>
