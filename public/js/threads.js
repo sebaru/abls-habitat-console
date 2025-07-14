@@ -62,6 +62,12 @@
                  return( Badge( "info", "Déconnecté", "Déconnecté" ) );
                },
            },
+          { "data": null, "title":"MQTT", "className": "align-middle text-center",
+            "render": function (item)
+              { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
+                return( Badge( "info", "Déconnecté", "Déconnecté" ) );
+              },
+          },
           { "data": null, "title":"Debug", "className": "align-middle text-center",
             "render": function (item)
              { if (item.debug==true)

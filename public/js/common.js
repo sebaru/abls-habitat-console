@@ -332,7 +332,8 @@
     if (period===undefined) period="HOUR";
     var json_request =
      { courbes: [ { tech_id : tech_id, acronyme : acronyme, } ],
-       period   : period
+       period   : period,
+       methode  : methode
      };
 
     Send_to_API ( "POST", "/archive/get", json_request, function(json)
