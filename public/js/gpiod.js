@@ -26,6 +26,18 @@
     selection = $('#idTableGPIOD').DataTable().row("#"+gpiod_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { GPIOD_Refresh(); }, function(Response) { GPIOD_Refresh(); } );
   }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function GPIOD_Debug (gpiod_id)
+  { $("#idButtonSpinner_GPIOD_Debug_"+gpiod_id).show();
+    selection = $('#idTableGPIOD').DataTable().row("#"+gpiod_id).data();
+    Thread_debug ( selection.thread_tech_id, true, function(Response) { GPIOD_Refresh(); }, function(Response) { GPIOD_Refresh(); } );
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function GPIOD_Undebug (gpiod_id)
+  { $("#idButtonSpinner_GPIOD_Undebug_"+gpiod_id).show();
+    selection = $('#idTableGPIOD').DataTable().row("#"+gpiod_id).data();
+    Thread_debug ( selection.thread_tech_id, false, function(Response) { GPIOD_Refresh(); }, function(Response) { GPIOD_Refresh(); } );
+  }
 /**************************************** Supprime une connexion GPIOD *******************************************************/
  function GPIOD_Del (gpiod_id)
   { selection = $('#idTableGPIOD').DataTable().row("#"+gpiod_id).data();
@@ -140,6 +152,14 @@
                else
                 { return( Bouton ( "outline-secondary", "Activer le module", "GPIOD_Enable", item.gpiod_id, "Désactivé" ) ); }
               },
+          },
+          { "data": null, "title":"Debug", "className": "align-middle text-center",
+            "render": function (item)
+             { if (item.debug==true)
+                { return( Bouton ( "warning", "Désactiver le debug", "GPIOD_Undebug", item.gpiod_id, "Actif" ) ); }
+               else
+                { return( Bouton ( "outline-secondary", "Activer le debug", "GPIOD_Debug", item.gpiod_id, "Désactivé" ) ); }
+             },
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
