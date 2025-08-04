@@ -9,7 +9,8 @@
     { valeur: "AC-CURRENT-25A",       texte: "AI - AC-CURRENT-25A" },
     { valeur: "AC-CURRENT-50A",       texte: "AI - AC-CURRENT-50A" },
     { valeur: "AC-CURRENT-100A",      texte: "AI - AC-CURRENT-100A" },
-    { valeur: "PH/ORP-1130",          texte: "AI - PH/ORP-1130" },
+    { valeur: "1130-PH",              texte: "AI - 1130-PH" },
+    { valeur: "1130-ORP",             texte: "AI - 1130-ORP" },
     { valeur: "TEMP_1124_0",          texte: "AI - TEMP_1124_0" },
     { valeur: "REL2001_0",            texte: "DO - REL2001_0" },
   ];
