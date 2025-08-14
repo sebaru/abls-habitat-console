@@ -229,7 +229,7 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle" href="#" id="navbarDLS" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-wrench text-primary"></i> D.L.S
+          <i class="fas fa-coffee text-primary"></i> D.L.S
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDLS">
           <a class="dropdown-item" href="/dls"> <i class="fas fa-code text-primary"></i> <span>Modules D.L.S</span> </a>
@@ -241,7 +241,15 @@
         </div>
       </li>
 
-      <a class="nav-link rounded" href="/io_config"><i class="fas fa-link text-primary"></i> <span>Connecteurs</span></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link rounded dropdown-toggle" href="#" id="navbarCONFIG" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-wrench text-primary"></i> Configuration
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarCONFIG">
+          <a class="dropdown-item" href="/io_config"><i class="fas fa-link text-primary"></i> <span>Connecteurs</span></a>
+          <a class="dropdown-item" href="/audio/zones"> <i class="fas fa-play text-primary"></i> <span>Zones de diffusion</span> </a>
+        </div>
+      </li>
 
     </ul>
 
