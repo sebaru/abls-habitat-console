@@ -1,6 +1,6 @@
 /************************************ Demande de refresh **********************************************************************/
  function AUDIOZONE_Refresh ( )
-  { $('#idTableAUDIOZONE').DataTable().ajax.reload(null, false);
+  { $('#idTableAUDIOZONES').DataTable().ajax.reload(null, false);
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AUDIOZONE_Set ( selection )
@@ -17,16 +17,14 @@
      }, function(Response) { AUDIOZONE_Refresh(); } );
   }
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
- function AUDIOZONE_Test ( audio_id )
-  { selection = $('#idTableAUDIOZONE').DataTable().row("#"+audio_id).data();
-    var json_request =
-     { audio_zone     : selection.audio_zone,
-     };
+ function AUDIOZONE_Test ( audio_zone_id )
+  { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_zone_id).data();
+    var json_request = { name : selection.name };
     Send_to_API ( 'POST', "/audio/zone/test", json_request, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function AUDIOZONE_Edit ( audio_id )
-  { selection = $('#idTableAUDIOZONE').DataTable().row("#"+audio_id).data();
+  { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_id).data();
     $('#idAUDIOZONETitre').text("Editer la zone audio " + selection.name);
     $('#idAUDIOZONENom').val( selection.name );
     $('#idAUDIOZONEDescription').val( selection.description );
@@ -54,7 +52,7 @@
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function AUDIOZONE_Del ( audio_id )
-  { selection = $('#idTableAUDIOZONE').DataTable().row("#"+audio_id).data();
+  { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_id).data();
     Show_modal_del ( "Supprimer la zone de diffusion "+selection.name,
                      "Etes-vous sûr de vouloir supprimer cette zone de diffusion ?",
                      selection.name + " - " + selection.description,
@@ -62,7 +60,7 @@
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { $('#idTableAUDIOZONE').DataTable(
+  { $('#idTableAUDIOZONES').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : $ABLS_API+"/audio/zone/list", type : "GET", dataSrc: "audio_zones", contentType: "application/json",
@@ -77,7 +75,7 @@
        columns:
          [ { "data": null, "title":"Nom", "className": "align-middle text-center",
              "render": function (item)
-               { return( htmlEncode(item.name) ); }
+               { return( Lien ( "audio/zone/"+item.name, "Voir la zone "+item.name, item.name ) ); }
            },
            { "data": null, "title":"Description", "className": "align-middle text-center",
              "render": function (item)
