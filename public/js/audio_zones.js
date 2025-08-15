@@ -46,7 +46,7 @@
   { if (selection.audio_zone_id==1)
      { Show_toast_ko ( "La suppression de la zone par défaut est interdite !" ); return; }
 
-    var json_request = { audio_zone_id : selection.audio_zone_id };
+    var json_request = { name : selection.name };
     Send_to_API ( 'DELETE', "/audio/zone/delete", json_request, function(Response)
      { Show_toast_ok ( "Zone de diffusion supprimée.");
        AUDIOZONE_Refresh();
