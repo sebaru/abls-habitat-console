@@ -12,7 +12,7 @@
 <hr>
 
    <div class="table-responsive">
-     <table id="idTableAUDIOZONE" class="table table-striped table-bordered table-hover">
+     <table id="idTableAUDIOZONES" class="table table-striped table-bordered table-hover">
        <thead class="table-dark">
        </thead>
        <tbody>
