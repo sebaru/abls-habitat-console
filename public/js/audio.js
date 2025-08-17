@@ -85,15 +85,15 @@
  function AUDIO_Del_Valider ( selection )
   { var json_request = { agent_uuid : selection.agent_uuid, thread_tech_id: selection.thread_tech_id };
     Send_to_API ( 'DELETE', "/thread/delete", json_request, function(Response)
-     { Show_toast_ok ( "Zone de diffusion supprimée.");
+     { Show_toast_ok ( "Thread supprimé.");
        AUDIO_Refresh();
      }, function(Response) { AUDIO_Refresh(); } );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function AUDIO_Del ( audio_id )
   { selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
-    Show_modal_del ( "Supprimer la zone de diffusion "+selection.thread_tech_id,
-                     "Etes-vous sûr de vouloir supprimer cette zone de diffusion ?",
+    Show_modal_del ( "Supprimer un thread audio",
+                     "Etes-vous sûr de vouloir supprimer ce thread "+selection.thread_tech_id+" ?",
                      selection.thread_tech_id + " - "+selection.description,
                      function () { AUDIO_Del_Valider( selection ) } ) ;
   }
@@ -102,7 +102,7 @@
   { $('#idTableAUDIO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "audio", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=audio" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)

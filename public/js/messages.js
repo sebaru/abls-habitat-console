@@ -37,7 +37,7 @@
     $('#idMSGEditLibelle').prop ("disabled", true).val( selection.libelle );
     $('#idMSGEditNotifSMSG').replaceWith ( Select ( "idMSGEditNotifSMSG", null, SMSG_NOTIF, selection.notif_sms ) );
     $('#idMSGEditNotifIMSG').replaceWith ( Select ( "idMSGEditNotifIMSG", null, IMSG_NOTIF, selection.notif_chat ) );
-    Select_from_api ( "idMSGEditAudioZone", "/audio/zone/list", null, "audio_zones", "name", function (Response)
+    Select_from_api ( "idMSGEditAudioZone", "/audio/zones/list", null, "audio_zones", "audio_zone_name", function (Response)
                         { return ( Response.name ); }, selection.name );
     $('#idMSGEditAudioLibelle').val( selection.audio_libelle );
     $('#idMSGEditRateLimit').val( selection.rate_limit );
@@ -90,7 +90,7 @@
            },
            { "data": null, "title":"Zone Audio", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "audio/zone/"+item.audio_zone_name, "Voir la zone "+item.audio_zone_name, item.audio_zone_name ) ); }
+               { return( Lien ( "/audio/zone/"+item.audio_zone_name, "Voir la zone "+item.audio_zone_name, item.audio_zone_name ) ); }
            },
            { "data": null, "title":"GSM", "className": "align-middle text-center",
              "render": function (item)

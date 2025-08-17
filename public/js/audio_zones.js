@@ -5,13 +5,13 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AUDIOZONE_Set ( selection )
   { var json_request =
-     { name        : $('#idAUDIOZONENom').val().toUpperCase(),
-       description : $('#idAUDIOZONEDescription').val(),
+     { audio_zone_name : $('#idAUDIOZONENom').val().toUpperCase(),
+       description     : $('#idAUDIOZONEDescription').val(),
      };
 
     if (selection) json_request.audio_zone_id = selection.audio_zone_id;                                /* Ajout ou édition ? */
 
-    Send_to_API ( "POST", "/audio/zone/set", json_request, function(Response)
+    Send_to_API ( "POST", "/audio/zones/set", json_request, function(Response)
      { Show_toast_ok ( "Modification sauvegardée.");
        AUDIOZONE_Refresh();
      }, function(Response) { AUDIOZONE_Refresh(); } );
@@ -19,14 +19,14 @@
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function AUDIOZONE_Test ( audio_zone_id )
   { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_zone_id).data();
-    var json_request = { name : selection.name };
-    Send_to_API ( 'POST', "/audio/zone/test", json_request, null );
+    var json_request = { name : selection.audio_zone_name };
+    Send_to_API ( 'POST', "/audio/zones/test", json_request, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function AUDIOZONE_Edit ( audio_id )
-  { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_id).data();
-    $('#idAUDIOZONETitre').text("Editer la zone audio " + selection.name);
-    $('#idAUDIOZONENom').val( selection.name );
+ function AUDIOZONE_Edit ( audio_zone_id )
+  { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_zone_id).data();
+    $('#idAUDIOZONETitre').text("Editer la zone audio " + selection.audio_zone_name);
+    $('#idAUDIOZONENom').val( selection.audio_zone_name );
     $('#idAUDIOZONEDescription').val( selection.description );
     $('#idAUDIOZONEValider').off("click").on( "click", function () { AUDIOZONE_Set(selection); } );
     $('#idAUDIOZONEEdit').modal("show");
@@ -44,18 +44,18 @@
   { if (selection.audio_zone_id==1)
      { Show_toast_ko ( "La suppression de la zone par défaut est interdite !" ); return; }
 
-    var json_request = { name : selection.name };
-    Send_to_API ( 'DELETE', "/audio/zone/delete", json_request, function(Response)
+    var json_request = { audio_zone_name : selection.audio_zone_name };
+    Send_to_API ( 'DELETE', "/audio/zones/delete", json_request, function(Response)
      { Show_toast_ok ( "Zone de diffusion supprimée.");
        AUDIOZONE_Refresh();
      }, function(Response) { AUDIOZONE_Refresh(); } );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
- function AUDIOZONE_Del ( audio_id )
-  { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_id).data();
-    Show_modal_del ( "Supprimer la zone de diffusion "+selection.name,
+ function AUDIOZONE_Del ( audio_zone_id )
+  { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_zone_id).data();
+    Show_modal_del ( "Supprimer la zone de diffusion "+selection.audio_zone_name,
                      "Etes-vous sûr de vouloir supprimer cette zone de diffusion ?",
-                     selection.name + " - " + selection.description,
+                     selection.audio_zone_name + " - " + selection.description,
                      function () { AUDIOZONE_Del_Valider( selection ) } ) ;
   }
 /********************************************* Appelé au chargement de la page ************************************************/
@@ -63,7 +63,7 @@
   { $('#idTableAUDIOZONES').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/audio/zone/list", type : "GET", dataSrc: "audio_zones", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/audio/zones/list", type : "GET", dataSrc: "audio_zones", contentType: "application/json",
                /*data: function() { return ( "classe=audio" ); },*/
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -75,7 +75,7 @@
        columns:
          [ { "data": null, "title":"Nom", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "audio/zone/"+item.name, "Voir la zone "+item.name, item.name ) ); }
+               { return( Lien ( "/audio/zone/"+item.audio_zone_name, "Voir la zone "+item.audio_zone_name, item.audio_zone_name ) ); }
            },
            { "data": null, "title":"Description", "className": "align-middle text-center",
              "render": function (item)

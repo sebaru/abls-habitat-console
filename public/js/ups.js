@@ -91,7 +91,7 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "ups_id",
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "ups", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=ups" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)

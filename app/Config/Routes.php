@@ -24,6 +24,7 @@ $routes->get('/gpiod',        'Console::gpiod');
 $routes->get('/search',       'Console::search');
 $routes->get('/audio',        'Console::audio');
 $routes->get('/audio/zones',  'Console::audio_zones');
+$routes->get('/audio/zone/(:any)', 'Console::audio_zone');
 $routes->get('/ups',          'Console::ups');
 $routes->get('/phidget',      'Console::phidget');
 $routes->get('/threads',      'Console::threads');

@@ -1,0 +1,51 @@
+<div class="container">
+
+ <div class="row m-2">
+   <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/audio.png" style="width:80px" alt="Configuration de la zone Audio">Édition de la zone audio <strong id="idAudioZoneTitle"></strong></h3></div>
+
+   <div class ="col-auto ms-auto btn-group align-items-center">
+        <button type="button" onclick="AUDIOZONE_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un thread</button>
+        <button type="button" onclick="AUDIOZONE_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
+   </div>
+ </div>
+
+<hr>
+
+   <div class="table-responsive">
+     <table id="idTableAUDIOZONE" class="table table-striped table-bordered table-hover">
+       <thead class="table-dark">
+       </thead>
+       <tbody>
+       </tbody>
+     </table>
+   </div>
+
+<!-- Container -->
+</div>
+
+<div id="idAUDIOZONEEdit" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content ">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idAUDIOZONETitre"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Choix du Thread</label>
+           <select id="idTargetThread" class="custom-select border-info"></select>
+          </div>
+       </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button id="idAUDIOZONEValider" type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="fas fa-save"></i> Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/audio_zone.js" type="text/javascript"></script>
