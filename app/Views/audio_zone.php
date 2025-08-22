@@ -4,7 +4,7 @@
    <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/audio.png" style="width:80px" alt="Configuration de la zone Audio">Édition de la zone audio <strong id="idAudioZoneTitle"></strong></h3></div>
 
    <div class ="col-auto ms-auto btn-group align-items-center">
-        <button type="button" onclick="AUDIOZONE_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un thread</button>
+        <button type="button" onclick="AUDIOZONE_Map()" class="btn btn-primary"><i class="fas fa-directions"></i> Mapper un thread</button>
         <button type="button" onclick="AUDIOZONE_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
    </div>
  </div>

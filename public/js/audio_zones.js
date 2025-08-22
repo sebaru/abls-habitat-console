@@ -22,7 +22,7 @@
     var json_request = { name : selection.audio_zone_name };
     Send_to_API ( 'POST', "/audio/zones/test", json_request, null );
   }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
+/********************************************* Affichage du modal d'edition synoptique ****************************************/
  function AUDIOZONE_Edit ( audio_zone_id )
   { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_zone_id).data();
     $('#idAUDIOZONETitre').text("Editer la zone audio " + selection.audio_zone_name);
@@ -75,7 +75,9 @@
        columns:
          [ { "data": null, "title":"Nom", "className": "align-middle text-center",
              "render": function (item)
-               { return( Lien ( "/audio/zone/"+item.audio_zone_name, "Voir la zone "+item.audio_zone_name, item.audio_zone_name ) ); }
+               { if (item.audio_zone_id==1) return( item.audio_zone_name );
+                 return( Lien ( "/audio/zone/"+item.audio_zone_name, "Voir la zone "+item.audio_zone_name, item.audio_zone_name ) );
+               }
            },
            { "data": null, "title":"Description", "className": "align-middle text-center",
              "render": function (item)
@@ -84,7 +86,7 @@
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la zone de diffusion", "AUDIOZONE_Edit", item.audio_zone_id, "pen", null );
+                 if (item.audio_zone_id!=1) boutons += Bouton_actions_add ( "primary", "Editer la zone de diffusion", "AUDIOZONE_Edit", item.audio_zone_id, "pen", null );
                  boutons += Bouton_actions_add ( "outline-primary", "Tester la diffusion", "AUDIOZONE_Test", item.audio_zone_id, "question", null );
                  if (item.audio_zone_id!=1) boutons += Bouton_actions_add ( "danger", "Supprimer la zone", "AUDIOZONE_Del", item.audio_zone_id, "trash", null );
                  boutons += Bouton_actions_end ();
