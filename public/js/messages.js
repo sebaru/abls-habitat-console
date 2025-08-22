@@ -20,7 +20,7 @@
          acronyme        : selection.acronyme,
          notif_sms       : parseInt($('#idMSGEditNotifSMSG').val()),
          notif_chat      : parseInt($('#idMSGEditNotifIMSG').val()),
-         audio_zone      : $('#idMSGEditAudioZone').val(),
+         audio_zone_name : $('#idMSGEditAudioZone').val(),
          audio_libelle   : $('#idMSGEditAudioLibelle').val(),
          rate_limit      : parseInt($('#idMSGEditRateLimit').val()),
        };
@@ -38,7 +38,7 @@
     $('#idMSGEditNotifSMSG').replaceWith ( Select ( "idMSGEditNotifSMSG", null, SMSG_NOTIF, selection.notif_sms ) );
     $('#idMSGEditNotifIMSG').replaceWith ( Select ( "idMSGEditNotifIMSG", null, IMSG_NOTIF, selection.notif_chat ) );
     Select_from_api ( "idMSGEditAudioZone", "/audio/zones/list", null, "audio_zones", "audio_zone_name", function (Response)
-                        { return ( Response.name ); }, selection.name );
+                        { return ( Response.audio_zone_name ); }, selection.audio_zone_name );
     $('#idMSGEditAudioLibelle').val( selection.audio_libelle );
     $('#idMSGEditRateLimit').val( selection.rate_limit );
     $('#idMSGEditValider').off("click").on( "click", function () { MESSAGE_Set(selection); } );
