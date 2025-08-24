@@ -16,11 +16,11 @@
        AUDIOZONE_Refresh();
      }, function(Response) { AUDIOZONE_Refresh(); } );
   }
-/************************************ Demande l'envoi d'un SMS de test ********************************************************/
+/************************************ Demande l'envoi d'un test sur la zone audio *********************************************/
  function AUDIOZONE_Test ( audio_zone_id )
   { selection = $('#idTableAUDIOZONES').DataTable().row("#"+audio_zone_id).data();
-    var json_request = { name : selection.audio_zone_name };
-    Send_to_API ( 'POST', "/audio/zones/test", json_request, null );
+    var json_request = { audio_zone_id : selection.audio_zone_id };
+    Send_to_API ( 'POST', "/audio/zone/test", json_request, null );
   }
 /********************************************* Affichage du modal d'edition synoptique ****************************************/
  function AUDIOZONE_Edit ( audio_zone_id )
