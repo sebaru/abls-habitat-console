@@ -30,11 +30,8 @@
 /************************************ Demande l'envoi d'un IMSGS de test ******************************************************/
  function IMSGS_Test ( imsgs_id )
   { selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag : "test"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function IMSGS_Del_Valider ( selection )

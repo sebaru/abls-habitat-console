@@ -30,11 +30,8 @@
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function METEO_Test ( meteo_id )
   { selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag : "test"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function METEO_Del_Valider ( selection )

@@ -48,11 +48,8 @@
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function AUDIO_Test ( audio_id )
   { selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag : "test"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function AUDIO_Edit ( audio_id )

@@ -46,20 +46,14 @@
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function SMSG_Test_GSM ( smsg_id )
   { selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag: "test_gsm"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id, test_mode: "GSM" };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function SMSG_Test_OVH ( smsg_id )
   { selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag : "test_ovh"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id, test_mode: "OVH" };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function SMSG_Edit ( smsg_id )
