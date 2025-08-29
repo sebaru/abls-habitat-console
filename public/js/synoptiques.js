@@ -126,7 +126,7 @@
                "syn_soleil.svg", "syn_luminaires.png", "syn_spot.png", "syn_sonorisation.png",
                "syn_confort.png", "syn_ventilateur.svg", "syn_energie.png",
                "syn_electricite.png", "syn_shelly.jpg", "syn_linky.jpg", "syn_ups.png", "syn_panneau_solaire.png",
-               "syn_chaudiere.png", "syn_chauffe_eau.svg",
+               "syn_chaudiere.png", "syn_chauffe_eau.svg", "syn_chauffe_eau_solaire.svg",
                "syn_essence.svg",
                "syn_acces.svg", "syn_maintenance.png", "syn_parametres.png", "syn_menu_parametres.png", "syn_horloge.png",
              ];
