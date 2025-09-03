@@ -10,19 +10,19 @@
     Thread_enable ( selection.thread_tech_id, false, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function METEO_Enable (modbus_id)
+ function METEO_Enable (meteo_id)
   { $("#idButtonSpinner_METEO_Enable_"+meteo_id).show();
     selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
     Thread_enable ( selection.thread_tech_id, true, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function METEO_Debug (modbus_id)
+ function METEO_Debug (meteo_id)
   { $("#idButtonSpinner_METEO_Debug_"+modbus_id).show();
     selection = $('#idTableMETEO').DataTable().row("#"+modbus_id).data();
     Thread_debug ( selection.thread_tech_id, true, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function METEO_Undebug (modbus_id)
+ function METEO_Undebug (meteo_id)
   { $("#idButtonSpinner_METEO_Undebug_"+modbus_id).show();
     selection = $('#idTableMETEO').DataTable().row("#"+modbus_id).data();
     Thread_debug ( selection.thread_tech_id, false, function(Response) { METEO_Refresh(); }, function(Response) { METEO_Refresh(); } );
@@ -30,11 +30,8 @@
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function METEO_Test ( meteo_id )
   { selection = $('#idTableMETEO').DataTable().row("#"+meteo_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag : "test"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function METEO_Del_Valider ( selection )
@@ -97,7 +94,7 @@
   { $('#idTableMETEO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "meteo", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=meteo" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -137,7 +134,13 @@
            { "data": null, "title":"Connexion", "className": "align-middle text-center",
              "render": function (item)
                { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
-                 return( Badge( "info", "Déconnecté", "Déconnecté" ) );
+                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
+               },
+           },
+           { "data": null, "title":"MQTT", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
+                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
                },
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",

@@ -2,12 +2,15 @@
  var Capteurs =
   [ { valeur: "DIGITAL-INPUT",        texte: "DI - DIGITAL-INPUT" },
     { valeur: "ADP1000-PH",           texte: "AI - ADP1000-PH" },
+    { valeur: "ADP1000-ORP",          texte: "AI - ADP1000-ORP" },
     { valeur: "TMP1200_0-PT100-3850", texte: "AI - TMP1200_0-PT100-3850" },
     { valeur: "TMP1200_0-PT100-3920", texte: "AI - TMP1200_0-PT100-3920<" },
     { valeur: "AC-CURRENT-10A",       texte: "AI - AC-CURRENT-10A" },
     { valeur: "AC-CURRENT-25A",       texte: "AI - AC-CURRENT-25A" },
     { valeur: "AC-CURRENT-50A",       texte: "AI - AC-CURRENT-50A" },
     { valeur: "AC-CURRENT-100A",      texte: "AI - AC-CURRENT-100A" },
+    { valeur: "1130-PH",              texte: "AI - 1130-PH" },
+    { valeur: "1130-ORP",             texte: "AI - 1130-ORP" },
     { valeur: "TEMP_1124_0",          texte: "AI - TEMP_1124_0" },
     { valeur: "REL2001_0",            texte: "DO - REL2001_0" },
   ];
@@ -139,7 +142,7 @@
   { $('#idTablePHIDGET').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "phidget", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=phidget" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -180,7 +183,13 @@
           { "data": null, "title":"Connexion", "className": "align-middle text-center",
             "render": function (item)
               { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
-                return( Badge( "info", "Déconnecté", "Déconnecté" ) );
+                return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
+              },
+          },
+          { "data": null, "title":"MQTT", "className": "align-middle text-center",
+            "render": function (item)
+              { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
+                return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
               },
           },
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",

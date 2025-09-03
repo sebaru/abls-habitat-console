@@ -20,7 +20,7 @@
          acronyme        : selection.acronyme,
          notif_sms       : parseInt($('#idMSGEditNotifSMSG').val()),
          notif_chat      : parseInt($('#idMSGEditNotifIMSG').val()),
-         audio_zone      : $('#idMSGEditAudioZone').val(),
+         audio_zone_name : $('#idMSGEditAudioZone').val(),
          audio_libelle   : $('#idMSGEditAudioLibelle').val(),
          rate_limit      : parseInt($('#idMSGEditRateLimit').val()),
        };
@@ -37,7 +37,8 @@
     $('#idMSGEditLibelle').prop ("disabled", true).val( selection.libelle );
     $('#idMSGEditNotifSMSG').replaceWith ( Select ( "idMSGEditNotifSMSG", null, SMSG_NOTIF, selection.notif_sms ) );
     $('#idMSGEditNotifIMSG').replaceWith ( Select ( "idMSGEditNotifIMSG", null, IMSG_NOTIF, selection.notif_chat ) );
-    $('#idMSGEditAudioZone').val( selection.audio_profil );
+    Select_from_api ( "idMSGEditAudioZone", "/audio/zones/list", null, "audio_zones", "audio_zone_name", function (Response)
+                        { return ( Response.audio_zone_name ); }, selection.audio_zone_name );
     $('#idMSGEditAudioLibelle').val( selection.audio_libelle );
     $('#idMSGEditRateLimit').val( selection.rate_limit );
     $('#idMSGEditValider').off("click").on( "click", function () { MESSAGE_Set(selection); } );
@@ -89,15 +90,27 @@
            },
            { "data": null, "title":"Zone Audio", "className": "align-middle text-center",
              "render": function (item)
-               { return( htmlEncode(item.audio_profil) ); }
+               { return( Lien ( "/audio/zone/"+item.audio_zone_name, "Voir la zone "+item.audio_zone_name, item.audio_zone_name ) ); }
            },
            { "data": null, "title":"GSM", "className": "align-middle text-center",
              "render": function (item)
-               { return( SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms); } )[0].texte ); }
+               { var result = SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms); } )[0].texte;
+                 if (item.notif_sms == -1)
+                 result = result + "(=" +
+                                   SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms_by_dls); } )[0].texte +
+                                   ")";
+                 return ( result );
+               }
            },
            { "data": null, "title":"Chat", "className": "align-middle text-center",
              "render": function (item)
-               { return( IMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_chat); } )[0].texte ); }
+               { var result = IMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_chat); } )[0].texte;
+                 if (item.notif_chat == -1)
+                 result = result + "(=" +
+                                   IMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_chat_by_dls); } )[0].texte +
+                                   ")";
+                 return ( result );
+               }
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)

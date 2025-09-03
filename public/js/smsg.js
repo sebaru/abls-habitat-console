@@ -46,20 +46,14 @@
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function SMSG_Test_GSM ( smsg_id )
   { selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag: "test_gsm"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id, test_mode: "GSM" };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function SMSG_Test_OVH ( smsg_id )
   { selection = $('#idTableSMSG').DataTable().row("#"+smsg_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag : "test_ovh"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id, test_mode: "OVH" };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function SMSG_Edit ( smsg_id )
@@ -112,7 +106,7 @@
   { $('#idTableSMSG').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "smsg", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=smsg" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -157,7 +151,13 @@
            { "data": null, "title":"Connexion", "className": "align-middle text-center",
              "render": function (item)
                { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
-                 return( Badge( "info", "Déconnecté", "Déconnecté" ) );
+                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
+               },
+           },
+           { "data": null, "title":"MQTT", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
+                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
                },
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",

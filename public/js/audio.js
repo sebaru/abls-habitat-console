@@ -48,11 +48,8 @@
 /************************************ Demande l'envoi d'un SMS de test ********************************************************/
  function AUDIO_Test ( audio_id )
   { selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag : "test"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function AUDIO_Edit ( audio_id )
@@ -85,15 +82,15 @@
  function AUDIO_Del_Valider ( selection )
   { var json_request = { agent_uuid : selection.agent_uuid, thread_tech_id: selection.thread_tech_id };
     Send_to_API ( 'DELETE', "/thread/delete", json_request, function(Response)
-     { Show_toast_ok ( "Zone de diffusion supprimée.");
+     { Show_toast_ok ( "Thread supprimé.");
        AUDIO_Refresh();
      }, function(Response) { AUDIO_Refresh(); } );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function AUDIO_Del ( audio_id )
   { selection = $('#idTableAUDIO').DataTable().row("#"+audio_id).data();
-    Show_modal_del ( "Supprimer la zone de diffusion "+selection.thread_tech_id,
-                     "Etes-vous sûr de vouloir supprimer cette zone de diffusion ?",
+    Show_modal_del ( "Supprimer un thread audio",
+                     "Etes-vous sûr de vouloir supprimer ce thread "+selection.thread_tech_id+" ?",
                      selection.thread_tech_id + " - "+selection.description,
                      function () { AUDIO_Del_Valider( selection ) } ) ;
   }
@@ -102,7 +99,7 @@
   { $('#idTableAUDIO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "audio", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=audio" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -159,15 +156,21 @@
            { "data": null, "title":"Connexion", "className": "align-middle text-center",
              "render": function (item)
                { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
-                 return( Badge( "info", "Déconnecté", "Déconnecté" ) );
+                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
+               },
+           },
+           { "data": null, "title":"MQTT", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
+                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
                },
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la zone de diffusion", "AUDIO_Edit", item.audio_id, "pen", null );
-                 boutons += Bouton_actions_add ( "outline-primary", "Tester la diffusion", "AUDIO_Test", item.audio_id, "question", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer la zone", "AUDIO_Del", item.audio_id, "trash", null );
+                 boutons += Bouton_actions_add ( "primary", "Editer le thread AUDIO", "AUDIO_Edit", item.audio_id, "pen", null );
+                 boutons += Bouton_actions_add ( "outline-primary", "Tester le thread AUDIO", "AUDIO_Test", item.audio_id, "question", null );
+                 boutons += Bouton_actions_add ( "danger", "Supprimer le thread AUDIO", "AUDIO_Del", item.audio_id, "trash", null );
                  boutons += Bouton_actions_end ();
                  return(boutons);
                },

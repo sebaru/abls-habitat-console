@@ -120,13 +120,13 @@
                "syn_buanderie.png", "syn_camera.png", "syn_chambre_double.png", "syn_chambre_simple.png",
                "syn_cuisine.png", "syn_garage.png", "syn_cour.png",
                "syn_jardin.png", "syn_arrosage_1.svg", "syn_arrosage_2.svg", "syn_tondeuse.svg",
-               "syn_robinet.svg", "syn_piscine.png", "syn_chimie.svg", "syn_puit.svg",
+               "syn_robinet.svg", "syn_robinet_ecs.svg", "syn_piscine.png", "syn_chimie.svg", "syn_puit.svg",
                "syn_salle_de_bain.png", "syn_congelateur.svg", "syn_salon.png", "syn_jeux.png", "syn_tele.png",
                "syn_ouvrants.png", "syn_volets.png", "syn_velux.svg",
                "syn_soleil.svg", "syn_luminaires.png", "syn_spot.png", "syn_sonorisation.png",
                "syn_confort.png", "syn_ventilateur.svg", "syn_energie.png",
                "syn_electricite.png", "syn_shelly.jpg", "syn_linky.jpg", "syn_ups.png", "syn_panneau_solaire.png",
-               "syn_chaudiere.png", "syn_chauffe_eau.svg",
+               "syn_chaudiere.png", "syn_chauffe_eau.svg", "syn_chauffe_eau_solaire.svg", "syn_chauffage.svg",
                "syn_essence.svg",
                "syn_acces.svg", "syn_maintenance.png", "syn_parametres.png", "syn_menu_parametres.png", "syn_horloge.png",
              ];
@@ -188,7 +188,7 @@
                   boutons += Bouton_actions_add ( "outline-primary", "Configurer", "SYN_Edit", item.syn_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer le synoptique", "SYN_Del", item.syn_id, "trash", null );
+                  if (item.syn_id!=1) boutons += Bouton_actions_add ( "danger", "Supprimer le synoptique", "SYN_Del", item.syn_id, "trash", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },

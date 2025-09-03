@@ -30,11 +30,8 @@
 /************************************ Demande l'envoi d'un IMSGS de test ******************************************************/
  function IMSGS_Test ( imsgs_id )
   { selection = $('#idTableIMSGS').DataTable().row("#"+imsgs_id).data();
-    var json_request =
-     { thread_tech_id: selection.thread_tech_id,
-       tag : "test"
-     };
-    Send_to_API ( 'POST', "/thread/send", json_request, null );
+    var json_request = { thread_tech_id: selection.thread_tech_id };
+    Send_to_API ( 'POST', "/thread/test", json_request, null );
   }
 /**************************************** Supprime une connexion meteo ********************************************************/
  function IMSGS_Del_Valider ( selection )
@@ -97,7 +94,7 @@
   { $('#idTableIMSGS').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "imsgs", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=imsgs" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -142,7 +139,13 @@
            { "data": null, "title":"Connexion", "className": "align-middle text-center",
              "render": function (item)
                { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
-                 return( Badge( "info", "Déconnecté", "Déconnecté" ) );
+                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
+               },
+           },
+           { "data": null, "title":"MQTT", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
+                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
                },
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",

@@ -44,8 +44,7 @@
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
         <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idPHIDGETTitre"></span></h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
 
@@ -107,8 +106,7 @@
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
         <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idPHIDGETEditIOTitre"></span></h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
       <div class="modal-body">
@@ -131,7 +129,7 @@
        <div class="col ">
           <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Intervalle</label>
-           <input id="idPHIDGETEditIOIntervalle" required type="number" class="form-control" min=1 max=60 placeholder="Intervalle d'acquisition">
+           <input id="idPHIDGETEditIOIntervalle" required type="number" class="form-control" min=1000 max=60000 placeholder="Intervalle d'acquisition">
             <span class="input-group-text form-control">ms</span>
           </div>
         </div>

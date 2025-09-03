@@ -1,3 +1,8 @@
+ var TABLEAU_MAP_METHODE = [ { valeur: "AVG", texte: "Moyenne" },
+                             { valeur: "MIN", texte: "Minimum" },
+                             { valeur: "MAX", texte: "Maximum" },
+                             { valeur: "SUM", texte: "Somme" },
+                           ];
 /************************************ Créé un nouveau tableau *****************************************************************/
  function Tableau_Map_Add ( )
   { vars = window.location.pathname.split('/');
@@ -19,6 +24,7 @@
          tech_id : $('#idTableauMapTechId_'+tableau_map_id).val(),
          acronyme: $('#idTableauMapAcronyme_'+tableau_map_id).val(),
          color   : $('#idTableauMapColor_'+tableau_map_id).val(),
+         methode : $('#idTableauMapMethode_'+tableau_map_id).val(),
          multi   : parseInt($('#idTableauMapMulti_'+tableau_map_id).val()),
          offset  : parseInt($('#idTableauMapOffset_'+tableau_map_id).val()),
        };
@@ -90,6 +96,15 @@
                                   "Tableau_Map_Set('"+item.tableau_map_id+"')",
                                   "Quelle est la couleur de la courbe ?",
                                   item.color )
+                        );
+                }
+            },
+            { "data": null, "title":"Méthode", "className": "align-middle ",
+              "render": function (item)
+                { return( Select ( "idTableauMapMethode_"+item.tableau_map_id,
+                                   "Tableau_Map_Set('"+item.tableau_map_id+"')",
+                                   TABLEAU_MAP_METHODE,
+                                   item.methode )
                         );
                 }
             },
