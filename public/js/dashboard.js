@@ -45,4 +45,5 @@
     Charger_une_courbe ( "idCourbeDlsNbLigne",    "SYS", "NBR_LIGNE_DLS", "MONTH", "MAX" );
     Charger_une_courbe ( "idCourbeNbCleanup",     "SYS", "NBR_CLEANUP", "DAY", "MAX" );
     Charger_une_courbe ( "idCourbeDlsMaxRss",     "SYS", "MAXRSS", "WEEK", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsLogParMin",  "SYS", "LOG_PER_MIN", "DAY", "MAX" );
   }
