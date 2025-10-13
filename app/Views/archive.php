@@ -56,6 +56,12 @@
 
 <hr>
 
+  <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeArchMaxFrag" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+<hr>
+
  <h3><i class="fas fa-database text-primary"></i> Gestion des tables d'archivage</h3>
 
    <div class="table-responsive">
