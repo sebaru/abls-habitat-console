@@ -57,6 +57,10 @@
 <hr>
 
   <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeArchNbArchives" class="courbe-dashboard border border-info"></canvas>
+  </div>
+
+  <div class="row p-1 justify-content-center">
    <canvas id="idCourbeArchMaxFrag" class="courbe-dashboard border border-info"></canvas>
   </div>
 

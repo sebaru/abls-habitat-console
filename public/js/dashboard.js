@@ -38,7 +38,6 @@
     Charger_une_courbe ( "idCourbeDlsTourParSec", "SYS", "DLS_TOUR_PER_SEC", "HOUR", "AVG" );
     Charger_une_courbe ( "idCourbeDlsBitParSec",  "SYS", "DLS_BIT_PER_SEC", "HOUR", "AVG" );
     Charger_une_courbe ( "idCourbeDlsAttente",    "SYS", "DLS_WAIT", "HOUR", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsNbArchives", "SYS", "NBR_ARCHIVES", "MONTH", "MAX" );
     Charger_une_courbe ( "idCourbeDlsNbMotifs",   "SYS", "NBR_MOTIFS", "MONTH", "MAX" );
     Charger_une_courbe ( "idCourbeDlsNbPlugins",  "SYS", "NBR_DLS", "MONTH", "MAX" );
     Charger_une_courbe ( "idCourbeDlsNbErrors",   "SYS", "NBR_DLS_ERROR", "MONTH", "MAX" );

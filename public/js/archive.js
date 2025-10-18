@@ -61,5 +61,6 @@
           }
         );
      });
+    Charger_une_courbe ( "idCourbeArchNbArchives", "SYS", "NBR_ARCHIVES", "MONTH", "MAX" );
     Charger_une_courbe ( "idCourbeArchMaxFrag",  "SYS", "ARCH_MAX_FRAG", "WEEK", "MAX" );
   }
