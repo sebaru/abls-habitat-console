@@ -21,7 +21,8 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Archive_sauver_parametre ( )
   { var json_request =
-     { archive_retention : parseInt($("#idArchiveDBRetention").val()),
+     { archive_hot_retention :  parseInt($("#idArchiveDBHotRetention").val()),
+       archive_cold_retention : parseInt($("#idArchiveDBColdRetention").val()),
      };
     Send_to_API ( 'POST', "/archive/set", json_request, function(Response)
      { Show_toast_ok ( "Modifications sauvegardées." );
@@ -31,6 +32,44 @@
  function Load_page ()
   { var rowid=0;
     Send_to_API ( "GET", "/archive/status", null, function ( Response )
+     { $('#idArchiveDBHotRetention').val(Response.archive_hot_retention);
+       $('#idArchiveDBHotNumber').val(Response.nbr_hot_archives);
+       $('#idArchiveDBHotSize').val(Response.size_hot_archives);
+       $('#idArchiveDBColdRetention').val(Response.archive_cold_retention);
+       $('#idArchiveDBColdNumber').val(Response.nbr_cold_archives);
+       $('#idArchiveDBColdSize').val(Response.size_cold_archives);
+     });
+    Send_to_API ( "GET", "/archive/status/hot", null, function ( Response )
+     { $('#idArchiveNumber').val(Response.nbr_all_archives);
+       $('#idArchiveTableNumber').val(Response.nbr_tables);
+       $('#idArchiveDatabaseSize').val(Response.database_size);
+       $('#idTableArchive').DataTable(
+          { pageLength : 50,
+            fixedHeader: true,
+            rowId: function(row) { return ( "rowId-"+rowid ); },
+            createdRow: function( row, item, dataIndex ) { rowid++; },
+            data:Response.tables,
+            columns:
+             [ { "data": "tech_id", "title":"Tech_id", "className": "align-middle text-center" },
+               { "data": "acronyme", "title":"Acronyme", "className": "align-middle text-center" },
+               { "data": "rows", "title":"Nombre d'enregistrements", "className": "align-middle text-center" },
+               { "data": "date_create", "title":"Date création", "className": "align-middle text-center" },
+               { "data": "last_update", "title":"Dernier enregistrement", "className": "align-middle text-center" },
+               { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
+                 "render": function (item)
+                   { boutons = Bouton_actions_start ();
+                     boutons += Bouton_actions_add ( "danger", "Supprimer les archives", "Show_Modal_Archive_Del", "rowId-"+rowid, "trash", null );
+                     boutons += Bouton_actions_end ();
+                     return(boutons);
+                   },
+               }
+             ],
+            /*order: [ [0, "desc"] ],*/
+            /*responsive: true,*/
+          }
+        );
+     });
+    Send_to_API ( "GET", "/archive/status/cold", null, function ( Response )
      { $('#idArchiveDBRetention').val(Response.archive_retention);
        $('#idArchiveNumber').val(Response.nbr_all_archives);
        $('#idArchiveTableNumber').val(Response.nbr_tables);
@@ -61,6 +100,7 @@
           }
         );
      });
-    Charger_une_courbe ( "idCourbeArchNbArchives", "SYS", "NBR_ARCHIVES", "MONTH", "MAX" );
-    Charger_une_courbe ( "idCourbeArchMaxFrag",  "SYS", "ARCH_MAX_FRAG", "WEEK", "MAX" );
+    Charger_une_courbe ( "idCourbeArchMaxFrag",  "SYS", "ARCH_MAX_FRAG", "MONTH", "MAX" );
+    Charger_une_courbe ( "idCourbeArchNbHotArchives", "SYS", "NBR_HOT_ARCHIVES", "MONTH", "MAX" );
+    Charger_une_courbe ( "idCourbeArchNbColdArchives", "SYS", "NBR_COLD_ARCHIVES", "MONTH", "MAX" );
   }
