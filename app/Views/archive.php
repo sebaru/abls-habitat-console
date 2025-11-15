@@ -21,7 +21,7 @@
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Nombre d'archives</label>
+               <label class="col-4 col-form-label text-right">Nombre d'archives chaudes</label>
                <input id="idArchiveDBHotNumber" type="text" disabled class="form-control" placeholder="Nombre d'enregistrements">
                <span class="input-group-text">archives</span>
              </div>
@@ -29,7 +29,7 @@
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Taille des données chaudes </label>
+               <label class="col-4 col-form-label text-right">Taille des archives chaudes </label>
                <input id="idArchiveDBHotSize" type="text" disabled class="form-control" placeholder="Volume de stockage">
                <span class="input-group-text">MB</span>
              </div>
@@ -45,7 +45,7 @@
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Nombre d'archives</label>
+               <label class="col-4 col-form-label text-right">Nombre d'archives froide</label>
                <input id="idArchiveDBColdNumber" type="text" disabled class="form-control" placeholder="Nombre d'enregistrements">
                <span class="input-group-text">archives</span>
              </div>
@@ -53,7 +53,7 @@
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Taille des données froides</label>
+               <label class="col-4 col-form-label text-right">Taille des archives froides</label>
                <input id="idArchiveDBColdSize" type="text" disabled class="form-control" placeholder="Volume de stockage">
                <span class="input-group-text">MB</span>
              </div>
@@ -86,7 +86,7 @@
 
 <hr>
 
- <h3><i class="fas fa-database text-primary"></i> Gestion des tables d'archivage</h3>
+ <h3><i class="fas fa-database text-primary"></i> Tables d'archivage chaudes</h3>
 
    <div class="table-responsive">
     <table id="idTableArchiveHOT" class="table table-striped table-bordered table-hover w-100">
@@ -98,6 +98,8 @@
    </div>
 
 <hr>
+
+ <h3><i class="fas fa-database text-primary"></i> Tables d'archivage froides</h3>
 
    <div class="table-responsive">
     <table id="idTableArchiveCOLD" class="table table-striped table-bordered table-hover w-100">
