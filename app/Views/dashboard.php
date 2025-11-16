@@ -163,10 +163,6 @@
   </div>
 
   <div class="row p-1 justify-content-center">
-   <canvas id="idCourbeDlsNbArchives" class="courbe-dashboard border border-info"></canvas>
-  </div>
-
-  <div class="row p-1 justify-content-center">
    <canvas id="idCourbeNbCleanup" class="courbe-dashboard border border-info"></canvas>
   </div>
 
@@ -174,6 +170,9 @@
    <canvas id="idCourbeDlsMaxRss" class="courbe-dashboard border border-info"></canvas>
   </div>
 
+  <div class="row p-1 justify-content-center">
+   <canvas id="idCourbeDlsLogParMin" class="courbe-dashboard border border-info"></canvas>
+  </div>
 
 <script src="/js/dashboard.js" type="text/javascript"></script>
 <!-- Container -->
