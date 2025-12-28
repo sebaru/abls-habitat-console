@@ -11,6 +11,7 @@
                            { regex: /"(?:[^\\]|\\.)*?"/, token: "string" }, // Chaînes de caractères
                            { regex: "/\b_[A-Z].*/", token: "type" }, // Mots-clés
                            { regex: "#define", token: "def" }, // Mots-clés
+                           { regex: "#link", token: "def" }, // Mots-clés
                            { regex: "#param", token: "def" }, // Mots-clés
                            { regex: "<->", token: "operator" }, // Mots-clés
                            { regex: "->", token: "operator" }, // Mots-clés
