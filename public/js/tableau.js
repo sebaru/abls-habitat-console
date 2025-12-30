@@ -12,6 +12,7 @@
      { return ( item.page+" - "+htmlEncode(item.libelle) ); }, Get_url_parameter("syn_id") );
 
     $('#idTableauEditMode').replaceWith ( Select ( "idTableauEditMode", null, ModeTableau, 0 ) );
+    $('#idTableauEditPeriode').replaceWith ( Select ( "idTableauEditPeriode", null, PeriodeTableau, 0 ) );
     $('#idTableauEditLibelle').val( "" );
     $('#idTableauEditValider').attr( "onclick", "TABLEAU_Set(null)" );
     $('#idTableauEdit').modal("show");
@@ -20,9 +21,10 @@
  function TABLEAU_Set ( tableau_id )
   { selection = $('#idTableTableau').DataTable().row("#"+tableau_id).data();
     var json_request =
-       { titre:  $('#idTableauEditLibelle').val(),
-         mode:   parseInt($('#idTableauEditMode').val()),
-         syn_id: parseInt($('#idTableauEditPage').val()),
+       { titre:   $('#idTableauEditLibelle').val(),
+         mode:    parseInt($('#idTableauEditMode').val()),
+         periode: $('#idTableauEditPeriode').val(),
+         syn_id:  parseInt($('#idTableauEditPage').val()),
        }
     if (tableau_id!=null) json_request.tableau_id = selection.tableau_id;
 
@@ -54,6 +56,7 @@
                         { return(item.page+" - "+htmlEncode(item.libelle)); }, selection.syn_id );
 
     $('#idTableauEditMode').replaceWith ( Select ( "idTableauEditMode", null, ModeTableau, selection.mode ) );
+    $('#idTableauEditPeriode').replaceWith ( Select ( "idTableauEditPeriode", null, PeriodeTableau, selection.periode ) );
     $('#idTableauEditLibelle').val( selection.titre );
     $('#idTableauEditValider').attr( "onclick", "TABLEAU_Set('"+selection.tableau_id+"')" );
     $('#idTableauEdit').modal("show");
@@ -83,6 +86,11 @@
               "render": function (item)
                 { mode = ModeTableau.find ( (element) => element.valeur == item.mode );
                   return( Badge ( mode.color, mode.tooltip, mode.texte ) );
+                }
+            },
+            { "data": null, "title":"Période", "className": "text-center",
+              "render": function (item)
+                { return ( PeriodeTableau.find ( (element) => element.valeur == item.periode ).texte );
                 }
             },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
