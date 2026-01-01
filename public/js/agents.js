@@ -115,14 +115,15 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "info", "Promouvoir Master",
+               { boutons = Bouton_deroulant_start ();
+                 boutons += Bouton_deroulant_add ( "info", "Promouvoir en Master",
                                                  (item.is_master == false ? "AGENT_Set_master" : null),
-                                                 item.agent_id, "asterisk", null );
-                 boutons += Bouton_actions_add ( "primary", "Upgrader l'agent",  (item.is_alive ? "AGENT_Upgrade" : null), item.agent_id, "download", null );
-                 boutons += Bouton_actions_add ( "warning", "Restarter l'agent", (item.is_alive ? "AGENT_Reset" : null),   item.agent_id, "redo", null );
-                 boutons += Bouton_actions_add ( "danger",  "Supprimer l'agent", "AGENT_Delete",  item.agent_id, "trash", null );
-                 boutons += Bouton_actions_end ();
+                                                 item.agent_id, "asterisk" );
+                 boutons += Bouton_deroulant_add ( "warning", "Upgrader l'agent",  (item.is_alive ? "AGENT_Upgrade" : null), item.agent_id, "download" );
+                 boutons += Bouton_deroulant_add ( "warning", "Restarter l'agent", (item.is_alive ? "AGENT_Reset" : null),   item.agent_id, "redo" );
+                 boutons += Bouton_deroulant_add_spacer();
+                 boutons += Bouton_deroulant_add ( "danger",  "Supprimer l'agent", "AGENT_Delete",  item.agent_id, "trash" );
+                 boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
            }

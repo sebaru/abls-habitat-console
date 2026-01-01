@@ -192,6 +192,33 @@
  function Bouton_actions_end ( )
   { return ("</div>"); }
 
+/********************************************* Barre de boutons déroulant *****************************************************/
+ function Bouton_deroulant_start ( )
+  { return("<div class='dropdown'>"+
+           "<button type='button' class='btn btn-primary dropdown-toggle' "+
+           "        data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
+           "Action"+
+           "</button>"+
+           "<div class='dropdown-menu'> "
+          );
+  }
+
+ function Bouton_deroulant_add ( color, texte, clic_func, key, icone )
+  { result = "<a class='dropdown-item' "+
+             (clic_func !== null ? "   onclick="+clic_func+"('"+key+"') " : "")+
+             ">"+
+             (icone!==null ? "<i class='fas fa-"+icone+" text-"+color+"'></i> " : "") +
+             texte +
+             "</a>";
+    return(result);
+  }
+
+ function Bouton_deroulant_add_spacer ( )
+  { return ( "<div class='dropdown-divider'></div>" ); }
+
+ function Bouton_deroulant_end ( )
+  { return ("</div></div>"); }
+
 /********************************************** Bouton unitaire ***************************************************************/
  function Bouton ( color, tooltip, clic_func, key, texte )
   { if (clic_func !== null)
