@@ -54,7 +54,7 @@
     <div class="card-header">
       <div class="row">
         <div class="col-4">
-          <i class="fas fa-2x fa-crown text-info"></i>
+          <i class="fas fa-2x fa-asterisk text-info"></i>
         </div>
         <div class="col-8 mt-1"><h5>Agents</h5></div>
       </div>

@@ -193,11 +193,11 @@
   { return ("</div>"); }
 
 /********************************************* Barre de boutons déroulant *****************************************************/
- function Bouton_deroulant_start ( )
+ function Bouton_deroulant_start ( color, texte )
   { return("<div class='dropdown'>"+
-           "<button type='button' class='btn btn-primary dropdown-toggle' "+
+           "<button type='button' class='btn btn-"+color+" dropdown-toggle' "+
            "        data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
-           "Action"+
+           texte+
            "</button>"+
            "<div class='dropdown-menu'> "
           );

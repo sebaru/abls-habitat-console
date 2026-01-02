@@ -208,7 +208,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
           <a class="dropdown-item" href="/dashboard"> <i class="fas fa-tachometer-alt text-primary"></i> Dashboard</a>
-          <a class="dropdown-item" href="/agents"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
+          <a class="dropdown-item" href="/agents"><i class="fas fa-asterisk text-info"></i> <span>Agents</span></a>
           <a class="dropdown-item" href="/threads"><i class="fas fa-microchip text-primary"></i> <span>Threads</span></a>
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
           <a class="dropdown-item" href="/domain/me"> <i class="fas fa-wrench text-primary"></i> Configurer</a>
@@ -268,7 +268,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
           <a class="dropdown-item" href="https://docs.abls-habitat.fr"><i class="fas fa-book"></i> <span> Portail de documentation</span></a>
           <a class="dropdown-item" href="https://docs.abls-habitat.fr/guide_demarrage/#installation-dun-agent" target="_blank">
-            <i class="fas fa-crown text-primary"></i> <span>Installer un agent</span>
+            <i class="fas fa-asterisk text-info"></i> <span>Installer un agent</span>
           </a>
         </div>
 
