@@ -92,10 +92,10 @@
        columns:
          [ { "data": null, "title":"Status", "className": "align-middle text-center",
              "render": function (item)
-               { var mode, color;
-                 if (item.is_master) { mode = "Master";   } else { mode = "Slave";   }
+               { var icone;
+                 if (item.is_master) { icone = "crown"; } else { icone = "asterisk"; }
                  if (item.is_alive)  { color = "success"; } else { color = "danger"; }
-                 return ( Bouton ( color, mode, null, null, mode ) );
+                 return ("<i class='fas fa-2x fa-"+icone+" text-"+color+"'></i>");
                }
            },
            { "data": null, "title":"Branche", "className": "align-middle text-center",
@@ -128,14 +128,16 @@
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons = Bouton_deroulant_start ( (item.is_alive ? "primary" : "secondary"), "" );
-                 if (item.is_alive) boutons += Bouton_deroulant_add ( "warning", "Upgrader l'agent",  "AGENT_Upgrade", item.agent_id, "download" );
-                 if (item.is_alive) boutons += Bouton_deroulant_add ( "warning", "Restarter l'agent", "AGENT_Reset",   item.agent_id, "redo" );
-                 if (item.is_alive) boutons += Bouton_deroulant_add_spacer();
-                 boutons += Bouton_deroulant_add ( "danger", "Promouvoir Master",
-                                                 (item.is_master == false ? "AGENT_Set_master" : null),
-                                                 item.agent_id, "asterisk" );
-                 boutons += Bouton_deroulant_add_spacer();
-                 boutons += Bouton_deroulant_add ( "danger",  "Supprimer l'agent", "AGENT_Delete",  item.agent_id, "trash" );
+                 if (item.is_alive)
+                  { boutons += Bouton_deroulant_add ( "warning", "Upgrader",  "AGENT_Upgrade", item.agent_id, "download" );
+                    boutons += Bouton_deroulant_add ( "warning", "Restarter", "AGENT_Reset",   item.agent_id, "redo" );
+                    boutons += Bouton_deroulant_add_spacer();
+                  }
+                 if (item.is_master === false && item.is_alive)
+                  { boutons += Bouton_deroulant_add ( "danger", "Set Master", "AGENT_Set_master", item.agent_id, "crown" );
+                    boutons += Bouton_deroulant_add_spacer();
+                  }
+                 boutons += Bouton_deroulant_add ( "danger",  "Supprimer", "AGENT_Delete",  item.agent_id, "trash" );
                  boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
@@ -144,5 +146,5 @@
        order: [ [0, "desc"] ],
        responsive: false,
      });
-    setInterval ( function () { AGENT_Refresh (); }, 10000 );
+    setInterval ( function () { AGENT_Refresh (); }, 30000 );
   }
