@@ -204,7 +204,7 @@
   }
 
  function Bouton_deroulant_add ( color, texte, clic_func, key, icone )
-  { result = "<a class='dropdown-item' "+
+  { result = "<a class='dropdown-item ' href='#' "+
              (clic_func !== null ? "   onclick="+clic_func+"('"+key+"') " : "")+
              ">"+
              (icone!==null ? "<i class='fas fa-"+icone+" text-"+color+"'></i> " : "") +
