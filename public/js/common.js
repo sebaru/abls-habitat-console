@@ -365,7 +365,7 @@
   { var chartElement = document.getElementById(idChart);
     if (!chartElement) { console.log("Charger_une_courbe: Erreur chargement chartElement " + json_request ); return; }
 
-    if (period===undefined) period="HOUR";
+    if (period===undefined) period="BY_HOUR";
     var json_request =
      { courbes: [ { tech_id : tech_id, acronyme : acronyme, } ],
        period   : period,
