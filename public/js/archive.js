@@ -24,6 +24,18 @@
      { Show_toast_ok ( "Partition "+selection.partname+" en cours de rebuild." );
      });
   }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function ARCHIVE_Hot_to_Cold ( )
+  { Send_to_API ( 'POST', "/archive/move_hot_to_cold", null, function ()
+     { Show_toast_ok ( "Deplacement en cours." );
+     });
+  }
+/********************************************* Afichage du modal d'edition synoptique *****************************************/
+ function ARCHIVE_Delete_old_Cold ( )
+  { Send_to_API ( 'DELETE', "/archive/delete_old_cold", null, function ()
+     { Show_toast_ok ( "Suppression en cours." );
+     });
+  }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Archive_sauver_parametre ( )
   { var json_request =
@@ -92,7 +104,7 @@
           }
         );
      });
-    Charger_une_courbe ( "idCourbeArchMaxFrag",  "SYS", "ARCH_MAX_FRAG", "MONTH", "MAX" );
-    Charger_une_courbe ( "idCourbeArchNbHotArchives", "SYS", "NBR_HOT_ARCHIVES", "MONTH", "MAX" );
-    Charger_une_courbe ( "idCourbeArchNbColdArchives", "SYS", "NBR_COLD_ARCHIVES", "MONTH", "MAX" );
+    Charger_une_courbe ( "idCourbeArchMaxFrag",  "SYS", "ARCH_MAX_FRAG", "BY_MONTH", "MAX" );
+    Charger_une_courbe ( "idCourbeArchNbHotArchives", "SYS", "NBR_HOT_ARCHIVES", "BY_MONTH", "MAX" );
+    Charger_une_courbe ( "idCourbeArchNbColdArchives", "SYS", "NBR_COLD_ARCHIVES", "BY_MONTH", "MAX" );
   }

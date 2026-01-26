@@ -86,7 +86,12 @@
 
 <hr>
 
- <h3><i class="fas fa-database text-primary"></i> Tables d'archivage chaudes</h3>
+ <div class="row p-1">
+   <div class="col-auto"> <h3><i class="fas fa-database text-primary"></i> Tables d'archivage chaudes</h3> </div>
+   <div class ="col-auto ms-auto btn-group align-items-center">
+      <button type="button" onclick="ARCHIVE_Hot_to_Cold()" class="btn btn-primary"><i class="fas fa-minus"></i> Hot to Cold</button>
+   </div>
+ </div>
 
    <div class="table-responsive">
     <table id="idTableArchiveHOT" class="table table-striped table-bordered table-hover w-100">
@@ -99,7 +104,12 @@
 
 <hr>
 
- <h3><i class="fas fa-database text-primary"></i> Tables d'archivage froides</h3>
+ <div class="row p-1">
+   <div class="col-auto"> <h3><i class="fas fa-database text-primary"></i> Tables d'archivage froides</h3> </div>
+   <div class ="col-auto ms-auto btn-group align-items-center">
+      <button type="button" onclick="ARCHIVE_Delete_old_Cold()" class="btn btn-danger"><i class="fas fa-trash"></i> Delete Old</button>
+   </div>
+ </div>
 
    <div class="table-responsive">
     <table id="idTableArchiveCOLD" class="table table-striped table-bordered table-hover w-100">
