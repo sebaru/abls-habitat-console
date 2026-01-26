@@ -35,14 +35,14 @@
        $("#idNbrThreads").text(Response.nbr_threads);
      });
 
-    Charger_une_courbe ( "idCourbeDlsTourParSec", "SYS", "DLS_TOUR_PER_SEC", "BY_HOUR", "AVG" );
-    Charger_une_courbe ( "idCourbeDlsBitParSec",  "SYS", "DLS_BIT_PER_SEC", "BY_HOUR", "AVG" );
-    Charger_une_courbe ( "idCourbeDlsAttente",    "SYS", "DLS_WAIT", "BY_HOUR", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsNbMotifs",   "SYS", "NBR_MOTIFS", "BY_MONTH", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsNbPlugins",  "SYS", "NBR_DLS", "BY_MONTH", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsNbErrors",   "SYS", "NBR_DLS_ERROR", "BY_MONTH", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsNbLigne",    "SYS", "NBR_LIGNE_DLS", "BY_MONTH", "MAX" );
-    Charger_une_courbe ( "idCourbeNbCleanup",     "SYS", "NBR_CLEANUP", "BY_DAY", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsMaxRss",     "SYS", "MAXRSS", "BY_WEEK", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsLogParMin",  "SYS", "LOG_PER_MIN", "BY_DAY", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsTourParSec", "SYS", "DLS_TOUR_PER_SEC", "BY_MINUTE", "AVG" );
+    Charger_une_courbe ( "idCourbeDlsBitParSec",  "SYS", "DLS_BIT_PER_SEC", "BY_MINUTE", "AVG" );
+    Charger_une_courbe ( "idCourbeDlsAttente",    "SYS", "DLS_WAIT", "BY_MINUTE", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsNbMotifs",   "SYS", "NBR_MOTIFS", "BY_DAY", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsNbPlugins",  "SYS", "NBR_DLS", "BY_DAY", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsNbErrors",   "SYS", "NBR_DLS_ERROR", "BY_DAY", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsNbLigne",    "SYS", "NBR_LIGNE_DLS", "BY_DAY", "MAX" );
+    Charger_une_courbe ( "idCourbeNbCleanup",     "SYS", "NBR_CLEANUP", "BY_MINUTE", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsMaxRss",     "SYS", "MAXRSS", "BY_HOUR", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsLogParMin",  "SYS", "LOG_PER_MIN", "BY_MINUTE", "MAX" );
   }
