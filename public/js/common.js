@@ -374,7 +374,7 @@
 
     Send_to_API ( "POST", "/archive/get", json_request, function(json)
      { var dates = dates = json.valeurs.map( function(item) { return item.date; } );
-       var valeurs = json.valeurs.map( function(item) { return item.moyenne1; } );
+       var valeurs = json.valeurs.map( function(item) { return item.valeur1; } );
        var data = { labels: dates,
                     datasets: [ { label: json.courbe1.libelle+ " ("+json.courbe1.unite+")",
                                   borderColor: "rgba(0, 100, 255, 1.0)",
