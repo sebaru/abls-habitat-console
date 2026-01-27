@@ -373,9 +373,7 @@
      };
 
     Send_to_API ( "POST", "/archive/get", json_request, function(json)
-     { var dates;
-       if (period=="HOUR") dates = json.valeurs.map( function(item) { return item.date.split(' ')[1]; } );
-                      else dates = json.valeurs.map( function(item) { return item.date; } );
+     { var dates = dates = json.valeurs.map( function(item) { return item.date; } );
        var valeurs = json.valeurs.map( function(item) { return item.moyenne1; } );
        var data = { labels: dates,
                     datasets: [ { label: json.courbe1.libelle+ " ("+json.courbe1.unite+")",
