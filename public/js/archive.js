@@ -61,7 +61,7 @@
              [ { "data": "partname", "title":"Partition", "className": "align-middle text-center" },
                { "data": "nbr_archives", "title":"Nbr archives", "className": "align-middle text-center" },
                { "data": "size", "title":"Taille (Mb)", "className": "align-middle text-center" },
-               { "data": "fragmentation", "title":"Fragmentation", "className": "align-middle text-center" },
+               { "data": "fragmentation", "title":"Fragmentation (%)", "className": "align-middle text-center" },
                { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
                  "render": function (item)
                    { boutons = Bouton_actions_start ();

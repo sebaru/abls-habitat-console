@@ -1,6 +1,9 @@
  var ModeTableau = [ { valeur: 0, color: "info",    tooltip: "Affichage en tant que courbes", texte: "Courbe" },
                      { valeur: 1, color: "warning", tooltip: "Affichage en tant que valeurs", texte: "Valeur" },
                    ];
+ var TABLEAU_LOCK = [ { valeur: 0, texte: "No" },
+                      { valeur: 1, texte: "Yes" },
+                    ];
 /************************************ Demande de refresh **********************************************************************/
  function TABLEAU_Refresh ( )
   { $('#idTableTableau').DataTable().ajax.reload(null, false);
@@ -10,6 +13,7 @@
   { $('#idTableauEditTitre').text ( "Ajouter un tableau" );
     Select_from_api ( "idTableauEditPage", "/syn/list", null, "synoptiques", "syn_id", function (item)
      { return ( item.page+" - "+htmlEncode(item.libelle) ); }, Get_url_parameter("syn_id") );
+    $("#idTableauEditPeriodLock").replaceWith ( Select ( "idTableauEditPeriodLock", null, TABLEAU_LOCK, 0 ) );
 
     $('#idTableauEditMode').replaceWith ( Select ( "idTableauEditMode", null, ModeTableau, 0 ) );
     $('#idTableauEditPeriode').replaceWith ( Select ( "idTableauEditPeriode", null, PeriodeTableau, 0 ) );
@@ -24,6 +28,7 @@
        { titre:   $('#idTableauEditLibelle').val(),
          mode:    parseInt($('#idTableauEditMode').val()),
          periode: $('#idTableauEditPeriode').val(),
+         period_lock: ($('#idTableauEditPeriodLock').val() == 1 ? true : false),
          syn_id:  parseInt($('#idTableauEditPage').val()),
        }
     if (tableau_id!=null) json_request.tableau_id = selection.tableau_id;
@@ -54,6 +59,7 @@
     $('#idTableauEditTitre').text ( "Modifier le tableau " + selection.titre + "?" );
     Select_from_api ( "idTableauEditPage", "/syn/list", null, "synoptiques", "syn_id", function(item)
                         { return(item.page+" - "+htmlEncode(item.libelle)); }, selection.syn_id );
+    $("#idTableauEditPeriodLock").replaceWith ( Select ( "idTableauEditPeriodLock", null, TABLEAU_LOCK, selection.period_lock ) );
 
     $('#idTableauEditMode').replaceWith ( Select ( "idTableauEditMode", null, ModeTableau, selection.mode ) );
     $('#idTableauEditPeriode').replaceWith ( Select ( "idTableauEditPeriode", null, PeriodeTableau, selection.periode ) );
@@ -91,6 +97,12 @@
             { "data": null, "title":"Période", "className": "text-center",
               "render": function (item)
                 { return ( PeriodeTableau.find ( (element) => element.valeur == item.periode ).texte );
+                }
+            },
+            { "data": null, "title":"Period Lock", "className": "text-center",
+              "render": function (item)
+                { if (item.period_lock) return( Badge ( "primary", "Période verrouillée", "Oui" ) );
+                                   else return( Badge ( "secondary", "Période déverrouillée", "Non" ) );
                 }
             },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
