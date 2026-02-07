@@ -259,7 +259,7 @@
         <span class="sr-only">Loading...</span>
       </div>
 
-      <a href="<?php echo getenv("HOME_URL"); ?>" class="nav-link rounded" target="_blank"><i class="fas fa-home text-primary"></i> <span> Vue Cliente</span></a>
+      <a href="#" id="idHrefVueCliente" class="nav-link rounded" target="_blank"><i class="fas fa-home text-primary"></i> <span> Vue Cliente</span></a>
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarDOCS" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

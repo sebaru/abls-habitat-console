@@ -1,4 +1,3 @@
-
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
   { console.log ("in load dashboard !");

@@ -16,8 +16,7 @@
 
 </footer>
 
-
-    <script src="<?php echo getenv("IDP_ADAPTER"); ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/keycloak-js/dist/keycloak.min.js" type="text/javascript"></script>
     <script src="/js/common_tech.js" type="text/javascript"></script>
     <script src="/js/common.js" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/1ca1f7ba56.js" crossorigin="anonymous"></script>
