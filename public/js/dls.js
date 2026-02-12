@@ -38,9 +38,15 @@
  function Dls_compiler ( dls_id )
   { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
     var json_request = { tech_id : selection.tech_id };
-    Send_to_API ( "POST", "/dls/compil", json_request, function () { Show_toast_ok("Module "+selection.tech_id+" compilé"); DLS_Refresh(); });
+    Send_to_API ( "POST", "/dls/compil", json_request, function () { Show_toast_ok("Module "+selection.tech_id+" compilé."); DLS_Refresh(); });
   }
+/********************************************* Appelé au chargement de la page ************************************************/
+ function Dls_restart ( dls_id )
+  { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
+    var json_request = { tech_id : selection.tech_id };
 
+    Send_to_API ( "POST", "/dls/restart", json_request, function () { Show_toast_ok("Module "+selection.tech_id+" restarté."); DLS_Refresh(); });
+  }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Dls_Set ( dls_id )
   { var json_request =
@@ -189,20 +195,24 @@
               "render": function (item)
                 { return( item.compil_date + "<br>" + item.compil_user ); }
             },
-            { "data": null, "title":"Actions", "orderable": false, "className": "align-middle",
+            { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
               "render": function (item)
-                { boutons = Bouton_actions_start ();
+                { boutons = Bouton_deroulant_start ( "primary", "" );
                   if (item.package == "" || item.package == "custom")
-                   { boutons += Bouton_actions_add ( "outline-primary", "Voir le code", "Redirect", "/dls/"+item.tech_id, "code", null ); }
+                   { boutons += Bouton_deroulant_add ( "primary", "Voir le code", "Redirect", "/dls/"+item.tech_id, "code" ); }
                   else
-                   { boutons += Bouton_actions_add ( "outline-primary", "Paramétrer", "Redirect", "/dls/params/"+item.tech_id, "wrench", null ); }
-
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir les messages", "Redirect", "/messages/"+item.tech_id, "book", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen", null );
-                  boutons += Bouton_actions_add ( "outline-success", "Compiler le module", "Dls_compiler", item.dls_id, "coffee", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir les RUN", "Redirect", "/dls/run/"+item.tech_id, "eye", null );
-                  if (item.dls_id!=1) boutons += Bouton_actions_add ( "danger", "Supprimer le plugin", "Show_Modal_Dls_Del", item.dls_id, "trash", null );
-                  boutons += Bouton_actions_end ();
+                   { boutons += Bouton_deroulant_add ( "primary", "Paramétrer", "Redirect", "/dls/params/"+item.tech_id, "wrench" ); }
+                  boutons += Bouton_deroulant_add ( "success", "Compiler", "Dls_compiler", item.dls_id, "coffee" );
+                  boutons += Bouton_deroulant_add ( "warning", "Restart", "Dls_restart", item.dls_id, "redo" );
+                  boutons += Bouton_deroulant_add ( "primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen" );
+                  boutons += Bouton_deroulant_add_spacer();
+                  boutons += Bouton_deroulant_add ( "primary", "Voir les messages", "Redirect", "/messages/"+item.tech_id, "book" );
+                  boutons += Bouton_deroulant_add ( "primary", "Voir les RUN", "Redirect", "/dls/run/"+item.tech_id, "eye" );
+                  if (item.dls_id!=1)
+                   { boutons += Bouton_deroulant_add_spacer();
+                     boutons += Bouton_deroulant_add ( "danger", "Supprimer le plugin", "Show_Modal_Dls_Del", item.dls_id, "trash" );
+                   }
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 }
             }
