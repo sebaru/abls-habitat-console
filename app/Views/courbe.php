@@ -6,12 +6,6 @@
    <div class ="col-auto ms-auto btn-group align-items-center">
      <i class='fas fa-clock text-primary mr-2'></i>
      <select id='idCourbePeriod' class='custom-select' onchange='Courbe_Set_Period()'>
-      <option value='HOUR'>Heure</option>
-      <option value='DAY'>Jour</option>
-      <option value='WEEK'>Semaine</option>
-      <option value='MONTH'>Mois</option>
-      <option value='YEAR'>Année</option>
-      <option value='ALL'>Tout</option>
      </select>
    </div>
 
