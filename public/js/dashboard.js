@@ -43,5 +43,5 @@
     Charger_une_courbe ( "idCourbeDlsNbLigne",    "SYS", "NBR_LIGNE_DLS", "BY_HOUR_ON_2_WEEKS", "MAX" );
     Charger_une_courbe ( "idCourbeNbCleanup",     "SYS", "NBR_CLEANUP", "BY_10_MINUTE_ON_3_DAYS", "MAX" );
     Charger_une_courbe ( "idCourbeDlsMaxRss",     "SYS", "MAXRSS", "BY_HOUR_ON_2_WEEKS", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsLogParMin",  "SYS", "LOG_PER_MIN", "BY_MINUTE_ON_2_HOURS", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsLogParMin",  "SYS", "LOG_PER_MIN", "BY_10_MINUTE_ON_3_DAYS", "MAX" );
   }
