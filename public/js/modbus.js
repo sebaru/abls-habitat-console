@@ -155,6 +155,8 @@
   { selection = $('#idTableMODBUS_DI').DataTable().row("#"+modbus_di_id).data();
     $('#idMODBUSEditDITitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODBUSEditDIArchivage').replaceWith ( Select ( "idMODBUSEditDIArchivage", null, ModeArchivage, selection.archivage ) );
+    $('#idMODBUSEditDIBorne').val ( selection.borne );
+    $('#idMODBUSEditDIED').val ( selection.ed );
     $('#idMODBUSEditDILibelle').val ( selection.libelle );
     $('#idMODBUSEditDIValider').off("click").on( "click", function ()
      { $('#idMODBUSEditDI').modal("hide");
@@ -162,6 +164,8 @@
         { modbus_di_id: parseInt(modbus_di_id),
           flip: (parseInt($('#idMODBUSEditDIFlip').val()) == 1 ? true : false),
           archivage: parseInt($('#idMODBUSEditDIArchivage').val()),
+          borne: $('#idMODBUSEditDIBorne').val(),
+          ed: $('#idMODBUSEditDIED').val(),
           libelle: $('#idMODBUSEditDILibelle').val(),
         };
 
@@ -177,12 +181,16 @@
   { selection = $('#idTableMODBUS_DO').DataTable().row("#"+modbus_do_id).data();
     $('#idMODBUSEditDOTitre').text( "Configurer "+selection.thread_tech_id+":"+selection.thread_acronyme );
     $('#idMODBUSEditDOArchivage').replaceWith ( Select ( "idMODBUSEditDOArchivage", null, ModeArchivage, selection.archivage ) );
+    $('#idMODBUSEditDOBorne').val ( selection.borne );
+    $('#idMODBUSEditDOED').val ( selection.ed );
     $('#idMODBUSEditDOLibelle').val ( selection.libelle );
     $('#idMODBUSEditDOValider').off("click").on( "click", function ()
      { $('#idMODBUSEditDO').modal("hide");
        var json_request =
         { modbus_do_id: parseInt(modbus_do_id),
           archivage: parseInt($('#idMODBUSEditDOArchivage').val()),
+          borne: $('#idMODBUSEditDOBorne').val(),
+          ed: $('#idMODBUSEditDOED').val(),
           libelle: $('#idMODBUSEditDOLibelle').val(),
         };
 
@@ -205,6 +213,8 @@
     $('#idMODBUSEditAIArchivage').replaceWith ( Select ( "idMODBUSEditAIArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idMODBUSEditAIMin').val ( selection.min );
     $('#idMODBUSEditAIMax').val ( selection.max );
+    $('#idMODBUSEditAIBorne').val ( selection.borne );
+    $('#idMODBUSEditAIED').val ( selection.ed );
     $('#idMODBUSEditAIUnite').val ( selection.unite );
     $('#idMODBUSEditAILibelle').val ( selection.libelle );
     $('#idMODBUSEditAIValider').off("click").on( "click", function ()
@@ -215,6 +225,8 @@
           min: parseInt($('#idMODBUSEditAIMin').val()),
           max: parseInt($('#idMODBUSEditAIMax').val()),
           archivage: parseInt($('#idMODBUSEditAIArchivage').val()),
+          borne: $('#idMODBUSEditAIBorne').val(),
+          ed: $('#idMODBUSEditAIED').val(),
           unite: $('#idMODBUSEditAIUnite').val(),
           libelle: $('#idMODBUSEditAILibelle').val(),
         };
@@ -237,6 +249,8 @@
     $('#idMODBUSEditAOArchivage').replaceWith ( Select ( "idMODBUSEditAOArchivage", null, ModeArchivage, selection.archivage ) );
     $('#idMODBUSEditAOMin').val ( selection.min );
     $('#idMODBUSEditAOMax').val ( selection.max );
+    $('#idMODBUSEditAOBorne').val ( selection.borne );
+    $('#idMODBUSEditAOED').val ( selection.ed );
     $('#idMODBUSEditAOUnite').val ( selection.unite );
     $('#idMODBUSEditAOLibelle').val ( selection.libelle );
     $('#idMODBUSEditAOValider').off("click").on( "click", function ()
@@ -247,6 +261,8 @@
           min: parseInt($('#idMODBUSEditAOMin').val()),
           max: parseInt($('#idMODBUSEditAOMax').val()),
           archivage: parseInt($('#idMODBUSEditAOArchivage').val()),
+          borne: $('#idMODBUSEditAOBorne').val(),
+          ed: $('#idMODBUSEditAOED').val(),
           unite: $('#idMODBUSEditAOUnite').val(),
           libelle: $('#idMODBUSEditAOLibelle').val(),
         };
