@@ -367,6 +367,8 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
+            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center" },
+            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center" },
             { "data": "flip", "title":"Flip", "className": "align-middle text-center" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
@@ -416,6 +418,8 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
+            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center" },
+            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
@@ -464,6 +468,8 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
+            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center" },
+            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
@@ -522,6 +528,8 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
+            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center" },
+            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
