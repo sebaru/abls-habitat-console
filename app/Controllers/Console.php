@@ -31,6 +31,7 @@ class Console extends BaseController
  public function threads()            { $this->send_page ("threads"); }
  public function search()             { $this->send_page ("search"); }
  public function synoptiques()        { $this->send_page ("synoptiques"); }
+ public function syn_child()          { $this->send_page ("syn_child"); }
  public function messages()           { $this->send_page ("messages"); }
  public function audio()              { $this->send_page ("audio"); }
  public function audio_zones()        { $this->send_page ("audio_zones"); }

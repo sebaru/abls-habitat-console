@@ -14,48 +14,41 @@
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function SYN_Set ( syn_id )
-  {
-    var json_request =
+  { var json_request =
        { parent_id: parseInt($('#idModalSynEditPPage').val()),
          page     : $('#idModalSynEditPage').val(),
          libelle  : $('#idModalSynEditLibelle').val(),
          access_level: parseInt($('#idModalSynEditAccessLevel').val()),
          mode_affichage: (parseInt($('#idModalSynEditAffichage').val()) == 1 ? true : false)
        };
-    if (syn_id>0) json_request.syn_id = parseInt(syn_id);                                               /* Ajout ou édition ? */
+    if (syn_id>0) json_request.syn_id = parseInt(syn_id);
     else json_request.image = "syn_maison.png";
 
     Send_to_API ( "POST", "/syn/set", json_request, function(Response)
      { Show_toast_ok ( "Modification sauvegardée.");
        SYN_Refresh();
      }, null );
-
-/*    if (syn_id>0 && fichierSelectionne != null)
-     { var reader = new FileReader();
-       reader.onloadend = function()
-        { Send_to_API ( "POSTFILE", "/api/upload?filename=syn_"+syn_id+"&type="+fichierSelectionne.type+"&thumb=100", reader.result, function(Response)
-           { $('#idTableSYN').DataTable().ajax.reload(null, false);
-           }, null );
-        };
-       reader.readAsArrayBuffer(fichierSelectionne);
-     }*/
   }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
+/********************************************* Remplissage de la liste des parents ********************************************/
+ function SYN_Fill_parent_select ( default_parent_id )
+  { $('#idModalSynEditPPage').empty();
+    Send_to_API ( "GET", "/syn/list", null, function(Response)
+     { if (!Response || !Response.synoptiques) return;
+       Response.synoptiques.sort( function(a, b)
+        { if (a.page<b.page) return(-1); if (a.page>b.page) return(1); return(0); } )
+       .forEach( function(syn)
+        { $('#idModalSynEditPPage').append("<option value='"+syn.syn_id+"'>"+syn.page+" (#"+syn.syn_id+")</option>"); } );
+       if (default_parent_id) $('#idModalSynEditPPage').val( default_parent_id );
+     }, null );
+  }
+/********************************************* Afichage du modal d'ajout synoptique *******************************************/
  function SYN_Add ( syn_id )
-  { selection = $('#idTableSYN').DataTable().row("#"+syn_id).data();
-    $('#idModalSynEditTitre').text ( "Ajouter un synoptique" );
-    $('#idModalSynEditPPage').empty();
-    $.each ( $('#idTableSYN').DataTable().ajax.json().synoptiques.sort( function(a, b)
-                                                                         { if (a.page<b.page) return(-1);
-                                                                           if (a.page>b.page) return(1);
-                                                                           return(0);
-                                                                         } ),
-             function ( i, syn )
-              { $('#idModalSynEditPPage').append("<option value='"+syn.syn_id+"'>"+syn.page+"</option>"); } );
-    if (syn_id>0) $('#idModalSynEditPPage').val ( syn_id );
+  { var parent_id = syn_id > 0 ? syn_id : ($('#idTableSYN').DataTable().ajax.json() ? $('#idTableSYN').DataTable().ajax.json().syn_id : null);
+    $('#idModalSynEditTitre').text ( "Ajouter un synoptique fils" );
+    SYN_Fill_parent_select ( parent_id );
     $('#idModalSynEditPage').val("");
     $('#idModalSynEditPage').attr("oninput", "Synoptique_set_controle_page(null)");
-    Synoptique_set_controle_page (null)
+    Synoptique_set_controle_page (null);
     $('#idModalSynEditAffichage').val("0");
     $('#idModalSynEditLibelle').val("");
     $('#idModalSynEditAccessLevel').attr("max", localStorage.getItem("access_level") ).val(0);
@@ -66,34 +59,24 @@
  function SYN_Edit ( syn_id )
   { selection = $('#idTableSYN').DataTable().row("#"+syn_id).data();
     $('#idModalSynEditTitre').text ( "Modifier le synoptique " + selection.page );
-    $('#idModalSynEditPPage').empty();
-    $.each ( $('#idTableSYN').DataTable().ajax.json().synoptiques.sort( function(a, b)
-                                                                         { if (a.page<b.page) return(-1);
-                                                                           if (a.page>b.page) return(1);
-                                                                           return(0);
-                                                                         } ),
-             function ( i, syn )
-              { $('#idModalSynEditPPage').append("<option value='"+syn.syn_id+"'>"+syn.page+" (#"+syn.syn_id+")</option>"); } );
-    $('#idModalSynEditPPage').val ( selection.pid );
-    if (syn_id==1) $('#idModalSynEditPPage').attr("disabled", true );
-              else $('#idModalSynEditPPage').attr("disabled", false );
+    SYN_Fill_parent_select ( selection.parent_id );
     $('#idModalSynEditPage').val( selection.page );
     $('#idModalSynEditPage').attr("oninput", "Synoptique_set_controle_page('"+selection.page+"')");
-    Synoptique_set_controle_page (selection.page)
+    Synoptique_set_controle_page (selection.page);
     $('#idModalSynEditAffichage').val( (selection.mode_affichage===true ? 1 : 0 ) );
     $('#idModalSynEditLibelle').val( selection.libelle );
     $('#idModalSynEditAccessLevel').attr("max", localStorage.getItem("access_level") )
-                                   .val( selection.access_level );
+                                   .val( selection.access_level !== undefined ? selection.access_level : 0 );
     $('#idModalSynEditValider').attr( "onclick", "SYN_Set('"+selection.syn_id+"')" );
     $('#idModalSynEdit').modal("show");
   }
-/************************************ Envoi les infos de modifications synoptique *********************************************/
+/************************************ Envoi les infos de suppression synoptique ***********************************************/
  function Valide_del_synoptique ( selection )
   { Send_to_API ( "DELETE", "/syn/delete", selection, function(Response)
-     { $('#idTableSYN').DataTable().ajax.reload(null, false);
-     }, null );;
+     { SYN_Refresh();
+     }, null );
   }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
+/********************************************* Afichage du modal de suppression synoptique ************************************/
  function SYN_Del ( syn_id )
   { selection = $('#idTableSYN').DataTable().row("#"+syn_id).data();
     Show_modal_del ( "Détruire le synoptique ?",
@@ -105,9 +88,8 @@
 /******************************************************************************************************************************/
  function Valide_edit_image ( syn_id, image_name )
   { var json_request = { syn_id: syn_id, image: image_name };
-    console.debug ( json_request );
     Send_to_API ( "POST", "/syn/set", json_request, function(Response)
-     { $('#idTableSYN').DataTable().ajax.reload(null, false);
+     { SYN_Refresh();
      }, null );
     $('#idSynEditImage').modal("hide");
   }
@@ -141,14 +123,19 @@
     $('#idSynEditImage').modal("show");
   }
 
-
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { console.log ("in load synoptique !");
+  { var path_parts = window.location.pathname.split('/');
+    var syn_page   = decodeURIComponent(path_parts[path_parts.length - 1]);
+    $('#idSynChildParentPage').text(syn_page);
+    console.log ("in load syn_child, page = " + syn_page);
+
     $('#idTableSYN').DataTable(
        { pageLength : 25,
          fixedHeader: true,
-         ajax: {	url : $ABLS_API+"/syn/list", type : "GET", dataSrc: "synoptiques", contentType: "application/json",
+         ajax: { url : $ABLS_API+"/syn/child", type : "GET", dataSrc: "children",
+                 contentType: "application/json",
+                 data: { page: syn_page },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -167,35 +154,28 @@
               "render": function (item)
                 { return( Badge_Access_level ( item.access_level ) ); }
             },
-            { "data": null, "title": "Parent", "className": "align-middle text-center",
-              "render": function (item)
-                { return( Lien ( "/synoptiques/"+item.ppage, "Voir les fils de "+item.plibelle, item.ppage ) ); },
-            },
             { "data": null, "title": "Page", "className": "align-middle text-center",
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.libelle, item.page ) ); },
             },
-            { "data": null, "title": "Description", "className": "align-middle ",
+            { "data": null, "title": "Description", "className": "align-middle",
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.libelle, item.libelle ) ); },
             },
-            { "data": "dls_count", "title": "#dls", "className": "align-middle text-center" },
-            { "data": "subsyn_count", "title": "#SubSyn", "className": "align-middle text-center" },
+            { "data": "place", "title": "Place", "className": "align-middle text-center" },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  if (item.mode_affichage==true) boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Configurer", "SYN_Edit", item.syn_id, "pen", null );
                   boutons += Bouton_actions_add ( "outline-success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus", null );
+                  boutons += Bouton_actions_add ( "outline-primary", "Voir les sous-synoptiques", "Redirect", '/synoptiques/'+item.page, "sitemap", null );
                   boutons += Bouton_actions_add ( "outline-primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line", null );
                   if (item.syn_id!=1) boutons += Bouton_actions_add ( "danger", "Supprimer le synoptique", "SYN_Del", item.syn_id, "trash", null );
-                  boutons += Bouton_actions_end ();
+                  boutons += Bouton_actions_end();
                   return(boutons);
-                },
-            }
+                }
+            },
           ],
-         /*order: [ [0, "desc"] ],*/
-         /*responsive: true,*/
-       }
-     );
+       });
   }
