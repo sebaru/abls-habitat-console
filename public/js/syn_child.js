@@ -2,6 +2,14 @@
  function SYN_Refresh ( )
   { $('#idTableSYN').DataTable().ajax.reload(null, false);
   }
+/********************************************* Déplace un synoptique fils (haut/bas) ******************************************/
+ function SYN_Move ( syn_page, direction )
+  { Send_to_API ( "POST", "/syn/move", { page: syn_page, direction: direction }, function(Response)
+     { SYN_Refresh();
+     }, null );
+  }
+ function SYN_Move_up   ( syn_page ) { SYN_Move ( syn_page, "up"   ); }
+ function SYN_Move_down ( syn_page ) { SYN_Move ( syn_page, "down" ); }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function Synoptique_set_controle_page ( page_initiale )
   { FormatPage = RegExp(/^[a-zA-Z0-9_\- ]+$/);
@@ -162,7 +170,15 @@
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.libelle, item.libelle ) ); },
             },
-            { "data": "place", "title": "Place", "className": "align-middle text-center" },
+            { "data": null, "title": "Ordre", "orderable": false, "className": "align-middle text-center",
+              "render": function (item, type, row, meta)
+                { var boutons = Bouton_actions_start();
+                  boutons += Bouton_actions_add ( "outline-primary", "Monter",    "SYN_Move_up"  , item.page, "arrow-up",   "Up"   );
+                  boutons += Bouton_actions_add ( "outline-primary", "Descendre", "SYN_Move_down", item.page, "arrow-down", "Down" );
+                  boutons += Bouton_actions_end();
+                  return(boutons);
+                }
+            },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_deroulant_start ( "primary", "" );
