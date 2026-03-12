@@ -165,14 +165,14 @@
             { "data": "place", "title": "Place", "className": "align-middle text-center" },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Configurer", "SYN_Edit", item.syn_id, "pen", null );
-                  boutons += Bouton_actions_add ( "outline-success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir les sous-synoptiques", "Redirect", '/synoptiques/'+item.page, "sitemap", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line", null );
-                  if (item.syn_id!=1) boutons += Bouton_actions_add ( "danger", "Supprimer le synoptique", "SYN_Del", item.syn_id, "trash", null );
-                  boutons += Bouton_actions_end();
+                { boutons = Bouton_deroulant_start ( "primary", "" );
+                  boutons += Bouton_deroulant_add ( "primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image" );
+                  boutons += Bouton_deroulant_add ( "primary", "Configurer", "SYN_Edit", item.syn_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus" );
+                  boutons += Bouton_deroulant_add ( "primary", "Voir les sous-synoptiques", "Redirect", '/synoptiques/'+item.page, "sitemap" );
+                  boutons += Bouton_deroulant_add ( "primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line" );
+                  if (item.syn_id!=1) boutons += Bouton_deroulant_add ( "danger", "Supprimer le synoptique", "SYN_Del", item.syn_id, "trash" );
+                  boutons += Bouton_deroulant_end();
                   return(boutons);
                 }
             },
