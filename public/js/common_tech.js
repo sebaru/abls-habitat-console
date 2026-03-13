@@ -141,3 +141,10 @@
      }, null );
   }
 /*----------------------------------------------------------------------------------------------------------------------------*/
+
+/********************************************* Remplissage d'un select avec la liste des synoptiques ***************************/
+ function Fill_syn_select ( id, selected_syn_id )
+  { Select_from_api ( id, "/syn/list", null, "synoptiques", "syn_id",
+                      function(item) { return ( item.page+" - "+htmlEncode(item.libelle) + " (#" + item.syn_id +")" ); },
+                      selected_syn_id || null );
+  }

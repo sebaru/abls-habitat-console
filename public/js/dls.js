@@ -96,11 +96,7 @@
     $('#idModalDlsEditPackage').val("custom");
     $('#idModalDlsEditDescription').val("");
     $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(0); } );
-    Send_to_API ( "GET", "/syn/list", null, function (Response)
-     { $('#idModalDlsEditPage').empty();
-       $.each ( Response.synoptiques, function ( i, item )
-        { $('#idModalDlsEditPage').append("<option value='"+item.syn_id+"'>"+item.page+" - "+htmlEncode(item.libelle)+"</option>"); } );
-     }, null );
+    Fill_syn_select ( "idModalDlsEditPage", null );
     $('#idModalDlsEdit').modal("show");
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
@@ -113,12 +109,7 @@
     $('#idModalDlsEditPackage').val(selection.package);
     $('#idModalDlsEditDescription').val(selection.name);
     $('#idModalDlsEditValider').off("click").on("click", function () { Dls_Set(selection.dls_id); } );
-    Send_to_API ( "GET", "/syn/list", null, function (Response)
-     { $('#idModalDlsEditPage').empty();
-       $.each ( Response.synoptiques, function ( i, item )
-        { $('#idModalDlsEditPage').append("<option value='"+item.syn_id+"'>"+item.page+" - "+htmlEncode(item.libelle)+"</option>"); } );
-       $('#idModalDlsEditPage').val(selection.syn_id);
-     }, null );
+    Fill_syn_select ( "idModalDlsEditPage", selection.syn_id );
     $('#idModalDlsEdit').modal("show");
   }
 /********************************************* Appelé au chargement de la page ************************************************/

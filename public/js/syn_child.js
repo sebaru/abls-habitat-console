@@ -37,23 +37,11 @@
        SYN_Refresh();
      }, null );
   }
-/********************************************* Remplissage de la liste des parents ********************************************/
- function SYN_Fill_parent_select ( default_parent_id )
-  { $('#idModalSynEditPPage').empty();
-    Send_to_API ( "GET", "/syn/list", null, function(Response)
-     { if (!Response || !Response.synoptiques) return;
-       Response.synoptiques.sort( function(a, b)
-        { if (a.page<b.page) return(-1); if (a.page>b.page) return(1); return(0); } )
-       .forEach( function(syn)
-        { $('#idModalSynEditPPage').append("<option value='"+syn.syn_id+"'>"+syn.page+" (#"+syn.syn_id+")</option>"); } );
-       if (default_parent_id) $('#idModalSynEditPPage').val( default_parent_id );
-     }, null );
-  }
 /********************************************* Afichage du modal d'ajout synoptique *******************************************/
  function SYN_Add ( syn_id )
   { var parent_id = syn_id > 0 ? syn_id : ($('#idTableSYN').DataTable().ajax.json() ? $('#idTableSYN').DataTable().ajax.json().syn_id : null);
     $('#idModalSynEditTitre').text ( "Ajouter un synoptique fils" );
-    SYN_Fill_parent_select ( parent_id );
+    Fill_syn_select ( "idModalSynEditPPage", parent_id );
     $('#idModalSynEditPage').val("");
     $('#idModalSynEditPage').attr("oninput", "Synoptique_set_controle_page(null)");
     Synoptique_set_controle_page (null);
@@ -67,7 +55,7 @@
  function SYN_Edit ( syn_id )
   { selection = $('#idTableSYN').DataTable().row("#"+syn_id).data();
     $('#idModalSynEditTitre').text ( "Modifier le synoptique " + selection.page );
-    SYN_Fill_parent_select ( selection.parent_id );
+    Fill_syn_select ( "idModalSynEditPPage", selection.parent_id );
     $('#idModalSynEditPage').val( selection.page );
     $('#idModalSynEditPage').attr("oninput", "Synoptique_set_controle_page('"+selection.page+"')");
     Synoptique_set_controle_page (selection.page);
@@ -183,7 +171,7 @@
               "render": function (item)
                 { boutons = Bouton_deroulant_start ( "primary", "" );
                   boutons += Bouton_deroulant_add ( "primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image" );
-                  boutons += Bouton_deroulant_add ( "primary", "Configurer", "SYN_Edit", item.syn_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "primary", "Editer", "SYN_Edit", item.syn_id, "pen" );
                   boutons += Bouton_deroulant_add ( "success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus" );
                   boutons += Bouton_deroulant_add ( "primary", "Voir les sous-synoptiques", "Redirect", '/synoptiques/'+item.page, "sitemap" );
                   boutons += Bouton_deroulant_add ( "primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line" );

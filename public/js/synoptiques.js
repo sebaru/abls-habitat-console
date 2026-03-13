@@ -185,7 +185,7 @@
               "render": function (item)
                 { boutons = Bouton_deroulant_start ( "primary", "" );
                   if (item.mode_affichage==true) boutons += Bouton_deroulant_add ( "primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image" );
-                  boutons += Bouton_deroulant_add ( "primary", "Configurer", "SYN_Edit", item.syn_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "primary", "Editer", "SYN_Edit", item.syn_id, "pen" );
                   boutons += Bouton_deroulant_add ( "success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus" );
                   boutons += Bouton_deroulant_add ( "primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line" );
                   if (item.syn_id!=1) boutons += Bouton_deroulant_add ( "danger", "Supprimer le synoptique", "SYN_Del", item.syn_id, "trash" );
