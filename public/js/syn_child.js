@@ -127,8 +127,7 @@
     console.log ("in load syn_child, page = " + syn_page);
 
     $('#idTableSYN').DataTable(
-       { pageLength : 25,
-         fixedHeader: true,
+       { pageLength : 25, fixedHeader: true, ordering: false, order: [],
          ajax: { url : $ABLS_API+"/syn/child", type : "GET", dataSrc: "children",
                  contentType: "application/json",
                  data: { page: syn_page },
