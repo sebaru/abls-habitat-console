@@ -1,9 +1,11 @@
 <div class="container">
 
  <div class="row m-2">
-   <div class="col-auto"><h3><i class="fas fa-image text-primary"></i> Synoptiques fils de <span id="idSynChildParentPage"></span></h3></div>
+   <div class="col-auto"><h3><i class="fas fa-image text-primary"></i> Synoptiques fils de <strong><span id="idSynChildParentPage"></span></strong></h3></div>
 
    <div class ="col-auto ms-auto btn-group align-items-center">
+        <a href="/synoptique/HOME" class="btn btn-primary"><i class="fas fa-home"></i> Top Home</a>
+        <a id="idBtnRemonter" href="#" class="btn btn-primary"><i class="fas fa-arrow-up"></i> Remonter</a>
         <button type="button" onclick="SYN_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un Synoptique fils</button>
    </div>
  </div>

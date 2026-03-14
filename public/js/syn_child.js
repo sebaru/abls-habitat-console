@@ -24,7 +24,7 @@ var SYN_Response = null;
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function SYN_Add_Valider ( )
   { var json_request =
-       { parent_id   : SYN_Response.parent_id,
+       { parent_id   : SYN_Response.syn_id,
          page        : $('#idModalSynEditPage').val(),
          libelle     : $('#idModalSynEditLibelle').val(),
          access_level: parseInt($('#idModalSynEditAccessLevel').val()),
@@ -67,7 +67,9 @@ var SYN_Response = null;
                                 request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
                },
-         initComplete: function ( settings, json ) { SYN_Response = json; },
+         initComplete: function ( settings, json ) { SYN_Response = json;
+                                                     $('#idBtnRemonter').attr('href', '/synoptique/'+json.parent_page);
+                                                   },
          rowId: "syn_id",
          columns:
           [ { "data": "syn_id", "title": "#", "className": "align-middle text-center" },
