@@ -145,17 +145,13 @@
                 { target = localStorage.getItem("static_data_url")+"/img/"+item.image;
                   return( "<img src='"+target+"' class='wtd-synoptique-preview' loading=lazy alt='No Image !' onclick='SYN_Edit_image("+item.syn_id+")' />" ); }
             },
-            { "data": null, "title":"<i class='fas fa-star'></i> Level", "className": "align-middle text-center",
-              "render": function (item)
-                { return( Badge_Access_level ( item.access_level ) ); }
-            },
             { "data": null, "title": "Page", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.libelle, item.page ) ); },
+                { return( Lien ( "/synoptique/"+item.page, "Aller voir les fils de "+item.libelle, item.page ) ); },
             },
             { "data": null, "title": "Description", "className": "align-middle",
               "render": function (item)
-                { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.libelle, item.libelle ) ); },
+                { return( Lien ( "/synoptique/"+item.page, "Aller voir les fils de "+item.libelle, item.libelle ) ); },
             },
             { "data": null, "title": "Ordre", "orderable": false, "className": "align-middle text-center",
               "render": function (item, type, row, meta)
@@ -163,19 +159,6 @@
                   boutons += Bouton_actions_add ( "outline-primary", "Monter",    "SYN_Move_up"  , item.page, "arrow-up",   "Up"   );
                   boutons += Bouton_actions_add ( "outline-primary", "Descendre", "SYN_Move_down", item.page, "arrow-down", "Down" );
                   boutons += Bouton_actions_end();
-                  return(boutons);
-                }
-            },
-            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
-              "render": function (item)
-                { boutons = Bouton_deroulant_start ( "primary", "" );
-                  boutons += Bouton_deroulant_add ( "primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image" );
-                  boutons += Bouton_deroulant_add ( "primary", "Editer", "SYN_Edit", item.syn_id, "pen" );
-                  boutons += Bouton_deroulant_add ( "success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus" );
-                  boutons += Bouton_deroulant_add ( "primary", "Voir les sous-synoptiques", "Redirect", '/synoptiques/'+item.page, "sitemap" );
-                  boutons += Bouton_deroulant_add ( "primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line" );
-                  if (item.syn_id!=1) boutons += Bouton_deroulant_add ( "danger", "Supprimer le synoptique", "SYN_Del", item.syn_id, "trash" );
-                  boutons += Bouton_deroulant_end();
                   return(boutons);
                 }
             },

@@ -222,7 +222,8 @@
           <i class="fas fa-image text-primary"></i> Synoptiques
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarSYNOPTIQUE">
-          <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-danger"></i> <span>Synoptiques</span> </a>
+          <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-primary"></i> <span>Liste</span> </a>
+          <a class="dropdown-item" href="/synoptique/HOME"> <i class="fas fa-th text-warning"></i> <span>Réorganiser</span> </a>
           <a class="dropdown-item" href="/tableau"> <i class="fas fa-chart-line text-secondary"></i> <span>Tableaux</span> </a>
         </div>
       </li>

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
 
  <div class="row m-2">
    <div class="col-auto"><h3><i class="fas fa-image text-primary"></i> Synoptiques fils de <span id="idSynChildParentPage"></span></h3></div>

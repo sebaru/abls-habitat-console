@@ -169,7 +169,7 @@
             },
             { "data": null, "title": "Parent", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/synoptiques/"+item.ppage, "Voir les fils de "+item.plibelle, item.ppage ) ); },
+                { return( Lien ( "/synoptique/"+item.ppage, "Voir les fils de "+item.plibelle, item.ppage ) ); },
             },
             { "data": null, "title": "Page", "className": "align-middle text-center",
               "render": function (item)

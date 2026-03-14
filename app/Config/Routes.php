@@ -38,7 +38,7 @@ $routes->get('/dls/run/(:any)',     'Console::dls_run');
 $routes->get('/dls/params/(:any)', 'Console::dls_params');
 $routes->get('/dls/(:any)',   'Console::dls_source');
 $routes->get('/atelier/(:any)', 'Console::atelier');
-$routes->get('/synoptiques/(:any)', 'Console::syn_child');
+$routes->get('/synoptique/(:any)', 'Console::syn_child');
 $routes->get('/synoptiques',  'Console::synoptiques');
 $routes->get('/mnemos/(:any)', 'Console::mnemos');
 $routes->get('/mnemos',        'Console::mnemos');
