@@ -33,13 +33,6 @@
 
        <div class="col ">
              <div class="input-group mb-1">
-               <label class="col-5 col-sm-4 col-form-label text-right">Page du Parent</label>
-               <select id="idModalSynEditPPage" class="col-7 col-sm-8 custom-select border-info"></select>
-              </div>
-       </div>
-
-       <div class="col ">
-             <div class="input-group mb-1">
                <label class="col-5 col-sm-4 col-form-label text-right">Nom de la Page</label>
                <input id="idModalSynEditPage" type="text" class="form-control" placeholder="Titre du synoptique">
               </div>
