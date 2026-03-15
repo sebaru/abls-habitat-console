@@ -118,6 +118,7 @@
 
     images = [ "syn_maison.png", "syn_communication.png", "syn_reseau.png",
                "syn_buanderie.png", "syn_camera.png", "syn_chambre_double.png", "syn_chambre_simple.png",
+               "syn_bureaux.svg",
                "syn_cuisine.png", "syn_garage.png", "syn_cour.png",
                "syn_jardin.png", "syn_arrosage_1.svg", "syn_arrosage_2.svg", "syn_tondeuse.svg",
                "syn_robinet.svg", "syn_robinet_ecs.svg", "syn_eau_chaude.svg", "syn_eau_froide.svg", 
