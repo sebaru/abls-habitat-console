@@ -55,8 +55,7 @@ Edit /var/www/html/abls-console/.env and change as you want:
 
     CI_ENVIRONMENT = production
     ABLS_API       = 'https://api.abls-habitat.fr'
-    IDP_ADAPTER    = "https://idp.abls-habitat.fr/js/keycloak.js"
     IDP_REALM      = "Abls-Habitat"
-    IDP_URL        = "https://idp.abls-habitat.fr/"
+    IDP_URL        = "https://idp.abls-habitat.fr"
     IDP_CLIENT_ID  = "abls-habitat-console"
     app.baseURL    = 'https://console.abls-habitat.fr'

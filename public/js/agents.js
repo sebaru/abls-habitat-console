@@ -48,6 +48,18 @@
                      selection.agent_hostname + " - "+selection.description,
                      function () { AGENT_Upgrade_Valider( selection ) } ) ;
   }
+/******************************************* Upgrade tous les slaves **********************************************************/
+ function AGENT_Update_All_Slaves ( )
+  { selection = $('#idTableAGENT').DataTable().rows().data().toArray()
+                .filter ( agent => agent.is_master === false )
+                .map ( agent => ( { agent_hostname: agent.agent_hostname, agent_uuid: agent.agent_uuid }) );
+    console.log(selection);
+    Show_modal_del ( "Upgrader les slaves",
+                     "Etes-vous sûr de vouloir upgrader les slaves suivants ?",
+                     selection.map ( agent => agent.agent_hostname ).toString(),
+                     function ()
+                      { selection.forEach ( (agent, index ) => { AGENT_Upgrade_Valider( agent ); } ); } ) ;
+  }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Delete_Valider ( selection )
   { var json_request = { agent_uuid: selection.agent_uuid };
@@ -80,10 +92,10 @@
        columns:
          [ { "data": null, "title":"Status", "className": "align-middle text-center",
              "render": function (item)
-               { var mode, color;
-                 if (item.is_master) { mode = "Master";   } else { mode = "Slave";   }
+               { var icone;
+                 if (item.is_master) { icone = "crown"; } else { icone = "asterisk"; }
                  if (item.is_alive)  { color = "success"; } else { color = "danger"; }
-                 return ( Bouton ( color, mode, null, null, mode ) );
+                 return ("<i class='fas fa-2x fa-"+icone+" text-"+color+"'></i>");
                }
            },
            { "data": null, "title":"Branche", "className": "align-middle text-center",
@@ -115,14 +127,18 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "info", "Promouvoir Master",
-                                                 (item.is_master == false ? "AGENT_Set_master" : null),
-                                                 item.agent_id, "asterisk", null );
-                 boutons += Bouton_actions_add ( "primary", "Upgrader l'agent",  (item.is_alive ? "AGENT_Upgrade" : null), item.agent_id, "download", null );
-                 boutons += Bouton_actions_add ( "warning", "Restarter l'agent", (item.is_alive ? "AGENT_Reset" : null),   item.agent_id, "redo", null );
-                 boutons += Bouton_actions_add ( "danger",  "Supprimer l'agent", "AGENT_Delete",  item.agent_id, "trash", null );
-                 boutons += Bouton_actions_end ();
+               { boutons = Bouton_deroulant_start ( (item.is_alive ? "primary" : "secondary"), "" );
+                 if (item.is_alive)
+                  { boutons += Bouton_deroulant_add ( "warning", "Upgrader",  "AGENT_Upgrade", item.agent_id, "download" );
+                    boutons += Bouton_deroulant_add ( "warning", "Restarter", "AGENT_Reset",   item.agent_id, "redo" );
+                    boutons += Bouton_deroulant_add_spacer();
+                  }
+                 if (item.is_master === false && item.is_alive)
+                  { boutons += Bouton_deroulant_add ( "danger", "Set Master", "AGENT_Set_master", item.agent_id, "crown" );
+                    boutons += Bouton_deroulant_add_spacer();
+                  }
+                 boutons += Bouton_deroulant_add ( "danger",  "Supprimer", "AGENT_Delete",  item.agent_id, "trash" );
+                 boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
            }
@@ -130,5 +146,5 @@
        order: [ [0, "desc"] ],
        responsive: false,
      });
-    setInterval ( function () { AGENT_Refresh (); }, 10000 );
+    setInterval ( function () { AGENT_Refresh (); }, 30000 );
   }

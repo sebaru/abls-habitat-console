@@ -1,7 +1,7 @@
     <div class="container">
 
  <div class="row m-2">
-   <div class="col-auto"><h3><i class="fas fa-crown text-danger"></i> Ajouter un agent au domaine</h3> </div>
+   <div class="col-auto"><h3><i class="fas fa-asterisk text-info"></i> Ajouter un agent au domaine</h3> </div>
 
    <div class ="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick=Redirect("/agents") class="btn btn-secondary"><i class="fas fa-list"></i> Liste Agents</button>

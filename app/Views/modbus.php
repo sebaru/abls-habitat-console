@@ -114,6 +114,20 @@
 
        <div class="col ">
           <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Borne</label>
+           <input id="idMODBUSEditDIBorne" type="text" class="form-control" placeholder="N° de Borne">
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">ED</label>
+           <input id="idMODBUSEditDIED" type="text" class="form-control" placeholder="N° de ED">
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
            <input id="idMODBUSEditDILibelle" type="text" class="form-control" placeholder="Description">
           </div>
@@ -145,6 +159,20 @@
            <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
            <select id="idMODBUSEditDOArchivage" class="custom-select border-info">
            </select>
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Borne</label>
+           <input id="idMODBUSEditDOBorne" type="text" class="form-control" placeholder="N° de Borne">
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">ED</label>
+           <input id="idMODBUSEditDOED" type="text" class="form-control" placeholder="N° de ED">
           </div>
        </div>
 
@@ -210,6 +238,20 @@
           <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Unité</label>
            <input id="idMODBUSEditAIUnite" type="text" class="form-control" placeholder="°C, km/h, ...">
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Borne</label>
+           <input id="idMODBUSEditAIBorne" type="text" class="form-control" placeholder="Borne">
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">ED</label>
+           <input id="idMODBUSEditAIED" type="text" class="form-control" placeholder="N° de ED">
           </div>
        </div>
 
@@ -282,6 +324,20 @@
           <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Unité</label>
            <input id="idMODBUSEditAOUnite" type="text" class="form-control" placeholder="°C, km/h, ...">
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">Borne</label>
+           <input id="idMODBUSEditAOBorne" type="text" class="form-control" placeholder="N° de Borne">
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">ED</label>
+           <input id="idMODBUSEditAOED" type="text" class="form-control" placeholder="N° de ED">
           </div>
        </div>
 

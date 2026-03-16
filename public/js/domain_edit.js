@@ -60,6 +60,7 @@
          git_repo_token: $("#idDomainGitRepoToken").val(),
          mistral_api_key: $("#idDomainMistralAPIKey").val(),
          debug_dls     : ($("#idDomainDebugDls").val()==1 ? true : false),
+         syn_main_libelle: $("#idDomainSynMainLibelle").val(),
        };
 
     Send_to_API ( "POST", "/domain/set", json_request, function(Response)
@@ -111,6 +112,7 @@
        $("#idDomainGitRepoToken").val( "" );
        $("#idDomainMistralAPIKey").val( "" );
        $("#idDomainAudioTechID").val( Response.audio_tech_id );
+       $("#idDomainSynMainLibelle").val( Response.syn_main_libelle );
 
      }, null );
   }

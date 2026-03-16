@@ -1,15 +1,29 @@
 
  var Charts = new Array();
- var Token       = null;
- var TokenParsed = null;
- var Closing     = false;
+ var Token        = null;
+ var RefreshToken = null;
+ var TokenParsed  = null;
+ var Closing      = false;
 
  document.addEventListener('DOMContentLoaded', init, false);
  window.addEventListener("beforeunload", function () { Closing = true; } );
+
+ var PeriodeTableau = [ { valeur : "BY_MINUTE_ON_2_HOURS",   texte : "Sur 2 heures" },
+                        { valeur : "BY_10_MINUTE_ON_1_DAY",  texte : "Sur 1 jour" },
+                        { valeur : "BY_HOUR_ON_2_DAYS",      texte : "Sur 2 jours" },
+                        { valeur : "BY_10_MINUTE_ON_3_DAYS", texte : "Sur 3 jours" },
+                        { valeur : "BY_30_MINUTE_ON_1_WEEK", texte : "Sur 1 semaine" },
+                        { valeur : "BY_HOUR_ON_2_WEEKS",     texte : "Sur 2 semaines" },
+                        { valeur : "BY_DAY_ON_2_MONTHS",     texte : "Sur 2 mois" },
+                        { valeur : "BY_WEEK_ON_4_MONTHS",    texte : "Sur 4 mois" },
+                        { valeur : "BY_MONTH_ON_12_MONTHS",  texte : "Sur 1 an" },
+                        { valeur : "BY_YEAR_ON_2_YEARS" ,    texte : "Sur 2 ans" },
+                      ];
 /**************************************************** Gère l'ID token *********************************************************/
  function init()
-  { let keycloak = new Keycloak( { "realm": $IDP_REALM, "auth-server-url": $IDP_URL, "clientId": $IDP_CLIENT_ID,
-                                   "ssl-required": "external", "public-client": true, "confidential-port": 0 } );
+  { let keycloak = new Keycloak( { "realm": $IDP_REALM, "url": $IDP_URL, "clientId": $IDP_CLIENT_ID,
+                                   "scope": "openid email offline_access phone"
+                                 } );
 
     keycloak.init( { onLoad: "login-required" } )
             .then((auth) =>
@@ -22,9 +36,10 @@
              });
 
     keycloak.onAuthSuccess  = function() { console.log('authenticated');
-                                           TokenParsed = keycloak.tokenParsed;
-                                           Token       = keycloak.token;
-                                           console.debug (TokenParsed); console.debug (Token);
+                                           TokenParsed  = keycloak.tokenParsed;
+                                           Token        = keycloak.token;
+                                           RefreshToken = keycloak.refreshToken;
+                                           console.debug (TokenParsed); console.debug (Token); console.debug (RefreshToken);
                                            Load_common();
                                          }
     keycloak.onAuthLogout   = function() { console.log('logout'); }
@@ -38,6 +53,7 @@
         { if (refreshed) { console.log('Token refreshed' + refreshed);
                            TokenParsed = keycloak.tokenParsed;
                            Token       = keycloak.token;
+                           RefreshToken = keycloak.refreshToken;
                          }
           else
            { console.log ('Token not refreshed, valid for '
@@ -122,8 +138,12 @@
                  Changer_img_src ( "idNavImgTopSyn", Response.image, false );
                  $("#idNavImgTopSyn").on("click", function () { Charger_un_synoptique(null); } );
                }, null);
-        }
 
+          if (Response.access_level>=6) $("#idHrefConsole").removeClass("d-none").attr("href", Response.console_url );
+          $("#idHrefHome").attr("href", Response.home_url );
+          $("#idHrefProfil").attr("href", Response.console_url+"/user/me" );
+          $("#idHrefVueCliente").attr("href", Response.home_url );
+        }
 
        if (Response.default_domain_uuid == null && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
 
@@ -136,6 +156,7 @@
     else if (TokenParsed.given_name !== null )         $("#idUsername").text(TokenParsed.given_name);
     else if (TokenParsed.email !== null )              $("#idUsername").text(TokenParsed.email);
     else $("#idUsername").text("Unknown");
+    $("#idHrefAccount").attr("href", TokenParsed.iss+"/account/" );
 
     $("body").hide().removeClass("d-none").fadeIn();
   }
@@ -183,6 +204,33 @@
   }
  function Bouton_actions_end ( )
   { return ("</div>"); }
+
+/********************************************* Barre de boutons déroulant *****************************************************/
+ function Bouton_deroulant_start ( color, texte )
+  { return("<div class='dropdown'>"+
+           "<button type='button' class='btn btn-"+color+" dropdown-toggle' "+
+           "        data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
+           texte+
+           "</button>"+
+           "<div class='dropdown-menu'> "
+          );
+  }
+
+ function Bouton_deroulant_add ( color, texte, clic_func, key, icone )
+  { result = "<a class='dropdown-item ' href='#' "+
+             (clic_func !== null ? "   onclick="+clic_func+"('"+key+"') " : "")+
+             ">"+
+             (icone!==null ? "<i class='fas fa-"+icone+" text-"+color+"'></i> " : "") +
+             texte +
+             "</a>";
+    return(result);
+  }
+
+ function Bouton_deroulant_add_spacer ( )
+  { return ( "<div class='dropdown-divider'></div>" ); }
+
+ function Bouton_deroulant_end ( )
+  { return ("</div></div>"); }
 
 /********************************************** Bouton unitaire ***************************************************************/
  function Bouton ( color, tooltip, clic_func, key, texte )
@@ -330,7 +378,7 @@
   { var chartElement = document.getElementById(idChart);
     if (!chartElement) { console.log("Charger_une_courbe: Erreur chargement chartElement " + json_request ); return; }
 
-    if (period===undefined) period="HOUR";
+    if (period===undefined) period="BY_HOUR";
     var json_request =
      { courbes: [ { tech_id : tech_id, acronyme : acronyme, } ],
        period   : period,
@@ -338,10 +386,8 @@
      };
 
     Send_to_API ( "POST", "/archive/get", json_request, function(json)
-     { var dates;
-       if (period=="HOUR") dates = json.valeurs.map( function(item) { return item.date.split(' ')[1]; } );
-                      else dates = json.valeurs.map( function(item) { return item.date; } );
-       var valeurs = json.valeurs.map( function(item) { return item.moyenne1; } );
+     { var dates = dates = json.valeurs.map( function(item) { return item.date; } );
+       var valeurs = json.valeurs.map( function(item) { return item.valeur1; } );
        var data = { labels: dates,
                     datasets: [ { label: json.courbe1.libelle+ " ("+json.courbe1.unite+")",
                                   borderColor: "rgba(0, 100, 255, 1.0)",

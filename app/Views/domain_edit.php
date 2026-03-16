@@ -58,6 +58,14 @@
              </div>
            </div>
 
+
+           <div class="row ">
+             <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">Titre du synoptique principal</label>
+               <input id="idDomainSynMainLibelle" type="text" class="form-control" placeholder="Titre du synoptique principal">
+             </div>
+           </div>
+           
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Notification aux utilisateurs</label>

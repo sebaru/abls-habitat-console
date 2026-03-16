@@ -208,7 +208,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDOMAINE">
           <a class="dropdown-item" href="/dashboard"> <i class="fas fa-tachometer-alt text-primary"></i> Dashboard</a>
-          <a class="dropdown-item" href="/agents"><i class="fas fa-crown text-danger"></i> <span>Agents</span></a>
+          <a class="dropdown-item" href="/agents"><i class="fas fa-asterisk text-info"></i> <span>Agents</span></a>
           <a class="dropdown-item" href="/threads"><i class="fas fa-microchip text-primary"></i> <span>Threads</span></a>
           <a class="dropdown-item" href="/archive"><i class="fas fa-database text-secondary"></i> <span>Archivage</span></a>
           <a class="dropdown-item" href="/domain/me"> <i class="fas fa-wrench text-primary"></i> Configurer</a>
@@ -222,7 +222,8 @@
           <i class="fas fa-image text-primary"></i> Synoptiques
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarSYNOPTIQUE">
-          <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-danger"></i> <span>Synoptiques</span> </a>
+          <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-primary"></i> <span>Liste</span> </a>
+          <a class="dropdown-item" href="/synoptique/HOME"> <i class="fas fa-th text-warning"></i> <span>Réorganiser</span> </a>
           <a class="dropdown-item" href="/tableau"> <i class="fas fa-chart-line text-secondary"></i> <span>Tableaux</span> </a>
         </div>
       </li>
@@ -259,7 +260,7 @@
         <span class="sr-only">Loading...</span>
       </div>
 
-      <a href="<?php echo getenv("HOME_URL"); ?>" class="nav-link rounded" target="_blank"><i class="fas fa-home text-primary"></i> <span> Vue Cliente</span></a>
+      <a href="#" id="idHrefVueCliente" class="nav-link rounded" target="_blank"><i class="fas fa-home text-primary"></i> <span> Vue Cliente</span></a>
 
       <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarDOCS" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -268,7 +269,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
           <a class="dropdown-item" href="https://docs.abls-habitat.fr"><i class="fas fa-book"></i> <span> Portail de documentation</span></a>
           <a class="dropdown-item" href="https://docs.abls-habitat.fr/guide_demarrage/#installation-dun-agent" target="_blank">
-            <i class="fas fa-crown text-primary"></i> <span>Installer un agent</span>
+            <i class="fas fa-asterisk text-info"></i> <span>Installer un agent</span>
           </a>
         </div>
 
@@ -281,8 +282,8 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
-          <a class="dropdown-item" href="/user/me" id="idHrefUsername"><i class="fas fa-user text-info"></i> Mon Profil</a>
-          <a class="dropdown-item" href="<?php echo getenv("IDP_URL"); ?>/realms/<?php echo getenv("IDP_REALM");?>/account/"><i class="fas fa-user text-info"></i> Mon Compte</a>
+          <a class="dropdown-item" href="#" id="idHrefProfil"><i class="fas fa-user text-info"></i> Mon Profil</a>
+          <a class="dropdown-item" href="#" id="idHrefAccount"><i class="fas fa-user text-info"></i> Mon Compte</a>
           <a class="dropdown-item" href="/user/invite"><i class="fas fa-user-friends text-info"></i> Inviter</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/users"><i class="fas fa-users-cog text-info"></i> <span>Utilisateurs</span></a>

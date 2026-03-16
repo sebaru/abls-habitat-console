@@ -118,13 +118,15 @@
 
     images = [ "syn_maison.png", "syn_communication.png", "syn_reseau.png",
                "syn_buanderie.png", "syn_camera.png", "syn_chambre_double.png", "syn_chambre_simple.png",
+               "syn_bureaux.svg",
                "syn_cuisine.png", "syn_garage.png", "syn_cour.png",
                "syn_jardin.png", "syn_arrosage_1.svg", "syn_arrosage_2.svg", "syn_tondeuse.svg",
-               "syn_robinet.svg", "syn_robinet_ecs.svg", "syn_piscine.png", "syn_chimie.svg", "syn_puit.svg",
+               "syn_robinet.svg", "syn_robinet_ecs.svg", "syn_eau_chaude.svg", "syn_eau_froide.svg", 
+               "syn_piscine.png", "syn_chimie.svg", "syn_puit.svg",
                "syn_salle_de_bain.png", "syn_congelateur.svg", "syn_salon.png", "syn_jeux.png", "syn_tele.png",
-               "syn_ouvrants.png", "syn_volets.png", "syn_velux.svg",
+               "syn_ouvrants.png", "syn_porte.png", "syn_volets.png", "syn_velux.svg",
                "syn_soleil.svg", "syn_luminaires.png", "syn_spot.png", "syn_sonorisation.png",
-               "syn_confort.png", "syn_ventilateur.svg", "syn_energie.png",
+               "syn_confort.png", "syn_poele.svg", "syn_ventilateur.svg", "syn_energie.png",
                "syn_electricite.png", "syn_shelly.jpg", "syn_linky.jpg", "syn_ups.png", "syn_panneau_solaire.png",
                "syn_chaudiere.png", "syn_chauffe_eau.svg", "syn_chauffe_eau_solaire.svg", "syn_chauffage.svg",
                "syn_essence.svg",
@@ -169,7 +171,7 @@
             },
             { "data": null, "title": "Parent", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/atelier/"+item.ppage, "Voir le synoptique "+item.plibelle, item.ppage ) ); },
+                { return( Lien ( "/synoptique/"+item.ppage, "Voir les fils de "+item.plibelle, item.ppage ) ); },
             },
             { "data": null, "title": "Page", "className": "align-middle text-center",
               "render": function (item)
@@ -183,13 +185,13 @@
             { "data": "subsyn_count", "title": "#SubSyn", "className": "align-middle text-center" },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  if (item.mode_affichage==true) boutons += Bouton_actions_add ( "outline-primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Configurer", "SYN_Edit", item.syn_id, "pen", null );
-                  boutons += Bouton_actions_add ( "outline-success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line", null );
-                  if (item.syn_id!=1) boutons += Bouton_actions_add ( "danger", "Supprimer le synoptique", "SYN_Del", item.syn_id, "trash", null );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start ( "primary", "" );
+                  if (item.mode_affichage==true) boutons += Bouton_deroulant_add ( "primary", "Ouvrir l'atelier", "Redirect", "/atelier/"+item.page, "image" );
+                  boutons += Bouton_deroulant_add ( "primary", "Editer", "SYN_Edit", item.syn_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "success", "Ajouter un synoptique fils", "SYN_Add", item.syn_id, "plus" );
+                  boutons += Bouton_deroulant_add ( "primary", "Voir les tableaux", "Redirect", '/tech/tableau?syn_id='+item.syn_id, "chart-line" );
+                  if (item.syn_id!=1) boutons += Bouton_deroulant_add ( "danger", "Supprimer le synoptique", "SYN_Del", item.syn_id, "trash" );
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             }

@@ -10,10 +10,11 @@
 
 <hr>
 
- <div class="row m-2 text-center">
-           <label class="col-3 col-form-label text-right">Ajouter une commande textuelle</label>
-           <input id="idModalCommandTextAdd" type="text" class="col-4 form-control" placeholder="Nouvelle commande textuelle">
-           <button type="button" onclick="COMMAND_TEXT_Add()" class="ml-2 me-auto btn btn-primary"><i class="fas fa-plus"></i> Ajouter</button>
+ <div class="row m-2">
+   <div class="input-group">
+           <button type="button" onclick="COMMAND_TEXT_Add()" class="me-auto btn btn-primary"><i class="fas fa-plus"></i> Ajouter</button>
+           <input id="idModalCommandTextAdd" type="text" class="form-control" placeholder="Nouvelle commande textuelle">
+   </div>
  </div>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
