@@ -98,7 +98,7 @@
                  return ("<i class='fas fa-2x fa-"+icone+" text-"+color+"'></i>");
                }
            },
-           { "data": null, "title":"Branche", "className": "align-middle text-center",
+           { "data": null, "title":"Branche", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
               { result = Badge ( "secondary", "Branche is "+item.branche, item.branche )
                 return(result);
@@ -110,17 +110,17 @@
                 return(result);
               }
            },
-           { "data": null, "title":"Version", "className": "align-middle text-center",
+           { "data": null, "title":"Version", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
               { return( item.version );
               }
            },
-           { "data": null, "title":"Start/Heartbeat", "className": "align-middle text-center",
+           { "data": null, "title":"Start/Heartbeat", "className": "align-middle text-center d-none d-xl-table-cell",
              "render": function (item)
               { return( item.start_time +"<br>" + item.heartbeat_time);
               }
            },
-           { "data": null, "title":"Description", "className": "align-middle ",
+           { "data": null, "title":"Description", "className": "align-middle d-none d-lg-table-cell",
              "render": function (item)
               { return( htmlEncode ( item.description ) );
               }
