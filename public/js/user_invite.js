@@ -17,6 +17,7 @@
 
     $("#idDomainLabel").text( localStorage.getItem ("domain_name") );
     $("#idUserInviteAccessLevel").replaceWith ( Select_Access_level ( "idUserInviteAccessLevel", null ) );
+    $("#idUserInviteAccessLevel").addClass('flex-grow-1');
     $("#idUserInviteValider").off("click").on("click", function () { Inviter(); } );
   }
 /******************************************************************************************************************************/

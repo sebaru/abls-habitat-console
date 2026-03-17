@@ -53,6 +53,7 @@
        if (TokenParsed.sub == Response.user_uuid)
           { $("#idUserAccessLevel").html ( Badge_Access_level (Response.access_level) + " - " + Access_level_description[Response.access_level].name ); }
        else $("#idUserAccessLevel").replaceWith ( Select_Access_level ( "idUserAccessLevel", null ) );
+       $("#idUserAccessLevel").addClass('flex-grow-1');
        $("#idUserWannaBeNotified").replaceWith ( Select ( "idUserWannaBeNotified", null,
                                                      [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.wanna_be_notified ) );
        $("#idUserCanSendTxtCde").replaceWith ( Select ( "idUserCanSendTxtCde", null,

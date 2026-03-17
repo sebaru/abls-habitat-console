@@ -249,6 +249,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarCONFIG">
           <a class="dropdown-item" href="/io_config"><i class="fas fa-link text-primary"></i> <span>Connecteurs</span></a>
           <a class="dropdown-item" href="/audio/zones"> <i class="fas fa-play text-primary"></i> <span>Zones de diffusion</span> </a>
+          <a class="dropdown-item" href="/cameras"> <i class="fas fa-video text-primary"></i> <span>Caméras</span> </a>
         </div>
       </li>
 

@@ -38,6 +38,7 @@ class Console extends BaseController
  public function audio_zone()         { $this->send_page ("audio_zone"); }
  public function imsgs()              { $this->send_page ("imsgs"); }
  public function ups()                { $this->send_page ("ups"); }
+ public function cameras()            { $this->send_page ("cameras"); }
  public function teleinfoedf()        { $this->send_page ("teleinfoedf"); }
  public function tableau()            { $this->send_page ("tableau"); }
  public function tableau_map()        { $this->send_page ("tableau_map"); }
