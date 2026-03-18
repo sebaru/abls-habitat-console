@@ -79,7 +79,7 @@
                  return( Lien ( "/audio/zone/"+item.audio_zone_name, "Voir la zone "+item.audio_zone_name, item.audio_zone_name ) );
                }
            },
-           { "data": null, "title":"Description", "className": "align-middle text-center",
+           { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
                { return( htmlEncode(item.description) ); }
            },

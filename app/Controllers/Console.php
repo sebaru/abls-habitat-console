@@ -42,6 +42,7 @@ class Console extends BaseController
  public function teleinfoedf()        { $this->send_page ("teleinfoedf"); }
  public function tableau()            { $this->send_page ("tableau"); }
  public function tableau_map()        { $this->send_page ("tableau_map"); }
+ public function syn_cameras()        { $this->send_page ("syn_cameras"); }
  public function dls()                { $this->send_page ("dls"); }
  public function dls_packages()       { $this->send_page ("dls_packages"); }
  public function dls_package()        { $this->send_page ("dls_package"); }

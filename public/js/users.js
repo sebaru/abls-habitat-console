@@ -55,11 +55,11 @@
               "render": function (item)
                 { return( htmlEncode(item.username) ); }
             },
-            { "data": null, "title": "Adresse Mail", "className": "align-middle ",
+            { "data": null, "title": "Adresse Mail", "className": "align-middle d-none d-md-table-cell ",
               "render": function (item)
                 { return( htmlEncode(item.email) ); }
             },
-            { "data": null, "title":"Level", "className": "align-middle text-left",
+            { "data": null, "title":"Level", "className": "align-middle text-left d-none d-md-table-cell",
               "render": function (item)
                 { return( Badge_Access_level ( item.access_level ) + " - " + Access_level_description[item.access_level].name ); }
             },

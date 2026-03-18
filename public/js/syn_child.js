@@ -72,7 +72,7 @@ var SYN_Response = null;
                                                    },
          rowId: "syn_id",
          columns:
-          [ { "data": "syn_id", "title": "#", "className": "align-middle text-center" },
+          [ { "data": "syn_id", "title": "#", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Aperçu", "className": "align-middle text-center",
               "render": function (item)
                 { target = localStorage.getItem("static_data_url")+"/img/"+item.image;
@@ -82,7 +82,7 @@ var SYN_Response = null;
               "render": function (item)
                 { return( Lien ( "/synoptique/"+item.page, "Aller voir les fils de "+item.libelle, item.page ) ); },
             },
-            { "data": null, "title": "Description", "className": "align-middle",
+            { "data": null, "title": "Description", "className": "align-middle d-none d-md-table-cell",
               "render": function (item)
                 { return( Lien ( "/synoptique/"+item.page, "Aller voir les fils de "+item.libelle, item.libelle ) ); },
             },

@@ -110,7 +110,7 @@
               "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
            },
-           { "data": null, "title":"Enabled", "className": "align-middle text-center",
+           { "data": null, "title":"Enabled", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
               { if (item.enable==true)
                  { return( Bouton ( "success", "Désactiver la téléinfo",
@@ -122,7 +122,7 @@
                  }
               },
            },
-           { "data": null, "title":"Debug", "className": "align-middle text-center",
+           { "data": null, "title":"Debug", "className": "align-middle text-center d-none d-xl-table-cell",
              "render": function (item)
               { if (item.debug==true)
                  { return( Bouton ( "warning", "Désactiver le debug", "TELEINFO_Undebug", item.teleinfoedf_id, "Actif" ) ); }
@@ -134,21 +134,21 @@
              "render": function (item)
                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
-           { "data": "description", "title":"Description", "className": "align-middle " },
-           { "data": "port", "title":"Device Port", "className": "align-middle " },
-           { "data": null, "title":"Mode", "className": "align-middle text-center",
+           { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },
+           { "data": "port", "title":"Device Port", "className": "align-middle d-none d-xl-table-cell " },
+           { "data": null, "title":"Mode", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
               { if (item.standard) return ( Bouton( "info", "Mode TIC Standard", null, null, "Standard" ) );
                                    return ( Bouton( "secondary", "Mode TIC Historique", null, null, "Historique" ) );
               },
            },
-           { "data": null, "title":"Connexion", "className": "align-middle text-center",
+           { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
                  return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
                },
            },
-           { "data": null, "title":"MQTT", "className": "align-middle text-center",
+           { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
                { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
                  return( Badge( "danger", "Déconnecté", "Déconnecté" ) );

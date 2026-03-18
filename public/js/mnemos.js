@@ -78,7 +78,7 @@
                { return( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) ); }
            },
            { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
-           { "data": null, "title":"Libellé",    "className": "align-middle ",
+           { "data": null, "title":"Libellé",    "className": "align-middle d-none d-lg-table-cell ",
              "render": function (item)
                { return(htmlEncode(item.libelle)); }
            },
@@ -109,11 +109,11 @@
              "render": function (item)
                { return(htmlEncode(item.libelle)); }
            },
-           { "data": null,      "title":"Unité",    "className": "align-middle hidden-xs",
+           { "data": null,      "title":"Unité",    "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
                { return(htmlEncode(item.unite)); }
            },
-           { "data": null, "title":"Archivage", "className": "",
+           { "data": null, "title":"Archivage", "className": "d-none d-xl-table-cell ",
              "render": function (item)
                { return( Select ( "idRArchivage_"+item.mnemo_registre_id,
                                   "Mnemos_R_set_archivage('"+item.mnemo_registre_id+"')", ModeArchivage, item.archivage ) ); }
@@ -144,11 +144,11 @@
              "render": function (item)
                { return(htmlEncode(item.libelle)); }
            },
-           { "data": null,      "title":"Unité",    "className": "align-middle hidden-xs",
+           { "data": null,      "title":"Unité",    "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
                { return(htmlEncode(item.unite)); }
            },
-           { "data": null, "title":"Archivage", "className": "",
+           { "data": null, "title":"Archivage", "className": "d-none d-xl-table-cell ",
              "render": function (item)
                { return( Select ( "idCIArchivage_"+item.mnemo_ci_id,
                                   "Mnemos_CI_set_archivage('"+item.mnemo_ci_id+"')", ModeArchivage, item.archivage ) ); }

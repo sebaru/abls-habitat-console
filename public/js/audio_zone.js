@@ -56,11 +56,11 @@
              "render": function (item)
                { return( item.agent_hostname ); }
            },
-           { "data": null, "title":"Thread", "className": "align-middle text-center",
+           { "data": null, "title":"Thread", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir le D.L.S", item.thread_tech_id ) ); }
            },
-           { "data": null, "title":"Description", "className": "align-middle text-center",
+           { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
                { return( item.thread_description ); }
            },

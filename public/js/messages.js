@@ -84,15 +84,15 @@
              "render": function (item)
                { return( htmlEncode ( item.acronyme ) ); }
            },
-           { "data": null, "title":"Libelle", "className": "align-middle text-center",
+           { "data": null, "title":"Libelle", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { return( htmlEncode(item.libelle) ); }
            },
-           { "data": null, "title":"Zone Audio", "className": "align-middle text-center",
+           { "data": null, "title":"Zone Audio", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { return( Lien ( "/audio/zone/"+item.audio_zone_name, "Voir la zone "+item.audio_zone_name, item.audio_zone_name ) ); }
            },
-           { "data": null, "title":"GSM", "className": "align-middle text-center",
+           { "data": null, "title":"GSM", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
                { var result = SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms); } )[0].texte;
                  if (item.notif_sms == -1)
@@ -102,7 +102,7 @@
                  return ( result );
                }
            },
-           { "data": null, "title":"Chat", "className": "align-middle text-center",
+           { "data": null, "title":"Chat", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
                { var result = IMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_chat); } )[0].texte;
                  if (item.notif_chat == -1)

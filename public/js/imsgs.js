@@ -108,7 +108,7 @@
              "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
            },
-           { "data": null, "title":"Enable", "className": "align-middle text-center",
+           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)
                { if (item.enable==true)
                  { return( Bouton ( "success", "Désactiver le compte", "IMSGS_Disable", item.imsgs_id, "Actif" ) ); }
@@ -116,7 +116,7 @@
                  { return( Bouton ( "outline-secondary", "Activer le compte", "IMSGS_Enable", item.imsgs_id, "Désactivé" ) ); }
                },
            },
-           { "data": null, "title":"Debug", "className": "align-middle text-center",
+           { "data": null, "title":"Debug", "className": "align-middle text-center d-none d-xl-table-cell",
              "render": function (item)
               { if (item.debug==true)
                  { return( Bouton ( "warning", "Désactiver le debug", "IMSGS_Undebug", item.imsgs_id, "Actif" ) ); }
@@ -128,21 +128,21 @@
              "render": function (item)
                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
-           { "data": null, "title":"Description", "className": "align-middle text-center",
+           { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
                { return( htmlEncode(item.description) ); }
            },
-           { "data": null, "title":"JabberID", "className": "align-middle text-center",
+           { "data": null, "title":"JabberID", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
                { return( htmlEncode(item.jabberid) ); }
            },
-           { "data": null, "title":"Connexion", "className": "align-middle text-center",
+           { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
                  return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
                },
            },
-           { "data": null, "title":"MQTT", "className": "align-middle text-center",
+           { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
                { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
                  return( Badge( "danger", "Déconnecté", "Déconnecté" ) );

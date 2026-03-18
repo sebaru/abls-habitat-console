@@ -159,17 +159,17 @@
                },
          rowId: "syn_id",
          columns:
-          [ { "data": "syn_id", "title": "#", "className": "align-middle text-center" },
+          [ { "data": "syn_id", "title": "#", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Aperçu", "className": "align-middle text-center",
               "render": function (item)
                 { target = localStorage.getItem("static_data_url")+"/img/"+item.image;
                   return( "<img src='"+target+"' class='wtd-synoptique-preview' loading=lazy alt='No Image !' onclick='SYN_Edit_image("+item.syn_id+")' />" ); }
             },
-            { "data": null, "title":"<i class='fas fa-star'></i> Level", "className": "align-middle text-center",
+            { "data": null, "title":"<i class='fas fa-star'></i> Level", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)
                 { return( Badge_Access_level ( item.access_level ) ); }
             },
-            { "data": null, "title": "Parent", "className": "align-middle text-center",
+            { "data": null, "title": "Parent", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)
                 { return( Lien ( "/synoptique/"+item.ppage, "Voir les fils de "+item.plibelle, item.ppage ) ); },
             },
@@ -177,12 +177,12 @@
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.libelle, item.page ) ); },
             },
-            { "data": null, "title": "Description", "className": "align-middle ",
+            { "data": null, "title": "Description", "className": "align-middle d-none d-md-table-cell ",
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.libelle, item.libelle ) ); },
             },
-            { "data": "dls_count", "title": "#dls", "className": "align-middle text-center" },
-            { "data": "subsyn_count", "title": "#SubSyn", "className": "align-middle text-center" },
+            { "data": "dls_count", "title": "#dls", "className": "align-middle text-center d-none d-lg-table-cell" },
+            { "data": "subsyn_count", "title": "#SubSyn", "className": "align-middle text-center d-none d-lg-table-cell" },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_deroulant_start ( "primary", "" );

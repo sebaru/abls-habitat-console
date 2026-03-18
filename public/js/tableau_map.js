@@ -90,7 +90,7 @@
                         );
                 }
             },
-            { "data": null, "title":"Couleur", "className": "align-middle ",
+            { "data": null, "title":"Couleur", "className": "align-middle d-none d-md-table-cell ",
               "render": function (item)
                 { return( Input ( "text", "idTableauMapColor_"+item.tableau_map_id,
                                   "Tableau_Map_Set('"+item.tableau_map_id+"')",
@@ -99,7 +99,7 @@
                         );
                 }
             },
-            { "data": null, "title":"Méthode", "className": "align-middle ",
+            { "data": null, "title":"Méthode", "className": "align-middle d-none d-md-table-cell ",
               "render": function (item)
                 { return( Select ( "idTableauMapMethode_"+item.tableau_map_id,
                                    "Tableau_Map_Set('"+item.tableau_map_id+"')",
@@ -108,7 +108,7 @@
                         );
                 }
             },
-            { "data": null, "title":"Multiplicateur", "className": "align-middle ",
+            { "data": null, "title":"Multiplicateur", "className": "align-middle d-none d-xl-table-cell ",
               "render": function (item)
                 { return( Input ( "number", "idTableauMapMulti_"+item.tableau_map_id,
                                   "Tableau_Map_Set('"+item.tableau_map_id+"')",
@@ -117,7 +117,7 @@
                         );
                 }
             },
-            { "data": null, "title":"Offset", "className": "align-middle ",
+            { "data": null, "title":"Offset", "className": "align-middle d-none d-xl-table-cell ",
               "render": function (item)
                 { return( Input ( "number", "idTableauMapOffset_"+item.tableau_map_id,
                                   "Tableau_Map_Set('"+item.tableau_map_id+"')",
@@ -126,7 +126,7 @@
                         );
                 }
             },
-            { "data": "libelle", "title":"Libellé", "className": "align-middle text-center " },
+            { "data": "libelle", "title":"Libellé", "className": "align-middle text-center d-none d-lg-table-cell " },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();

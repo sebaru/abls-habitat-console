@@ -45,6 +45,7 @@ $routes->get('/mnemos/(:any)', 'Console::mnemos');
 $routes->get('/mnemos',        'Console::mnemos');
 $routes->get('/tableau/(:any)', 'Console::tableau_map');
 $routes->get('/tableau',       'Console::tableau');
+$routes->get('/syn_cameras',   'Console::syn_cameras');
 $routes->get('/messages/(:any)', 'Console::messages');
 $routes->get('/messages',     'Console::messages');
 $routes->get('/archive',      'Console::archive');

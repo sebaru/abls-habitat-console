@@ -88,18 +88,18 @@
          columns:
           [ { "data": "page", "title":"Page", "className": "text-center" },
             { "data": "titre", "title":"Titre", "className": "" },
-            { "data": null, "title":"Mode", "className": "text-center",
+            { "data": null, "title":"Mode", "className": "text-center d-none d-md-table-cell",
               "render": function (item)
                 { mode = ModeTableau.find ( (element) => element.valeur == item.mode );
                   return( Badge ( mode.color, mode.tooltip, mode.texte ) );
                 }
             },
-            { "data": null, "title":"Période", "className": "text-center",
+            { "data": null, "title":"Période", "className": "text-center d-none d-md-table-cell",
               "render": function (item)
                 { return ( PeriodeTableau.find ( (element) => element.valeur == item.periode ).texte );
                 }
             },
-            { "data": null, "title":"Period Lock", "className": "text-center",
+            { "data": null, "title":"Period Lock", "className": "text-center d-none d-xl-table-cell",
               "render": function (item)
                 { if (item.period_lock) return( Badge ( "primary", "Période verrouillée", "Oui" ) );
                                    else return( Badge ( "secondary", "Période déverrouillée", "Non" ) );

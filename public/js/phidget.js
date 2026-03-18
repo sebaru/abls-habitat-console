@@ -156,7 +156,7 @@
              "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
           },
-          { "data": null, "title":"Enable", "className": "align-middle text-center",
+          { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
               { if (item.enable==true)
                 { return( Bouton ( "success", "Désactiver le module", "PHIDGET_Disable", item.phidget_id, "Actif" ) ); }
@@ -164,7 +164,7 @@
                 { return( Bouton ( "outline-secondary", "Activer le module", "PHIDGET_Enable", item.phidget_id, "Désactivé" ) ); }
               },
           },
-           { "data": null, "title":"Debug", "className": "align-middle text-center",
+           { "data": null, "title":"Debug", "className": "align-middle text-center d-none d-xl-table-cell",
              "render": function (item)
               { if (item.debug==true)
                  { return( Bouton ( "warning", "Désactiver le debug", "PHIDGET_Undebug", item.phidget_id, "Actif" ) ); }
@@ -176,17 +176,17 @@
             "render": function (item)
               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
           },
-          { "data": "description", "title":"Description", "className": "align-middle text-center " },
-          { "data": "hostname", "title":"Hostname", "className": "align-middle text-center " },
-          { "data": "password", "title":"Password", "className": "align-middle text-center " },
-          { "data": "serial", "title":"Serial Number", "className": "align-middle text-center " },
-          { "data": null, "title":"Connexion", "className": "align-middle text-center",
+          { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
+          { "data": "hostname", "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell " },
+          { "data": "password", "title":"Password", "className": "align-middle text-center d-none d-xl-table-cell " },
+          { "data": "serial", "title":"Serial Number", "className": "align-middle text-center d-none d-xl-table-cell " },
+          { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
               { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
               },
           },
-          { "data": null, "title":"MQTT", "className": "align-middle text-center",
+          { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
@@ -227,20 +227,20 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
-            { "data": null, "title":"Mapped on", "className": "align-middle text-center",
+            { "data": null, "title":"Mapped on", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)
                 { if(item.tech_id)
                    { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
             },
-            { "data": "port", "title":"Port", "className": "align-middle text-center" },
-            { "data": null, "title":"Capteur/Classe", "className": "align-middle text-center",
+            { "data": "port", "title":"Port", "className": "align-middle text-center d-none d-xl-table-cell" },
+            { "data": null, "title":"Capteur/Classe", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
                 { return( item.classe + " - " + item.capteur ); }
             },
-            { "data": "intervalle", "title":"Interval", "className": "align-middle text-center" },
-            { "data": null, "title":"Description", "className": "align-middle text-center",
+            { "data": "intervalle", "title":"Interval", "className": "align-middle text-center d-none d-xl-table-cell" },
+            { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },

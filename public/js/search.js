@@ -32,10 +32,10 @@
                    else return(item.acronyme);
                  }
              },
-             { "data": null, "title":"Libelle", "className": "align-middle  text-center",
+             { "data": null, "title":"Libelle", "className": "align-middle  text-center d-none d-md-table-cell",
                "render": function (item) { return ( htmlEncode ( item.libelle ) ); }
              },
-             { "data": null, "title":"Unité", "className": "align-middle  text-center",
+             { "data": null, "title":"Unité", "className": "align-middle  text-center d-none d-lg-table-cell",
                "render": function (item) { return ( htmlEncode ( item.unite ) ); }
              }
            ]

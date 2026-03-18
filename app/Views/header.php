@@ -225,6 +225,7 @@
           <a class="dropdown-item" href="/synoptiques"> <i class="fas fa-image text-primary"></i> <span>Liste</span> </a>
           <a class="dropdown-item" href="/synoptique/HOME"> <i class="fas fa-th text-warning"></i> <span>Réorganiser</span> </a>
           <a class="dropdown-item" href="/tableau"> <i class="fas fa-chart-line text-secondary"></i> <span>Tableaux</span> </a>
+          <a class="dropdown-item" href="/syn_cameras"> <i class="fas fa-video text-info"></i> <span>Caméras</span> </a>
         </div>
       </li>
 

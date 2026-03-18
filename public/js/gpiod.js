@@ -145,7 +145,7 @@
              "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
           },
-          { "data": null, "title":"Enable", "className": "align-middle text-center",
+          { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
               { if (item.enable==true)
                 { return( Bouton ( "success", "Désactiver le module", "GPIOD_Disable", item.gpiod_id, "Actif" ) ); }
@@ -153,7 +153,7 @@
                 { return( Bouton ( "outline-secondary", "Activer le module", "GPIOD_Enable", item.gpiod_id, "Désactivé" ) ); }
               },
           },
-          { "data": null, "title":"Debug", "className": "align-middle text-center",
+          { "data": null, "title":"Debug", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
              { if (item.debug==true)
                 { return( Bouton ( "warning", "Désactiver le debug", "GPIOD_Undebug", item.gpiod_id, "Actif" ) ); }
@@ -165,14 +165,14 @@
             "render": function (item)
               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
           },
-          { "data": "description", "title":"Description", "className": "align-middle text-center " },
-          { "data": null, "title":"Connexion", "className": "align-middle text-center",
+          { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
+          { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
               { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
               },
           },
-          { "data": null, "title":"MQTT", "className": "align-middle text-center",
+          { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
@@ -213,22 +213,22 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
-            { "data": null, "title":"Mapped on", "className": "align-middle text-center",
+            { "data": null, "title":"Mapped on", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)
                 { if(item.tech_id)
                    { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
                    } else return( "--" );
                 }
             },
-            { "data": null, "title":"Description", "className": "align-middle text-center",
+            { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },
-            { "data": null, "title":"In / Out", "className": "align-middle text-center",
+            { "data": null, "title":"In / Out", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)
                 { return ( (item.mode_inout ? "OUT" : "IN" ) ); }
             },
-            { "data": null, "title":"ActiveLow", "className": "align-middle text-center",
+            { "data": null, "title":"ActiveLow", "className": "align-middle text-center d-none d-xl-table-cell",
               "render": function (item)
                 { return ( (item.mode_activelow ? "TRUE" : "FALSE") ); }
             },

@@ -126,12 +126,12 @@
                               },
                },
          columns:
-          [ { "data": "dls_id", "title":"#ID", "className": "align-middle  text-center" },
-            { "data": null, "title": "Page", "className": "align-middle text-center",
+          [ { "data": "dls_id", "title":"#ID", "className": "align-middle  text-center d-none d-xl-table-cell" },
+            { "data": null, "title": "Page", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)
                 { return( Lien ( "/atelier/"+item.page, "Voir le synoptique "+item.page, item.page ) + "<br>#" + item.syn_id ); },
             },
-            { "data": null, "title":"Enabled", "className": "align-middle  text-center",
+            { "data": null, "title":"Enabled", "className": "align-middle  text-center d-none d-md-table-cell",
               "render": function (item)
                 { if (item.enable==true)
                    { return( Bouton ( "success", "Désactiver le plugin", "Dls_stop_plugin", item.dls_id, "Actif" ) ); }
@@ -174,7 +174,7 @@
                   return( Bouton ( "success", "Aucune erreur", null, null, "OK" ) );
                 }
             },
-            { "data": null, "title":"Stats", "className": "align-middle text-center",
+            { "data": null, "title":"Stats", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
                 { return( Badge ( "primary", "Nombre de compilation", item.nbr_compil.toString() ) + "<br>" +
                           Badge ( "secondary", "Nombre de ligne", item.nbr_ligne.toString() ) + "<br>" +
@@ -182,7 +182,7 @@
                         );
                 }
             },
-            { "data": null, "title":"Date Compil", "className": "align-middle text-center ",
+            { "data": null, "title":"Date Compil", "className": "align-middle text-center d-none d-xl-table-cell ",
               "render": function (item)
                 { return( item.compil_date + "<br>" + item.compil_user ); }
             },

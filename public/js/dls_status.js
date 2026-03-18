@@ -46,7 +46,7 @@
                 { return( Bouton ( "outline-secondary", "Activer le plugin", "Dls_start_plugin", item.tech_id, "Désactivé" ) ); }
              }
           },
-          { "data": null, title:"Conso",  "className": "text-center align-middle", "render": function (item)
+          { "data": null, title:"Conso",  "className": "text-center align-middle d-none d-xl-table-cell", "render": function (item)
              { return( item.conso.toFixed(2) ); }
           },
           { "data": null, title:"Comm",  "className": "text-center align-middle", "render": function (item)
@@ -85,7 +85,7 @@
                { return( Bouton ( "outline-secondary", "Pas d'alerte", null, null, "Non" ) ); }
             }
           },
-          { "data": null, title:"Veille",  "className": "text-center align-middle", "render": function (item)
+          { "data": null, title:"Veille",  "className": "text-center align-middle d-none d-lg-table-cell", "render": function (item)
             { if (item.bit_veille==true)
                { return( Bouton ( "outline-success", "En veille", null, null, "OK" ) ); }
               else { return( Bouton ( "warning", "Pas en veille !", null, null, "Non" ) ); }
@@ -100,7 +100,7 @@
                { return( Bouton ( "outline-secondary", "Pas de danger", null, null, "Non" ) ); }
             }
           },
-          { "data": null, title:"Dérang.",  "className": "text-center align-middle", "render": function (item)
+          { "data": null, title:"Dérang.",  "className": "text-center align-middle d-none d-lg-table-cell", "render": function (item)
             { if (item.bit_derangement==true)
                { return( Bouton ( "danger", "Dérangement !", null, null, "OUI" ) ); }
               else if (item.bit_derangement_fixe==true)

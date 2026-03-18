@@ -72,11 +72,11 @@
              "render": function (item)
                { return( htmlEncode(item.name) ); }
            },
-           { "data": null, "title":"URL", "className": "align-middle text-center",
+           { "data": null, "title":"URL", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { return( htmlEncode(item.url) ); }
            },
-           { "data": null, "title":"Accès", "className": "align-middle text-center",
+           { "data": null, "title":"Accès", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { return( Badge_Access_level(item.access_level) ); }
            },

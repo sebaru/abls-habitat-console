@@ -120,7 +120,7 @@
              "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
            },
-           { "data": null, "title":"Enable", "className": "align-middle text-center",
+           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)
                { if (item.enable==true)
                  { return( Bouton ( "success", "Désactiver le gsm", "SMSG_Disable", item.smsg_id, "Actif" ) ); }
@@ -128,7 +128,7 @@
                  { return( Bouton ( "outline-secondary", "Activer le gsm", "SMSG_Enable", item.smsg_id, "Désactivé" ) ); }
                },
            },
-           { "data": null, "title":"Debug", "className": "align-middle text-center",
+           { "data": null, "title":"Debug", "className": "align-middle text-center d-none d-xl-table-cell",
              "render": function (item)
               { if (item.debug==true)
                  { return( Bouton ( "warning", "Désactiver le debug", "SMSG_Undebug", item.smsg_id, "Actif" ) ); }
@@ -140,21 +140,21 @@
              "render": function (item)
                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
            },
-           { "data": "description", "title":"Description", "className": "align-middle " },
-           { "data": null, "title":"Signal Quality", "className": "align-middle text-center",
+           { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },
+           { "data": null, "title":"Signal Quality", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { return( Lien ( "/courbe/"+item.thread_tech_id+"/SIGNAL_QUALITY", "Voir la qualité du signal", item.thread_tech_id+":SIGNAL_QUALITY" ) ); }
            },
-           { "data": "ovh_consumer_key", "title":"OVH Consumer Key", "className": "align-middle " },
-           { "data": "ovh_service_name", "title":"OVH Service Name", "className": "align-middle " },
-           { "data": "ovh_application_key", "title":"OVH App Key", "className": "align-middle " },
-           { "data": null, "title":"Connexion", "className": "align-middle text-center",
+           { "data": "ovh_consumer_key", "title":"OVH Consumer Key", "className": "align-middle d-none d-xl-table-cell " },
+           { "data": "ovh_service_name", "title":"OVH Service Name", "className": "align-middle d-none d-xl-table-cell " },
+           { "data": "ovh_application_key", "title":"OVH App Key", "className": "align-middle d-none d-xl-table-cell " },
+           { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
                  return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
                },
            },
-           { "data": null, "title":"MQTT", "className": "align-middle text-center",
+           { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
                { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
                  return( Badge( "danger", "Déconnecté", "Déconnecté" ) );

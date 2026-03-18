@@ -106,15 +106,15 @@
              "render": function (item)
                { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
-           { "data": null, "title":"Map on", "className": "align-middle ",
+           { "data": null, "title":"Map on", "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
                { if (item.thread_tech_id==null) return("Not Mapped");
                  else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
                },
            },
            { "data": "valeur", "title":"Valeur", "className": "align-middle text-center " },
-           { "data": "unite", "title":"Unité", "className": "align-middle text-center " },
-           { "data": null, "title":"in_range", "className": "align-middle",
+           { "data": "unite", "title":"Unité", "className": "align-middle text-center d-none d-md-table-cell " },
+           { "data": null, "title":"in_range", "className": "align-middle d-none d-lg-table-cell ",
              "render": function (item)
                { if (item.in_range==true) { return( Bouton ( "outline-success", "Dans les clous !", null, null, "Oui" ) );        }
                                      else { return( Bouton ( "warning", "Pb !", null, null, "Non" ) ); }
@@ -171,14 +171,14 @@
              "render": function (item)
               { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); }
            },
-           { "data": null, "title":"Map on", "className": "align-middle ",
+           { "data": null, "title":"Map on", "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
                { if (item.thread_tech_id==null) return("Not Mapped");
                  else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
                },
            },
            { "data": "valeur", "title":"Valeur", "className": "align-middle text-center " },
-           { "data": "unite", "title":"Unité", "className": "align-middle text-center " },
+           { "data": "unite", "title":"Unité", "className": "align-middle text-center d-none d-md-table-cell " },
          ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/

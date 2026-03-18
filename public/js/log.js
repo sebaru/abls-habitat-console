@@ -10,7 +10,7 @@
                },
          columns: [ { "data": "date", "title":"Date" },
                     { "data": "access_level", "title": "Level" },
-                    { "data": "username", "title": "Username" },
+                    { "data": "username", "title": "Username", "className": "d-none d-md-table-cell" },
                     { "data": "message", "title":"Message" }
                   ],
          order: [ [0, "desc"] ],

@@ -293,7 +293,7 @@
              "render": function (item)
                { return( htmlEncode(item.agent_hostname) ); }
           },
-          { "data": null, "title":"Enable", "className": "align-middle text-center",
+          { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
               { if (item.enable==true)
                 { return( Bouton ( "success", "Désactiver le module", "MODBUS_Disable", item.modbus_id, "Actif" ) ); }
@@ -301,7 +301,7 @@
                 { return( Bouton ( "outline-secondary", "Activer le module", "MODBUS_Enable", item.modbus_id, "Désactivé" ) ); }
               },
           },
-           { "data": null, "title":"Debug", "className": "align-middle text-center",
+           { "data": null, "title":"Debug", "className": "align-middle text-center d-none d-xl-table-cell",
              "render": function (item)
               { if (item.debug==true)
                  { return( Bouton ( "warning", "Désactiver le debug", "MODBUS_Undebug", item.modbus_id, "Actif" ) ); }
@@ -313,20 +313,20 @@
             "render": function (item)
               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
           },
-          { "data": "description", "title":"Description", "className": "align-middle text-center " },
-          { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center " },
-          { "data": null, "title":"Hostname", "className": "align-middle text-center",
+          { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
+          { "data": "watchdog", "title":"Watchdog (s)", "className": "align-middle text-center d-none d-xl-table-cell " },
+          { "data": null, "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { return( Lien ( "http://"+item.hostname, "Voir le composant", item.hostname ) ); }
           },
-          { "data": "max_request_par_sec", "title":"Max Requete/s", "className": "align-middle text-center " },
-          { "data": null, "title":"Connexion", "className": "align-middle text-center",
+          { "data": "max_request_par_sec", "title":"Max Requete/s", "className": "align-middle text-center d-none d-xl-table-cell " },
+          { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
               { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
               },
           },
-          { "data": null, "title":"MQTT", "className": "align-middle text-center",
+          { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
@@ -367,9 +367,9 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
-            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center" },
-            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center" },
-            { "data": "flip", "title":"Flip", "className": "align-middle text-center" },
+            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center d-none d-md-table-cell" },
+            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center d-none d-xl-table-cell" },
+            { "data": "flip", "title":"Flip", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
@@ -378,7 +378,7 @@
                    } else return( "--" );
                 }
             },
-            { "data": null, "title":"Description", "className": "align-middle text-center",
+            { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },
@@ -418,8 +418,8 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
-            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center" },
-            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center" },
+            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center d-none d-md-table-cell" },
+            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
@@ -428,7 +428,7 @@
                    } else return( "--" );
                 }
             },
-            { "data": null, "title":"Description", "className": "align-middle text-center",
+            { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },
@@ -468,8 +468,8 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
-            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center" },
-            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center" },
+            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center d-none d-md-table-cell" },
+            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
@@ -482,12 +482,12 @@
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },
-            { "data": null, "title":"Type Borne", "className": "align-middle text-center",
+            { "data": null, "title":"Type Borne", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
                 { return( Borne_Type[item.type_borne] ); }
             },
-            { "data": "min", "title":"min", "className": "align-middle text-center" },
-            { "data": "max", "title":"max", "className": "align-middle text-center" },
+            { "data": "min", "title":"min", "className": "align-middle text-center d-none d-xl-table-cell" },
+            { "data": "max", "title":"max", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Unité", "className": "align-middle text-center",
               "render": function (item)
                 { return( htmlEncode ( item.unite ) ); }
@@ -528,8 +528,8 @@
               "render": function (item)
                 { return( item.thread_acronyme ); }
             },
-            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center" },
-            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center" },
+            { "data": "borne", "title":"N° de borne", "className": "align-middle text-center d-none d-md-table-cell" },
+            { "data": "ed", "title":"N° de ED", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)
@@ -542,12 +542,12 @@
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },
-            { "data": null, "title":"Type Borne", "className": "align-middle text-center",
+            { "data": null, "title":"Type Borne", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
                 { return( Borne_Type[item.type_borne] ); }
             },
-            { "data": "min", "title":"min", "className": "align-middle text-center" },
-            { "data": "max", "title":"max", "className": "align-middle text-center" },
+            { "data": "min", "title":"min", "className": "align-middle text-center d-none d-xl-table-cell" },
+            { "data": "max", "title":"max", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Unité", "className": "align-middle text-center",
               "render": function (item)
                 { return( htmlEncode ( item.unite ) ); }

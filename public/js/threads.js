@@ -44,11 +44,11 @@
             "render": function (item)
               { return( htmlEncode(item.agent_hostname) ); }
           },
-          { "data": null, "title":"Classe", "className": "align-middle text-center",
+          { "data": null, "title":"Classe", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { return( Lien ( "/"+item.thread_classe, "Voir la configuration du connecteur", htmlEncode(item.thread_classe) ) ); }
           },
-          { "data": null, "title":"Enable", "className": "align-middle text-center",
+          { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
               { if (item.enable==true)
                 { return( Bouton ( "success", "Désactiver le thread", "THREAD_set_disable", item.thread_tech_id, "Actif" ) ); }
@@ -56,19 +56,19 @@
                 { return( Bouton ( "outline-secondary", "Activer le thread", "THREAD_set_enable", item.thread_tech_id, "Désactivé" ) ); }
               },
           },
-           { "data": null, "title":"Connexion", "className": "align-middle text-center",
+           { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
                  return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
                },
            },
-          { "data": null, "title":"MQTT", "className": "align-middle text-center",
+          { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
               },
           },
-          { "data": null, "title":"Debug", "className": "align-middle text-center",
+          { "data": null, "title":"Debug", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
              { if (item.debug==true)
                  { return( Bouton ( "warning", "Désactiver le debug", "THREAD_set_undebug", item.thread_tech_id, "Actif" ) ); }
@@ -76,7 +76,7 @@
                 { return( Bouton ( "outline-secondary", "Activer le debug", "THREAD_set_debug", item.thread_tech_id, "Désactivé" ) ); }
              },
           },
-          { "data": "description", "title":"Description", "className": "align-middle " },
+          { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },
         ],
        /*order: [ [0, "desc"] ],*/
        /*responsive: true,*/

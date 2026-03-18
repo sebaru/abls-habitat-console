@@ -31,7 +31,7 @@
          rowId: "dls_param_id",
          columns:
           [ { "data": "acronyme", "title":"Acronyme", "className": "align-middle text-center " },
-            { "data": "libelle", "title":"Libellé", "className": "align-middle text-center " },
+            { "data": "libelle", "title":"Libellé", "className": "align-middle text-center d-none d-md-table-cell " },
             { "data": null, "title":"Valeur", "className": "align-middle ",
               "render": function (item)
                 { return( Input ( "text", "idDlsParamValeur_"+item.dls_param_id,

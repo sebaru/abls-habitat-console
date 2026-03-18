@@ -71,13 +71,13 @@
                               },
                },
          columns:
-          [ { "data": "dls_package_id", "title":"#ID", "className": "align-middle  text-center" },
+          [ { "data": "dls_package_id", "title":"#ID", "className": "align-middle  text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Nom", "className": "align-middle",
               "render": function (item)
                 { return( Lien ( "/dls/package/"+item.name, "Voir la source", item.name ) );
                 }
             },
-            { "data": null, "title":"Description", "className": "align-middle ",
+            { "data": null, "title":"Description", "className": "align-middle d-none d-lg-table-cell ",
               "render": function (item)
                 { return( Lien ( "/dls/package/"+item.name, "Voir la source", item.description ) );
                 }
