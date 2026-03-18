@@ -49,6 +49,7 @@ $routes->get('/syn_cameras',   'Console::syn_cameras');
 $routes->get('/messages/(:any)', 'Console::messages');
 $routes->get('/messages',     'Console::messages');
 $routes->get('/archive',      'Console::archive');
+$routes->get('/log',          'Console::log');
 $routes->get('/user/invite',  'Console::user_invite');
 $routes->get('/user/(:any)',  'Console::user_edit');
 $routes->get('/users',        'Console::users');

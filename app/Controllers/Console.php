@@ -51,6 +51,7 @@ class Console extends BaseController
  public function dls_source()         { $this->send_page ("dls_source"); }
  public function mnemos()             { $this->send_page ("mnemos"); }
  public function archive()            { $this->send_page ("archive"); }
+ public function log()                { $this->send_page ("log"); }
  public function user_invite()        { $this->send_page ("user_invite"); }
  public function user_edit()          { $this->send_page ("user_edit"); }
  public function users()              { $this->send_page ("users"); }
