@@ -3,7 +3,7 @@
  <div class="row m-2">
    <div class="col-auto"><h3><i class="fas fa-video text-primary"></i> Cameras par synoptique</h3></div>
 
-   <div class ="col-auto ms-auto btn-group align-items-center">
+   <div class ="col-auto ms-auto btn-group">
         <button type="button" onclick="SYN_CAMERA_New()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter</button>
    </div>
  </div>

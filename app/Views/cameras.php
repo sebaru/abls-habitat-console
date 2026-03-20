@@ -3,7 +3,7 @@
  <div class="row m-2">
    <div class="col-auto"><h3><i class="fas fa-video text-primary"></i> Gestion des caméras</h3></div>
 
-   <div class ="col-auto ms-auto btn-group align-items-center">
+   <div class ="col-auto ms-auto btn-group">
         <button type="button" onclick="CAMERA_Add()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter une caméra</button>
         <button type="button" onclick="CAMERA_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
    </div>

@@ -3,7 +3,7 @@
  <div class="row m-2">
    <div class ="col-auto"><h3><i class="fas fa-globe text-primary"></i> Editer le domaine <strong>'<span id="idDomainLabel"></span>'</strong></h3></div>
 
-   <div class ="col-auto ms-auto btn-group align-items-center">
+   <div class ="col-auto ms-auto btn-group">
         <button type="button" onclick=Redirect("/domains") class="btn btn-secondary"><i class="fas fa-list"></i> Liste domaines</button>
    </div>
 
