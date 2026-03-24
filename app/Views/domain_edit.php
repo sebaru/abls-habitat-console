@@ -75,6 +75,13 @@
 
            <div class="row ">
              <div class="input-group mb-1">
+               <label class="col-4 col-form-label text-right">Avertissement aux utilisateurs</label>
+               <input id="idDomainNotifWarning" type="text" class="form-control" placeholder="Avertissement aux utilisateurs">
+             </div>
+           </div>
+
+           <div class="row ">
+             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">TechID de l'Audio principal<br><small class="text-danger">Need Agent restart</small>
                </label>
                <input id="idDomainAudioTechID" type="text" class="form-control" placeholder="TechID du thread principal AUDIO">

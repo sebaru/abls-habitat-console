@@ -55,6 +55,7 @@
        { domain_uuid   : domain_uuid,
          domain_name   : $("#idDomainName").val(),
          notif_info    : $("#idDomainNotif").val(),
+         notif_warning : $("#idDomainNotifWarning").val(),
          audio_tech_id : $("#idDomainAudioTechID").val(),
          git_repo_url  : $("#idDomainGitRepoURL").val(),
          git_repo_token: $("#idDomainGitRepoToken").val(),
@@ -108,6 +109,7 @@
        $("#idDomainDebugDls").replaceWith ( Select ( "idDomainDebugDls", null,
                                             [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.debug_dls ) );
        $("#idDomainNotif").val( Response.notif_info );
+       $("#idDomainNotifWarning").val( Response.notif_warning );
        $("#idDomainGitRepoURL").val( Response.git_repo_url );
        $("#idDomainGitRepoToken").val( "" );
        $("#idDomainMistralAPIKey").val( "" );
