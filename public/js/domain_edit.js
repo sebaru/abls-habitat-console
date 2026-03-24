@@ -54,7 +54,7 @@
   { var json_request =
        { domain_uuid   : domain_uuid,
          domain_name   : $("#idDomainName").val(),
-         notif         : $("#idDomainNotif").val(),
+         notif_info    : $("#idDomainNotif").val(),
          audio_tech_id : $("#idDomainAudioTechID").val(),
          git_repo_url  : $("#idDomainGitRepoURL").val(),
          git_repo_token: $("#idDomainGitRepoToken").val(),
@@ -107,7 +107,7 @@
        $("#idDomainDeleteText")       .prop("disabled", (Response.access_level < 9) );
        $("#idDomainDebugDls").replaceWith ( Select ( "idDomainDebugDls", null,
                                             [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.debug_dls ) );
-       $("#idDomainNotif").val( Response.notif );
+       $("#idDomainNotif").val( Response.notif_info );
        $("#idDomainGitRepoURL").val( Response.git_repo_url );
        $("#idDomainGitRepoToken").val( "" );
        $("#idDomainMistralAPIKey").val( "" );
