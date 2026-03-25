@@ -104,7 +104,7 @@
           }
         );
      });
-    Charger_une_courbe ( "idCourbeArchMaxFrag",  "SYS", "ARCH_MAX_FRAG", "BY_DAY", "MAX" );
-    Charger_une_courbe ( "idCourbeArchNbHotArchives", "SYS", "NBR_HOT_ARCHIVES", "BY_DAY", "MAX" );
-    Charger_une_courbe ( "idCourbeArchNbColdArchives", "SYS", "NBR_COLD_ARCHIVES", "BY_DAY", "MAX" );
+    Charger_une_courbe ( "idCourbeArchMaxFrag",  "SYS", "ARCH_MAX_FRAG", "BY_DAY_ON_2_MONTHS", "MAX" );
+    Charger_une_courbe ( "idCourbeArchNbHotArchives", "SYS", "NBR_HOT_ARCHIVES", "BY_DAY_ON_2_MONTHS", "MAX" );
+    Charger_une_courbe ( "idCourbeArchNbColdArchives", "SYS", "NBR_COLD_ARCHIVES", "BY_DAY_ON_2_MONTHS", "MAX" );
   }
