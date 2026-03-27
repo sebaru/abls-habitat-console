@@ -87,7 +87,6 @@
            },
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableEntreeANA').DataTable(
@@ -122,7 +121,6 @@
            },
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableSortieTOR').DataTable(
@@ -152,7 +150,6 @@
            },
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableSortieANA').DataTable(
@@ -181,7 +178,6 @@
            { "data": "unite", "title":"Unité", "className": "align-middle text-center d-none d-md-table-cell " },
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableCI').DataTable(
@@ -210,7 +206,6 @@
            { "data": "unite",      "title":"Unité", "className": "text-center align-middle " },
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableCH').DataTable(
@@ -241,7 +236,6 @@
                },
            },         ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableRegistre').DataTable(
@@ -264,7 +258,6 @@
            { "data": "unite",      "title":"Unité",    "className": "align-middle " },
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableMONO').DataTable(
@@ -296,7 +289,6 @@
            }*/
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableBI').DataTable(
@@ -329,7 +321,6 @@
            }*/
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
 
@@ -363,7 +354,6 @@
            },
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableWatchdog').DataTable(
@@ -391,7 +381,6 @@
            },*/
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableMessages').DataTable(
@@ -415,6 +404,5 @@
            },
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
   }

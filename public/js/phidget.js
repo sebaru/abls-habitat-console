@@ -203,7 +203,6 @@
           }
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTablePHIDGET_IO').DataTable(
@@ -254,6 +253,5 @@
             },
           ],
          /*order: [ [0, "desc"] ],*/
-         /*responsive: true,*/
      });
   }

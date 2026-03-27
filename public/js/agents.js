@@ -144,7 +144,6 @@
            }
          ],
        order: [ [0, "desc"] ],
-       responsive: false,
      });
     setInterval ( function () { AGENT_Refresh (); }, 30000 );
   }

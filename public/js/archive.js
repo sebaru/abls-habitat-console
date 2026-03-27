@@ -73,7 +73,6 @@
                }
              ],
             /*order: [ [0, "desc"] ],*/
-            /*responsive: true,*/
           }
         );
      });
@@ -100,7 +99,6 @@
                }
              ],
             /*order: [ [0, "desc"] ],*/
-            /*responsive: true,*/
           }
         );
      });

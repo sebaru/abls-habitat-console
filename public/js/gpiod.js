@@ -189,7 +189,6 @@
           }
          ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
     $('#idTableGPIOD_IO').DataTable(
@@ -242,6 +241,5 @@
             },
           ],
          /*order: [ [0, "desc"] ],*/
-         /*responsive: true,*/
      });
   }

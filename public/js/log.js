@@ -16,7 +16,6 @@
                     { "data": "message", "title":"Message" }
                   ],
          order: [ [0, "desc"] ],
-         responsive: true,
        }
      );
   }

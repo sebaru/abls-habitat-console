@@ -79,7 +79,6 @@
           { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },
         ],
        /*order: [ [0, "desc"] ],*/
-       /*responsive: true,*/
      });
 
   }
