@@ -4,14 +4,12 @@
        <!-- <button type="button" class="btn btn-sm btn-primary rounded-circle"><i class="fas fa-plus"></i></button>-->
  </div>
 
-<div class="table-responsive">
   <table id="idTableMotif" class="table table-striped table-bordered table-hover">
     <thead class="thead-dark">
 				</thead>
 			 <tbody>
     </tbody>
   </table>
-</div>
 
 
 <!-- Container -->

@@ -7,14 +7,12 @@
 
 <hr>
 
-   <div class="table-responsive">
      <table id="idTableLog" class="table table-striped table-bordered table-hover">
        <thead class="thead-dark">
 				   </thead>
 			    <tbody>
        </tbody>
      </table>
-   </div>
 
 <script src="/js/log.js" type="text/javascript"></script>
 <!-- Container -->

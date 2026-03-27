@@ -93,14 +93,12 @@
    </div>
  </div>
 
-   <div class="table-responsive">
     <table id="idTableArchiveHOT" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
     </table>
-   </div>
 
 <hr>
 
@@ -111,14 +109,12 @@
    </div>
  </div>
 
-   <div class="table-responsive">
     <table id="idTableArchiveCOLD" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
     </table>
-   </div>
 
 <!-- Container -->
 </div>

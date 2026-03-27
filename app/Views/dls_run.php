@@ -21,14 +21,12 @@
      </div>
 </div>
 
-     <div class="table-responsive">
       <table id="idTableEntreeTOR" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-     </div>
 
    <hr>
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -40,14 +38,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableEntreeANA" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
 
       <hr>
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -59,14 +55,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableSortieTOR" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
 
       <hr>
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -78,14 +72,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableSortieANA" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -97,14 +89,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableRegistre" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -116,14 +106,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableCI" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -135,14 +123,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableCH" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
 <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -154,14 +140,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableMessages" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -173,14 +157,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableMONO" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -192,14 +174,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableBI" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -210,14 +190,12 @@
      </div>
 </div>
 
-   <div class="table-responsive">
       <table id="idTableVisuel" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
         </thead>
         <tbody>
         </tbody>
       </table>
-   </div>
       <hr>
 <!-- Container -->
 </div>

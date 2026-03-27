@@ -28,7 +28,7 @@
 
 
 <div class="tab-content">
-  <div id="idTabCptH" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+ <div id="idTabCptH"class="tab-pane fade in mt-1"role="tabpanel">
     <table id="idTableCptH" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
 				  </thead>
@@ -37,7 +37,7 @@
     </table>
   </div>
 
-  <div id="idTabCptImp" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+ <div id="idTabCptImp"class="tab-pane fade in mt-1"role="tabpanel">
     <table id="idTableCptImp" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
 				  </thead>
@@ -46,7 +46,7 @@
     </table>
   </div>
 
-  <div id="idTabRegistre" class="tab-pane fade in table-responsive mt-1 show active" role="tabpanel">
+ <div id="idTabRegistre"class="tab-pane fade in mt-1 show active"role="tabpanel">
     <table id="idTableRegistre" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
 				  </thead>
@@ -55,7 +55,7 @@
     </table>
   </div>
 
-  <div id="idTabTempo" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+ <div id="idTabTempo"class="tab-pane fade in mt-1"role="tabpanel">
     <table id="idTableTempo" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
 				  </thead>
@@ -64,7 +64,7 @@
     </table>
   </div>
 
-  <div id="idTabWatchdog" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+ <div id="idTabWatchdog"class="tab-pane fade in mt-1"role="tabpanel">
     <table id="idTableWatchdog" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
 				  </thead>
@@ -73,7 +73,7 @@
     </table>
   </div>
 
-  <div id="idTabMessage" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+ <div id="idTabMessage"class="tab-pane fade in mt-1"role="tabpanel">
     <table id="idTableMessage" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
 				  </thead>
@@ -82,7 +82,7 @@
     </table>
   </div>
 
-  <div id="idTabHorloge" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+ <div id="idTabHorloge"class="tab-pane fade in mt-1"role="tabpanel">
     <table id="idTableHorloge" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
 				  </thead>

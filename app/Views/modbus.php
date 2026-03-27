@@ -11,14 +11,12 @@
 
 <hr>
 
-   <div class="table-responsive">
     <table id="idTableMODBUS" class="table table-striped table-bordered table-hover">
       <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
     </table>
-   </div>
 
 <hr>
 
@@ -38,7 +36,7 @@
 <div class="tab-content">
 
 <!----------------------------------------------------------------------------------------------------------------------------->
-<div id="idTabEntreeTor" class="tab-pane fade in table-responsive mt-1 show active" role="tabpanel">
+<div id="idTabEntreeTor"class="tab-pane fade in mt-1 show active"role="tabpanel">
 
     <table id="idTableMODBUS_DI" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
@@ -49,7 +47,7 @@
 </div>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
-<div id="idTabSortieTor" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+<div id="idTabSortieTor"class="tab-pane fade in mt-1"role="tabpanel">
 
     <table id="idTableMODBUS_DO" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
@@ -59,7 +57,7 @@
     </table>
 </div>
 <!----------------------------------------------------------------------------------------------------------------------------->
-<div id="idTabEntreeAna" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+<div id="idTabEntreeAna"class="tab-pane fade in mt-1"role="tabpanel">
 
     <table id="idTableMODBUS_AI" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
@@ -69,7 +67,7 @@
     </table>
 </div>
 <!----------------------------------------------------------------------------------------------------------------------------->
-<div id="idTabSortieAna" class="tab-pane fade in table-responsive mt-1" role="tabpanel">
+<div id="idTabSortieAna"class="tab-pane fade in mt-1"role="tabpanel">
 
     <table id="idTableMODBUS_AO" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">

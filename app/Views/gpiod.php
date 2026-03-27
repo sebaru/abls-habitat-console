@@ -11,14 +11,12 @@
 
 <hr>
 
-    <div class="table-responsive">
      <table id="idTableGPIOD" class="table table-striped table-bordered table-hover">
        <thead class="thead-dark">
        </thead>
        <tbody>
        </tbody>
      </table>
-    </div>
 
 <hr>
 

@@ -11,14 +11,12 @@
 
 <hr>
 
-   <div class="table-responsive">
     <table id="idTableSHELLY" class="table table-striped table-bordered table-hover">
       <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
     </table>
-   </div>
 
 <!---------------------------------------------------- Modal Edit Shelly ------------------------------------------------------>
 
