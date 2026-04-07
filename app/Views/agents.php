@@ -11,7 +11,7 @@
 
 <hr>
 
-   <div class="table">
+   <div class="table-responsive">
      <table id="idTableAGENT" class="table table-striped table-bordered table-hover">
        <thead class="table-dark">
        </thead>

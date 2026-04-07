@@ -23,7 +23,7 @@
 
 <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/phidget_hub5000.jpg" style="width:80px" alt="Hub 5000">Configuration des I/O Phidget</h3></div>
 
-<div>
+<div class="table-responsive">
 <!----------------------------------------------------------------------------------------------------------------------------->
     <table id="idTablePHIDGET_IO" class="table table-striped table-bordered table-hover w-100">
       <thead class="table-dark">
