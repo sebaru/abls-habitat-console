@@ -24,7 +24,7 @@
 
 <div class="col-auto"><h3><img src="https://static.abls-habitat.fr/img/raspberrypi.png" style="width:80px" alt="raspberrypi">Configuration des I/O GPIO</h3></div>
 
-<div>
+<div class="table-responsive">
 <!----------------------------------------------------------------------------------------------------------------------------->
     <table id="idTableGPIOD_IO" class="table table-striped table-bordered table-hover w-100">
       <thead class="thead-dark">

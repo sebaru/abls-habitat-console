@@ -16,6 +16,7 @@
 
         body { padding-top: 80px;
                padding-bottom: 40px;
+               overflow-x: hidden;
              }
 
         .toast { transform: translateX(-50%); }

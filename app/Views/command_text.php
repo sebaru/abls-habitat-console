@@ -19,12 +19,14 @@
 
 <!----------------------------------------------------------------------------------------------------------------------------->
 
+  <div class="table-responsive">
     <table id="idTableTXT" class="table table-striped table-bordered table-hover">
       <thead class="table-dark">
       </thead>
       <tbody>
       </tbody>
     </table>
+  </div>
 
 <!-- Container -->
 </div>
