@@ -29,8 +29,8 @@
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-10"> </label>
-               <button id="idDomainDLSRenameDLSButton"     type="button" class="col-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Renommer DLS</button>
+               <label class="col-sm-10 d-none d-sm-block"> </label>
+               <button id="idDomainDLSRenameDLSButton"     type="button" class="col-12 col-sm-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Renommer DLS</button>
              </div>
            </div>
 
@@ -66,8 +66,8 @@
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-10"> </label>
-               <button id="idDomainDLSRenameBITButton"     type="button" class="col-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Renommer BIT</button>
+               <label class="col-sm-10 d-none d-sm-block"> </label>
+               <button id="idDomainDLSRenameBITButton"     type="button" class="col-12 col-sm-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Renommer BIT</button>
              </div>
            </div>
 
