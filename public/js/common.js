@@ -187,11 +187,11 @@
  function Bouton_actions_start ( )
   { return("<div class='btn-group btn-block' role='group' aria-label='ButtonGroup'>"); }
 
- function Bouton_actions_add ( color, tooltip, clic_func, key, icone, texte )
+ function Bouton_actions_add ( color, tooltip, clic_func, key, icone, texte, extra_args )
   { if (clic_func !== null)
      { result = "<button class='btn btn-"+color+" btn-sm' "+
                 "data-bs-toggle='tooltip' title='"+htmlEncode(tooltip)+"' "+
-                "onclick="+clic_func+"('"+key+"')>"+
+                "onclick="+clic_func+"('"+key+"'"+(extra_args ? ","+extra_args : "")+")>"+
                 (icone!==null ? "<i class='fas fa-"+icone+"'></i> " : "") +
                 (texte!==null ? htmlEncode(texte) : "") +
                 "</button>";

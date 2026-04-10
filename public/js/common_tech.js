@@ -58,7 +58,8 @@
  function MAPPING_Unmap ( mapping_id, refresh_callback )
   { Send_to_API ( "DELETE", "/mapping/delete", { mapping_id: parseInt(mapping_id) },
                   (Response) => { Show_toast_ok ("Mapping supprimé.");
-                                  if (refresh_callback) refresh_callback();
+                                  if (typeof refresh_callback === 'function') refresh_callback();
+                                  else if (typeof refresh_callback === 'string' && window[refresh_callback]) window[refresh_callback]();
                                 },
                   (Response) => { Show_toast_ko (Response ? Response.message : "Erreur lors de la suppression du mapping."); }
                 );
