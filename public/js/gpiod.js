@@ -235,6 +235,7 @@
                 { boutons = Bouton_actions_start ();
                   boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "GPIOD_Edit_IO", item.gpiod_io_id, "pen", null );
                   boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "GPIOD_Map", item.gpiod_io_id, "directions", null );
+                  if (item.mapping_id) boutons += Bouton_actions_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", null );
                   boutons += Bouton_actions_end ();
                   return(boutons);
                 },

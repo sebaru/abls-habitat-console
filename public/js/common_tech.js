@@ -54,6 +54,15 @@
        if (fonction_ok) fonction_ok(Response);
      }, fonction_nok );
   }
+/********************************************* Supprime un mapping *********************************************************/
+ function MAPPING_Unmap ( mapping_id, refresh_callback )
+  { Send_to_API ( "DELETE", "/mapping/delete", { mapping_id: parseInt(mapping_id) },
+                  (Response) => { Show_toast_ok ("Mapping supprimé.");
+                                  if (refresh_callback) refresh_callback();
+                                },
+                  (Response) => { Show_toast_ko (Response ? Response.message : "Erreur lors de la suppression du mapping."); }
+                );
+  }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function COMMON_Map ( thread_tech_id, thread_acronyme, tech_id, acronyme )
   { var json_request =
