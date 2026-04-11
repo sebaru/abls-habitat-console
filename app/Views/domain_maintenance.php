@@ -14,21 +14,21 @@
          <div class="card-body">
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label">Tech_ID source</label>
                <input id="idDomainDLSRenameDLSTechIDOLD"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id source">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label">Tech_ID destination</label>
                <input id="idDomainDLSRenameDLSTechIDNEW"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id destination">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-sm-10 d-none d-sm-block"> </label>
                <button id="idDomainDLSRenameDLSButton"     type="button" class="col-12 col-sm-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Renommer DLS</button>
              </div>
@@ -44,28 +44,28 @@
          <div class="card-body">
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label">Tech_ID</label>
                <input id="idDomainDLSRenameBITTechID"   type="text" class="col-6 form-control mr-1" placeholder="Tech_id">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label">Acronyme source</label>
                <input id="idDomainDLSRenameBITAcronymeOLD" type="text" class="col-6 form-control mr-1" placeholder="Acronyme source">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label text-right">Acronyme destination</label>
                <input id="idDomainDLSRenameBITAcronymeNEW" type="text" class="col-6 form-control mr-1" placeholder="Acronyme destination">
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-sm-10 d-none d-sm-block"> </label>
                <button id="idDomainDLSRenameBITButton"     type="button" class="col-12 col-sm-2 btn btn-block btn-warning"><i class="fas fa-message"></i> Renommer BIT</button>
              </div>
@@ -81,28 +81,28 @@
          <div class="card-body">
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label text-right">Compilation complète D.L.S</label>
                <button id="idDomainCompilAllButton" type="button" class="col-6 btn btn-block btn-warning"><i class="fas fa-coffee"></i> Compil All</button>
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label text-right">Rechargement des Mappings I/O</label>
                <button id="idDomainRemap" type="button" class="col-6 btn btn-block btn-secondary"><i class="fas fa-directions"></i> Remap I/O</button>
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label text-right">Rechargement des ticks Horloges</label>
                <button id="idDomainHorlogeReload" type="button" class="col-6 btn btn-block btn-secondary"><i class="fas fa-clock"></i> Reload Ticks</button>
              </div>
            </div>
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label text-right">Déchargement des Visuels</label>
                <button id="idDomainHorlogeClearVisuel" type="button" class="col-6 btn btn-block btn-secondary"><i class="fas fa-image"></i> Unload Visuels</button>
              </div>
@@ -126,7 +126,7 @@
          <div class="card-body">
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-6 col-form-label text-right">Rechargement des icones en base</label>
                <button id="idApiReloadIcons" type="button" class="col-6 btn btn-block btn-secondary"><i class="fas fa-redo"></i> Reload</button>
              </div>
