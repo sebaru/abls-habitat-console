@@ -1,6 +1,6 @@
 <div class="container">
 
- <div class="row m-2">
+ <div class="row m-2 align-items-center">
    <h3><i class="fas fa-eye text-primary"></i> Etat du module '<strong id="idTitle"></strong>'</h3>
 
    <div class ="col-auto ms-auto btn-group align-items-center">
@@ -13,7 +13,7 @@
 <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
+ <div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Entrées TOR"
                        src="https://static.abls-habitat.fr/img/entree.png" /> Entrées TOR</h4>
      <div class="ms-auto">
@@ -30,7 +30,7 @@
 
    <hr>
 <!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
+ <div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Entrées ANA"
                        src="https://static.abls-habitat.fr/img/entree_analogique.png" /> Entrées ANA</h4>
      <div class="ms-auto">
@@ -47,7 +47,7 @@
 
       <hr>
 <!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
+ <div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Sorties TOR"
                        src="https://static.abls-habitat.fr/img/sortie.png" /> Sorties TOR</h4>
      <div class="ms-auto">
@@ -64,7 +64,7 @@
 
       <hr>
 <!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
+ <div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Sorties ANA"
                        src="https://static.abls-habitat.fr/img/sortie_analogique.png" /> Sorties ANA</h4>
      <div class="ms-auto">
@@ -81,7 +81,7 @@
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
+ <div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Registres"
                        src="https://static.abls-habitat.fr/img/calculatrice.png" /> Registres</h4>
      <div class="ms-auto">
@@ -98,7 +98,7 @@
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
+ <div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Compteurs d'impulsions"
                        src="https://static.abls-habitat.fr/img/front_montant.png" /> Compteurs d'impulsions</h4>
      <div class="ms-auto">
@@ -115,7 +115,7 @@
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
+ <div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Compteurs horaires"
                        src="https://static.abls-habitat.fr/img/compteur_horaire.png" /> Compteurs horaires</h4>
      <div class="ms-auto">
@@ -132,7 +132,7 @@
 <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
- <div class="row m-2">
+ <div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Messages"
                        src="https://static.abls-habitat.fr/img/message.png" /> Messages</h4>
      <div class="ms-auto">
@@ -149,7 +149,7 @@
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
-<div class="row m-2">
+<div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Monostables"
                        src="https://static.abls-habitat.fr/img/message.png" /> Monostables</h4>
      <div class="ms-auto">
@@ -166,7 +166,7 @@
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
-<div class="row m-2">
+<div class="row m-2 align-items-center">
       <h4><img style="width: 30px" data-bs-toggle="tooltip" title="Bistables"
                        src="https://static.abls-habitat.fr/img/message.png" /> Bistables</h4>
      <div class="ms-auto">
@@ -183,7 +183,7 @@
       <hr>
 
 <!----------------------------------------------------------------------------------------------------------------------------->
-<div class="row m-2">
+<div class="row m-2 align-items-center">
       <h4><span><i class="fas fa-eye text-primary"></i></span> Visuels</h4>
      <div class="ms-auto">
         <button type="button" onclick="Dls_run_refresh('idTableVisuel')" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>

@@ -137,7 +137,7 @@
          <div class="card-body collapse" id="idAdvancedOptions">
 
            <div class="row ">
-             <div class="input-group mb-1">
+             <div class="input-group mb-1 align-items-center">
                <label class="col-4 col-form-label text-right">New Email Owner<br><small class="text-danger">Cannot be Undone</small></label>
                <input id="idDomainNewOwnerEmail" type="text" class="form-control" placeholder="New Owner Email">
                <button id="idDomainTransferButton" class="col-2 ml-1 form-control btn btn-danger">Transfer</button>
