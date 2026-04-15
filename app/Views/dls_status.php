@@ -3,7 +3,7 @@
  <div class="row m-2">
    <h3><i class="fas fa-code text-primary"></i> Etat des modules D.L.S</h3>
 
-   <div class ="ml-auto btn-group align-items-start">
+   <div class ="ml-auto btn-group align-items-center">
         <button type="button" onclick="Redirect('/tech/dls')" class="btn btn-secondary"><i class="fas fa-list"></i> Liste DLS</button>
    </div>
 </div>
