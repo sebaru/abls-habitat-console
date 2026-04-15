@@ -107,12 +107,13 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  /*boutons += Bouton_actions_add ( "secondary", "Voir le tableau", "Redirect", "/"+item.page, "chart-line", null );*/
-                  boutons += Bouton_actions_add ( "outline-primary", "Configurer", "TABLEAU_Edit", item.tableau_id, "pen", null );
-                  boutons += Bouton_actions_add ( "outline-secondary", "Editer les courbes", "Redirect", "/tableau/"+item.tableau_id, "pen", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer ce tableau", "TABLEAU_Delete", item.tableau_id, "trash", null );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start ( "primary", "" );
+                  /*boutons += Bouton_deroulant_add ( "secondary", "Voir le tableau", "Redirect", "/"+item.page, "chart-line" );*/
+                  boutons += Bouton_deroulant_add ( "primary", "Configurer", "TABLEAU_Edit", item.tableau_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "secondary", "Editer les courbes", "Redirect", "/tableau/"+item.tableau_id, "pen" );
+                  boutons += Bouton_deroulant_add_spacer ();
+                  boutons += Bouton_deroulant_add ( "danger", "Supprimer", "TABLEAU_Delete", item.tableau_id, "trash" );
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             }

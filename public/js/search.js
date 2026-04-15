@@ -7,7 +7,7 @@
           rowId: "id",
           data: Response.results,
           columns:
-           [ { "data": "classe", "title":"Classe", "className": "align-middle  text-center" },
+           [ { "data": "classe", "title":"Classe", "className": "align-middle  text-center d-none d-sm-table-cell" },
              { "data": null, "title":"TechID/Page", "className": "align-middle ",
                "render": function (item)
                  { if (item.classe=="SYNOPTIQUE")
