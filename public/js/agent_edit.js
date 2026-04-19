@@ -3,11 +3,11 @@
   { var json_request =
      { agent_uuid : agent_uuid,
        description: $("#idAGENTDescription").val(),
-       headless   : ($("#idAGENTHeadless").val()=="true" ? true : false),
+       headless   : $("#idAGENTHeadless").is(':checked'),
        log_level  : parseInt($("#idAGENTLogLevel").val()),
-       log_msrv   : ($("#idAGENTLogMSRV").val()=="true" ? true : false),
-       log_bus    : ($("#idAGENTLogBUS").val()=="true" ? true : false),
-       log_dls    : ($("#idAGENTLogDLS").val()=="true" ? true : false),
+       log_msrv   : $("#idAGENTLogMSRV").is(':checked'),
+       log_bus    : $("#idAGENTLogBUS").is(':checked'),
+       log_dls    : $("#idAGENTLogDLS").is(':checked'),
        branche    : $("#idAGENTBranche").val(),
      };
     Send_to_API ( 'POST', "/agent/set", json_request, function ()
@@ -45,14 +45,10 @@
                                      "docker.io/sebaru/abls-agent:latest "
                                   );
 
-       $("#idAGENTHeadless").replaceWith ( Select ( "idAGENTHeadless", null,
-                                                    [ { valeur: true, texte: "Oui" }, { valeur: false, texte: "Non" } ], Response.headless ) );
-       $("#idAGENTLogMSRV").replaceWith ( Select ( "idAGENTLogMSRV", null,
-                                                   [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ], Response.log_msrv ) );
-       $("#idAGENTLogBUS").replaceWith ( Select ( "idAGENTLogBUS", null,
-                                                  [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ], Response.log_bus ) );
-       $("#idAGENTLogDLS").replaceWith ( Select ( "idAGENTLogDLS", null,
-                                                  [ { valeur: false, texte: "No" }, { valeur: true, texte: "Yes" } ], Response.log_dls ) );
+       $("#idAGENTHeadless").prop('checked', Response.headless);
+       $("#idAGENTLogMSRV").prop('checked', Response.log_msrv);
+       $("#idAGENTLogBUS").prop('checked', Response.log_bus);
+       $("#idAGENTLogDLS").prop('checked', Response.log_dls);
        $("#idAGENTLogLevel").replaceWith ( Select ( "idAGENTLogLevel", null,
                                                     [ { valeur: 7, texte: "Debug" },  { valeur: 6, texte: "Info" },
                                                       { valeur: 5, texte: "Notice" }, { valeur: 4, texte: "Warning" },

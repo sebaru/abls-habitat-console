@@ -112,7 +112,9 @@
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Debug Traduction D.L.S</label>
-               <select id="idDomainDebugDls" class="custom-select"></select>
+               <div class="form-check form-switch d-flex align-items-center ms-2">
+                <input id="idDomainDebugDls" type="checkbox" class="form-check-input" role="switch">
+               </div>
              </div>
            </div>
 

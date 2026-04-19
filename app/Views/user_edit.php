@@ -72,14 +72,18 @@
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Notifications textuelles<br><small class="text-dark">par GSM ou IMSG</small></label>
-               <select id="idUserWannaBeNotified" class="custom-select"></select>
+               <div class="form-check form-switch d-flex align-items-center ms-2">
+                <input id="idUserWannaBeNotified" type="checkbox" class="form-check-input" role="switch">
+               </div>
              </div>
            </div>
 
            <div class="row ">
              <div class="input-group align-items-center">
                <label class="col-4 col-form-label text-right">Commandes textuelles<br><small class="text-dark">par GSM ou IMSG</small></label>
-               <select id="idUserCanSendTxtCde" class="custom-select"></select>
+               <div class="form-check form-switch d-flex align-items-center ms-2">
+                <input id="idUserCanSendTxtCde" type="checkbox" class="form-check-input" role="switch">
+               </div>
              </div>
            </div>
 

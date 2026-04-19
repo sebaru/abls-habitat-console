@@ -7,8 +7,8 @@
          phone            : $("#idUserPhone").val(),
          free_sms_api_key : $("#idUserFreeSmsApiKey").val(),
          free_sms_api_user: $("#idUserFreeSmsApiUser").val(),
-         can_send_txt_cde : ($("#idUserCanSendTxtCde").val()==1 ? true : false),
-         wanna_be_notified: ($("#idUserWannaBeNotified").val()==1 ? true : false),
+         can_send_txt_cde : $("#idUserCanSendTxtCde").is(':checked'),
+         wanna_be_notified: $("#idUserWannaBeNotified").is(':checked'),
        };
     if (TokenParsed.sub != Response.user_uuid) json_request.access_level = parseInt($("#idUserAccessLevel").val());
 
@@ -54,10 +54,8 @@
           { $("#idUserAccessLevel").html ( Badge_Access_level (Response.access_level) + " - " + Access_level_description[Response.access_level].name ); }
        else $("#idUserAccessLevel").replaceWith ( Select_Access_level ( "idUserAccessLevel", null ) );
        $("#idUserAccessLevel").addClass('flex-grow-1');
-       $("#idUserWannaBeNotified").replaceWith ( Select ( "idUserWannaBeNotified", null,
-                                                     [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.wanna_be_notified ) );
-       $("#idUserCanSendTxtCde").replaceWith ( Select ( "idUserCanSendTxtCde", null,
-                                                     [ { valeur: "1", texte: "Oui" }, { valeur: "0", texte: "Non" } ], Response.can_send_txt_cde ) );
+       $("#idUserWannaBeNotified").prop('checked', Response.wanna_be_notified == 1 || Response.wanna_be_notified === true);
+       $("#idUserCanSendTxtCde").prop('checked', Response.can_send_txt_cde == 1 || Response.can_send_txt_cde === true);
        $("#idUserSaveButton").off("click").click ( function() { User_set(Response); } );
        $("#idUserDeleteButton").off("click").click ( function() { User_delete(Response); } );
      }, null );

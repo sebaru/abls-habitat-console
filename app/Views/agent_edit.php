@@ -47,7 +47,9 @@
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Headless</label>
-               <select id="idAGENTHeadless" class="form-control"></select>
+               <div class="form-check form-switch d-flex align-items-center ms-2">
+                <input id="idAGENTHeadless" type="checkbox" class="form-check-input" role="switch">
+               </div>
              </div>
            </div>
 
@@ -61,21 +63,27 @@
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Log MSRV</label>
-               <select id="idAGENTLogMSRV" class="form-control"></select>
+               <div class="form-check form-switch d-flex align-items-center ms-2">
+                <input id="idAGENTLogMSRV" type="checkbox" class="form-check-input" role="switch">
+               </div>
              </div>
            </div>
 
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Log BUS</label>
-               <select id="idAGENTLogBUS" class="form-control"></select>
+               <div class="form-check form-switch d-flex align-items-center ms-2">
+                <input id="idAGENTLogBUS" type="checkbox" class="form-check-input" role="switch">
+               </div>
              </div>
            </div>
 
            <div class="row ">
              <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Log DLS</label>
-               <select id="idAGENTLogDLS" class="form-control"></select>
+               <div class="form-check form-switch d-flex align-items-center ms-2">
+                <input id="idAGENTLogDLS" type="checkbox" class="form-check-input" role="switch">
+               </div>
              </div>
            </div>
 
