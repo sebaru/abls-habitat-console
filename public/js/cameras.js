@@ -8,6 +8,7 @@
      { name         : $('#idCAMERANom').val(),
        url          : $('#idCAMERAUrl').val(),
        access_level : parseInt($('#idCAMERAAccessLevel').val()),
+       enable       : $('#idCAMERAEnable').is(':checked'),
      };
 
     if (selection) json_request.camera_id = selection.camera_id;                                       /* Ajout ou édition ? */
@@ -25,6 +26,7 @@
     $('#idCAMERAUrl').val( selection.url );
     $('#idCAMERAAccessLevel').replaceWith( Select_Access_level( "idCAMERAAccessLevel", null, selection.access_level ) );
     $('#idCAMERAAccessLevel').addClass('flex-grow-1');
+    $('#idCAMERAEnable').prop('checked', selection.enable);
     $('#idCAMERAValider').off("click").on( "click", function () { CAMERA_Set(selection); } );
     $('#idCAMERAEdit').modal("show");
   }
@@ -35,6 +37,7 @@
     $('#idCAMERAUrl').val( "" );
     $('#idCAMERAAccessLevel').replaceWith( Select_Access_level( "idCAMERAAccessLevel", null, 0 ) );
     $('#idCAMERAAccessLevel').addClass('flex-grow-1');
+    $('#idCAMERAEnable').prop('checked', true);
     $('#idCAMERAValider').off("click").on( "click", function () { CAMERA_Set(null); } );
     $('#idCAMERAEdit').modal("show");
   }
@@ -68,17 +71,23 @@
              },
        rowId: "camera_id",
        columns:
-         [ { "data": null, "title":"Nom", "className": "align-middle text-center",
+         [ { "data": null, "title":"Activée", "className": "align-middle text-center",
+             "render": function (item)
+               { if (item.enable) return('<i class="fas fa-check text-success"></i>');
+                 return('<i class="fas fa-times text-danger"></i>');
+               }
+           },
+           { "data": null, "title":"Accès", "className": "align-middle text-center d-none d-md-table-cell",
+             "render": function (item)
+               { return( Badge_Access_level(item.access_level) ); }
+           },
+           { "data": null, "title":"Nom", "className": "align-middle text-center",
              "render": function (item)
                { return( htmlEncode(item.name) ); }
            },
            { "data": null, "title":"URL", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { return( htmlEncode(item.url) ); }
-           },
-           { "data": null, "title":"Accès", "className": "align-middle text-center d-none d-md-table-cell",
-             "render": function (item)
-               { return( Badge_Access_level(item.access_level) ); }
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)

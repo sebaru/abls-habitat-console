@@ -41,8 +41,10 @@
 
        <div class="col ">
           <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">URL</label>
-           <input id="idCAMERAUrl" type="text" class="form-control" placeholder="URL du flux vidéo">
+           <label class="col-5 col-sm-4 col-form-label text-right">Activée</label>
+           <div class="form-check form-switch d-flex align-items-center ms-2">
+            <input id="idCAMERAEnable" type="checkbox" class="form-check-input" role="switch">
+           </div>
           </div>
        </div>
 
@@ -50,6 +52,13 @@
           <div class="input-group mb-1">
            <label class="col-5 col-sm-4 col-form-label text-right">Niveau d'accès</label>
            <select id="idCAMERAAccessLevel" class="custom-select"></select>
+          </div>
+       </div>
+
+       <div class="col ">
+          <div class="input-group mb-1">
+           <label class="col-5 col-sm-4 col-form-label text-right">URL</label>
+           <input id="idCAMERAUrl" type="text" class="form-control" placeholder="URL du flux vidéo">
           </div>
        </div>
 
