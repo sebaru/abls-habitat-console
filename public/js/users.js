@@ -27,6 +27,7 @@
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { console.log ("in load page !");
+    var current_user_uuid = localStorage.getItem("user_uuid");
     $('#idTableUsers').DataTable(
        { pageLength : 50,
          fixedHeader: true,
@@ -66,7 +67,7 @@
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  if (item.access_level<localStorage.getItem("access_level") || item.user_uuid==TokenParsed.sub)
+                  if (item.access_level<localStorage.getItem("access_level") || item.user_uuid==current_user_uuid)
                         { boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur", "Redirect", "/user/"+item.user_uuid, "pen", null ); }
                    else { boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur", null, null, "pen", null ); }
                   boutons += Bouton_actions_end ();

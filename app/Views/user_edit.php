@@ -28,13 +28,6 @@
 
            <div class="row ">
              <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">User Name</label>
-               <input id="idUserName" type="text" class="form-control" placeholder="User Shortname">
-             </div>
-           </div>
-
-           <div class="row ">
-             <div class="input-group mb-1">
                <label class="col-4 col-form-label text-right">Permissions level</label>
                <div class="input-group-text"><i class="fas fa-star text-primary"></i></div>
                <span class='form-control' id="idUserAccessLevel"></span>
