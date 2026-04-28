@@ -3,7 +3,7 @@
   { $('#idTableLog').DataTable(
        { pageLength : 25,
          fixedHeader: true,
-         ajax: {	url : $ABLS_API+"/audit_log/list",	type : "GET", dataSrc: "audit_logs",
+         ajax: {	url : "/api/audit_log/list",	type : "GET", dataSrc: "audit_logs",
                  error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
                  beforeSend: function (request)
                                 { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );

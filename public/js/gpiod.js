@@ -131,7 +131,7 @@
   { $('#idTableGPIOD').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
+       ajax: { url : "/api/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=gpiod" ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -193,7 +193,7 @@
     $('#idTableGPIOD_IO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/gpiod/list", type : "GET", dataSrc: "IO", contentType: "application/json",
+       ajax: { url : "/api/gpiod/list", type : "GET", dataSrc: "IO", contentType: "application/json",
                data: function() { return ( "classe=io" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)

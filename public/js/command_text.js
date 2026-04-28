@@ -38,7 +38,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "mapping_id", paging: false,
-         ajax: {	url : $ABLS_API+"/mapping/list",	type : "GET", dataSrc: "mappings", data: { "thread_tech_id": "_COMMAND_TEXT" },
+         ajax: {	url : "/api/mapping/list",	type : "GET", dataSrc: "mappings", data: { "thread_tech_id": "_COMMAND_TEXT" },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
                                 { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );

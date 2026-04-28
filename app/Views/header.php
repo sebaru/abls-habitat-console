@@ -44,14 +44,6 @@
         .wtd-img-card { object-fit: contain; max-height: 196px; max-width: 196px; padding: 10px; }
         .wtd-darker-on-hover:hover { filter: brightness(80%); transition: 0.5s; }
       </style>
-
-      <script>
-        var $ABLS_API      = "<?php echo getenv("ABLS_API"); ?>";
-        var $HOME_URL      = "<?php echo getenv("HOME_URL"); ?>";
-        var $IDP_REALM     = "<?php echo getenv("IDP_REALM"); ?>";
-        var $IDP_URL       = "<?php echo getenv("IDP_URL"); ?>";
-        var $IDP_CLIENT_ID = "<?php echo getenv("IDP_CLIENT_ID"); ?>";
-      </script>
     </head>
 
     <body class="d-none">

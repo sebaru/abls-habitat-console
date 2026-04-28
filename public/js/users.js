@@ -31,7 +31,7 @@
     $('#idTableUsers').DataTable(
        { pageLength : 50,
          fixedHeader: true,
-         ajax: {	url : $ABLS_API+"/user/list",	type : "GET", dataSrc: "users", contentType: "application/json",
+         ajax: {	url : "/api/user/list",	type : "GET", dataSrc: "users", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
                                 { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );

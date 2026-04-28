@@ -52,7 +52,7 @@
     $('#idTableMESSAGES').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/message/list", type : "GET", dataSrc: "messages", contentType: "application/json",
+       ajax: { url : "/api/message/list", type : "GET", dataSrc: "messages", contentType: "application/json",
                data: function() { return ( (vars[2] ? "tech_id="+vars[2] : null) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)

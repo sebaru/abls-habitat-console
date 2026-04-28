@@ -118,7 +118,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "dls_id",
-         ajax: { url : $ABLS_API+"/dls/list", type : "GET", dataSrc: "dls", contentType: "application/json",
+         ajax: { url : "/api/dls/list", type : "GET", dataSrc: "dls", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
                                 { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
