@@ -63,7 +63,7 @@ var SYN_Response = null;
                  data: { page: syn_page },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
-                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                                { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
                },
          initComplete: function ( settings, json ) { SYN_Response = json;

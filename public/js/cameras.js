@@ -65,7 +65,7 @@
        ajax: { url : $ABLS_API+"/camera/list", type : "GET", dataSrc: "cameras", contentType: "application/json",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
        rowId: "camera_id",
