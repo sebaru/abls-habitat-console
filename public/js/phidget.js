@@ -146,7 +146,6 @@
                data: function() { return ( "classe=phidget" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -212,7 +211,6 @@
                data: function() { return ( "classe=io" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },

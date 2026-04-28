@@ -56,7 +56,6 @@
                data: function() { return ( (vars[2] ? "tech_id="+vars[2] : null) ); },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },

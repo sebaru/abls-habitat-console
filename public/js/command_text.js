@@ -41,7 +41,6 @@
          ajax: {	url : $ABLS_API+"/mapping/list",	type : "GET", dataSrc: "mappings", data: { "thread_tech_id": "_COMMAND_TEXT" },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
-                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                                 request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               },
                },

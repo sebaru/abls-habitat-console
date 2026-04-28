@@ -62,7 +62,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -95,7 +94,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -129,7 +127,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -158,7 +155,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -186,7 +182,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -214,7 +209,6 @@
        ajax: { url : $ABLS_API+"/dls/run",  type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -244,7 +238,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -266,7 +259,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -297,7 +289,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -330,7 +321,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -362,7 +352,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
@@ -389,7 +378,6 @@
        ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
                               request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
