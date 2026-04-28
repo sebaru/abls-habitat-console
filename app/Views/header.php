@@ -269,7 +269,7 @@
         <a class="nav-link rounded dropdown-toggle ml-2" href="#" id="navbarDOCS" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-question-circle text-primary"></i> Aide</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUSER">
           <a class="dropdown-item" href="https://docs.abls-habitat.fr"><i class="fas fa-book"></i> <span> Portail de documentation</span></a>
           <a class="dropdown-item" href="https://docs.abls-habitat.fr/guide_demarrage/#installation-dun-agent" target="_blank">
             <i class="fas fa-asterisk text-info"></i> <span>Installer un agent</span>
@@ -284,7 +284,7 @@
           <i class="fas fa-user  text-warning"></i> <span id="idUsername">-</span>
         </a>
 
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarUSER">
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUSER">
           <a class="dropdown-item" href="#" id="idHrefProfil"><i class="fas fa-user text-info"></i> Mon Profil</a>
           <a class="dropdown-item" href="#" id="idHrefAccount"><i class="fas fa-user text-info"></i> Mon Compte</a>
           <a class="dropdown-item" href="/user/invite"><i class="fas fa-user-friends text-info"></i> Inviter</a>
