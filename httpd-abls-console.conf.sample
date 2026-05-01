@@ -13,11 +13,44 @@
 
   CustomLog "logs/console_access.log" "%v %h %l %u %t \"%r\" %>s %b"
 
-DocumentRoot /var/www/html/abls-console/public
+  ProxyPreserveHost On
+  SSLProxyEngine On
+  SecRuleEngine off
 
-        <Directory "/var/www/html/abls-console/public">
-            AllowOverride All
-            Require all granted
-        </Directory>
+#Protection par authentification OIDC
+  OIDCProviderMetadataURL https://my-idp.abls-habitat.fr/realms/my-realm/.well-known/openid-configuration
+  OIDCClientID my-client-id
+  OIDCClientSecret my-client-secret
+  OIDCRedirectURI https://my-abls-console.mydomain/redirect_uri
+  OIDCCryptoPassphrase change
+  OIDCProviderIssuer https://my-idp.abls-habitat.fr/realms/my-realm
+  OIDCResponseType code
+  OIDCScope "openid profile email"
+  OIDCStripCookies On
+  OIDCPassAccessToken off
+
+# ROUTING (ordre important : le plus spécifique d'abord)
+ProxyPass        /api/ http://my-api:5562/ nocanon upgrade=websocket
+ProxyPassReverse /api/ http://my-api:5562/
+
+#Active l'authentification et passe les tokens
+  <Location /api/>
+    AuthType openid-connect
+    Require valid-user
+    OIDCPassIDTokenAs serialized
+  </Location>
+
+#Au choix: soit en proxy, soit en local
+#  <Location />
+#    AuthType openid-connect
+#    Require valid-user
+#  </Location>
+
+  DocumentRoot /var/www/html/abls-console/public
+  <Directory "/var/www/html/abls-console/public">
+    AllowOverride All
+    AuthType openid-connect
+    Require valid-user
+  </Directory>
 
 </VirtualHost>
