@@ -10,7 +10,7 @@ var Router = (function () {
   var ROUTES = [
     { pattern: /^\/dashboard\/courbes$/,      view: 'dashboard',          script: 'dashboard'          },
     { pattern: /^\/dashboard$/,               view: 'dashboard',          script: 'dashboard'          },
-    { pattern: /^\/io_config$/,               view: 'io_config',          script: 'io_config'          },
+    { pattern: /^\/io_config$/,               view: 'io_config',          script: null                 },
     { pattern: /^\/domain_maintenance$/,      view: 'domain_maintenance', script: 'domain_maintenance' },
     { pattern: /^\/domain\/[^/]+$/,           view: 'domain_edit',        script: 'domain_edit'        },
     { pattern: /^\/domains$/,                 view: 'domains',            script: 'domains'            },

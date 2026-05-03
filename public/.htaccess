@@ -27,8 +27,10 @@ Options All -Indexes
 	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
 	# SPA : toutes les URL inconnues renvoient index.html (le routeur JS gère la navigation)
+	# Exception : les fichiers avec une extension (.js, .css, .html, etc.) retournent 404 s'ils n'existent pas.
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_URI} !\.(js|css|html|ico|png|jpg|gif|svg|woff|woff2|ttf|map|json|txt)$
 	RewriteRule ^ index.html [L]
 </IfModule>
 
