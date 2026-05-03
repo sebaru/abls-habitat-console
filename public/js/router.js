@@ -1,0 +1,157 @@
+/* router.js — Routeur SPA pour ABLS Habitat Console
+ * Gère la navigation côté client sans rechargement de page.
+ * Écoute l'événement 'keycloak-ready' émis par common.js après l'authentification. */
+
+var Router = (function () {
+
+  /* Table des routes : ordre identique à app/Config/Routes.php (premier match gagne).
+   * view  : nom du fichier dans /views/ (sans extension .html)
+   * script: nom du fichier dans /js/   (sans extension .js), null si pas de script de page */
+  var ROUTES = [
+    { pattern: /^\/dashboard\/courbes$/,      view: 'dashboard',          script: 'dashboard'          },
+    { pattern: /^\/dashboard$/,               view: 'dashboard',          script: 'dashboard'          },
+    { pattern: /^\/io_config$/,               view: 'io_config',          script: 'io_config'          },
+    { pattern: /^\/domain_maintenance$/,      view: 'domain_maintenance', script: 'domain_maintenance' },
+    { pattern: /^\/domain\/[^/]+$/,           view: 'domain_edit',        script: 'domain_edit'        },
+    { pattern: /^\/domains$/,                 view: 'domains',            script: 'domains'            },
+    { pattern: /^\/agent\/add$/,              view: 'agent_add',          script: 'agent_add'          },
+    { pattern: /^\/agent\/[^/]+$/,            view: 'agent_edit',         script: 'agent_edit'         },
+    { pattern: /^\/agents$/,                  view: 'agents',             script: 'agents'             },
+    { pattern: /^\/modbus$/,                  view: 'modbus',             script: 'modbus'             },
+    { pattern: /^\/imsgs$/,                   view: 'imsgs',              script: 'imsgs'              },
+    { pattern: /^\/smsg$/,                    view: 'smsg',               script: 'smsg'               },
+    { pattern: /^\/gpiod$/,                   view: 'gpiod',              script: 'gpiod'              },
+    { pattern: /^\/search$/,                  view: 'search',             script: 'search'             },
+    { pattern: /^\/audio\/zones$/,            view: 'audio_zones',        script: 'audio_zones'        },
+    { pattern: /^\/audio\/zone\/[^/]+$/,      view: 'audio_zone',         script: 'audio_zone'         },
+    { pattern: /^\/audio$/,                   view: 'audio',              script: 'audio'              },
+    { pattern: /^\/cameras$/,                 view: 'cameras',            script: 'cameras'            },
+    { pattern: /^\/ups$/,                     view: 'ups',                script: 'ups'                },
+    { pattern: /^\/phidget$/,                 view: 'phidget',            script: 'phidget'            },
+    { pattern: /^\/threads$/,                 view: 'threads',            script: 'threads'            },
+    { pattern: /^\/teleinfoedf$/,             view: 'teleinfoedf',        script: 'teleinfoedf'        },
+    { pattern: /^\/shelly$/,                  view: 'shelly',             script: 'shelly'             },
+    { pattern: /^\/meteo$/,                   view: 'meteo',              script: 'meteo'              },
+    { pattern: /^\/dls\/packages$/,           view: 'dls_packages',       script: 'dls_packages'       },
+    { pattern: /^\/dls\/package\/[^/]+$/,     view: 'dls_package',        script: 'dls_package'        },
+    { pattern: /^\/dls\/run\/[^/]+$/,         view: 'dls_run',            script: 'dls_run'            },
+    { pattern: /^\/dls\/params\/[^/]+$/,      view: 'dls_params',         script: 'dls_params'         },
+    { pattern: /^\/dls\/[^/]+$/,              view: 'dls_source',         script: 'dls_source'         },
+    { pattern: /^\/dls$/,                     view: 'dls',                script: 'dls'                },
+    { pattern: /^\/atelier\/[^/]+$/,          view: 'atelier',            script: 'atelier'            },
+    { pattern: /^\/synoptique\/[^/]+$/,       view: 'syn_child',          script: 'syn_child'          },
+    { pattern: /^\/synoptiques$/,             view: 'synoptiques',        script: 'synoptiques'        },
+    { pattern: /^\/mnemos\/[^/]+$/,           view: 'mnemos',             script: 'mnemos'             },
+    { pattern: /^\/mnemos$/,                  view: 'mnemos',             script: 'mnemos'             },
+    { pattern: /^\/tableau\/[^/]+$/,          view: 'tableau_map',        script: 'tableau_map'        },
+    { pattern: /^\/tableau$/,                 view: 'tableau',            script: 'tableau'            },
+    { pattern: /^\/syn_cameras$/,             view: 'syn_cameras',        script: 'syn_cameras'        },
+    { pattern: /^\/messages\/[^/]+$/,         view: 'messages',           script: 'messages'           },
+    { pattern: /^\/messages$/,                view: 'messages',           script: 'messages'           },
+    { pattern: /^\/archive$/,                 view: 'archive',            script: 'archive'            },
+    { pattern: /^\/log$/,                     view: 'log',                script: 'log'                },
+    { pattern: /^\/user\/invite$/,            view: 'user_invite',        script: 'user_invite'        },
+    { pattern: /^\/user\/[^/]+$/,             view: 'user_edit',          script: 'user_edit'          },
+    { pattern: /^\/users$/,                   view: 'users',              script: 'users'              },
+    { pattern: /^\/courbe\/[^/]+$/,           view: 'courbe',             script: 'courbe'             },
+    { pattern: /^\/command_text$/,            view: 'command_text',       script: 'command_text'       },
+    { pattern: /^\/$/,                        view: 'dashboard',          script: 'dashboard'          },
+    { pattern: /^\/.*$/,                      view: 'dashboard',          script: 'dashboard'          },  /* fallback */
+  ];
+
+  /* Élément <script> de la page courante — retiré à chaque navigation */
+  var currentPageScript = null;
+
+  function matchRoute(path) {
+    var cleanPath = (path.length > 1) ? path.replace(/\/$/, '') : path;
+    for (var i = 0; i < ROUTES.length; i++) {
+      if (ROUTES[i].pattern.test(cleanPath)) return ROUTES[i];
+    }
+    return null;
+  }
+
+  /* Détruit les instances DataTable existantes avant de changer de vue */
+  function destroyDataTables() {
+    if (typeof $ !== 'undefined' && $.fn && $.fn.DataTable) {
+      try { $.fn.dataTable.tables({ api: true }).destroy(); } catch (e) {}
+    }
+  }
+
+  function navigate(path) {
+    var route = matchRoute(path);
+    if (!route) { console.warn('Router: aucune route pour', path); return; }
+
+    destroyDataTables();
+
+    fetch('/views/' + route.view + '.html')
+      .then(function (resp) {
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        return resp.text();
+      })
+      .then(function (html) {
+        document.getElementById('app').innerHTML = html;
+
+        /* Retire le script de la page précédente */
+        if (currentPageScript) {
+          currentPageScript.parentNode && currentPageScript.parentNode.removeChild(currentPageScript);
+          currentPageScript = null;
+        }
+
+        if (!route.script) return;
+
+        /* Crée un nouveau <script> à chaque navigation pour que Load_page() soit toujours ré-exécuté */
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '/js/' + route.script + '.js';
+        script.onload = function () {
+          if (typeof Load_page === 'function') Load_page();
+        };
+        script.onerror = function () {
+          console.warn('Router: script introuvable —', route.script + '.js');
+        };
+        document.body.appendChild(script);
+        currentPageScript = script;
+      })
+      .catch(function (err) {
+        console.error('Router: impossible de charger la vue', route.view, err);
+      });
+  }
+
+  /* Navigue vers un chemin interne et met à jour l'historique du navigateur */
+  function push(path) {
+    history.pushState({ path: path }, '', path);
+    navigate(path);
+  }
+
+  function init() {
+    /* Intercepte les clics sur les liens internes */
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href]');
+      if (!link) return;
+      var href = link.getAttribute('href');
+      if (!href) return;
+      /* Laisser passer : liens externes, ancres, mailto, target="_blank" */
+      if (href.indexOf('http') === 0 || href.indexOf('//') === 0 ||
+          href.charAt(0) === '#' || href.indexOf('mailto:') === 0 ||
+          link.target === '_blank') return;
+      e.preventDefault();
+      push(href);
+    });
+
+    /* Gère les boutons précédent/suivant du navigateur */
+    window.addEventListener('popstate', function (e) {
+      navigate(e.state ? e.state.path : window.location.pathname);
+    });
+
+    /* Première navigation : déclenché par common.js après la connexion Keycloak */
+    window.addEventListener('keycloak-ready', function () {
+      history.replaceState({ path: window.location.pathname }, '', window.location.pathname);
+      navigate(window.location.pathname);
+    });
+  }
+
+  return { init: init, push: push, navigate: navigate };
+
+})();
+
+document.addEventListener('DOMContentLoaded', function () { Router.init(); });
