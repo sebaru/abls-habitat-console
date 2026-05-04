@@ -2,7 +2,7 @@
  var Charts  = new Array();
  var Closing = false;
 
- document.addEventListener('DOMContentLoaded', init, false);
+ document.addEventListener('DOMContentLoaded', Load_common, false);
  window.addEventListener("beforeunload", function () { Closing = true; } );
 
  var PeriodeTableau = [ { valeur : "BY_MINUTE_ON_2_HOURS",   texte : "Sur 2 heures" },
@@ -16,9 +16,6 @@
                         { valeur : "BY_MONTH_ON_12_MONTHS",  texte : "Sur 1 an" },
                         { valeur : "BY_YEAR_ON_2_YEARS" ,    texte : "Sur 2 ans" },
                       ];
-/**************************************************** Gère l'initialisation *****************************************************/
- function init()
-  { Load_common(); }
 /******************************************************************************************************************************/
  function Show_toast_ok ( message )
   { $('#idToastStatusOKLabel').text(" "+message); $('#idToastStatusOK').toast('show'); }
