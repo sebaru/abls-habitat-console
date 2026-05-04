@@ -1,23 +1,117 @@
+# ============================================================
+# ABLS Habitat Console — Apache VirtualHost
+#
+# Prérequis Fedora :
+#   dnf install httpd mod_ssl mod_auth_openidc
+#   certbot --apache -d my-abls-console.mydomain
+#
+# Modules Apache nécessaires :
+#   mod_ssl, mod_auth_openidc, mod_proxy, mod_proxy_http, mod_headers
+# ============================================================
+
+# ── HTTP → HTTPS ─────────────────────────────────────────────
+<VirtualHost *:80>
+  ServerName my-abls-console.mydomain
+  Redirect permanent / https://my-abls-console.mydomain/
+</VirtualHost>
+
+# ── HTTPS ────────────────────────────────────────────────────
 <VirtualHost *:443>
   ServerName my-abls-console.mydomain
 
+  # ── TLS (Let's Encrypt / certbot) ──────────────────────────
   SSLEngine on
-  SSLCertificateFile /etc/letsencrypt/live/my-abls-console.mydomain/cert.pem
+  SSLCertificateFile    /etc/letsencrypt/live/my-abls-console.mydomain/fullchain.pem
   SSLCertificateKeyFile /etc/letsencrypt/live/my-abls-console.mydomain/privkey.pem
-  SSLCertificateChainFile /etc/letsencrypt/live/my-abls-console.mydomain/chain.pem
-  SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
-  SSLCompression      off
-  SSLSessionTickets   off
-  SSLHonorCipherOrder on
-  SSLCipherSuite      ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256
+  SSLProtocol           all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
+  SSLCompression        off
+  SSLSessionTickets     off
+  SSLHonorCipherOrder   on
+  SSLCipherSuite        ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:\
+                        ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:\
+                        ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:\
+                        ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:\
+                        ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256
 
   CustomLog "logs/console_access.log" "%v %h %l %u %t \"%r\" %>s %b"
 
-DocumentRoot /var/www/html/abls-console/public
+  # ── mod_auth_openidc — BFF auth (tokens jamais côté browser) ─
+  #
+  # URL de découverte automatique Keycloak (adapter le realm)
+  OIDCProviderMetadataURL \
+    https://idp.mydomain/realms/abls-habitat/.well-known/openid-configuration
 
-        <Directory "/var/www/html/abls-console/public">
-            AllowOverride All
-            Require all granted
-        </Directory>
+  # Client Keycloak dédié à la console (confidential client)
+  OIDCClientID     abls-habitat-console
+  OIDCClientSecret <CLIENT_SECRET>
+
+  # URI de callback : doit être déclarée dans Keycloak > Valid Redirect URIs
+  OIDCRedirectURI  https://my-abls-console.mydomain/auth/callback
+
+  # Passphrase aléatoire pour chiffrer le cookie de session httpOnly
+  OIDCCryptoPassphrase <RANDOM_32_CHARS>
+
+  # Cookie httpOnly + SameSite (protège contre XSS et CSRF)
+  OIDCCookieHTTPOnly On
+  OIDCCookieSameSite On
+
+  OIDCScope                    "openid email profile offline_access phone"
+  OIDCSessionInactivityTimeout 3600
+
+  # Expose les claims OIDC comme variables d'environnement Apache
+  # (nécessaire pour injecter OIDC_access_token dans les proxies)
+  OIDCPassClaimsAs environment
+
+  # ── Assets SPA ───────────────────────────────────────────────
+  # Sans Vite : DocumentRoot pointe sur public/
+  # Avec Vite (Phase 3) : changer pour dist/
+  DocumentRoot /var/www/html/abls-console/public
+
+  <Directory "/var/www/html/abls-console/public">
+    Options -Indexes
+    AllowOverride None
+
+    # Toute la SPA est protégée : redirect Keycloak si pas de session
+    AuthType openid-connect
+    Require valid-user
+
+    # SPA routing : toute URL sans extension inconnue → index.html
+    # Remplace les règles mod_rewrite du .htaccess
+    FallbackResource /index.html
+  </Directory>
+
+  # ── Proxy BFF : /api/* → C API (abls-habitat-api) ────────────
+  #
+  # Le Bearer token est injecté par Apache côté serveur.
+  # Le browser ne voit jamais le token JWT.
+  <Location /api/>
+    AuthType openid-connect
+    Require valid-user
+
+    # Injection du token d'accès côté serveur
+    RequestHeader set Authorization "Bearer %{OIDC_access_token}e"
+
+    # X-ABLS-DOMAIN est envoyé par le JS (localStorage domain_uuid)
+    # et forwardé tel quel par ProxyPass
+
+    ProxyPass        http://localhost:5562/
+    ProxyPassReverse http://localhost:5562/
+
+    Header unset X-Powered-By
+  </Location>
+
+  # ── Userinfo : /auth/userinfo → Keycloak userinfo endpoint ───
+  #
+  # Permet au JS de récupérer le nom/email de l'utilisateur
+  # sans avoir accès au token JWT brut.
+  <Location /auth/userinfo>
+    AuthType openid-connect
+    Require valid-user
+
+    RequestHeader set Authorization "Bearer %{OIDC_access_token}e"
+
+    ProxyPass        https://idp.mydomain/realms/abls-habitat/protocol/openid-connect/userinfo
+    ProxyPassReverse https://idp.mydomain/realms/abls-habitat/protocol/openid-connect/userinfo
+  </Location>
 
 </VirtualHost>
