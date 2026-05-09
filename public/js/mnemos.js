@@ -64,7 +64,7 @@
     $('#idTableTempo').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "TEMPO", "tech_id": tech_id }, dataSrc: "mnemos_TEMPO",
+       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "TEMPO", "tech_id": tech_id }, dataSrc: "mnemos_TEMPO",
                error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -88,7 +88,7 @@
     $('#idTableRegistre').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "R", "tech_id": tech_id }, dataSrc: "mnemos_REGISTRE",
+       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "R", "tech_id": tech_id }, dataSrc: "mnemos_REGISTRE",
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -125,7 +125,7 @@
     $('#idTableCptImp').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: { url : $ABLS_API+"/mnemos/list", type : "GET", data: { "classe": "CI", "tech_id": tech_id }, dataSrc: "mnemos_CI",
+       ajax: { url : "/api/mnemos/list", type : "GET", data: { "classe": "CI", "tech_id": tech_id }, dataSrc: "mnemos_CI",
 
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
@@ -159,7 +159,7 @@
     $('#idTableCptH').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "CH", "tech_id": tech_id }, dataSrc: "mnemos_CH",
+       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "CH", "tech_id": tech_id }, dataSrc: "mnemos_CH",
                error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -183,7 +183,7 @@
     $('#idTableWatchdog').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "WATCHDOG", "tech_id": tech_id }, dataSrc: "mnemos_WATCHDOG",
+       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "WATCHDOG", "tech_id": tech_id }, dataSrc: "mnemos_WATCHDOG",
                error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -208,7 +208,7 @@
     $('#idTableHorloge').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "HORLOGE", "tech_id": tech_id }, dataSrc: "mnemos_HORLOGE",
+       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "HORLOGE", "tech_id": tech_id }, dataSrc: "mnemos_HORLOGE",
                error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('Authorization', 'Bearer ' + Token);

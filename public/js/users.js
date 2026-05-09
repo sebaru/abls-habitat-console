@@ -30,7 +30,7 @@
     $('#idTableUsers').DataTable(
        { pageLength : 50,
          fixedHeader: true,
-         ajax: {	url : $ABLS_API+"/user/list",	type : "GET", dataSrc: "users", contentType: "application/json",
+         ajax: {	url : "/api/user/list",	type : "GET", dataSrc: "users", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('Authorization', 'Bearer ' + Token);
@@ -66,7 +66,7 @@
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
                 { boutons = Bouton_actions_start ();
-                  if (item.access_level<localStorage.getItem("access_level") || item.user_uuid==TokenParsed.sub)
+                  if (item.access_level<localStorage.getItem("access_level") || item.user_uuid==CurrentUserUUID)
                         { boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur", "Redirect", "/user/"+item.user_uuid, "pen", null ); }
                    else { boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur", null, null, "pen", null ); }
                   boutons += Bouton_actions_end ();

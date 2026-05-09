@@ -1,6 +1,7 @@
 
  var Charts  = new Array();
  var Closing = false;
+ var CurrentUserUUID = null;
 
  document.addEventListener('DOMContentLoaded', Load_common, false);
  window.addEventListener("beforeunload", function () { Closing = true; } );
@@ -103,15 +104,12 @@
        if (Response.default_domain_uuid == null && window.location.pathname !== "/domains") { Redirect("/domains"); return; }
 
        $('#idAblsApiFooter').text(Response.abls_api_version);
+       var username = Response.name || Response.preferred_username || Response.given_name || Response.email || "Unknown";
+       $("#idUsername").text(username);
+       CurrentUserUUID = Response.user_uuid;
        window.dispatchEvent(new Event('keycloak-ready'));
      }, function () { Show_toast_ko ("Unable to request profil."); } );
 
-    fetch('/auth/userinfo')
-      .then(function(r) { return r.json(); })
-      .then(function(userinfo)
-       { var username = userinfo.name || userinfo.preferred_username || userinfo.given_name || userinfo.email || "Unknown";
-         $("#idUsername").text(username);
-       });
     $("body").hide().removeClass("d-none").fadeIn();
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/

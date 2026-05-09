@@ -62,7 +62,7 @@
     $('#idTableTableauMap').DataTable(
        { pageLength : 25,
          fixedHeader: true,
-         ajax: { url : $ABLS_API+"/tableau/map/list", type : "GET", dataSrc: "tableau_map", contentType: "application/json",
+         ajax: { url : "/api/tableau/map/list", type : "GET", dataSrc: "tableau_map", contentType: "application/json",
                  data: { tableau_id: Tableau_id },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)

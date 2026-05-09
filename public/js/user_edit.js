@@ -10,7 +10,7 @@
          can_send_txt_cde : $("#idUserCanSendTxtCde").is(':checked'),
          wanna_be_notified: $("#idUserWannaBeNotified").is(':checked'),
        };
-    if (TokenParsed.sub != Response.user_uuid) json_request.access_level = parseInt($("#idUserAccessLevel").val());
+    if (CurrentUserUUID != Response.user_uuid) json_request.access_level = parseInt($("#idUserAccessLevel").val());
 
     Send_to_API ( 'POST', "/user/set", json_request, function ()
      { Show_toast_ok ( "Utilisateur "+Response.email+" modifié" );
@@ -38,7 +38,7 @@
  function Load_page ()
   { console.log ("in load page !");
     vars = window.location.pathname.split('/');
-    if (vars[2] == "me") vars[2] = TokenParsed.sub;                                           /* /user/me -> edit my profil ! */
+    if (vars[2] == "me") vars[2] = CurrentUserUUID;                                          /* /user/me -> edit my profil ! */
 
     var json_request = { target_user_uuid: vars[2] };
     Send_to_API ( 'POST', "/user/get", json_request, function (Response)
@@ -50,7 +50,7 @@
        $("#idUserFreeSmsApiKey").val( Response.free_sms_api_key );
        $("#idUserFreeSmsApiUser").val( Response.free_sms_api_user );
        $("#idUserXmpp").val( Response.xmpp );
-       if (TokenParsed.sub == Response.user_uuid)
+       if (CurrentUserUUID == Response.user_uuid)
           { $("#idUserAccessLevel").html ( Badge_Access_level (Response.access_level) + " - " + Access_level_description[Response.access_level].name ); }
        else $("#idUserAccessLevel").replaceWith ( Select_Access_level ( "idUserAccessLevel", null ) );
        $("#idUserAccessLevel").addClass('flex-grow-1');

@@ -63,7 +63,7 @@
   { $('#idTableAUDIOZONES').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/audio/zones/list", type : "GET", dataSrc: "audio_zones", contentType: "application/json",
+       ajax: { url : "/api/audio/zones/list", type : "GET", dataSrc: "audio_zones", contentType: "application/json",
                /*data: function() { return ( "classe=audio" ); },*/
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
