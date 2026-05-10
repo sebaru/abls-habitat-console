@@ -55,8 +55,10 @@
   OIDCCookieHTTPOnly On
   OIDCCookieSameSite On
 
-  OIDCScope                    "openid email profile offline_access phone"
+  OIDCScope                    "openid email profile phone"
   OIDCSessionInactivityTimeout 3600
+  OIDCPassAccessToken          On
+  OIDCRefreshAccessTokenBeforeExpiry 60 logout_on_error
 
   # Expose les claims OIDC comme variables d'environnement Apache
   # (nécessaire pour injecter OIDC_access_token dans les proxies)
