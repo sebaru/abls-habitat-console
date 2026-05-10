@@ -6,8 +6,7 @@
          ajax: {	url : "/api/audit_log/list",	type : "GET", dataSrc: "audit_logs",
                  error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
                  beforeSend: function (request)
-                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
-                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
                },
          columns: [ { "data": "date", "title":"Date" },

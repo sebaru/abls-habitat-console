@@ -284,8 +284,7 @@
                data: function() { return ( "classe=modbus" ) },
                error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                beforeSend: function (request)
-                            { request.setRequestHeader('Authorization', 'Bearer ' + Token);
-                              request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
              },
        columns:
@@ -353,8 +352,7 @@
                  data: function() { return ( "classe=DI" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
-                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
-                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
                },
          columns:
@@ -404,8 +402,7 @@
                  data: function() { return ( "classe=DO" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
-                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
-                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
                },
          columns:
@@ -454,8 +451,7 @@
                  data: function() { return ( "classe=AI" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
-                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
-                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
                },
          columns:
@@ -514,8 +510,7 @@
                  data: function() { return ( "classe=AO" ) },
                  error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
                  beforeSend: function (request)
-                              { request.setRequestHeader('Authorization', 'Bearer ' + Token);
-                                request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
+                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
                },
          columns:

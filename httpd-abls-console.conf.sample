@@ -100,18 +100,4 @@
     Header unset X-Powered-By
   </Location>
 
-  # ── Userinfo : /auth/userinfo → Keycloak userinfo endpoint ───
-  #
-  # Permet au JS de récupérer le nom/email de l'utilisateur
-  # sans avoir accès au token JWT brut.
-  <Location /auth/userinfo>
-    AuthType openid-connect
-    Require valid-user
-
-    RequestHeader set Authorization "Bearer %{OIDC_access_token}e"
-
-    ProxyPass        https://idp.mydomain/realms/abls-habitat/protocol/openid-connect/userinfo
-    ProxyPassReverse https://idp.mydomain/realms/abls-habitat/protocol/openid-connect/userinfo
-  </Location>
-
 </VirtualHost>
