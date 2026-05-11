@@ -65,6 +65,9 @@
   # (nécessaire pour injecter OIDC_access_token dans les proxies)
   OIDCPassClaimsAs environment
 
+  OIDCCacheType memcache
+  OIDCMemCacheServers "localhost:11211"
+  
   # ── Assets SPA ───────────────────────────────────────────────
   # Sans Vite : DocumentRoot pointe sur public/
   # Avec Vite (Phase 3) : changer pour dist/
