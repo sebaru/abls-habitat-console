@@ -56,7 +56,8 @@
   OIDCCookieSameSite On
 
   OIDCScope                    "openid email profile phone"
-  OIDCSessionInactivityTimeout 3600
+  OIDCSessionInactivityTimeout 604500
+  OIDCSessionMaxDuration       31535700
   OIDCPassAccessToken          On
   OIDCRefreshAccessTokenBeforeExpiry 60 logout_on_error
 
