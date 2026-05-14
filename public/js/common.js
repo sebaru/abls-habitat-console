@@ -3,7 +3,7 @@
  var Closing = false;
  var CurrentUserUUID = null;
  var AuthRedirectPending = false;
-
+ 
  document.addEventListener('DOMContentLoaded', Load_common, false);
  window.addEventListener("beforeunload", function () { Closing = true; } );
 
@@ -29,8 +29,7 @@ function Redirect_to_login ()
  { if (AuthRedirectPending) return;
    AuthRedirectPending = true;
 
-   var target = window.location.pathname + window.location.search + window.location.hash;
-   $('body').fadeOut("fast", function () { window.location.replace(target); } );
+   $('body').fadeOut("fast", function () { window.location.replace("/login?timestamp=" + Date.now() ); } );
  }
 /******************************************************************************************************************************/
 function Handle_API_401_unauthorized ( xhr )
@@ -41,42 +40,88 @@ function Handle_API_401_unauthorized ( xhr )
    Redirect_to_login();
    return true;
  }
+/******************************************************************************************************************************/
+function CheckOidcSession ()
+ { if (AuthRedirectPending) return Promise.reject(new Error('auth-redirect-pending'));
+
+   return fetch("/auth/callback?info=json",
+    { method: 'GET',
+      credentials: 'same-origin',
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function (resp)
+     { if (resp.status == 401)
+        { if (window.location.pathname.indexOf('/auth/callback') !== 0 && window.location.pathname.indexOf('/auth') !== 0)
+           { Redirect_to_login(); }
+          throw new Error('oidc-session-missing');
+        }
+
+       if (resp.status == 404)
+        { console.warn('OIDC info hook non active, poursuite sans verification proactive de session.');
+          return null;
+        }
+
+       if (!resp.ok) throw new Error('HTTP ' + resp.status);
+       return resp.json()
+        .then(function (json)
+         { console.log('CheckOidcSession resp.json =', json);
+           return json;
+         })
+        .catch(function () { return null; });
+     })
+    .catch(function (err)
+     { if (err && (err.message == 'oidc-session-missing' || err.message == 'auth-redirect-pending')) throw err;
+       console.warn('Verification de session OIDC indisponible, poursuite du bootstrap.', err);
+       return null;
+     });
+ }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Send_to_API ( method, URL, parametre, fonction_ok, fonction_nok )
-  { var xhr = new XMLHttpRequest;
-    $(".ClassLoadingSpinner").show();
-    if (method=="POST" || method=="PUT" || method=="DELETE")
-     { ContentType = 'application/json';
-       if (parametre === null) parametre = new Object();
-     }
-    else if (method=="POSTFILE") { ContentType = 'application/octet-stream'; method = "POST"; }
-    else ContentType = null;
+  { $(".ClassLoadingSpinner").show();
 
-    if ( method == "GET" && parametre !== null )
-     { xhr.open(method, "/api"+URL+"?"+parametre, true); }
-    else xhr.open(method, "/api"+URL, true);
+    CheckOidcSession()
+     .then(function ()
+      { var xhr = new XMLHttpRequest;
 
-    if (ContentType != null) { xhr.setRequestHeader('Content-type', ContentType ); }
-    xhr.timeout = 300000; // durée en millisecondes
-    xhr.setRequestHeader("X-ABLS-DOMAIN", localStorage.getItem("domain_uuid") );
+        if (method=="POST" || method=="PUT" || method=="DELETE")
+         { ContentType = 'application/json';
+           if (parametre === null) parametre = new Object();
+         }
+        else if (method=="POSTFILE") { ContentType = 'application/octet-stream'; method = "POST"; }
+        else ContentType = null;
 
-    xhr.onreadystatechange = function()
-     { if ( xhr.readyState != 4 ) return;
-       $(".ClassLoadingSpinner").hide();
+        if ( method == "GET" && parametre !== null )
+         { xhr.open(method, "/api"+URL+"?"+parametre, true); }
+        else xhr.open(method, "/api"+URL, true);
 
-       try { var Response = JSON.parse(xhr.responseText); }
-       catch (error) { Response=undefined; }
+        if (ContentType != null) { xhr.setRequestHeader('Content-type', ContentType ); }
+        xhr.timeout = 300000; // durée en millisecondes
+        xhr.setRequestHeader("X-ABLS-DOMAIN", localStorage.getItem("domain_uuid") );
 
-       if (xhr.status == 200)
-        { if (fonction_ok != null) fonction_ok(Response); }        /* Si function exist, on l'appelle, sinon on fait un toast */
-       else if (Handle_API_401_unauthorized(xhr)) return;
-       else { if (Response) Show_toast_ko( "Une erreur est survenue: " + Response.api_error );
-                       else if (fonction_nok == null) Show_toast_ko( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
-              if (fonction_nok != null) fonction_nok(xhr);
-            }
-     }
-    xhr.ontimeout = function() { console.log("XHR timeout for "+URL); }
-    xhr.send( JSON.stringify(parametre) );
+        xhr.onreadystatechange = function()
+         { if ( xhr.readyState != 4 ) return;
+           $(".ClassLoadingSpinner").hide();
+
+           try { var Response = JSON.parse(xhr.responseText); }
+           catch (error) { Response=undefined; }
+
+           if (xhr.status == 200)
+            { if (fonction_ok != null) fonction_ok(Response); }        /* Si function exist, on l'appelle, sinon on fait un toast */
+           else if (Handle_API_401_unauthorized(xhr)) return;
+           else { if (Response) Show_toast_ko( "Une erreur est survenue: " + Response.api_error );
+                           else if (fonction_nok == null) Show_toast_ko( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
+                  if (fonction_nok != null) fonction_nok(xhr);
+                }
+         }
+        xhr.ontimeout = function() { console.log("XHR timeout for "+URL); }
+        xhr.send( JSON.stringify(parametre) );
+      })
+     .catch(function (err)
+      { $(".ClassLoadingSpinner").hide();
+        if (err && (err.message == 'oidc-session-missing' || err.message == 'auth-redirect-pending')) return;
+        if (fonction_nok != null) fonction_nok(err);
+        else Show_toast_ko ("Unable to validate OIDC session.");
+      });
   }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function isNum ( id )
@@ -139,7 +184,10 @@ function Handle_API_401_unauthorized ( xhr )
   }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()
-  { window.location.href = '/auth/callback?logout=' + encodeURIComponent(window.location.origin + '/'); }
+  { localStorage.clear();
+    sessionStorage.clear();
+    window.location.replace("/auth/callback?logout=" + encodeURIComponent(window.location.origin + "/login" ) );
+  }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Error ( message )
   { if (message == "Not Connected") { Logout(); }

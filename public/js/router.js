@@ -81,14 +81,18 @@ var Router = (function () {
     var route = matchRoute(path);
     if (!route) { console.warn('Router: aucune route pour', path); return; }
 
-    destroyDataTables();
-
-    fetch('/views/' + route.view + '.html')
+    CheckOidcSession()
+      .then(function () {
+        destroyDataTables();
+        return fetch('/views/' + route.view + '.html');
+      })
       .then(function (resp) {
+        if (!resp) return;
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         return resp.text();
       })
       .then(function (html) {
+        if (html === undefined) return;
         document.getElementById('app').innerHTML = html;
 
         /* Retire le script de la page précédente */
@@ -113,6 +117,7 @@ var Router = (function () {
         currentPageScript = script;
       })
       .catch(function (err) {
+        if (err && (err.message === 'oidc-session-missing' || err.message === 'auth-redirect-pending')) return;
         console.error('Router: impossible de charger la vue', route.view, err);
       });
   }

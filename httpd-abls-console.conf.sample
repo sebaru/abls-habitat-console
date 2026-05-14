@@ -61,6 +61,7 @@
   OIDCSessionMaxDuration       31535700
   OIDCPassAccessToken          On
   OIDCRefreshAccessTokenBeforeExpiry 60 logout_on_error
+  OIDCInfoHook                 remote_user
 
   # Expose les claims OIDC comme variables d'environnement Apache
   # (nécessaire pour injecter OIDC_access_token dans les proxies)
@@ -77,15 +78,23 @@
   <Directory "/var/www/html/abls-console/public">
     Options -Indexes
     AllowOverride None
-
-    # Toute la SPA est protégée : redirect Keycloak si pas de session
-    AuthType openid-connect
-    Require valid-user
+    Require all granted
 
     # SPA routing : toute URL sans extension inconnue → index.html
     # Remplace les règles mod_rewrite du .htaccess
     FallbackResource /index.html
   </Directory>
+
+  # ── Page de login ───────────────────────────────
+  <Location /login>
+   AuthType openid-connect
+   Require valid-user
+  </Location>
+
+  <Location /auth>
+    AuthType openid-connect
+    Require valid-user
+  </Location>
 
   # ── Proxy BFF : /api/* → C API (abls-habitat-api) ────────────
   #
@@ -106,17 +115,6 @@
     ProxyPassReverse http://localhost:5562/
 
     Header unset X-Powered-By
-  </Location>
-
-  # ── Ressources SPA publiques ───────────────────────────────────
-  # Les vues HTML et les scripts de page sont servis publiquement pour que
-  # le routeur SPA puisse les charger sans redirection OIDC intermédiaire.
-  <Location /views/>
-    Require all granted
-  </Location>
-
-  <Location /js/>
-    Require all granted
   </Location>
 
 </VirtualHost>
