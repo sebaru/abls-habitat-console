@@ -54,6 +54,7 @@
   # Cookie httpOnly + SameSite (protège contre XSS et CSRF)
   OIDCCookieHTTPOnly On
   OIDCCookieSameSite On
+  OIDCUnAuthAction auth true
 
   OIDCScope                    "openid email profile phone"
   OIDCSessionInactivityTimeout 604500
