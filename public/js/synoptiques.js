@@ -89,17 +89,47 @@
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Valide_del_synoptique ( selection )
-  { Send_to_API ( "DELETE", "/syn/delete", selection, function(Response)
-     { $('#idTableSYN').DataTable().ajax.reload(null, false);
+  { var json_request = { syn_id: selection.syn_id, delete_sub: $('#idModalDelDeleteSub').is(':checked') };
+    Send_to_API ( "DELETE", "/syn/delete", json_request, function(Response)
+     { Show_toast_ok ( "Synoptique supprimé.");
+       SYN_Refresh();
      }, null );;
+  }
+/************************************ Met a jour le texte de suppression *****************************************************/
+ function SYN_Update_delete_sub_text ( )
+  { var input = $('#idModalDelDeleteSub');
+    var label = $('#idModalDelDeleteSubLabel');
+    input.removeClass ( 'bg-success border-success bg-danger border-danger' );
+    if ( input.is(':checked') )
+     { input.addClass ( 'bg-danger border-danger' );
+       label.text ( "Supprimer toutes les dépendances" );
+       $('#idModalDelDeleteSubHelp').text ( "Les sous-synoptiques, les tableaux et les DLS seront supprimés avec ce synoptique." );
+     }
+    else
+     { input.addClass ( 'bg-success border-success' );
+       label.text ( "Conserver les dépendances" );
+       $('#idModalDelDeleteSubHelp').text ( "Les sous-synoptiques, les tableaux et les DLS seront rattachés au synoptique parent." );
+     }
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function SYN_Del ( syn_id )
   { selection = $('#idTableSYN').DataTable().row("#"+syn_id).data();
     Show_modal_del ( "Détruire le synoptique ?",
                      "Etes-vous sur de vouloir supprimer le synoptique suivant ?",
-                     selection.page+" ("+selection.libelle + ") et RECURSIVEMENT toutes ses dépendances (sous-synoptiques, DLS, mnémoniques, ...)",
-                     function () { Valide_del_synoptique(selection); } );
+                     selection.page+" ("+selection.libelle + ")",
+                     function () { Valide_del_synoptique(selection); },
+                     { html:
+                       "<div class='form-check form-switch'>"+
+                         "<input id='idModalDelDeleteSub' class='form-check-input' type='checkbox'>"+
+                         "<label id='idModalDelDeleteSubLabel' class='form-check-label' for='idModalDelDeleteSub'></label>"+
+                       "</div>"+
+                       "<div id='idModalDelDeleteSubHelp' class='form-text'></div>"
+                     }
+                   );
+    $('#idModalDelDeleteSub').prop('checked', false)
+                           .off('change')
+                           .on('change', SYN_Update_delete_sub_text );
+    SYN_Update_delete_sub_text();
   }
 
 /******************************************************************************************************************************/

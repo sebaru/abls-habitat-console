@@ -328,10 +328,13 @@
     return ( string.replace(/'/g,'&apos;').replace(/"/g,'&quote;') ).replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 /****************************************** Are you sure **********************************************************************/
- function Show_modal_del ( titre, message, details, fonction )
+ function Show_modal_del ( titre, message, details, fonction, options )
   { $('#idModalDelTitre').html ( htmlEncode(titre) );
     $('#idModalDelMessage').html( htmlEncode(message) );
     $('#idModalDelDetails').html( htmlEncode(details) );
+    $('#idModalDelOptions').empty().addClass("d-none");
+    if (options !== undefined && options !== null && options.html !== undefined)
+     { $('#idModalDelOptions').html(options.html).removeClass("d-none"); }
     $('#idModalDelValider').off("click").on( "click", fonction );
     $('#idModalDel').modal("show");
   }
