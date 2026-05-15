@@ -127,10 +127,9 @@
        var username = Response.name || Response.preferred_username || Response.given_name || Response.email || "Unknown";
        $("#idUsername").text(username);
        CurrentUserUUID = Response.user_uuid;
+       $("body").hide().removeClass("d-none").fadeIn();
        window.dispatchEvent(new Event('keycloak-ready'));
      }, function () { Show_toast_ko ("Unable to request profil."); } );
-
-    $("body").hide().removeClass("d-none").fadeIn();
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Error ( message )
