@@ -54,21 +54,18 @@
   # Cookie httpOnly + SameSite (protège contre XSS et CSRF)
   OIDCCookieHTTPOnly On
   OIDCCookieSameSite On
-  OIDCUnAuthAction auth true
-
-  OIDCScope                    "openid email profile phone"
-  OIDCSessionInactivityTimeout 604500
-  OIDCSessionMaxDuration       31535700
-  OIDCPassAccessToken          On
-  OIDCRefreshAccessTokenBeforeExpiry 60 logout_on_error
-  OIDCInfoHook                 remote_user
+  OIDCScope          "openid email profile phone"
 
   # Expose les claims OIDC comme variables d'environnement Apache
   # (nécessaire pour injecter OIDC_access_token dans les proxies)
   OIDCPassClaimsAs environment
+  OIDCRefreshAccessTokenBeforeExpiry 60 logout_on_error
+  OIDCSessionMaxDuration 0
+  OIDCSessionInactivityTimeout 86400 
+  OIDCInfoHook                 remote_user
 
-  OIDCCacheType memcache
-  OIDCMemCacheServers "localhost:11211"
+#  OIDCCacheType memcache
+#  OIDCMemCacheServers "localhost:11211"
   
   # ── Assets SPA ───────────────────────────────────────────────
   # Sans Vite : DocumentRoot pointe sur public/
@@ -85,8 +82,8 @@
     FallbackResource /index.html
   </Directory>
 
-  # ── Page de login ───────────────────────────────
-  <Location /login>
+  # ── Page home ───────────────────────────────
+  <Location /home>
    AuthType openid-connect
    Require valid-user
   </Location>
@@ -103,18 +100,11 @@
   <Location /api/>
     AuthType openid-connect
     Require valid-user
-    OIDCUnAuthAction 401
-
     # Injection du token d'accès côté serveur
     RequestHeader set Authorization "Bearer %{OIDC_access_token}e"
-
-    # X-ABLS-DOMAIN est envoyé par le JS (localStorage domain_uuid)
-    # et forwardé tel quel par ProxyPass
-
     ProxyPass        http://localhost:5562/
     ProxyPassReverse http://localhost:5562/
-
-    Header unset X-Powered-By
+    OIDCUnAuthAction 401
   </Location>
 
 </VirtualHost>

@@ -81,13 +81,10 @@ var Router = (function () {
     var route = matchRoute(path);
     if (!route) { console.warn('Router: aucune route pour', path); return; }
 
-    CheckOidcSession()
-      .then(function () {
-        destroyDataTables();
-        return fetch('/views/' + route.view + '.html');
-      })
+    destroyDataTables();
+
+    fetch('/views/' + route.view + '.html')
       .then(function (resp) {
-        if (!resp) return;
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         return resp.text();
       })
@@ -117,7 +114,6 @@ var Router = (function () {
         currentPageScript = script;
       })
       .catch(function (err) {
-        if (err && (err.message === 'oidc-session-missing' || err.message === 'auth-redirect-pending')) return;
         console.error('Router: impossible de charger la vue', route.view, err);
       });
   }
