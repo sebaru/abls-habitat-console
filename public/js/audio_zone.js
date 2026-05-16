@@ -38,7 +38,10 @@
  function Load_page ()
   { vars = window.location.pathname.split('/');
     if (vars[3] == null) Redirect ("/audio/zones");
-    $("#idAudioZoneTitle").text( vars[3] );
+    var zoneName = decodeURIComponent(vars[3]);
+    $("#idAudioZoneTitle").text( zoneName );
+    Set_page_context ( { lastLabel: zoneName,
+                         title    : "Zone audio " + zoneName } );
     $('#idTableAUDIOZONE').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,

@@ -56,7 +56,11 @@
 
     Send_to_API ( "GET", "/tableau/list", null, function(Response)
      { tableau = Response.tableaux.filter( function(item) { return item.tableau_id==Tableau_id } )[0];
-       if (tableau) $('#idTableauTitle').text(tableau.titre);
+       if (tableau)
+        { $('#idTableauTitle').text(tableau.titre);
+          Set_page_context ( { lastLabel: tableau.titre,
+                               title    : "Tableau " + tableau.titre } );
+        }
      }, null );
 
     $('#idTableTableauMap').DataTable(

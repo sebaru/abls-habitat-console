@@ -41,7 +41,10 @@
   { vars = window.location.pathname.split('/');
     if (vars[3] == null) Redirect ("/dls");
 
-    $('#idTitle').html(vars[3]);
+    var techId = decodeURIComponent(vars[3]);
+    $('#idTitle').html(techId);
+    Set_page_context ( { lastLabel: techId,
+                         title    : "Exécution DLS " + techId } );
     setInterval( function()
                   { Dls_run_refresh ( "idTableEntreeTOR" );
                     Dls_run_refresh ( "idTableEntreeANA" );

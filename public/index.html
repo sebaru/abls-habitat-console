@@ -23,8 +23,33 @@
 
         .navbar { background-color: rgba(30,28,56,0.8);
                 }
-        .nav-link {
-                  }
+        .wtd-breadcrumb-shell {
+          min-height: 42px;
+        }
+        .wtd-shell-banner .alert {
+          margin-bottom: 0;
+          border-radius: 0.75rem;
+        }
+        .wtd-breadcrumb-shell .breadcrumb {
+          margin-bottom: 0;
+          background-color: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 0.75rem;
+          padding: 0.5rem 0.9rem;
+        }
+        .wtd-breadcrumb-shell .breadcrumb-item,
+        .wtd-breadcrumb-shell .breadcrumb-item.active,
+        .wtd-breadcrumb-shell .breadcrumb-item + .breadcrumb-item::before {
+          color: rgba(255,255,255,0.72);
+        }
+        .wtd-breadcrumb-shell .breadcrumb-item a {
+          color: #7fd0d4;
+          text-decoration: none;
+        }
+        .wtd-breadcrumb-shell .breadcrumb-item a:hover {
+          color: #a8edf0;
+          text-decoration: underline;
+        }
         .nav-link:hover { /*color: white !important; attention, cible aussi les nav-tabs */
                           background-color: #48BBC0;
                         }
@@ -294,6 +319,20 @@
 </header>
 <div id="idDomainNotificationWarning" class='alert alert-warning m-1' style="display:none" role="status"></div>
 <div id="idDomainNotification" class='alert alert-info m-1' style="display:none" role="status"></div>
+
+<div id="idBreadcrumbShell" class="container-fluid px-3 px-lg-4 py-2 wtd-breadcrumb-shell d-none">
+  <nav aria-label="breadcrumb">
+    <ol id="idBreadcrumbList" class="breadcrumb shadow-sm"></ol>
+  </nav>
+</div>
+
+<div id="idShellError" class="container-fluid px-3 px-lg-4 pb-2 wtd-shell-banner d-none">
+  <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    <span id="idShellErrorText"></span>
+    <button type="button" class="btn-close" aria-label="Close" onclick="Hide_shell_error()"></button>
+  </div>
+</div>
 
 <!-- Zone de contenu de la page (remplacée par le routeur à chaque navigation) -->
 <div id="app"></div>
