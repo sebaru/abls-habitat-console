@@ -111,7 +111,8 @@
           Send_to_API ( 'GET', "/domain/image", null, function (Response)
                { if (Response.image == null) Response.image = "https://static.abls-habitat.fr/img/syn_maison.png";
                  Changer_img_src ( "idNavImgTopSyn", Response.image, false );
-                 $("#idNavImgTopSyn").on("click", function () { Charger_un_synoptique(null); } );
+                 $("#idNavImgTopSyn").off("click").on("click", Navbar_retour_accueil);
+                 $("#idNavImgTopSyn").closest("a").off("click").on("click", Navbar_retour_accueil);
                }, null);
 
           if (Response.access_level>=6) $("#idHrefConsole").removeClass("d-none").attr("href", Response.console_url );
@@ -151,6 +152,15 @@
        else { window.location.replace(url); }
      }
     else { $('body').fadeOut("fast", function () { window.location.replace(url); } ); }
+  }
+/********************************************* Retour à l'accueil principal **************************************************/
+ function Navbar_retour_accueil ( event )
+  { if (event)
+     { event.preventDefault();
+       event.stopPropagation();
+     }
+    Redirect("/");
+    return(false);
   }
 /********************************************* Barre de boutons ***************************************************************/
  function Bouton_actions_start ( )
