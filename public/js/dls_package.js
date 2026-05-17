@@ -45,8 +45,8 @@
 
     Send_to_API ( "GET", "/dls/package/source", "name="+Name, function(Response)
      { Package = Response;
-       Set_page_context ( { lastLabel: Package.name,
-                            title    : "Package " + Package.name } );
+       Set_page_context ( { lastLabel: "Edition du package D.L.S (#"+Package.dls_package_id+") - " + Package.name + " - " + Package.description,
+                            title    : "Edition du package D.L.S (#"+Package.dls_package_id+") - " + Package.name + " - " + Package.description } );
        $("#idSourceTitle").text( "(#"+Package.dls_package_id+") - " + Package.name + " - " + Package.description);
        SourceCode.getDoc().setValue(Package.sourcecode);
      }, null);

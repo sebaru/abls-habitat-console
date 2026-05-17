@@ -16,6 +16,8 @@
     if (Tech_id == null) Redirect ("/dls");
 
     $('#idDlsParamTitle').text(Tech_id);
+    Set_page_context ( { lastLabel: "Paramètres du D.L.S " + Tech_id,
+                         title    : "Paramètres du D.L.S " + Tech_id } );
 
     $('#idTableDlsParams').DataTable(
        { pageLength : 25,

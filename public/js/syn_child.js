@@ -39,7 +39,8 @@ var SYN_Response = null;
   }
 /********************************************* Afichage du modal d'ajout synoptique *******************************************/
  function SYN_Add ( )
-  { $('#idModalSynEditTitre').text ( "Ajouter un synoptique fils sur " + $('#idSynChildParentPage').text() );
+  { var parentPage = decodeURIComponent(window.location.pathname.split('/').pop());
+    $('#idModalSynEditTitre').text ( "Ajouter un synoptique fils sur " + parentPage );
     $('#idModalSynEditPage').val("");
     $('#idModalSynEditPage').attr("oninput", "Synoptique_set_controle_page(null)");
     Synoptique_set_controle_page (null);
@@ -53,9 +54,8 @@ var SYN_Response = null;
  function Load_page ()
   { var path_parts = window.location.pathname.split('/');
     var syn_page   = decodeURIComponent(path_parts[path_parts.length - 1]);
-    $('#idSynChildParentPage').text(syn_page);
-    Set_page_context ( { lastLabel: syn_page,
-                         title    : "Synoptique " + syn_page } );
+    Set_page_context ( { lastLabel: "Synoptiques fils de " + syn_page,
+                         title    : "Synoptiques fils de " + syn_page } );
     console.log ("in load syn_child, page = " + syn_page);
 
     $('#idTableSYN').DataTable(

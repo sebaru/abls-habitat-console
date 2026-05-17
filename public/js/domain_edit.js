@@ -79,8 +79,6 @@
     Send_to_API ( 'GET', "/domain/get", "domain_uuid="+vars[2], function (Response)
      {
        $("#idDomainLabel").text( Response.domain_name );
-       Set_page_context ( { lastLabel: Response.domain_name,
-                            title    : "Domaine " + Response.domain_name } );
        $("#idDomainUuid").val( Response.domain_uuid );
        $("#idDomainName").val( Response.domain_name )
                          .prop("disabled", (Response.access_level < 8) );
