@@ -86,7 +86,13 @@
          rowId: "tableau_id",
          columns:
           [ { "data": "page", "title":"Page", "className": "text-center" },
-            { "data": "titre", "title":"Titre", "className": "" },
+            { "data": null, "title":"Titre", "className": "",
+              "render": function (item)
+                { return( Lien ( "/tableau/"+item.tableau_id,
+                                 "Editer les courbes du tableau "+item.titre,
+                                 htmlEncode(item.titre) ) );
+                }
+            },
             { "data": null, "title":"Mode", "className": "text-center d-none d-md-table-cell",
               "render": function (item)
                 { mode = ModeTableau.find ( (element) => element.valeur == item.mode );
