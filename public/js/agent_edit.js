@@ -23,6 +23,8 @@
     Send_to_API ( 'GET', "/agent", "agent_uuid="+vars[2], function (Response)
      {
        $("#idAGENTLabel").text( Response.agent_hostname );
+       Set_page_context ( { lastLabel: Response.agent_hostname,
+                            title    : "Agent " + Response.agent_hostname } );
        $("#idAGENTHostname").val( Response.agent_hostname + " - " + Response.version );
        $("#idAGENTUUID").val( Response.agent_uuid );
        $("#idAGENTDescription").val( Response.description );

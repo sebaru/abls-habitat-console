@@ -43,6 +43,8 @@
     var json_request = { target_user_uuid: vars[2] };
     Send_to_API ( 'POST', "/user/get", json_request, function (Response)
      { $("#idUserLabel").text( Response.email );
+       Set_page_context ( { lastLabel: Response.email,
+                            title    : "Utilisateur " + Response.email } );
        $("#idUserUUID").val( Response.user_uuid );
        $("#idUserEmail").val( Response.email );
        $("#idUserName").val( Response.username );

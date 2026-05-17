@@ -19,11 +19,27 @@
                         { valeur : "BY_YEAR_ON_2_YEARS" ,    texte : "Sur 2 ans" },
                       ];
 /******************************************************************************************************************************/
+ function Set_page_context ( context )
+  { if (typeof Router !== 'undefined' && Router.setPageContext)
+     { Router.setPageContext(context); }
+  }
+/******************************************************************************************************************************/
+ function Hide_shell_error ()
+  { $('#idShellErrorText').text("");
+    $('#idShellError').hide().addClass('d-none');
+  }
+/******************************************************************************************************************************/
+ function Show_shell_error ( message )
+  { $('#idShellErrorText').text(message);
+    $('#idShellError').removeClass('d-none').show();
+  }
+/******************************************************************************************************************************/
  function Show_toast_ok ( message )
   { $('#idToastStatusOKLabel').text(" "+message); $('#idToastStatusOK').toast('show'); }
 /******************************************************************************************************************************/
  function Show_toast_ko ( message )
-  { $('#idToastStatusKOLabel').text(" "+message); $('#idToastStatusKO').toast('show'); }
+  { Show_shell_error(message);
+    $('#idToastStatusKOLabel').text(" "+message); $('#idToastStatusKO').toast('show'); }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()
   { localStorage.clear();
@@ -136,7 +152,8 @@
  function Show_Error ( message )
   { if (message == "Not Connected") { Logout(); }
     else
-     { $('#idModalDetail').html( message );
+     { Show_shell_error(message);
+       $('#idModalDetail').html( message );
        $('#idModalError').modal("show");
      }
   }
