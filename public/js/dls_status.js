@@ -35,7 +35,7 @@
        columns:
         [ { "data": null, "title":"TechID", "className": "align-middle  text-center",
               "render": function (item)
-                { return( Lien ( "/tech/dls_source/"+item.tech_id, item.version + "\n" + item.start_date, item.tech_id ) );
+                { return( Lien ( "/dls/"+item.tech_id, item.version + "\n" + item.start_date, item.tech_id ) );
                 },
             },
           { "data": null, title:"Started",  "className": "text-center align-middle",

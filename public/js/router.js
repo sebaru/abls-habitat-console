@@ -178,6 +178,12 @@ var Router = (function () {
       breadcrumb: [ { label: 'D.L.S', href: '/dls' }, { label: 'Exécution', href: null } ]
     },
     {
+      pattern:    /^\/dls_status$/,
+      view:       'dls_status',
+      script:     'dls_status',
+      breadcrumb: [ { label: 'D.L.S', href: '/dls' }, { label: 'Etat', href: null } ]
+    },
+    {
       pattern:    /^\/dls\/params\/[^/]+$/,
       view:       'dls_params',
       script:     'dls_params',
