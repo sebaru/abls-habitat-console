@@ -90,7 +90,7 @@
               "render": function (item)
                 { return( Lien ( "/tableau/"+item.tableau_id,
                                  "Editer les courbes du tableau "+item.titre,
-                                 htmlEncode(item.titre) ) );
+                                 item.titre ) );
                 }
             },
             { "data": null, "title":"Mode", "className": "text-center d-none d-md-table-cell",

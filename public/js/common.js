@@ -254,7 +254,7 @@
   }
 
  function Lien ( target, tooltip, texte )
-  { return( "<a href='"+target+"' data-bs-toggle='tooltip' title='"+htmlEncode(tooltip)+"'>"+texte+"</a>" );
+  { return( "<a href='"+target+"' data-bs-toggle='tooltip' title='"+htmlEncode(tooltip)+"'>"+htmlEncode(texte)+"</a>" );
   }
 
  function Badge ( color, tooltip, texte )
