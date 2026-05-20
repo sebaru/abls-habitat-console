@@ -85,10 +85,10 @@
         catch (error) { Response=undefined; }
 
         if (xhr.status == 200)
-         { if (fonction_ok != null) fonction_ok(Response); }        /* Si function exist, on l'appelle, sinon on fait un toast */
+         { if (fonction_ok != null) fonction_ok(Response); }
         else if (xhr.status == 401) { Redirect_to_login(); return; }
         else { if (Response) Show_shell_error( "Une erreur est survenue: " + Response.api_error );
-                else if (fonction_nok == null) Show_shell_error( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
+                else Show_shell_error( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
                 if (fonction_nok != null) fonction_nok(xhr);
              }
       }
