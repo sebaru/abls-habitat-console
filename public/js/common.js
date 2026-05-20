@@ -151,11 +151,7 @@
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Error ( message )
   { if (message == "Not Connected") { Logout(); }
-    else
-     { Show_shell_error(message);
-       $('#idModalDetail').html( message );
-       $('#idModalError').modal("show");
-     }
+    else { Show_shell_error(message); }
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Info ( message )
