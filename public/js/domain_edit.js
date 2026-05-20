@@ -4,7 +4,7 @@
   {
     if ($("#idDomainDeleteText").val() != "ok to delete "+domain_uuid )
      { $("#idDomainDeleteText").addClass("border border-danger shadow");
-       Show_toast_ko ( "Clé de protection invalide. Controlez le champ de suppression." );
+       Show_shell_error ( "Clé de protection invalide. Controlez le champ de suppression." );
        $("#idDomainDeleteText").val("");
        return;
      }
@@ -47,7 +47,7 @@
           Show_toast_ok ( "Image modifiée." );
         }, null );
      };
-   reader.onerror = function (error) { Show_toast_ko ( "Erreur : " + error ); };
+   reader.onerror = function (error) { Show_shell_error ( "Erreur : " + error ); };
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function Domain_Save ( domain_uuid )

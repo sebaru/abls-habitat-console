@@ -24,7 +24,7 @@
          fixedHeader: true,
          ajax: { url : "/api/dls/params", type : "GET", dataSrc: "params", contentType: "application/json",
                  data: { tech_id: Tech_id },
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }

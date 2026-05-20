@@ -63,7 +63,7 @@ var SYN_Response = null;
          ajax: { url : "/api/syn/child", type : "GET", dataSrc: "children",
                  contentType: "application/json",
                  data: { page: syn_page },
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }

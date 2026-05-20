@@ -22,7 +22,7 @@
 
     if ($("#idUserDeleteText").val() != "ok to delete "+Response.user_uuid )
      { $("#idUserDeleteText").addClass("border border-danger shadow");
-       Show_toast_ko ( "Clé de protection invalide. Controlez le champ de suppression." );
+       Show_shell_error ( "Clé de protection invalide. Controlez le champ de suppression." );
        $("#idUserDeleteText").val("");
        return;
      }

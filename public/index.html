@@ -88,19 +88,7 @@
   </div>
 </div>
 
-<div class="position-fixed" style="top: 3rem; left: 50%; z-index:9999">
-  <div id="idToastStatusKO" data-delay="3000" class="toast hide bg-danger" role="status">
-   <div class="toast-header">
-     <strong class="me-auto"> Résultat de la commande</strong>
-     <button type="button" class="ml-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
-       <span aria-hidden="true">&times;</span>
-     </button>
-   </div>
-   <div class="toast-body text-dark">
-     <i class="fas fa-check-circle"></i> <span id="idToastStatusKOLabel">Erreur !</span>
-   </div>
-  </div>
-</div>
+
 
 <div id="idModalError" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -327,10 +315,13 @@
 </div>
 
 <div id="idShellError" class="container-fluid px-3 px-lg-4 pb-2 wtd-shell-banner d-none">
-  <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+  <div class="alert alert-danger alert-dismissible fade show shadow-sm pb-2" role="alert">
     <i class="fas fa-exclamation-triangle me-2"></i>
     <span id="idShellErrorText"></span>
     <button type="button" class="btn-close" aria-label="Close" onclick="Hide_shell_error()"></button>
+    <div class="progress mt-2" style="height:3px; background:rgba(255,255,255,0.25); border-radius:2px;">
+      <div id="idShellErrorProgress" class="progress-bar" style="width:100%; background:rgba(255,255,255,0.7);" role="progressbar"></div>
+    </div>
   </div>
 </div>
 

@@ -13,7 +13,7 @@
     Send_to_API ( 'POST', "/agent/set", json_request, function ()
      { Show_toast_ok ( "Configuration sauvegardée." );
      }, function ()
-     { Show_toast_ko ( "Configuration non sauvegardée.") });
+     { Show_shell_error ( "Configuration non sauvegardée.") });
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Load_page ()
