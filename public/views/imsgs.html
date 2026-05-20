@@ -30,40 +30,42 @@
       </div>
       <div class="modal-body">
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
-           <select id="idTargetAgent" class="custom-select border-info"></select>
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Choix de l'agent</label>
+         <div class="col-7 col-sm-8">
+           <select id="idTargetAgent" class="form-select border-info"></select>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">IMSG Tech_ID</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">IMSG Tech_ID</label>
+         <div class="col-7 col-sm-8">
            <input id="idIMSGSTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du Thread">
-          </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Description</label>
+         <div class="col-7 col-sm-8">
            <input id="idIMSGSDescription" type="text" class="form-control" placeholder="Description du module">
-          </div>
-        </div>
-
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">XMPP JabberID</label>
-             <div class="input-group-text">@</div>
-           <input id="idIMSGSJabberID" type="email" class="form-control" placeholder="username@server.tld">
-          </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">XMPP Password</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">XMPP JabberID</label>
+         <div class="col-7 col-sm-8">
+           <div class="input-group">
+             <div class="input-group-text">@</div>
+             <input id="idIMSGSJabberID" type="email" class="form-control" placeholder="username@server.tld">
+           </div>
+         </div>
+       </div>
+
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">XMPP Password</label>
+         <div class="col-7 col-sm-8">
            <input id="idIMSGSPassword" type="password" class="form-control" placeholder="">
-          </div>
+         </div>
        </div>
 
       <div class="modal-footer">

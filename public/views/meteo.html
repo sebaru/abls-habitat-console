@@ -30,40 +30,46 @@
       </div>
       <div class="modal-body">
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
-           <select id="idTargetAgent" class="custom-select border-info"></select>
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Choix de l'agent</label>
+         <div class="col-7 col-sm-8">
+           <select id="idTargetAgent" class="form-select border-info"></select>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Tech_ID</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Tech_ID</label>
+         <div class="col-7 col-sm-8">
            <input id="idMETEOTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du Thread METEO">
-          </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Token API</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Token API</label>
+         <div class="col-7 col-sm-8">
            <input id="idMETEOToken" type="text" class="form-control" placeholder="Token API METEO Concept">
-          </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Code Insee Commune</label>
-           <input id="idMETEOCodeInsee" type="text" class="form-control" placeholder="Code Insee de la commune">
-           <a target="_blank" href="https://api.meteo-concept.com/login" class="col-3 col-sm-2 col-form-label">Creer un token</a>
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Code Insee Commune</label>
+         <div class="col-7 col-sm-8">
+           <div class="row g-2 align-items-center">
+             <div class="col">
+               <input id="idMETEOCodeInsee" type="text" class="form-control" placeholder="Code Insee de la commune">
+             </div>
+             <div class="col-12 col-sm-auto">
+               <a target="_blank" href="https://api.meteo-concept.com/login" class="btn btn-outline-info btn-sm">Creer un token</a>
+             </div>
+           </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Description</label>
+         <div class="col-7 col-sm-8">
            <input id="idMETEODescription" type="text" class="form-control" placeholder="Description de la source">
-          </div>
+         </div>
        </div>
 
       <div class="modal-footer">

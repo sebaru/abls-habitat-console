@@ -31,54 +31,60 @@
       </div>
       <div class="modal-body">
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
-           <select id="idTargetAgent" class="custom-select border-info"></select>
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Choix de l'agent</label>
+         <div class="col-7 col-sm-8">
+           <select id="idTargetAgent" class="form-select border-info"></select>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">SMSG Tech_ID</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">SMSG Tech_ID</label>
+         <div class="col-7 col-sm-8">
            <input id="idSMSGTechID" type="text" class="form-control" maxlength="32" placeholder="Tech_ID du SMS">
-          </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">SMSG Description</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">SMSG Description</label>
+         <div class="col-7 col-sm-8">
            <input id="idSMSGDescription" type="text" class="form-control" placeholder="Description du téléphone et/ou sa position">
-          </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">OVH Service Name</label>
-           <input id="idSMSGOVHServiceName" type="text" class="form-control" placeholder="OVH Service Name (sms-xxxxxx-1)">
-           <a target="_blank" href="https://eu.api.ovh.com/createToken/index.cgi?GET=/sms&GET=/sms/*/jobs&POST=/sms/*/jobs" class="col-2 col-form-label">Creer un token</a>
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">OVH Service Name</label>
+         <div class="col-7 col-sm-8">
+           <div class="row g-2 align-items-center">
+             <div class="col">
+               <input id="idSMSGOVHServiceName" type="text" class="form-control" placeholder="OVH Service Name (sms-xxxxxx-1)">
+             </div>
+             <div class="col-12 col-sm-auto">
+               <a target="_blank" href="https://eu.api.ovh.com/createToken/index.cgi?GET=/sms&GET=/sms/*/jobs&POST=/sms/*/jobs" class="btn btn-outline-info btn-sm">Creer un token</a>
+             </div>
+           </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">OVH Application Key</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">OVH Application Key</label>
+         <div class="col-7 col-sm-8">
            <input id="idSMSGOVHApplicationKey" type="text" class="form-control" placeholder="OVH Application Key">
-          </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">OVH Application Secret</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">OVH Application Secret</label>
+         <div class="col-7 col-sm-8">
            <input id="idSMSGOVHApplicationSecret" type="text" class="form-control" placeholder="OVH Application Secret">
-          </div>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">OVH Consumer Key</label>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">OVH Consumer Key</label>
+         <div class="col-7 col-sm-8">
            <input id="idSMSGOVHConsumerKey" type="text" class="form-control" placeholder="OVH Consumer Key">
-          </div>
+         </div>
        </div>
 
       <div class="modal-footer">

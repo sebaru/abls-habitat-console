@@ -58,7 +58,7 @@
               "render": function (item)
                 { return( htmlEncode(item.email) ); }
             },
-            { "data": null, "title":"Level", "className": "align-middle text-left d-none d-md-table-cell",
+            { "data": null, "title":"Level", "className": "align-middle text-start d-none d-md-table-cell",
               "render": function (item)
                 { return( Badge_Access_level ( item.access_level ) + " - " + Access_level_description[item.access_level].name ); }
             },

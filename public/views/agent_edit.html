@@ -8,72 +8,72 @@
          <div class="card-header"> <i class="fas fa-pen text-primary"></i> <label>Configuration de l'agent</label> </div>
          <div class="card-body">
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Informations</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Informations</label>
+             <div class="col-8">
                <input disabled id="idAGENTHostname" type="text" class="form-control" placeholder="Agent Hostname">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Agent UUID</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Agent UUID</label>
+             <div class="col-8">
                <input disabled id="idAGENTUUID" type="text" class="form-control" placeholder="Agent UUID">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Description</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Description</label>
+             <div class="col-8">
                <input id="idAGENTDescription" type="text" class="form-control" placeholder="Agent description">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Switch branch</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Switch branch</label>
+             <div class="col-8">
                <input id="idAGENTBranche" type="text" class="form-control" placeholder="new GIT branch">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Headless</label>
-               <div class="form-check form-switch d-flex align-items-center ms-2">
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Headless</label>
+             <div class="col-8">
+               <div class="form-check form-switch d-flex align-items-center min-vh-0 py-2">
                 <input id="idAGENTHeadless" type="checkbox" class="form-check-input" role="switch">
                </div>
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Log Level</label>
-               <select id="idAGENTLogLevel" class="form-control"></select>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Log Level</label>
+             <div class="col-8">
+               <select id="idAGENTLogLevel" class="form-select"></select>
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Log MSRV</label>
-               <div class="form-check form-switch d-flex align-items-center ms-2">
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Log MSRV</label>
+             <div class="col-8">
+               <div class="form-check form-switch d-flex align-items-center min-vh-0 py-2">
                 <input id="idAGENTLogMSRV" type="checkbox" class="form-check-input" role="switch">
                </div>
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Log BUS</label>
-               <div class="form-check form-switch d-flex align-items-center ms-2">
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Log BUS</label>
+             <div class="col-8">
+               <div class="form-check form-switch d-flex align-items-center min-vh-0 py-2">
                 <input id="idAGENTLogBUS" type="checkbox" class="form-check-input" role="switch">
                </div>
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Log DLS</label>
-               <div class="form-check form-switch d-flex align-items-center ms-2">
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Log DLS</label>
+             <div class="col-8">
+               <div class="form-check form-switch d-flex align-items-center min-vh-0 py-2">
                 <input id="idAGENTLogDLS" type="checkbox" class="form-check-input" role="switch">
                </div>
              </div>
@@ -93,16 +93,16 @@
          <div class="card-header"> <i class="fas fa-pen text-primary"></i> <label>Lier l'agent</label> </div>
          <div class="card-body">
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Lier un agent natif</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Lier un agent natif</label>
+             <div class="col-8">
                <textarea id="idAGENTLinkNatif" readonly rows="5" type="text" class="form-control" placeholder="Link a native agent"></textarea>
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Lier un agent en container</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Lier un agent en container</label>
+             <div class="col-8">
                <textarea id="idAGENTLinkPodman" readonly rows="7" type="text" class="form-control" placeholder="Link a container agent"></textarea>
              </div>
            </div>

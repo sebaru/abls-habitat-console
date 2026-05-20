@@ -8,76 +8,78 @@
          <div class="card-header"> <i class="fas fa-pen text-primary"></i> <label>Configuration</label> </div>
          <div class="card-body">
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">User UUID</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">User UUID</label>
+             <div class="col-8">
                <input id="idUserUUID" disabled type="text" class="form-control" placeholder="User UUID">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">User Email</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">User Email</label>
+             <div class="col-8">
                <input id="idUserEmail" disabled type="text" class="form-control" placeholder="User Email">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">User Name</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">User Name</label>
+             <div class="col-8">
                <input id="idUserName" type="text" class="form-control" placeholder="User Shortname">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Permissions level</label>
-               <div class="input-group-text"><i class="fas fa-star text-primary"></i></div>
-               <span class='form-control' id="idUserAccessLevel"></span>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Permissions level</label>
+             <div class="col-8">
+               <div class="input-group">
+                 <div class="input-group-text"><i class="fas fa-star text-primary"></i></div>
+                 <span class='form-control' id="idUserAccessLevel"></span>
+               </div>
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">User Phone</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">User Phone</label>
+             <div class="col-8">
                <input id="idUserPhone" type="text" class="form-control" placeholder="User phone">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Free SMS Api USER</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Free SMS Api USER</label>
+             <div class="col-8">
                <input id="idUserFreeSmsApiUser" type="text" class="form-control" placeholder="Free Api User to send SMS">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Free SMS Api KEY</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Free SMS Api KEY</label>
+             <div class="col-8">
                <input id="idUserFreeSmsApiKey" type="text" class="form-control" placeholder="Free Api key to send SMS">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">User XMPP</label>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">User XMPP</label>
+             <div class="col-8">
                <input id="idUserXmpp" type="text" class="form-control" placeholder="User instant message">
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group mb-1">
-               <label class="col-4 col-form-label text-right">Notifications textuelles<br><small class="text-dark">par GSM ou IMSG</small></label>
-               <div class="form-check form-switch d-flex align-items-center ms-2">
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Notifications textuelles<br><small class="text-dark">par GSM ou IMSG</small></label>
+             <div class="col-8">
+               <div class="form-check form-switch d-flex align-items-center min-vh-0 py-2">
                 <input id="idUserWannaBeNotified" type="checkbox" class="form-check-input" role="switch">
                </div>
              </div>
            </div>
 
-           <div class="row ">
-             <div class="input-group align-items-center">
-               <label class="col-4 col-form-label text-right">Commandes textuelles<br><small class="text-dark">par GSM ou IMSG</small></label>
-               <div class="form-check form-switch d-flex align-items-center ms-2">
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Commandes textuelles<br><small class="text-dark">par GSM ou IMSG</small></label>
+             <div class="col-8">
+               <div class="form-check form-switch d-flex align-items-center min-vh-0 py-2">
                 <input id="idUserCanSendTxtCde" type="checkbox" class="form-check-input" role="switch">
                </div>
              </div>
@@ -99,12 +101,18 @@
          </div>
          <div class="card-body collapse" id="idAdvancedOptions">
 
-           <div class="row ">
-             <div class="input-group align-items-center">
-               <label class="col-4 col-form-label text-right">Delete User<br><small class="text-danger">Cannot be Undone</small></label>
-               <input  id="idUserDeleteText" type="text" class="col-6 form-control" placeholder="type 'ok to delete ' followed by user_uuid">
-               <button id="idUserDeleteButton" class="col-2 ml-1 form-control btn btn-danger">
-                 <span id="idSpinnerDelete" class="spinner-border spinner-border-sm" style="display:none" role="status" aria-hidden="true"></span> Delete</button>
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Delete User<br><small class="text-danger">Cannot be Undone</small></label>
+             <div class="col-8">
+               <div class="row g-2 align-items-center">
+                 <div class="col">
+                   <input  id="idUserDeleteText" type="text" class="form-control" placeholder="type 'ok to delete ' followed by user_uuid">
+                 </div>
+                 <div class="col-12 col-sm-auto">
+                   <button id="idUserDeleteButton" class="btn btn-danger w-100">
+                     <span id="idSpinnerDelete" class="spinner-border spinner-border-sm" style="display:none" role="status" aria-hidden="true"></span> Delete</button>
+                 </div>
+               </div>
              </div>
            </div>
 

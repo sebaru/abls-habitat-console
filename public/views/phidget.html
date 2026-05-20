@@ -40,52 +40,52 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
-        <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idPHIDGETTitre"></span></h5>
+        <h5 class="modal-title"><i class="fas fa-pen"></i> <span id="idPHIDGETTitre"></span></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
 
       <div class="modal-body">
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Choix de l'agent</label>
-           <select id="idTargetAgent" class="custom-select border-info"></select>
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Choix de l'agent</label>
+         <div class="col-7 col-sm-8">
+          <select id="idTargetAgent" class="form-select border-info"></select>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">TechID</label>
-           <input id="idPHIDGETTechID" required type="text" class="form-control" placeholder="Tech ID du module">
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">TechID</label>
+         <div class="col-7 col-sm-8">
+          <input id="idPHIDGETTechID" required type="text" class="form-control" placeholder="Tech ID du module">
+         </div>
         </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
-           <input id="idPHIDGETDescription" type="text" class="form-control" placeholder="Ou est le hub ?">
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Description</label>
+         <div class="col-7 col-sm-8">
+          <input id="idPHIDGETDescription" type="text" class="form-control" placeholder="Ou est le hub ?">
+         </div>
         </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Hostname</label>
-           <input id="idPHIDGETHostname" required type="text" class="form-control" maxlength="32" placeholder="@IP ou hostname">
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Hostname</label>
+         <div class="col-7 col-sm-8">
+          <input id="idPHIDGETHostname" required type="text" class="form-control" maxlength="32" placeholder="@IP ou hostname">
+         </div>
         </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Mot de passe</label>
-           <input id="idPHIDGETPassword" required type="text" class="form-control" placeholder="Mot de passe de connexion">
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Mot de passe</label>
+         <div class="col-7 col-sm-8">
+          <input id="idPHIDGETPassword" required type="text" class="form-control" placeholder="Mot de passe de connexion">
+         </div>
         </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Serial Number</label>
-           <input id="idPHIDGETSerial" required type="number" class="form-control" placeholder="Serial Number">
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Serial Number</label>
+         <div class="col-7 col-sm-8">
+          <input id="idPHIDGETSerial" required type="number" class="form-control" placeholder="Serial Number">
+         </div>
         </div>
 
       </div>
@@ -102,40 +102,42 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content ">
       <div class="modal-header bg-info text-white">
-        <h5 class="modal-title text-justify"><i class="fas fa-pen"></i> <span id="idPHIDGETEditIOTitre"></span></h5>
+        <h5 class="modal-title"><i class="fas fa-pen"></i> <span id="idPHIDGETEditIOTitre"></span></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
       <div class="modal-body">
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Type de Capteur</label>
-           <select id="idPHIDGETEditIOCapteur" class="custom-select border-info"></select>
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Type de Capteur</label>
+         <div class="col-7 col-sm-8">
+          <select id="idPHIDGETEditIOCapteur" class="form-select border-info"></select>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Archivage</label>
-           <select id="idPHIDGETEditIOArchivage" class="custom-select border-info">
-           </select>
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Archivage</label>
+         <div class="col-7 col-sm-8">
+          <select id="idPHIDGETEditIOArchivage" class="form-select border-info">
+          </select>
+         </div>
        </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Intervalle</label>
-           <input id="idPHIDGETEditIOIntervalle" required type="number" class="form-control" min=1000 max=60000 placeholder="Intervalle d'acquisition">
-            <span class="input-group-text form-control">ms</span>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Intervalle</label>
+         <div class="col-7 col-sm-8">
+          <div class="input-group">
+          <input id="idPHIDGETEditIOIntervalle" required type="number" class="form-control" min=1000 max=60000 placeholder="Intervalle d'acquisition">
+          <span class="input-group-text">ms</span>
           </div>
+         </div>
         </div>
 
-       <div class="col ">
-          <div class="input-group mb-1">
-           <label class="col-5 col-sm-4 col-form-label text-right">Description</label>
-           <input id="idPHIDGETEditIOLibelle" type="text" class="form-control" placeholder="Description">
-          </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Description</label>
+         <div class="col-7 col-sm-8">
+          <input id="idPHIDGETEditIOLibelle" type="text" class="form-control" placeholder="Description">
+         </div>
        </div>
 
       </div>
