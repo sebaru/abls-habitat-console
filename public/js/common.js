@@ -145,7 +145,7 @@
        $("#idUsername").text(username);
        CurrentUserUUID = Response.user_uuid;
        $("body").hide().removeClass("d-none").fadeIn();
-       window.dispatchEvent(new Event('keycloak-ready'));
+          window.dispatchEvent(new Event('keycloak-ready'));
      }, function () { Show_toast_ko ("Unable to request profil."); } );
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
@@ -181,7 +181,7 @@
   }
 /********************************************* Barre de boutons ***************************************************************/
  function Bouton_actions_start ( )
-  { return("<div class='btn-group btn-block' role='group' aria-label='ButtonGroup'>"); }
+  { return("<div class='btn-group w-100' role='group' aria-label='ButtonGroup'>"); }
 
  function Bouton_actions_add ( color, tooltip, clic_func, key, icone, texte, extra_args )
   { if (clic_func !== null)
@@ -235,7 +235,7 @@
  function Bouton ( color, tooltip, clic_func, key, texte )
   { if (clic_func !== null)
      { result = "<button "+
-                "class='btn btn-"+color+" btn-block btn-sm' "+
+                "class='btn btn-"+color+" w-100 btn-sm' "+
                 "data-bs-toggle='tooltip' title='"+htmlEncode(tooltip)+"' "+
                 "onclick="+clic_func+"('"+key+"')>"+
                 "<span id='idButtonSpinner_"+clic_func+"_"+key+"' class='spinner-border spinner-border-sm' style='display:none' "+
@@ -245,7 +245,7 @@
      }
    else
     { result =  "<button "+
-                "class='btn btn-"+color+" btn-block btn-sm' "+
+                "class='btn btn-"+color+" w-100 btn-sm' "+
                 "data-bs-toggle='tooltip' title='"+htmlEncode(tooltip)+"' "+
                 "disabled>"+htmlEncode(texte)+
                 "</button>";
@@ -290,7 +290,7 @@
   { return( Badge ( Access_level_description[level].color, Access_level_description[level].name, level.toString() ) ); }
 /********************************************* Renvoi un Select d'access Level ************************************************/
  function Select ( id, fonction, array, selected )
-  { retour = "<select id='"+id+"' class='custom-select border border-info' ";
+  { retour = "<select id='"+id+"' class='form-select border border-info' ";
     if (fonction) retour += "onchange="+fonction;
     retour+= ">";
     valeur = array.map ( function(item) { return(item.valeur); } );
@@ -302,7 +302,7 @@
   }
 /********************************************* Renvoi un Select d'access Level ************************************************/
  function Select_Access_level ( id, fonction, selected )
-  { retour = "<select id='"+id+"' class='custom-select'"+"onchange="+fonction+">";
+  { retour = "<select id='"+id+"' class='form-select'"+"onchange="+fonction+">";
     for ( i=localStorage.getItem("access_level")-1; i>=0; i-- )
      { retour += "<option value='"+i+"' "+(selected==i ? "selected" : "")+">"+i+" - "+Access_level_description[i].name+"</option>"; }
     retour +="</select>";
