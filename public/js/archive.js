@@ -64,10 +64,10 @@
                { "data": "fragmentation", "title":"Fragmentation (%)", "className": "align-middle text-center d-none d-lg-table-cell" },
                { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
                  "render": function (item)
-                   { boutons = Bouton_actions_start ();
-                     /*boutons += Bouton_actions_add ( "warning", "Refroidir", "ARCHIVE_Move_to_cold", "rowId-"+rowid, "freeze", null );*/
-                     if (item.size>100 && item.fragmentation>=5) boutons += Bouton_actions_add ( "primary", "Rebuild", "Archive_Rebuild_Hot", "rowId-"+item.partname, "database", null );
-                     boutons += Bouton_actions_end ();
+                   { if (!(item.size>100 && item.fragmentation>=5)) return("");
+                     boutons = Bouton_deroulant_start();
+                     boutons += Bouton_deroulant_add ( "primary", "Rebuild", "Archive_Rebuild_Hot", "rowId-"+item.partname, "database" );
+                     boutons += Bouton_deroulant_end ();
                      return(boutons);
                    },
                }
@@ -91,9 +91,9 @@
                { "data": "size", "title":"Taille (Mb)", "className": "align-middle text-center d-none d-md-table-cell" },
                { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
                  "render": function (item)
-                   { boutons = Bouton_actions_start ();
-                     boutons += Bouton_actions_add ( "danger", "Supprimer les archives", "Show_Modal_Archive_Del_Cold", "rowId-"+item.tablename, "trash", null );
-                     boutons += Bouton_actions_end ();
+                   { boutons = Bouton_deroulant_start();
+                     boutons += Bouton_deroulant_add ( "danger", "Supprimer les archives", "Show_Modal_Archive_Del_Cold", "rowId-"+item.tablename, "trash" );
+                     boutons += Bouton_deroulant_end ();
                      return(boutons);
                    },
                }

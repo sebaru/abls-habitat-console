@@ -132,10 +132,11 @@
             { "data": "libelle", "title":"Libellé", "className": "align-middle text-center d-none d-lg-table-cell " },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Voir la courbe", "Redirect", "/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR", "chart-line", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer cette courbe", "Tableau_Map_Delete", item.tableau_map_id, "trash", null );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "primary", "Voir la courbe", "Redirect", "/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR", "chart-line" );
+                  boutons += Bouton_deroulant_add_spacer ();
+                  boutons += Bouton_deroulant_add ( "danger", "Supprimer cette courbe", "Tableau_Map_Delete", item.tableau_map_id, "trash" );
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             }

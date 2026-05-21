@@ -179,10 +179,11 @@
           },
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
-              { boutons = Bouton_actions_start ();
-                boutons += Bouton_actions_add ( "outline-primary", "Editer la connexion", "GPIOD_Edit", item.gpiod_id, "pen", null );
-                boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "GPIOD_Del", item.gpiod_id, "trash", null );
-                boutons += Bouton_actions_end ();
+              { boutons = Bouton_deroulant_start();
+                boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "GPIOD_Edit", item.gpiod_id, "pen" );
+                boutons += Bouton_deroulant_add_spacer ();
+                boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "GPIOD_Del", item.gpiod_id, "trash" );
+                boutons += Bouton_deroulant_end ();
                 return(boutons);
               },
           }
@@ -230,11 +231,14 @@
                 { return ( (item.mode_activelow ? "TRUE" : "FALSE") ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "GPIOD_Edit_IO", item.gpiod_io_id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "GPIOD_Map", item.gpiod_io_id, "directions", null );
-                  if (item.mapping_id) boutons += Bouton_actions_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", null, "'GPIOD_Refresh'" );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "outline-primary", "Editer cet objet", "GPIOD_Edit_IO", item.gpiod_io_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "primary", "Mapper cet objet", "GPIOD_Map", item.gpiod_io_id, "directions" );
+                  if (item.mapping_id)
+                   { boutons += Bouton_deroulant_add_spacer ();
+                     boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", "'GPIOD_Refresh'" );
+                   }
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             },

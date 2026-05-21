@@ -225,9 +225,9 @@
           },
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
-              { boutons = Bouton_actions_start ();
-                boutons += Bouton_actions_add ( "primary", "Editer les ticks", "Redirect", "/home/horloge/"+item.id, "pen", null );
-                boutons += Bouton_actions_end ();
+              { boutons = Bouton_deroulant_start();
+                boutons += Bouton_deroulant_add ( "primary", "Editer les ticks", "Redirect", "/home/horloge/"+item.id, "pen" );
+                boutons += Bouton_deroulant_end ();
                 return(boutons);
               },
           }

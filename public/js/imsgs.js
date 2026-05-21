@@ -149,11 +149,12 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la connexion", "IMSGS_Edit", item.imsgs_id, "pen", null );
-                 boutons += Bouton_actions_add ( "outline-primary", "Test IMSGS", "IMSGS_Test", item.imsgs_id, "question", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "IMSGS_Del", item.imsgs_id, "trash", null );
-                 boutons += Bouton_actions_end ();
+               { boutons = Bouton_deroulant_start();
+                 boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "IMSGS_Edit", item.imsgs_id, "pen" );
+                 boutons += Bouton_deroulant_add ( "primary", "Test IMSGS", "IMSGS_Test", item.imsgs_id, "question" );
+                 boutons += Bouton_deroulant_add_spacer ();
+                 boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "IMSGS_Del", item.imsgs_id, "trash" );
+                 boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
            }

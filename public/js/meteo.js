@@ -144,11 +144,12 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la connexion", "METEO_Edit", item.meteo_id, "pen", null );
-                 boutons += Bouton_actions_add ( "outline-primary", "Test METEO", "METEO_Test", item.meteo_id, "question", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "METEO_Del", item.meteo_id, "trash", null );
-                 boutons += Bouton_actions_end ();
+               { boutons = Bouton_deroulant_start ( "outline-primary" );
+                 boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "METEO_Edit", item.meteo_id, "pen" );
+                 boutons += Bouton_deroulant_add ( "primary", "Test METEO", "METEO_Test", item.meteo_id, "question" );
+                 boutons += Bouton_deroulant_add_sensitive_start ();
+                 boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "METEO_Del", item.meteo_id, "trash" );
+                 boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
            }

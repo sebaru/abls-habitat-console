@@ -332,10 +332,11 @@
               },
           },
           { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center", "render": function (item)
-              { boutons = Bouton_actions_start ();
-                boutons += Bouton_actions_add ( "outline-primary", "Editer le module", "MODBUS_Edit", item.modbus_id, "pen", null );
-                boutons += Bouton_actions_add ( "danger", "Supprimer le module", "MODBUS_Del", item.modbus_id, "trash", null );
-                boutons += Bouton_actions_end ();
+              { boutons = Bouton_deroulant_start();
+                boutons += Bouton_deroulant_add ( "primary", "Editer le module", "MODBUS_Edit", item.modbus_id, "pen" );
+                boutons += Bouton_deroulant_add_spacer ();
+                boutons += Bouton_deroulant_add ( "danger", "Supprimer le module", "MODBUS_Del", item.modbus_id, "trash" );
+                boutons += Bouton_deroulant_end ();
                 return(boutons);
               },
           }
@@ -380,11 +381,14 @@
                 { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_DI", item.modbus_di_id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DI", item.modbus_di_id, "directions", null );
-                  if (item.mapping_id) boutons += Bouton_actions_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", null, "'MODBUS_Refresh'" );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "primary", "Editer cet objet", "MODBUS_Edit_DI", item.modbus_di_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "primary", "Mapper cet objet", "MODBUS_Map_DI", item.modbus_di_id, "directions" );
+                  if (item.mapping_id)
+                   { boutons += Bouton_deroulant_add_spacer ();
+                     boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", "'MODBUS_Refresh'" );
+                   }
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             },
@@ -429,11 +433,14 @@
                 { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_DO", item.modbus_do_id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_DO", item.modbus_do_id, "directions", null );
-                  if (item.mapping_id) boutons += Bouton_actions_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", null, "'MODBUS_Refresh'" );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "primary", "Editer cet objet", "MODBUS_Edit_DO", item.modbus_do_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "primary", "Mapper cet objet", "MODBUS_Map_DO", item.modbus_do_id, "directions" );
+                  if (item.mapping_id)
+                   { boutons += Bouton_deroulant_add_spacer ();
+                     boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", "'MODBUS_Refresh'" );
+                   }
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             },
@@ -488,11 +495,14 @@
                 { return( htmlEncode ( item.unite ) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_AI", item.modbus_ai_id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_AI", item.modbus_ai_id, "directions", null );
-                  if (item.mapping_id) boutons += Bouton_actions_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", null, "'MODBUS_Refresh'" );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "primary", "Editer cet objet", "MODBUS_Edit_AI", item.modbus_ai_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "primary", "Mapper cet objet", "MODBUS_Map_AI", item.modbus_ai_id, "directions" );
+                  if (item.mapping_id)
+                   { boutons += Bouton_deroulant_add_spacer ();
+                     boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", "'MODBUS_Refresh'" );
+                   }
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             },
@@ -547,11 +557,14 @@
                 { return( htmlEncode ( item.unite ) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "MODBUS_Edit_AO", item.modbus_ao_id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "MODBUS_Map_AO", item.modbus_ao_id, "directions", null );
-                  if (item.mapping_id) boutons += Bouton_actions_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", null, "'MODBUS_Refresh'" );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "primary", "Editer cet objet", "MODBUS_Edit_AO", item.modbus_ao_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "primary", "Mapper cet objet", "MODBUS_Map_AO", item.modbus_ao_id, "directions" );
+                  if (item.mapping_id)
+                   { boutons += Bouton_deroulant_add_spacer ();
+                     boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", "'MODBUS_Refresh'" );
+                   }
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             },

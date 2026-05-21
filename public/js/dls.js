@@ -187,7 +187,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
               "render": function (item)
-                { boutons = Bouton_deroulant_start ( "primary", "" );
+                { boutons = Bouton_deroulant_start();
                   if (item.package == "" || item.package == "custom")
                    { boutons += Bouton_deroulant_add ( "primary", "Voir le code", "Redirect", "/dls/"+item.tech_id, "code" ); }
                   else
@@ -199,7 +199,7 @@
                   boutons += Bouton_deroulant_add ( "primary", "Voir les messages", "Redirect", "/messages/"+item.tech_id, "book" );
                   boutons += Bouton_deroulant_add ( "primary", "Voir les RUN", "Redirect", "/dls/run/"+item.tech_id, "eye" );
                   if (item.dls_id!=1)
-                   { boutons += Bouton_deroulant_add_spacer();
+                   { boutons += Bouton_deroulant_add_spacer ();
                      boutons += Bouton_deroulant_add ( "danger", "Supprimer le plugin", "Show_Modal_Dls_Del", item.dls_id, "trash" );
                    }
                   boutons += Bouton_deroulant_end ();

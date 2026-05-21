@@ -166,11 +166,12 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer le thread AUDIO", "AUDIO_Edit", item.audio_id, "pen", null );
-                 boutons += Bouton_actions_add ( "outline-primary", "Tester le thread AUDIO", "AUDIO_Test", item.audio_id, "question", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer le thread AUDIO", "AUDIO_Del", item.audio_id, "trash", null );
-                 boutons += Bouton_actions_end ();
+               { boutons = Bouton_deroulant_start();
+                 boutons += Bouton_deroulant_add ( "primary", "Editer le thread AUDIO", "AUDIO_Edit", item.audio_id, "pen" );
+                 boutons += Bouton_deroulant_add ( "primary", "Tester le thread AUDIO", "AUDIO_Test", item.audio_id, "question" );
+                 boutons += Bouton_deroulant_add_spacer ();
+                 boutons += Bouton_deroulant_add ( "danger", "Supprimer le thread AUDIO", "AUDIO_Del", item.audio_id, "trash" );
+                 boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
            }

@@ -55,10 +55,11 @@
                 }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "primary", "Mapper cette commande", "COMMAND_TEXT_Map_DI", item.mapping_id, "directions", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer le mapping", "COMMAND_TEXT_Del", item.mapping_id, "trash", null );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "primary", "Mapper cette commande", "COMMAND_TEXT_Map_DI", item.mapping_id, "directions" );
+                  boutons += Bouton_deroulant_add_spacer ();
+                  boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "COMMAND_TEXT_Del", item.mapping_id, "trash" );
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             },

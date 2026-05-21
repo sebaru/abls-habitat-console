@@ -193,10 +193,11 @@
           },
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
-              { boutons = Bouton_actions_start ();
-                boutons += Bouton_actions_add ( "outline-primary", "Editer la connexion", "PHIDGET_Edit", item.phidget_id, "pen", null );
-                boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "PHIDGET_Del", item.phidget_id, "trash", null );
-                boutons += Bouton_actions_end ();
+              { boutons = Bouton_deroulant_start ( );
+                boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "PHIDGET_Edit", item.phidget_id, "pen" );
+                boutons += Bouton_deroulant_add_sensitive_start ();
+                boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "PHIDGET_Del", item.phidget_id, "trash" );
+                boutons += Bouton_deroulant_end ();
                 return(boutons);
               },
           }
@@ -242,11 +243,14 @@
                 { return ( htmlEncode(item.libelle) ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer cet objet", "PHIDGET_Edit_IO", item.phidget_io_id, "pen", null );
-                  boutons += Bouton_actions_add ( "primary", "Mapper cet objet", "PHIDGET_Map", item.phidget_io_id, "directions", null );
-                  if (item.mapping_id) boutons += Bouton_actions_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", null, "'PHIDGET_Refresh'" );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start ( );
+                  boutons += Bouton_deroulant_add ( "primary", "Editer cet objet", "PHIDGET_Edit_IO", item.phidget_io_id, "pen" );
+                  boutons += Bouton_deroulant_add ( "primary", "Mapper cet objet", "PHIDGET_Map", item.phidget_io_id, "directions" );
+                  if (item.mapping_id)
+                   { boutons += Bouton_deroulant_add_sensitive_start ();
+                     boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", "'PHIDGET_Refresh'" );
+                   }
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             },

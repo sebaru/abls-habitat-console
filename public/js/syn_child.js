@@ -89,10 +89,10 @@ var SYN_Response = null;
             },
             { "data": null, "title": "Ordre", "orderable": false, "className": "align-middle text-center",
               "render": function (item, type, row, meta)
-                { var boutons = Bouton_actions_start();
-                  boutons += Bouton_actions_add ( "outline-primary", "Monter",    "SYN_Move_up"  , item.page, "arrow-up",   "Up"   );
-                  boutons += Bouton_actions_add ( "outline-primary", "Descendre", "SYN_Move_down", item.page, "arrow-down", "Down" );
-                  boutons += Bouton_actions_end();
+                { var boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "outline-primary", "Monter", "SYN_Move_up", item.page, "arrow-up" );
+                  boutons += Bouton_deroulant_add ( "outline-primary", "Descendre", "SYN_Move_down", item.page, "arrow-down" );
+                  boutons += Bouton_deroulant_end();
                   return(boutons);
                 }
             },

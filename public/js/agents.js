@@ -126,14 +126,14 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons = Bouton_deroulant_start ( (item.is_alive ? "primary" : "secondary"), "" );
+               { boutons = Bouton_deroulant_start();
                  if (item.is_alive)
                   { boutons += Bouton_deroulant_add ( "warning", "Upgrader",  "AGENT_Upgrade", item.agent_id, "download" );
                     boutons += Bouton_deroulant_add ( "warning", "Restarter", "AGENT_Reset",   item.agent_id, "redo" );
-                    boutons += Bouton_deroulant_add_spacer();
-                  }
-                 if (item.is_master === false && item.is_alive)
-                  { boutons += Bouton_deroulant_add ( "danger", "Set Master", "AGENT_Set_master", item.agent_id, "crown" );
+                    if (item.is_master === false)
+                     { boutons += Bouton_deroulant_add_spacer();
+                       boutons += Bouton_deroulant_add ( "danger", "Set Master", "AGENT_Set_master", item.agent_id, "crown" );
+                     }
                     boutons += Bouton_deroulant_add_spacer();
                   }
                  boutons += Bouton_deroulant_add ( "danger",  "Supprimer", "AGENT_Delete",  item.agent_id, "trash" );

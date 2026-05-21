@@ -68,9 +68,9 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons  = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "danger", "Supprimer le thread de la zone "+item.audio_zone_name, "AUDIOZONE_Unmap", item.audio_zone_map_id, "trash", null );
-                 boutons += Bouton_actions_end ();
+               { boutons  = Bouton_deroulant_start();
+                 boutons += Bouton_deroulant_add ( "danger", "Supprimer le thread de la zone "+item.audio_zone_name, "AUDIOZONE_Unmap", item.audio_zone_map_id, "trash" );
+                 boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
            }

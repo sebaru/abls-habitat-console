@@ -62,9 +62,9 @@
             { "data": "url", "title":"URL", "className": "d-none d-md-table-cell" },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "danger", "Retirer cette caméra", "SYN_CAMERA_Delete", item.syn_camera_id, "trash", null );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "danger", "Retirer cette caméra", "SYN_CAMERA_Delete", item.syn_camera_id, "trash" );
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             }

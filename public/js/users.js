@@ -64,11 +64,13 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  if (item.access_level<localStorage.getItem("access_level") || item.user_uuid==CurrentUserUUID)
-                        { boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur", "Redirect", "/user/"+item.user_uuid, "pen", null ); }
-                   else { boutons += Bouton_actions_add ( "primary", "Editer l'utilisateur", null, null, "pen", null ); }
-                  boutons += Bouton_actions_end ();
+                { var can_edit = item.access_level<localStorage.getItem("access_level");
+                  boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "primary", "Editer l'utilisateur",
+                                                    (can_edit ? "Redirect" : null),
+                                                    (can_edit ? "/user/"+item.user_uuid : null),
+                                                    "pen" );
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 },
             }

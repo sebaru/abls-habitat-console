@@ -155,10 +155,11 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la connexion", "TELEINFO_Edit", item.teleinfoedf_id, "pen", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "TELEINFO_Del", item.teleinfoedf_id, "trash", null );
-                 boutons += Bouton_actions_end ();
+               { boutons = Bouton_deroulant_start ( "primary" );
+                 boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "TELEINFO_Edit", item.teleinfoedf_id, "pen" );
+                 boutons += Bouton_deroulant_add_sensitive_start ();
+                 boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "TELEINFO_Del", item.teleinfoedf_id, "trash" );
+                 boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
            }

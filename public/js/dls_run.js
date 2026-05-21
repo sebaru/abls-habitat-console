@@ -274,14 +274,6 @@
                                  else { return( Bouton ( "outline-secondary", "Le bit est a 0", null, null, "0" ) ); }
                },
            },
-        /*   { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
-             "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "success", "Activer le bit", "Dls_run_MONO_set", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_end ();
-                 return(boutons);
-               },
-           }*/
          ],
        /*order: [ [0, "desc"] ],*/
      });
@@ -304,15 +296,6 @@
                                  else { return( Bouton ( "outline-secondary", "Le bit est a 0", null, null, "0" ) ); }
                },
            },
-       /*    { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
-             "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "success", "Activer le bit", "Dls_run_BI_set", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_add ( "secondary", "Désactiver le bit", "Dls_run_BI_reset", item.acronyme, "power-off", null );
-                 boutons += Bouton_actions_end ();
-                 return(boutons);
-               },
-           }*/
          ],
        /*order: [ [0, "desc"] ],*/
      });

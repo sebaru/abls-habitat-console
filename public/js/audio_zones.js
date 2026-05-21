@@ -84,11 +84,14 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 if (item.audio_zone_id!=1) boutons += Bouton_actions_add ( "primary", "Editer la zone de diffusion", "AUDIOZONE_Edit", item.audio_zone_id, "pen", null );
-                 boutons += Bouton_actions_add ( "outline-primary", "Tester la diffusion", "AUDIOZONE_Test", item.audio_zone_id, "question", null );
-                 if (item.audio_zone_id!=1) boutons += Bouton_actions_add ( "danger", "Supprimer la zone", "AUDIOZONE_Del", item.audio_zone_id, "trash", null );
-                 boutons += Bouton_actions_end ();
+               { boutons = Bouton_deroulant_start();
+                 if (item.audio_zone_id!=1) boutons += Bouton_deroulant_add ( "primary", "Editer la zone de diffusion", "AUDIOZONE_Edit", item.audio_zone_id, "pen" );
+                 boutons += Bouton_deroulant_add ( "primary", "Tester la diffusion", "AUDIOZONE_Test", item.audio_zone_id, "question" );
+                 if (item.audio_zone_id!=1)
+                  { boutons += Bouton_deroulant_add_spacer ();
+                    boutons += Bouton_deroulant_add ( "danger", "Supprimer la zone", "AUDIOZONE_Del", item.audio_zone_id, "trash" );
+                  }
+                 boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
            }

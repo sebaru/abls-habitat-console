@@ -146,10 +146,11 @@
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
-               { boutons = Bouton_actions_start ();
-                 boutons += Bouton_actions_add ( "primary", "Editer la connexion", "UPS_Edit", item.ups_id, "pen", null );
-                 boutons += Bouton_actions_add ( "danger", "Supprimer la connexion", "UPS_Del", item.ups_id, "trash", null );
-                 boutons += Bouton_actions_end ();
+               { boutons = Bouton_deroulant_start();
+                 boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "UPS_Edit", item.ups_id, "pen" );
+                 boutons += Bouton_deroulant_add_spacer ();
+                 boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "UPS_Del", item.ups_id, "trash" );
+                 boutons += Bouton_deroulant_end ();
                  return(boutons);
                },
            }

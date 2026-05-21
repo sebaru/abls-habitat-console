@@ -83,11 +83,12 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "className": "align-middle  text-center",
               "render": function (item)
-                { boutons = Bouton_actions_start ();
-                  boutons += Bouton_actions_add ( "outline-secondary", "Voir le code", "Redirect", "/dls/package/"+item.name, "code", null );
-                  boutons += Bouton_actions_add ( "outline-primary", "Editer", "Show_Modal_DLS_Pkg_Edit", item.dls_package_id, "pen", null );
-                  boutons += Bouton_actions_add ( "danger", "Supprimer le package", "Show_Modal_DLS_Pkg_Del", item.dls_package_id, "trash", null );
-                  boutons += Bouton_actions_end ();
+                { boutons = Bouton_deroulant_start();
+                  boutons += Bouton_deroulant_add ( "secondary", "Voir le code", "Redirect", "/dls/package/"+item.name, "code" );
+                  boutons += Bouton_deroulant_add ( "primary", "Editer", "Show_Modal_DLS_Pkg_Edit", item.dls_package_id, "pen" );
+                  boutons += Bouton_deroulant_add_spacer ();
+                  boutons += Bouton_deroulant_add ( "danger", "Supprimer le package", "Show_Modal_DLS_Pkg_Del", item.dls_package_id, "trash" );
+                  boutons += Bouton_deroulant_end ();
                   return(boutons);
                 }
             }

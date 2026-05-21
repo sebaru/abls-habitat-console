@@ -137,10 +137,11 @@
               },
           },
           { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center", "render": function (item)
-              { boutons = Bouton_actions_start ();
-                boutons += Bouton_actions_add ( "outline-primary", "Editer le module", "SHELLY_Edit", item.shelly_id, "pen", null );
-                boutons += Bouton_actions_add ( "danger", "Supprimer le module", "SHELLY_Del", item.shelly_id, "trash", null );
-                boutons += Bouton_actions_end ();
+              { boutons = Bouton_deroulant_start ( );
+                boutons += Bouton_deroulant_add ( "primary", "Editer le module", "SHELLY_Edit", item.shelly_id, "pen" );
+                boutons += Bouton_deroulant_add_sensitive_start ();
+                boutons += Bouton_deroulant_add ( "danger", "Supprimer le module", "SHELLY_Del", item.shelly_id, "trash" );
+                boutons += Bouton_deroulant_end ();
                 return(boutons);
               },
           }

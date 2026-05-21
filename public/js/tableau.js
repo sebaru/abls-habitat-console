@@ -112,7 +112,7 @@
             },
             { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
               "render": function (item)
-                { boutons = Bouton_deroulant_start ( "primary", "" );
+                { boutons = Bouton_deroulant_start();
                   /*boutons += Bouton_deroulant_add ( "secondary", "Voir le tableau", "Redirect", "/"+item.page, "chart-line" );*/
                   boutons += Bouton_deroulant_add ( "primary", "Configurer", "TABLEAU_Edit", item.tableau_id, "pen" );
                   boutons += Bouton_deroulant_add ( "secondary", "Editer les courbes", "Redirect", "/tableau/"+item.tableau_id, "pen" );
