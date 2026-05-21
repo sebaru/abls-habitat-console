@@ -88,7 +88,7 @@
      { pageLength : 50,
        fixedHeader: true,
        ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "R", "tech_id": tech_id }, dataSrc: "mnemos_REGISTRE",
-               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
@@ -125,7 +125,7 @@
        fixedHeader: true,
        ajax: { url : "/api/mnemos/list", type : "GET", data: { "classe": "CI", "tech_id": tech_id }, dataSrc: "mnemos_CI",
 
-               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }

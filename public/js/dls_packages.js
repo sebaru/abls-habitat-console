@@ -64,7 +64,7 @@
          fixedHeader: true,
          rowId: "dls_package_id",
          ajax: { url : "/api/dls/package/list", type : "GET", dataSrc: "dls_packages", contentType: "application/json",
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               },

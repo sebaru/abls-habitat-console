@@ -282,7 +282,7 @@
        rowId: "modbus_id",
        ajax: { url : "/api/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=modbus" ) },
-               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }
@@ -350,7 +350,7 @@
          ajax: { url : "/api/modbus/list", type : "GET", dataSrc: "DI",
                  contentType: "application/json",
                  data: function() { return ( "classe=DI" ) },
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
@@ -400,7 +400,7 @@
          ajax: { url : "/api/modbus/list", type : "GET", dataSrc: "DO",
                  contentType: "application/json",
                  data: function() { return ( "classe=DO" ) },
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
@@ -449,7 +449,7 @@
          ajax: { url : "/api/modbus/list", type : "GET", dataSrc: "AI",
                  contentType: "application/json",
                  data: function() { return ( "classe=AI" ) },
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }
@@ -508,7 +508,7 @@
          ajax: {	url : "/api/modbus/list", type : "GET", dataSrc: "AO",
                  contentType: "application/json",
                  data: function() { return ( "classe=AO" ) },
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }

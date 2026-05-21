@@ -24,22 +24,26 @@
      { Router.setPageContext(context); }
   }
 /******************************************************************************************************************************/
+ var ShellErrorTimer = null;
+/******************************************************************************************************************************/
  function Hide_shell_error ()
-  { $('#idShellErrorText').text("");
+  { if (ShellErrorTimer) { clearTimeout(ShellErrorTimer); ShellErrorTimer = null; }
     $('#idShellError').hide().addClass('d-none');
   }
 /******************************************************************************************************************************/
  function Show_shell_error ( message )
-  { $('#idShellErrorText').text(message);
+  { if (ShellErrorTimer) { clearTimeout(ShellErrorTimer); ShellErrorTimer = null; }
+    $('#idShellErrorText').text(message);
+    var bar = document.getElementById('idShellErrorProgress');
+    if (bar) { bar.style.transition = 'none'; bar.style.width = '100%';
+               bar.offsetWidth; /* force reflow avant animation */
+               bar.style.transition = 'width 5s linear'; bar.style.width = '0%'; }
     $('#idShellError').removeClass('d-none').show();
+    ShellErrorTimer = setTimeout(Hide_shell_error, 5000);
   }
 /******************************************************************************************************************************/
  function Show_toast_ok ( message )
   { $('#idToastStatusOKLabel').text(" "+message); $('#idToastStatusOK').toast('show'); }
-/******************************************************************************************************************************/
- function Show_toast_ko ( message )
-  { Show_shell_error(message);
-    $('#idToastStatusKOLabel').text(" "+message); $('#idToastStatusKO').toast('show'); }
 /********************************************* Chargement du synoptique 1 au démarrage ****************************************/
  function Logout ()
   { localStorage.clear();
@@ -81,10 +85,10 @@
         catch (error) { Response=undefined; }
 
         if (xhr.status == 200)
-         { if (fonction_ok != null) fonction_ok(Response); }        /* Si function exist, on l'appelle, sinon on fait un toast */
+         { if (fonction_ok != null) fonction_ok(Response); }
         else if (xhr.status == 401) { Redirect_to_login(); return; }
-        else { if (Response) Show_toast_ko( "Une erreur est survenue: " + Response.api_error );
-                else if (fonction_nok == null) Show_toast_ko( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
+        else { if (Response) Show_shell_error( "Une erreur est survenue: " + Response.api_error );
+                else Show_shell_error( "Une erreur "+ xhr.status + " est survenue: " + xhr.statusText );
                 if (fonction_nok != null) fonction_nok(xhr);
              }
       }
@@ -145,8 +149,8 @@
        $("#idUsername").text(username);
        CurrentUserUUID = Response.user_uuid;
        $("body").hide().removeClass("d-none").fadeIn();
-          window.dispatchEvent(new Event('keycloak-ready'));
-     }, function () { Show_toast_ko ("Unable to request profil."); } );
+       window.dispatchEvent(new Event('keycloak-ready'));
+     }, function () { Show_shell_error ("Unable to request profil."); } );
   }
 /********************************************* Chargement du synoptique 1 au démrrage *****************************************/
  function Show_Error ( message )

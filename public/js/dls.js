@@ -27,7 +27,7 @@
   { selection = $('#idTableDLS').DataTable().row("#"+dls_id).data();
 
     if (selection.dls_id==1)
-     { Show_toast_ko ( "La suppression du DLS originel est interdite !" ); return; }
+     { Show_shell_error ( "La suppression du DLS originel est interdite !" ); return; }
 
     Show_modal_del ( "Détruire le module ?",
                      "Etes-vous sur de vouloir supprimer le module DLS et toutes ses dépendances (Mnémoniques, ...) ?",
@@ -119,7 +119,7 @@
          fixedHeader: true,
          rowId: "dls_id",
          ajax: { url : "/api/dls/list", type : "GET", dataSrc: "dls", contentType: "application/json",
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               },

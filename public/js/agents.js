@@ -82,7 +82,7 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : "/api/agent/list", type : "GET", dataSrc: "agents",
                contentType: "application/json",
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }

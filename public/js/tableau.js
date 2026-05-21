@@ -78,7 +78,7 @@
          fixedHeader: true,
          ajax: { url : "/api/tableau/list", type : "GET", dataSrc: "tableaux", contentType: "application/json",
                  data: function() { if (syn_id != null) return ( "syn_id="+syn_id ); else return (""); },
-                 error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                  beforeSend: function (request)
                               { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                               }

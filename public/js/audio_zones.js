@@ -42,7 +42,7 @@
 /**************************************** Supprime une connexion meteo ********************************************************/
  function AUDIOZONE_Del_Valider ( selection )
   { if (selection.audio_zone_id==1)
-     { Show_toast_ko ( "La suppression de la zone par défaut est interdite !" ); return; }
+     { Show_shell_error ( "La suppression de la zone par défaut est interdite !" ); return; }
 
     var json_request = { audio_zone_name : selection.audio_zone_name };
     Send_to_API ( 'DELETE', "/audio/zones/delete", json_request, function(Response)
@@ -65,7 +65,7 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : "/api/audio/zones/list", type : "GET", dataSrc: "audio_zones", contentType: "application/json",
                /*data: function() { return ( "classe=audio" ); },*/
-               error: function ( xhr, status, error ) { Show_toast_ko(xhr.statusText); },
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                beforeSend: function (request)
                             { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
                             }

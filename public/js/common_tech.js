@@ -61,7 +61,7 @@
                                   if (typeof refresh_callback === 'function') refresh_callback();
                                   else if (typeof refresh_callback === 'string' && window[refresh_callback]) window[refresh_callback]();
                                 },
-                  (Response) => { Show_toast_ko (Response ? Response.message : "Erreur lors de la suppression du mapping."); }
+                  (Response) => { Show_shell_error (Response ? Response.message : "Erreur lors de la suppression du mapping."); }
                 );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
