@@ -49,24 +49,24 @@
   OIDCRedirectURI  https://my-abls-console.mydomain/auth/callback
 
   # Passphrase aléatoire pour chiffrer le cookie de session httpOnly
-  OIDCCryptoPassphrase <RANDOM_32_CHARS>
+  OIDCCryptoPassphrase <RANDOM_32_CHARS_SAME_FOR_ALL_SPA>
 
   # Cookie httpOnly + SameSite (protège contre XSS et CSRF)
   OIDCCookieHTTPOnly On
   OIDCCookieSameSite On
+  OIDCCookieDomain   mydomain
+
   OIDCScope          "openid email profile phone"
+  OIDCSessionType client-cookie:persistent
+  OIDCSessionMaxDuration 31536000
+  OIDCSessionInactivityTimeout 86400
 
   # Expose les claims OIDC comme variables d'environnement Apache
   # (nécessaire pour injecter OIDC_access_token dans les proxies)
   OIDCPassClaimsAs environment
   OIDCRefreshAccessTokenBeforeExpiry 60 logout_on_error
-  OIDCSessionMaxDuration 0
-  OIDCSessionInactivityTimeout 86400 
-  OIDCInfoHook                 remote_user
+  OIDCInfoHook remote_user
 
-#  OIDCCacheType memcache
-#  OIDCMemCacheServers "localhost:11211"
-  
   # ── Assets SPA ───────────────────────────────────────────────
   # Sans Vite : DocumentRoot pointe sur public/
   # Avec Vite (Phase 3) : changer pour dist/
