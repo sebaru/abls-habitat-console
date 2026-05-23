@@ -101,10 +101,7 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : "/api/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=audio" ); },
-               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "audio_id",
        columns:

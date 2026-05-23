@@ -120,9 +120,6 @@
          rowId: "dls_id",
          ajax: { url : "/api/dls/list", type : "GET", dataSrc: "dls", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-                 beforeSend: function (request)
-                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                              },
                },
          columns:
           [ { "data": "dls_id", "title":"#ID", "className": "align-middle  text-center d-none d-xl-table-cell" },

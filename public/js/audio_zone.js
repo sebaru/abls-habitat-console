@@ -47,10 +47,7 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : "/api/audio/zone/get", type : "GET", dataSrc: "audio_zone_map", contentType: "application/json",
                data: function() { return ( "audio_zone_name="+vars[3] ); },
-               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "audio_zone_map_id",
        columns:

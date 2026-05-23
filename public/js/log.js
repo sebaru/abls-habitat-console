@@ -4,10 +4,7 @@
        { pageLength : 25,
          fixedHeader: true,
          ajax: {	url : "/api/audit_log/list",	type : "GET", dataSrc: "audit_logs",
-                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
-                 beforeSend: function (request)
-                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                              }
+                 error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
                },
          columns: [ { "data": "date", "title":"Date" },
                     { "data": "classe", "title": "Classe" },

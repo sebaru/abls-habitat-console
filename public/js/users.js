@@ -31,10 +31,7 @@
        { pageLength : 50,
          fixedHeader: true,
          ajax: {	url : "/api/user/list",	type : "GET", dataSrc: "users", contentType: "application/json",
-                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-                 beforeSend: function (request)
-                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                              }
+                 error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
                },
          rowId: "user_uuid",
          columns:

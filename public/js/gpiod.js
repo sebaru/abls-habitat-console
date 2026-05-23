@@ -133,10 +133,7 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : "/api/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=gpiod" ); },
-               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "gpiod_id",
        columns:
@@ -196,10 +193,7 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : "/api/gpiod/list", type : "GET", dataSrc: "IO", contentType: "application/json",
                data: function() { return ( "classe=io" ) },
-               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "gpiod_io_id",
        columns:

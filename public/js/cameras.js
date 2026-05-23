@@ -63,10 +63,7 @@
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : "/api/camera/list", type : "GET", dataSrc: "cameras", contentType: "application/json",
-               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "camera_id",
        columns:

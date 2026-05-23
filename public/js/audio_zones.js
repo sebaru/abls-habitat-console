@@ -65,10 +65,7 @@
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : "/api/audio/zones/list", type : "GET", dataSrc: "audio_zones", contentType: "application/json",
                /*data: function() { return ( "classe=audio" ); },*/
-               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "audio_zone_id",
        columns:

@@ -65,10 +65,7 @@
      { pageLength : 50,
        fixedHeader: true,
        ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "TEMPO", "tech_id": tech_id }, dataSrc: "mnemos_TEMPO",
-               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
              },
        rowId: "mnemo_tempo_id",
        columns:
@@ -88,10 +85,7 @@
      { pageLength : 50,
        fixedHeader: true,
        ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "R", "tech_id": tech_id }, dataSrc: "mnemos_REGISTRE",
-               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_registre_id",
        columns:
@@ -125,10 +119,7 @@
        fixedHeader: true,
        ajax: { url : "/api/mnemos/list", type : "GET", data: { "classe": "CI", "tech_id": tech_id }, dataSrc: "mnemos_CI",
 
-               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ci_id",
        columns:
@@ -157,10 +148,7 @@
      { pageLength : 50,
        fixedHeader: true,
        ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "CH", "tech_id": tech_id }, dataSrc: "mnemos_CH",
-               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
              },
        rowId: "mnemo_ch_id",
        columns:
@@ -180,10 +168,7 @@
      { pageLength : 50,
        fixedHeader: true,
        ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "WATCHDOG", "tech_id": tech_id }, dataSrc: "mnemos_WATCHDOG",
-               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
              },
        rowId: "mnemo_watchdog_id",
        columns:
@@ -204,10 +189,7 @@
      { pageLength : 50,
        fixedHeader: true,
        ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "HORLOGE", "tech_id": tech_id }, dataSrc: "mnemos_HORLOGE",
-               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); },
-               beforeSend: function (request)
-                            { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                            }
+               error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
              },
        rowId: "mnemo_horloge_id",
        columns:

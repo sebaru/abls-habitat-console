@@ -2,11 +2,14 @@
 # ABLS Habitat Console — Apache VirtualHost
 #
 # Prérequis Fedora :
-#   dnf install httpd mod_ssl mod_auth_openidc
+#   dnf install httpd mod_ssl
 #   certbot --apache -d my-abls-console.mydomain
 #
 # Modules Apache nécessaires :
-#   mod_ssl, mod_auth_openidc, mod_proxy, mod_proxy_http, mod_headers
+#   mod_ssl, mod_proxy, mod_proxy_http
+#
+# Authentification : gérée côté browser via keycloak.js (adapter Keycloak).
+# Configurer public/js/config.js à partir de public/js/config.js.sample
 # ============================================================
 
 # ── HTTP → HTTPS ─────────────────────────────────────────────
@@ -35,41 +38,7 @@
 
   CustomLog "logs/console_access.log" "%v %h %l %u %t \"%r\" %>s %b"
 
-  # ── mod_auth_openidc — BFF auth (tokens jamais côté browser) ─
-  #
-  # URL de découverte automatique Keycloak (adapter le realm)
-  OIDCProviderMetadataURL \
-    https://idp.mydomain/realms/abls-habitat/.well-known/openid-configuration
-
-  # Client Keycloak dédié à la console (confidential client)
-  OIDCClientID     abls-habitat-console
-  OIDCClientSecret <CLIENT_SECRET>
-
-  # URI de callback : doit être déclarée dans Keycloak > Valid Redirect URIs
-  OIDCRedirectURI  https://my-abls-console.mydomain/auth/callback
-
-  # Passphrase aléatoire pour chiffrer le cookie de session httpOnly
-  OIDCCryptoPassphrase <RANDOM_32_CHARS_SAME_FOR_ALL_SPA>
-
-  # Cookie httpOnly + SameSite (protège contre XSS et CSRF)
-  OIDCCookieHTTPOnly On
-  OIDCCookieSameSite On
-  OIDCCookieDomain   mydomain
-
-  OIDCScope          "openid email profile phone"
-  OIDCSessionType client-cookie:persistent
-  OIDCSessionMaxDuration 31536000
-  OIDCSessionInactivityTimeout 86400
-
-  # Expose les claims OIDC comme variables d'environnement Apache
-  # (nécessaire pour injecter OIDC_access_token dans les proxies)
-  OIDCPassClaimsAs environment
-  OIDCRefreshAccessTokenBeforeExpiry 60 logout_on_error
-  OIDCInfoHook remote_user
-
   # ── Assets SPA ───────────────────────────────────────────────
-  # Sans Vite : DocumentRoot pointe sur public/
-  # Avec Vite (Phase 3) : changer pour dist/
   DocumentRoot /var/www/html/abls-console/public
 
   <Directory "/var/www/html/abls-console/public">
@@ -78,33 +47,8 @@
     Require all granted
 
     # SPA routing : toute URL sans extension inconnue → index.html
-    # Remplace les règles mod_rewrite du .htaccess
     FallbackResource /index.html
   </Directory>
 
-  # ── Page home ───────────────────────────────
-  <Location /home>
-   AuthType openid-connect
-   Require valid-user
-  </Location>
-
-  <Location /auth>
-    AuthType openid-connect
-    Require valid-user
-  </Location>
-
-  # ── Proxy BFF : /api/* → C API (abls-habitat-api) ────────────
-  #
-  # Le Bearer token est injecté par Apache côté serveur.
-  # Le browser ne voit jamais le token JWT.
-  <Location /api/>
-    AuthType openid-connect
-    Require valid-user
-    # Injection du token d'accès côté serveur
-    RequestHeader set Authorization "Bearer %{OIDC_access_token}e"
-    ProxyPass        http://localhost:5562/
-    ProxyPassReverse http://localhost:5562/
-    OIDCUnAuthAction 401
-  </Location>
-
 </VirtualHost>
+

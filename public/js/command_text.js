@@ -40,9 +40,6 @@
          rowId: "mapping_id", paging: false,
          ajax: {	url : "/api/mapping/list",	type : "GET", dataSrc: "mappings", data: { "thread_tech_id": "_COMMAND_TEXT" },
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
-                 beforeSend: function (request)
-                              { request.setRequestHeader('X-ABLS-DOMAIN', localStorage.getItem("domain_uuid") );
-                              },
                },
 
          columns:
