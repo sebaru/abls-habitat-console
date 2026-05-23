@@ -23,7 +23,7 @@
 /**************************************************** Gère l'ID token **********************************************************/
  function init()
   { if ( typeof $IDP_URL === 'undefined' || $IDP_URL.includes('exemple.com') )
-     { window.location.replace('/views/config.html');
+     { window.location.replace('/config.html');
        return;
      }
 
