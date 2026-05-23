@@ -38,7 +38,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "mapping_id", paging: false,
-         ajax: {	url : "/api/mapping/list",	type : "GET", dataSrc: "mappings", data: { "thread_tech_id": "_COMMAND_TEXT" },
+         ajax: {	url : $ABLS_API+"/mapping/list",	type : "GET", dataSrc: "mappings", data: { "thread_tech_id": "_COMMAND_TEXT" },
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                },
 

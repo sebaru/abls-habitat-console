@@ -64,7 +64,7 @@
     $('#idTableTempo').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "TEMPO", "tech_id": tech_id }, dataSrc: "mnemos_TEMPO",
+       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "TEMPO", "tech_id": tech_id }, dataSrc: "mnemos_TEMPO",
                error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
              },
        rowId: "mnemo_tempo_id",
@@ -84,7 +84,7 @@
     $('#idTableRegistre').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "R", "tech_id": tech_id }, dataSrc: "mnemos_REGISTRE",
+       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "R", "tech_id": tech_id }, dataSrc: "mnemos_REGISTRE",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_registre_id",
@@ -117,7 +117,7 @@
     $('#idTableCptImp').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: { url : "/api/mnemos/list", type : "GET", data: { "classe": "CI", "tech_id": tech_id }, dataSrc: "mnemos_CI",
+       ajax: { url : $ABLS_API+"/mnemos/list", type : "GET", data: { "classe": "CI", "tech_id": tech_id }, dataSrc: "mnemos_CI",
 
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
@@ -147,7 +147,7 @@
     $('#idTableCptH').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "CH", "tech_id": tech_id }, dataSrc: "mnemos_CH",
+       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "CH", "tech_id": tech_id }, dataSrc: "mnemos_CH",
                error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
              },
        rowId: "mnemo_ch_id",
@@ -167,7 +167,7 @@
     $('#idTableWatchdog').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "WATCHDOG", "tech_id": tech_id }, dataSrc: "mnemos_WATCHDOG",
+       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "WATCHDOG", "tech_id": tech_id }, dataSrc: "mnemos_WATCHDOG",
                error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
              },
        rowId: "mnemo_watchdog_id",
@@ -188,7 +188,7 @@
     $('#idTableHorloge').DataTable(
      { pageLength : 50,
        fixedHeader: true,
-       ajax: {	url : "/api/mnemos/list",	type : "GET", data: { "classe": "HORLOGE", "tech_id": tech_id }, dataSrc: "mnemos_HORLOGE",
+       ajax: {	url : $ABLS_API+"/mnemos/list",	type : "GET", data: { "classe": "HORLOGE", "tech_id": tech_id }, dataSrc: "mnemos_HORLOGE",
                error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
              },
        rowId: "mnemo_horloge_id",

@@ -62,7 +62,7 @@
     $('#idTableEntreeTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_di_id",
@@ -91,7 +91,7 @@
     $('#idTableEntreeANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ai_id",
@@ -121,7 +121,7 @@
     $('#idTableSortieTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_do_id",
@@ -146,7 +146,7 @@
     $('#idTableSortieANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ao_id",
@@ -170,7 +170,7 @@
     $('#idTableCI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ci_id",
@@ -194,7 +194,7 @@
     $('#idTableCH').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run",  type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
+       ajax: { url : $ABLS_API+"/dls/run",  type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ch_id",
@@ -220,7 +220,7 @@
     $('#idTableRegistre').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_registre_id",
@@ -238,7 +238,7 @@
     $('#idTableMONO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_mono_id",
@@ -257,7 +257,7 @@
     $('#idTableBI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_bi_id",
@@ -277,7 +277,7 @@
     $('#idTableVisuel').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_visuel_id",
@@ -305,7 +305,7 @@
     $('#idTableWatchdog').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "watchdog_id",
@@ -328,7 +328,7 @@
     $('#idTableMessages').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
+       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_msg_id",

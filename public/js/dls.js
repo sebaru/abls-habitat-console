@@ -118,7 +118,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "dls_id",
-         ajax: { url : "/api/dls/list", type : "GET", dataSrc: "dls", contentType: "application/json",
+         ajax: { url : $ABLS_API+"/dls/list", type : "GET", dataSrc: "dls", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                },
          columns:

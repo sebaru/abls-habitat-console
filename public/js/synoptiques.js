@@ -180,7 +180,7 @@
     $('#idTableSYN').DataTable(
        { pageLength : 25,
          fixedHeader: true,
-         ajax: {	url : "/api/syn/list", type : "GET", dataSrc: "synoptiques", contentType: "application/json",
+         ajax: {	url : $ABLS_API+"/syn/list", type : "GET", dataSrc: "synoptiques", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
                },
          rowId: "syn_id",

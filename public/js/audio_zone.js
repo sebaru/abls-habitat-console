@@ -45,7 +45,7 @@
     $('#idTableAUDIOZONE').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/audio/zone/get", type : "GET", dataSrc: "audio_zone_map", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/audio/zone/get", type : "GET", dataSrc: "audio_zone_map", contentType: "application/json",
                data: function() { return ( "audio_zone_name="+vars[3] ); },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },

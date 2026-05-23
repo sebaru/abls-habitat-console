@@ -142,7 +142,7 @@
   { $('#idTablePHIDGET').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=phidget" ) },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
@@ -205,7 +205,7 @@
     $('#idTablePHIDGET_IO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/phidget/list", type : "GET", dataSrc: "IO", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/phidget/list", type : "GET", dataSrc: "IO", contentType: "application/json",
                data: function() { return ( "classe=io" ) },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },

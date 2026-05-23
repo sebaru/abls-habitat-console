@@ -27,7 +27,7 @@
     $('#idTableRunDLS').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false,
-       ajax: {	url : "/api/dls/status",	type : "GET", dataSrc: "plugins",
+       ajax: {	url : $ABLS_API+"/dls/status",	type : "GET", dataSrc: "plugins",
                error: function ( xhr, status, error ) { Show_Error(xhr.statusText); }
              },
        rowId: "id",

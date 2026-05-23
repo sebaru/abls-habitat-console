@@ -280,7 +280,7 @@
      { pageLength : 50,
        fixedHeader: true,
        rowId: "modbus_id",
-       ajax: { url : "/api/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=modbus" ) },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
@@ -345,7 +345,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_di_id", paging: false,
-         ajax: { url : "/api/modbus/list", type : "GET", dataSrc: "DI",
+         ajax: { url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DI",
                  contentType: "application/json",
                  data: function() { return ( "classe=DI" ) },
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
@@ -395,7 +395,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_do_id", paging: false,
-         ajax: { url : "/api/modbus/list", type : "GET", dataSrc: "DO",
+         ajax: { url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "DO",
                  contentType: "application/json",
                  data: function() { return ( "classe=DO" ) },
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
@@ -444,7 +444,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_ai_id", paging: false,
-         ajax: { url : "/api/modbus/list", type : "GET", dataSrc: "AI",
+         ajax: { url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "AI",
                  contentType: "application/json",
                  data: function() { return ( "classe=AI" ) },
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
@@ -503,7 +503,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "modbus_ao_id", paging: false,
-         ajax: {	url : "/api/modbus/list", type : "GET", dataSrc: "AO",
+         ajax: {	url : $ABLS_API+"/modbus/list", type : "GET", dataSrc: "AO",
                  contentType: "application/json",
                  data: function() { return ( "classe=AO" ) },
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }

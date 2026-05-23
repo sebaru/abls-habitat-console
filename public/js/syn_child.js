@@ -60,7 +60,7 @@ var SYN_Response = null;
 
     $('#idTableSYN').DataTable(
        { pageLength : 25, fixedHeader: true, ordering: false, order: [],
-         ajax: { url : "/api/syn/child", type : "GET", dataSrc: "children",
+         ajax: { url : $ABLS_API+"/syn/child", type : "GET", dataSrc: "children",
                  contentType: "application/json",
                  data: { page: syn_page },
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }

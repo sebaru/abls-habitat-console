@@ -63,7 +63,7 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "dls_package_id",
-         ajax: { url : "/api/dls/package/list", type : "GET", dataSrc: "dls_packages", contentType: "application/json",
+         ajax: { url : $ABLS_API+"/dls/package/list", type : "GET", dataSrc: "dls_packages", contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                },
          columns:

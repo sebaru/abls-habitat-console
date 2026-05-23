@@ -94,7 +94,7 @@
   { $('#idTableMETEO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
                data: function() { return ( "classe=meteo" ); },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },

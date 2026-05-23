@@ -22,7 +22,7 @@
     $('#idTableDlsParams').DataTable(
        { pageLength : 25,
          fixedHeader: true,
-         ajax: { url : "/api/dls/params", type : "GET", dataSrc: "params", contentType: "application/json",
+         ajax: { url : $ABLS_API+"/dls/params", type : "GET", dataSrc: "params", contentType: "application/json",
                  data: { tech_id: Tech_id },
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
                },

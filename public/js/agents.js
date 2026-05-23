@@ -80,7 +80,7 @@
   { $('#idTableAGENT').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : "/api/agent/list", type : "GET", dataSrc: "agents",
+       ajax: { url : $ABLS_API+"/agent/list", type : "GET", dataSrc: "agents",
                contentType: "application/json",
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
