@@ -40,8 +40,7 @@
     if (vars[3] == null) Redirect ("/audio/zones");
     var zoneName = decodeURIComponent(vars[3]);
     $("#idAudioZoneTitle").text( zoneName );
-    Set_page_context ( { lastLabel: "Édition de la zone audio " + zoneName,
-               title    : "Édition de la zone audio " + zoneName } );
+    Set_page_context ( "Édition de la zone audio " + zoneName );
     $('#idTableAUDIOZONE').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,

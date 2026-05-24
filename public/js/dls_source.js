@@ -67,9 +67,7 @@
     SourceCode.setSize( null, "100%");
 
     Send_to_API ( "GET", "/dls/source", "tech_id="+vars[2], function(Response)
-     { $("#idSourceTitle").text( "(#"+Response.dls_id+") - " + Response.tech_id + " - " + Response.shortname);
-       Set_page_context ( { lastLabel: "Edition D.L.S (#"+Response.dls_id+") - " + Response.tech_id + " - " + Response.shortname,
-                            title    : "Edition D.L.S (#"+Response.dls_id+") - " + Response.tech_id + " - " + Response.shortname } );
+     { Set_page_context ( "Edition D.L.S (#"+Response.dls_id+") - " + Response.tech_id + " - " + Response.shortname );
        $("#idSourceSynoptique").empty().append( $("<a>").attr("href", "/atelier/"+Response.page).attr("target","_blank").text(Response.page) );
        SourceCode.getDoc().setValue(Response.sourcecode);
        $("#idErrorLog").html(Response.errorlog.replace(/(?:\r\n|\r|\n)/g, '<br>'));

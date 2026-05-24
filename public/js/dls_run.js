@@ -43,8 +43,7 @@
 
     var techId = decodeURIComponent(vars[3]);
     $('#idTitle').html(techId);
-    Set_page_context ( { lastLabel: "Etat du module '" + techId + "'",
-               title    : "Etat du module '" + techId + "'" } );
+    Set_page_context ( "Etat du module '" + techId + "'" );
     setInterval( function()
                   { Dls_run_refresh ( "idTableEntreeTOR" );
                     Dls_run_refresh ( "idTableEntreeANA" );

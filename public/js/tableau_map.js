@@ -58,8 +58,7 @@
      { tableau = Response.tableaux.filter( function(item) { return item.tableau_id==Tableau_id } )[0];
        if (tableau)
         { $('#idTableauTitle').text(tableau.titre);
-          Set_page_context ( { lastLabel: "Courbes du Tableau " + tableau.titre,
-                               title    : "Courbes du Tableau " + tableau.titre } );
+           Set_page_context ( "Courbes du Tableau " + tableau.titre );
         }
      }, null );
 

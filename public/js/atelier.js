@@ -36,8 +36,7 @@
 
     Send_to_API ( "GET", "/syn/show", (syn_page ? "syn_page=" + syn_page : null), function(Response)
      { $("#idAtelierTitle").text( Response.page + " #" + Response.syn_id );
-       Set_page_context ( { lastLabel: "Edition graphique du synoptique " + Response.page + " #" + Response.syn_id + " (1920x1080)",
-                            title    : "Edition graphique du synoptique " + Response.page + " #" + Response.syn_id + " (1920x1080)" } );
+      Set_page_context ( "Edition graphique du synoptique " + Response.page + " #" + Response.syn_id + " (1920x1080)" );
        console.log(Response);
        Synoptique = Response;                                                                       /* sauvegarde du pointeur */
        $.each ( Response.visuels, function (i, visuel)

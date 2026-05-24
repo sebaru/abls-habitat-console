@@ -16,12 +16,6 @@ var Router = (function () {
    * breadcrumb: segments affiches dans le fil d'Ariane */
   var ROUTES = [
     {
-      pattern:    /^\/dashboard\/courbes$/,
-      view:       'dashboard',
-      script:     'dashboard',
-      breadcrumb: [ { label: 'Courbes du domaine', href: null } ]
-    },
-    {
       pattern:    /^\/dashboard$/,
       view:       'dashboard',
       script:     'dashboard',
@@ -292,10 +286,10 @@ var Router = (function () {
       breadcrumb: [ { label: 'Utilisateurs du domaine', href: null } ]
     },
     {
-      pattern:    /^\/courbe\/[^/]+$/,
+      pattern:    /^\/courbe\/[^/]+\/[^/]+(?:\/[^/]+)?$/,
       view:       'courbe',
       script:     'courbe',
-      breadcrumb: [ { label: 'Liste des Modules D.L.S', href: '/dls' }, { label: 'Voir la courbe', href: null } ]
+      breadcrumb: [ { label: 'Voir la courbe', href: null } ]
     },
     {
       pattern:    /^\/command_text$/,
@@ -410,8 +404,8 @@ var Router = (function () {
                escapeHtml(segment.label) + "</a></li>";
       }
 
-      return "<li class='breadcrumb-item active' aria-current='page'>" +
-             escapeHtml(segment.label) + "</li>";
+      return "<li class='breadcrumb-item active' aria-current='page'><span class='breadcrumb-last'>" +
+             escapeHtml(segment.label) + "</span></li>";
     }).join('');
 
     shell.classList.remove('d-none');
@@ -477,8 +471,9 @@ var Router = (function () {
     navigate(path);
   }
 
-  function setPageContext(context) {
-    currentPageContext = context || {};
+  function setPageContext(lastLabel) {
+    currentPageContext = {};
+    if (lastLabel) currentPageContext.lastLabel = lastLabel;
     renderBreadcrumb(currentPath, currentRoute);
   }
 

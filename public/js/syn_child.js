@@ -54,8 +54,7 @@ var SYN_Response = null;
  function Load_page ()
   { var path_parts = window.location.pathname.split('/');
     var syn_page   = decodeURIComponent(path_parts[path_parts.length - 1]);
-    Set_page_context ( { lastLabel: "Synoptiques fils de " + syn_page,
-                         title    : "Synoptiques fils de " + syn_page } );
+    Set_page_context ( "Synoptiques fils de " + syn_page );
     console.log ("in load syn_child, page = " + syn_page);
 
     $('#idTableSYN').DataTable(
