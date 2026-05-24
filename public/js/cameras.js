@@ -1,3 +1,21 @@
+/*****************************  Toggle camera enable/disable via switch ***********************************************************/
+ function CAMERA_Toggle ( camera_id, newState )
+  { var $switch = $('#idSwitch_' + camera_id);
+    $switch.prop('disabled', true);
+
+    var json_request = { camera_id: camera_id, enable: newState };
+
+    Send_to_API ( "POST", "/camera/set", json_request, 
+      function(Response) 
+        { Show_toast_ok ( "Caméra " + (newState ? "activée" : "désactivée") + "." );
+          $switch.prop('disabled', false);
+        }, 
+      function(Response) 
+        { $switch.prop('checked', !newState).prop('disabled', false);
+          Show_toast_error ( "Erreur lors de la modification." );
+        } 
+    );
+  }
 /************************************ Demande de refresh **********************************************************************/
  function CAMERA_Refresh ( )
   { $('#idTableCAMERAS').DataTable().ajax.reload(null, false);
@@ -69,8 +87,11 @@
        columns:
          [ { "data": null, "title":"Activée", "className": "align-middle text-center",
              "render": function (item)
-               { if (item.enable) return('<i class="fas fa-check text-success"></i>');
-                 return('<i class="fas fa-times text-danger"></i>');
+               { var checked = item.enable ? 'checked' : '';
+                 return '<div class="form-check form-switch d-flex justify-content-center">' +
+                        '  <input id="idSwitch_' + item.camera_id + '" type="checkbox" class="form-check-input camera-toggle-switch" ' +
+                        '         data-camera-id="' + item.camera_id + '" ' + checked + '>' +
+                        '</div>';
                }
            },
            { "data": null, "title":"Accès", "className": "align-middle text-center d-none d-md-table-cell",
@@ -97,5 +118,12 @@
            }
          ],
      });
+
+    /* Attach event listener to camera toggle switches (using delegation for dynamic elements) */
+    $(document).on('change', '.camera-toggle-switch', function() 
+      { var camera_id = $(this).data('camera-id');
+        var newState  = $(this).is(':checked');
+        CAMERA_Toggle(camera_id, newState);
+      });
   }
 /*----------------------------------------------------------------------------------------------------------------------------*/
