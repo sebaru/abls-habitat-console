@@ -2,15 +2,35 @@
 
 
 
-<div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
+<style>
+  .dashboard-card .card-header {
+    min-height: 72px;
+  }
 
- <div class="card shadow m-1">
+  .dashboard-card .card-header h5 {
+    margin-bottom: 0;
+  }
+
+  .dashboard-card .card-body ul {
+    margin-bottom: 0;
+    padding-left: 1.1rem;
+  }
+
+  .dashboard-card .card-body li:last-child h6 {
+    margin-bottom: 0;
+  }
+</style>
+
+<div class="row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 g-2 align-items-stretch">
+
+ <div class="col d-flex">
+ <div class="card dashboard-card shadow h-100 w-100">
     <div class="card-header">
-      <div class="row">
+      <div class="row align-items-center g-2">
         <div class="col-4">
           <i class="fas fa-2x fa-image text-danger"></i>
         </div>
-        <div class="col-8 mt-1"><h5>Synoptiques</h5></div>
+        <div class="col-8"><h5>Synoptiques</h5></div>
       </div>
     </div>
     <div class="card-body">
@@ -23,14 +43,16 @@
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
+ </div>
 
- <div class="card shadow m-1">
+ <div class="col d-flex">
+ <div class="card dashboard-card shadow h-100 w-100">
     <div class="card-header">
-      <div class="row">
+      <div class="row align-items-center g-2">
         <div class="col-4">
           <i class="fas fa-2x fa-code text-primary"></i>
         </div>
-        <div class="col-8 mt-1"><h5>D.L.S</h5></div>
+        <div class="col-8"><h5>D.L.S</h5></div>
       </div>
     </div>
     <div class="card-body">
@@ -45,14 +67,16 @@
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
+ </div>
 
- <div class="card shadow m-1">
+ <div class="col d-flex">
+ <div class="card dashboard-card shadow h-100 w-100">
     <div class="card-header">
-      <div class="row">
+      <div class="row align-items-center g-2">
         <div class="col-4">
           <i class="fas fa-2x fa-asterisk text-info"></i>
         </div>
-        <div class="col-8 mt-1"><h5>Agents</h5></div>
+        <div class="col-8"><h5>Agents</h5></div>
       </div>
     </div>
     <div class="card-body">
@@ -63,14 +87,16 @@
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
+ </div>
 
- <div class="card shadow m-1">
+ <div class="col d-flex">
+ <div class="card dashboard-card shadow h-100 w-100">
     <div class="card-header">
-      <div class="row">
+      <div class="row align-items-center g-2">
         <div class="col-4">
           <i class="fas fa-2x fa-cogs text-warning"></i>
         </div>
-        <div class="col-8 mt-1"><h5>Entrées/Sorties</h5></div>
+        <div class="col-8"><h5>Entrées/Sorties</h5></div>
       </div>
     </div>
     <div class="card-body">
@@ -84,14 +110,16 @@
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
+ </div>
 
- <div class="card shadow m-1t">
+ <div class="col d-flex">
+ <div class="card dashboard-card shadow h-100 w-100">
     <div class="card-header">
-      <div class="row">
+      <div class="row align-items-center g-2">
         <div class="col-4">
           <i class="fas fa-2x fa-envelope text-success"></i>
         </div>
-        <div class="col-8 mt-1"><h5>Messages</h5></div>
+        <div class="col-8"><h5>Messages</h5></div>
       </div>
     </div>
     <div class="card-body">
@@ -102,14 +130,16 @@
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
  </div>
+ </div>
 
- <div class="card shadow m-1">
+ <div class="col d-flex">
+ <div class="card dashboard-card shadow h-100 w-100">
     <div class="card-header">
-      <div class="row">
+      <div class="row align-items-center g-2">
         <div class="col-4">
           <i class="fas fa-2x fa-users text-primary"></i>
         </div>
-        <div class="col-8 mt-1"><h5>Utilisateurs</h5></div>
+        <div class="col-8"><h5>Utilisateurs</h5></div>
       </div>
     </div>
     <div class="card-body">
@@ -120,6 +150,7 @@
 <!--<h3 class="card-text text-center"><strong>56</h3>-->
     </div>
     <!--<p class="card-text text-center"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+ </div>
  </div>
 
 </div>

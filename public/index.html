@@ -15,7 +15,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/material.min.css">
         <style>
 
-        body { padding-top: 56px;
+        :root {
+               --abls-navbar-height: 64px;
+               --abls-navbar-image-height: 48px;
+             }
+
+        body { padding-top: var(--abls-navbar-height);
                padding-bottom: 40px;
              }
 
@@ -23,6 +28,21 @@
 
         .navbar { background-color: rgba(30,28,56,0.8);
                 }
+        .navbar.fixed-top {
+          min-height: var(--abls-navbar-height);
+          padding-top: 0.25rem;
+          padding-bottom: 0.25rem;
+        }
+        .navbar .container-fluid {
+          min-height: calc(var(--abls-navbar-height) - 0.5rem);
+          align-items: center;
+        }
+        .navbar .nav-link,
+        .navbar .navbar-text {
+          padding-top: 0.25rem;
+          padding-bottom: 0.25rem;
+          line-height: 1.2;
+        }
         .wtd-breadcrumb-shell {
           min-height: 42px;
         }
@@ -64,8 +84,11 @@
         .courbe-dashboard { height: 300px; }
         .wtd-menu
           { border-radius: 20%;
-            max-width: 48px;
-            max-height: 48px;
+            width: auto;
+            max-width: var(--abls-navbar-image-height);
+            height: var(--abls-navbar-image-height);
+            max-height: var(--abls-navbar-image-height);
+            object-fit: cover;
             cursor: pointer;
           }
         .wtd-synoptique-preview { height: 80px; }
