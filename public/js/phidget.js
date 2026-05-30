@@ -192,7 +192,7 @@
             "render": function (item)
               { boutons = Bouton_deroulant_start ( );
                 boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "PHIDGET_Edit", item.phidget_id, "pen" );
-                boutons += Bouton_deroulant_add_sensitive_start ();
+                boutons += Bouton_deroulant_add_spacer ();
                 boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "PHIDGET_Del", item.phidget_id, "trash" );
                 boutons += Bouton_deroulant_end ();
                 return(boutons);
@@ -241,7 +241,7 @@
                   boutons += Bouton_deroulant_add ( "primary", "Editer cet objet", "PHIDGET_Edit_IO", item.phidget_io_id, "pen" );
                   boutons += Bouton_deroulant_add ( "primary", "Mapper cet objet", "PHIDGET_Map", item.phidget_io_id, "directions" );
                   if (item.mapping_id)
-                   { boutons += Bouton_deroulant_add_sensitive_start ();
+                   { boutons += Bouton_deroulant_add_spacer ();
                      boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", "'PHIDGET_Refresh'" );
                    }
                   boutons += Bouton_deroulant_end ();

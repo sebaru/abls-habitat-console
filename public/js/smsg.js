@@ -162,7 +162,7 @@
                  boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "SMSG_Edit", item.smsg_id, "pen" );
                  boutons += Bouton_deroulant_add ( "primary", "Test GSM", "SMSG_Test_GSM", item.smsg_id, "question" );
                  boutons += Bouton_deroulant_add ( "secondary", "Test OVH", "SMSG_Test_OVH", item.smsg_id, "question" );
-                 boutons += Bouton_deroulant_add_sensitive_start ();
+                 boutons += Bouton_deroulant_add_spacer ();
                  boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "SMSG_Del", item.smsg_id, "trash" );
                  boutons += Bouton_deroulant_end ();
                  return(boutons);

@@ -144,7 +144,7 @@
                { boutons = Bouton_deroulant_start ( "outline-primary" );
                  boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "METEO_Edit", item.meteo_id, "pen" );
                  boutons += Bouton_deroulant_add ( "primary", "Test METEO", "METEO_Test", item.meteo_id, "question" );
-                 boutons += Bouton_deroulant_add_sensitive_start ();
+                 boutons += Bouton_deroulant_add_spacer ();
                  boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "METEO_Del", item.meteo_id, "trash" );
                  boutons += Bouton_deroulant_end ();
                  return(boutons);

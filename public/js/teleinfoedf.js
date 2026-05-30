@@ -154,7 +154,7 @@
              "render": function (item)
                { boutons = Bouton_deroulant_start ( "primary" );
                  boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "TELEINFO_Edit", item.teleinfoedf_id, "pen" );
-                 boutons += Bouton_deroulant_add_sensitive_start ();
+                 boutons += Bouton_deroulant_add_spacer ();
                  boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "TELEINFO_Del", item.teleinfoedf_id, "trash" );
                  boutons += Bouton_deroulant_end ();
                  return(boutons);
