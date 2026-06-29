@@ -9,8 +9,10 @@ var SYN_Response = null;
      { SYN_Refresh();
      }, null );
   }
- function SYN_Move_up   ( syn_page ) { SYN_Move ( syn_page, "up"   ); }
- function SYN_Move_down ( syn_page ) { SYN_Move ( syn_page, "down" ); }
+ function SYN_Move_up     ( syn_page ) { SYN_Move ( syn_page, "up"   ); }
+ function SYN_Move_down   ( syn_page ) { SYN_Move ( syn_page, "down" ); }
+ function SYN_Move_top    ( syn_page ) { SYN_Move ( syn_page, "top"  ); }
+ function SYN_Move_bottom ( syn_page ) { SYN_Move ( syn_page, "bottom" ); }
 /************************************ Controle de saisie avant envoi **********************************************************/
  function Synoptique_set_controle_page ( page_initiale )
   { FormatPage = RegExp(/^[a-zA-Z0-9_\- ]+$/);
@@ -86,8 +88,10 @@ var SYN_Response = null;
             { "data": null, "title": "Ordre", "orderable": false, "className": "align-middle text-center",
               "render": function (item, type, row, meta)
                 { var boutons = Bouton_deroulant_start();
-                  boutons += Bouton_deroulant_add ( "outline-primary", "Monter", "SYN_Move_up", item.page, "arrow-up" );
-                  boutons += Bouton_deroulant_add ( "outline-primary", "Descendre", "SYN_Move_down", item.page, "arrow-down" );
+                  boutons += Bouton_deroulant_add ( "primary", "Move to top", "SYN_Move_top", item.page, "chevron-double-up" );
+                  boutons += Bouton_deroulant_add ( "primary", "Monter", "SYN_Move_up", item.page, "arrow-up" );
+                  boutons += Bouton_deroulant_add ( "primary", "Descendre", "SYN_Move_down", item.page, "arrow-down" );
+                  boutons += Bouton_deroulant_add ( "primary", "Move to bottom", "SYN_Move_bottom", item.page, "chevron-double-down" );
                   boutons += Bouton_deroulant_end();
                   return(boutons);
                 }
