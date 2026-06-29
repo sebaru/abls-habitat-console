@@ -115,7 +115,11 @@
               { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
-          { "data": "hostname", "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell " },
+          { "data": "hostname", "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell ",
+            "render": function (item)
+              { return( Lien ( "http://"+item, "Voir la page du Shelly", item ) );
+              },
+          },
           { "data": null, "title":"string_id", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
               { return( htmlEncode ( item.string_id ) );
