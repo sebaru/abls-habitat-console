@@ -136,6 +136,12 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: null } ]
     },
     {
+      pattern:    /^\/servers$/,
+      view:       'servers',
+      script:     'servers',
+      breadcrumb: [ { label: 'Liste des Serveurs', href: null } ]
+    },
+    {
       pattern:    /^\/teleinfoedf$/,
       view:       'teleinfoedf',
       script:     'teleinfoedf',
