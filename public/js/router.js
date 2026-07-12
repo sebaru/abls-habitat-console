@@ -49,16 +49,16 @@ var Router = (function () {
       pattern:    /^\/agent\/add$/,
       view:       'agent_add',
       script:     'agent_add',
-      breadcrumb: [ { label: 'Maintenance des Agents', href: '/agents' }, { label: 'Ajouter un agent au domaine', href: null } ]
+      breadcrumb: [ { label: 'Maintenance des Agents', href: '/agents_legacy' }, { label: 'Ajouter un agent au domaine', href: null } ]
     },
     {
       pattern:    /^\/agent\/[^/]+$/,
       view:       'agent_edit',
       script:     'agent_edit',
-      breadcrumb: [ { label: 'Maintenance des Agents', href: '/agents' }, { label: 'Editer l\'agent', href: null } ]
+      breadcrumb: [ { label: 'Maintenance des Agents', href: '/agents_legacy' }, { label: 'Editer l\'agent', href: null } ]
     },
     {
-      pattern:    /^\/agents$/,
+      pattern:    /^\/agents_legacy$/,
       view:       'agents',
       script:     'agents',
       breadcrumb: [ { label: 'Maintenance des Agents', href: null } ]
@@ -130,10 +130,10 @@ var Router = (function () {
       breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
     },
     {
-      pattern:    /^\/threads$/,
+      pattern:    /^\/agents$/,
       view:       'threads',
       script:     'threads',
-      breadcrumb: [ { label: 'Liste des threads', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: null } ]
     },
     {
       pattern:    /^\/teleinfoedf$/,
