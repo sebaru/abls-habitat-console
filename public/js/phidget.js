@@ -25,39 +25,31 @@
  function PHIDGET_Disable (phidget_id)
   { $("#idButtonSpinner_PHIDGET_Disable_"+phidget_id).show();
     selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
-    Thread_enable ( selection.thread_tech_id, false, function(Response) { PHIDGET_Refresh(); }, function(Response) { PHIDGET_Refresh(); } );
+    Send_to_API ( "POST", "/agent/enable", { agent_tech_id: selection.agent_tech_id, enable: false },
+                  function(Response) { PHIDGET_Refresh(); }, function(Response) { PHIDGET_Refresh(); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function PHIDGET_Enable (phidget_id)
   { $("#idButtonSpinner_PHIDGET_Enable_"+phidget_id).show();
     selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
-    Thread_enable ( selection.thread_tech_id, true, function(Response) { PHIDGET_Refresh(); }, function(Response) { PHIDGET_Refresh(); } );
-  }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
- function PHIDGET_Debug (phidget_id)
-  { $("#idButtonSpinner_PHIDGET_Debug_"+phidget_id).show();
-    selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
-    Thread_debug ( selection.thread_tech_id, true, function(Response) { PHIDGET_Refresh(); }, function(Response) { PHIDGET_Refresh(); } );
-  }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
- function PHIDGET_Undebug (phidget_id)
-  { $("#idButtonSpinner_PHIDGET_Undebug_"+phidget_id).show();
-    selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
-    Thread_debug ( selection.thread_tech_id, false, function(Response) { PHIDGET_Refresh(); }, function(Response) { PHIDGET_Refresh(); } );
+    Send_to_API ( "POST", "/agent/enable", { agent_tech_id: selection.agent_tech_id, enable: true },
+                  function(Response) { PHIDGET_Refresh(); }, function(Response) { PHIDGET_Refresh(); } );
   }
 /**************************************** Supprime une connexion PHIDGET *******************************************************/
  function PHIDGET_Del (phidget_id)
   { selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
-    Show_modal_del ( "Supprimer la connexion "+selection.thread_tech_id,
+    Show_modal_del ( "Supprimer la connexion "+selection.agent_tech_id,
                      "Etes-vous sûr de vouloir supprimer cette connexion ?",
-                     selection.thread_tech_id + " - " + selection.hostname + " - " + selection.description,
-                     function () { Thread_delete ( selection.thread_tech_id, function(Response) { PHIDGET_Refresh(); }, null ); } ) ;
+                     selection.agent_tech_id + " - " + selection.hostname + " - " + selection.description,
+                     function () { Send_to_API ( "DELETE", "/agent/delete", { agent_tech_id: selection.agent_tech_id },
+                                                 function(Response) { PHIDGET_Refresh(); }, null ); } ) ;
   }
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function PHIDGET_Set ( selection )
   { var json_request =
      { agent_uuid:     $('#idTargetAgent').val(),
-       thread_tech_id: $('#idPHIDGETTechID').val().toUpperCase(),
+       server_uuid:    $('#idTargetAgent').val(),
+       agent_tech_id:  $('#idPHIDGETTechID').val().toUpperCase(),
        description: $('#idPHIDGETDescription').val(),
        hostname   : $('#idPHIDGETHostname').val(),
        password   : $('#idPHIDGETPassword').val(),
@@ -73,8 +65,8 @@
   { selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
     Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
                         { return ( Response.agent_hostname ); }, selection.agent_uuid );
-    $('#idPHIDGETTitre').text("Editer la connexion " + selection.thread_tech_id);
-    $('#idPHIDGETTechID').prop ("disabled", true).val( selection.thread_tech_id );
+    $('#idPHIDGETTitre').text("Editer la connexion " + selection.agent_tech_id);
+    $('#idPHIDGETTechID').prop ("disabled", true).val( selection.agent_tech_id );
     $('#idPHIDGETDescription').val( selection.description );
     $('#idPHIDGETHostname').val( selection.hostname );
     $('#idPHIDGETPassword').val( selection.password );
@@ -99,7 +91,7 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function PHIDGET_Edit_IO (phidget_io_id)
   { selection = $('#idTablePHIDGET_IO').DataTable().row("#"+phidget_io_id).data();
-    $('#idPHIDGETEditIOTitre').text( "Configurer "+selection.thread_tech_id+", port "+selection.port );
+    $('#idPHIDGETEditIOTitre').text( "Configurer "+selection.agent_tech_id+", port "+selection.port );
     $('#idPHIDGETEditIOLibelle').val ( selection.libelle );
     $('#idPHIDGETEditIOCapteur')
      .replaceWith ( Select ( "idPHIDGETEditIOCapteur", null, Capteurs, selection.capteur ) );
@@ -125,12 +117,12 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function PHIDGET_Map (phidget_io_id)
   { selection = $('#idTablePHIDGET_IO').DataTable().row("#"+phidget_io_id).data();
-    $('#idMODALMapTitre').text( "Mapper "+selection.thread_tech_id+":"+selection.thread_acronyme );
+    $('#idMODALMapTitre').text( "Mapper "+selection.agent_tech_id+":"+selection.agent_acronyme );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", selection.classe ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", selection.classe, selection.tech_id, selection.acronyme );
     $('#idMODALMapValider').off("click").on( "click", function ()
      { $('#idMODALMap').modal("hide");
-       COMMON_Map ( selection.thread_tech_id, selection.thread_acronyme,
+       COMMON_Map ( selection.agent_tech_id, selection.agent_acronyme,
                     $('#idMODALMapSelectTechID').val(),  $('#idMODALMapSelectAcronyme').val()
                   );
        PHIDGET_Refresh();
@@ -142,35 +134,32 @@
   { $('#idTablePHIDGET').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/agent/list", type : "GET", dataSrc: "agents", contentType: "application/json",
                data: function() { return ( "classe=phidget" ) },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
-       rowId: "phidget_id",
+      rowId: "agent_tech_id",
        columns:
-        [ { "data": null, "title":"Agent", "className": "align-middle text-center",
+        [ { "data": null, "title":"Serveur", "className": "align-middle text-center",
              "render": function (item)
-               { return( htmlEncode(item.agent_hostname) ); }
+               { return( htmlEncode(item.server_hostname) ); }
           },
           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
               { if (item.enable==true)
-                { return( Bouton ( "success", "Désactiver le module", "PHIDGET_Disable", item.phidget_id, "Actif" ) ); }
+                { return( Bouton ( "success", "Désactiver le module", "PHIDGET_Disable", item.agent_tech_id, "Actif" ) ); }
                else
-                { return( Bouton ( "outline-secondary", "Activer le module", "PHIDGET_Enable", item.phidget_id, "Désactivé" ) ); }
+                { return( Bouton ( "outline-secondary", "Activer le module", "PHIDGET_Enable", item.agent_tech_id, "Désactivé" ) ); }
               },
           },
-           { "data": null, "title":"Debug", "className": "align-middle text-center d-none d-xl-table-cell",
-             "render": function (item)
-              { if (item.debug==true)
-                 { return( Bouton ( "warning", "Désactiver le debug", "PHIDGET_Undebug", item.phidget_id, "Actif" ) ); }
-                else
-                 { return( Bouton ( "outline-secondary", "Activer le debug", "PHIDGET_Debug", item.phidget_id, "Désactivé" ) ); }
+          { "data": null, "title":"Log level", "className": "align-middle text-center d-none d-xl-table-cell",
+            "render": function (item)
+              { return( Render_log_level_selector ( item.agent_tech_id, item.log_level ) );
               },
            },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
-              { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+              { return( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id ) ); }
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell " },
@@ -191,9 +180,9 @@
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
               { boutons = Bouton_deroulant_start ( );
-                boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "PHIDGET_Edit", item.phidget_id, "pen" );
+                boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "PHIDGET_Edit", item.agent_tech_id, "pen" );
                 boutons += Bouton_deroulant_add_spacer ();
-                boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "PHIDGET_Del", item.phidget_id, "trash" );
+                boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "PHIDGET_Del", item.agent_tech_id, "trash" );
                 boutons += Bouton_deroulant_end ();
                 return(boutons);
               },
@@ -213,11 +202,11 @@
        columns:
           [ { "data": null, "title":"Phidget TechID", "className": "align-middle text-center",
               "render": function (item)
-                { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
+                { return( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id ) ); }
             },
             { "data": null, "title":"Phidget I/O", "className": "align-middle text-center",
               "render": function (item)
-                { return( item.thread_acronyme ); }
+                { return( item.agent_acronyme ); }
             },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)

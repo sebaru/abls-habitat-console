@@ -46,6 +46,41 @@
        if (fonction_ok) fonction_ok(Response);
      }, fonction_nok );
   }
+ /********************************************* Reload Process *****************************************************************/
+ function Agent_set_log_level ( agent_tech_id, log_level )
+  { var json_request =
+     { agent_tech_id: agent_tech_id,
+       log_level    : parseInt(log_level),
+     };
+
+    Send_to_API ( "POST", "/agent/log_level", json_request,
+      function(Response) { Show_toast_ok ( "Agent "+agent_tech_id+" niveau de log = "+log_level+"." ); },
+      function(Response) { Show_toast_error ( "Erreur lors de la modification du niveau de log de l'agent "+agent_tech_id+"." ); } );
+  }
+/********************************************* Render Log Level selector *****************************************************/
+ function Render_log_level_selector ( agent_tech_id, current_level )
+  { var current = parseInt(current_level);
+    if (isNaN(current) || current < 0 || current > 7) current = 6;
+
+    var options =
+      [ { value: 7, label: "LOG_DEBUG" },
+        { value: 6, label: "LOG_INFO" },
+        { value: 5, label: "LOG_NOTICE" },
+        { value: 4, label: "LOG_WARNING" },
+        { value: 3, label: "LOG_ERR" },
+        { value: 2, label: "LOG_CRIT" },
+        { value: 1, label: "LOG_ALERT" },
+        { value: 0, label: "LOG_EMERG" }
+      ];
+
+    var onChange = "Agent_set_log_level('"+agent_tech_id+"', this.value )";
+    var html = "<select class='form-select form-select-sm' onchange=\""+onChange+"\">";
+    options.forEach(function(opt)
+      { html += "<option value='"+opt.value+"'"+(opt.value === current ? " selected" : "")+">"+opt.label+"</option>";
+      });
+    html += "</select>";
+    return(html);
+  }
 /********************************************* Thread_Delete ******************************************************************/
  function Thread_delete ( thread_tech_id, fonction_ok, fonction_nok )
   { var json_request = { thread_tech_id: thread_tech_id };
