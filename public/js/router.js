@@ -52,6 +52,18 @@ var Router = (function () {
       breadcrumb: [ { label: 'Maintenance des Agents', href: '/agents_legacy' }, { label: 'Ajouter un agent au domaine', href: null } ]
     },
     {
+      pattern:    /^\/agent\/phidgets$/,
+      view:       'agent_phidgets',
+      script:     'agent_phidgets',
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
+    },
+    {
+      pattern:    /^\/agent\/phidget\/[^/]+$/,
+      view:       'agent_phidget_details',
+      script:     'agent_phidget_details',
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des HUB5000 Phidgets', href: '/agent/phidgets' }, { label: 'Configuration I/O Phidget', href: null } ]
+    },
+    {
       pattern:    /^\/agent\/[^/]+$/,
       view:       'agent_edit',
       script:     'agent_edit',
@@ -122,12 +134,6 @@ var Router = (function () {
       view:       'ups',
       script:     'ups',
       breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des Onduleurs', href: null } ]
-    },
-    {
-      pattern:    /^\/phidget$/,
-      view:       'phidget',
-      script:     'phidget',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
     },
     {
       pattern:    /^\/agents$/,
