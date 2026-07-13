@@ -28,7 +28,7 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function PHIDGET_Set ( selection )
   { var json_request =
-     { server_uuid:    $('#idTargetAgent').val(),
+     { server_uuid:    $('#idTargetServer').val(),
        agent_tech_id:  $('#idPHIDGETTechID').val().toUpperCase(),
        description: $('#idPHIDGETDescription').val(),
        hostname   : $('#idPHIDGETHostname').val(),
@@ -43,8 +43,8 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function PHIDGET_Edit ( phidget_id )
   { selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
-    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
-                        { return ( Response.agent_hostname ); }, selection.agent_uuid );
+    Select_from_api ( "idTargetServer", "/servers/list", null, "servers", "server_uuid", function (Response)
+                        { return ( Response.server_hostname ); }, selection.server_uuid );
     $('#idPHIDGETTitre').text("Editer la connexion " + selection.agent_tech_id);
     $('#idPHIDGETTechID').prop ("disabled", true).val( selection.agent_tech_id );
     $('#idPHIDGETDescription').val( selection.description );
@@ -57,8 +57,8 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function PHIDGET_Add ( )
   { $('#idPHIDGETTitre').text("Ajouter un équipement Phidget");
-    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
-                        { return ( Response.agent_hostname ); }, null );
+    Select_from_api ( "idTargetServer", "/servers/list", null, "servers", "server_uuid", function (Response)
+                        { return ( Response.server_hostname ); }, null );
     $('#idPHIDGETTechID').prop ("disabled", false).val("")
       .off("input").on("input", function () { Controle_tech_id( "idPHIDGET", null ); } ).trigger("input");
     $('#idPHIDGETDescription').val("");
@@ -93,7 +93,7 @@
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
-              { return( Lien ( "/agent/phidget/"+encodeURIComponent(item.agent_tech_id), "Editer les I/O", item.agent_tech_id ) ); }
+              { return( Lien ( "/phidget/"+encodeURIComponent(item.agent_tech_id), "Editer les I/O", item.agent_tech_id ) ); }
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell " },
@@ -119,7 +119,7 @@
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
               { boutons = Bouton_deroulant_start ( );
-                boutons += Bouton_deroulant_add ( "primary", "Editer les I/O", "Redirect", "/agent/phidget/"+encodeURIComponent(item.agent_tech_id), "sliders" );
+                boutons += Bouton_deroulant_add ( "primary", "Editer les I/O", "Redirect", "/phidget/"+encodeURIComponent(item.agent_tech_id), "sliders" );
                 boutons += Bouton_deroulant_add ( "primary", "Voir la source DLS", "Redirect", "/dls/"+encodeURIComponent(item.agent_tech_id), "code" );
                 boutons += Bouton_deroulant_add_spacer ();
                 boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "PHIDGET_Edit", item.agent_tech_id, "pen" );

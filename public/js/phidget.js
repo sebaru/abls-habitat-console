@@ -64,9 +64,9 @@ var PHIDGET_AGENT_TECH_ID = null;
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { vars = window.location.pathname.split('/');
-    if (vars[3] == null) Redirect ("/agent/phidgets");
+    if (vars[2] == null) Redirect ("/phidgets");
 
-    PHIDGET_AGENT_TECH_ID = decodeURIComponent(vars[3]).toUpperCase();
+    PHIDGET_AGENT_TECH_ID = decodeURIComponent(vars[2]).toUpperCase();
     Set_page_context ( "Configuration I/O Phidget " + PHIDGET_AGENT_TECH_ID );
 
     $('#idTablePHIDGET_IO').DataTable(
