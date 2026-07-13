@@ -33,7 +33,7 @@
        description: $('#idPHIDGETDescription').val(),
        hostname   : $('#idPHIDGETHostname').val(),
        password   : $('#idPHIDGETPassword').val(),
-       serial     : parseInt($('#idPHIDGETSerial').val()),
+       serial     : Number($('#idPHIDGETSerial').val())
      };
     Send_to_API ( "POST", "/phidget/set", json_request,
                   (Response) => { Show_toast_ok ("Modifications sauvegardées.");
@@ -50,7 +50,7 @@
     $('#idPHIDGETDescription').val( selection.description );
     $('#idPHIDGETHostname').val( selection.hostname );
     $('#idPHIDGETPassword').val( selection.password );
-    $('#idPHIDGETSerial').val( selection.serial );
+    $('#idPHIDGETSerial').attr({ min: 0, max: 999999, step: 1 }).val( selection.serial );
     $('#idPHIDGETValider').off("click").on( "click", function () { PHIDGET_Set(selection); } );
     $('#idPHIDGETEdit').modal("show");
   }
@@ -64,7 +64,7 @@
     $('#idPHIDGETDescription').val("");
     $('#idPHIDGETHostname').val( "" );
     $('#idPHIDGETPassword').val( "" );
-    $('#idPHIDGETSerial').val( "" );
+      $('#idPHIDGETSerial').attr({ min: 0, max: 999999, step: 1 }).val( "" );
     $('#idPHIDGETValider').off("click").on( "click", function () { PHIDGET_Set(null); } );
     $('#idPHIDGETEdit').modal("show");
   }
