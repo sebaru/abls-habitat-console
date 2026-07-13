@@ -25,6 +25,7 @@ var PHIDGET_AGENT_TECH_ID = null;
   { selection = $('#idTablePHIDGET_IO').DataTable().row("#"+phidget_io_id).data();
     $('#idPHIDGETEditIOTitre').text( "Configurer "+selection.agent_tech_id+", port "+selection.port );
     $('#idPHIDGETEditIOLibelle').val ( selection.libelle );
+    $('#idPHIDGETEditIOUnite').val ( selection.unite );
     $('#idPHIDGETEditIOCapteur')
      .replaceWith ( Select ( "idPHIDGETEditIOCapteur", null, Capteurs, selection.capteur ) );
     $('#idPHIDGETEditIOArchivage').replaceWith ( Select ( "idPHIDGETEditIOArchivage", null, ModeArchivage, selection.archivage ) );
@@ -37,6 +38,7 @@ var PHIDGET_AGENT_TECH_ID = null;
           archivage: parseInt($('#idPHIDGETEditIOArchivage').val()),
           capteur: $('#idPHIDGETEditIOCapteur').val(),
           libelle: $('#idPHIDGETEditIOLibelle').val(),
+          unite: $('#idPHIDGETEditIOUnite').val(),
         };
 
        Send_to_API ( "POST", "/phidget/set/io", json_request,
@@ -74,9 +76,9 @@ var PHIDGET_AGENT_TECH_ID = null;
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : $ABLS_API+"/phidget/list", type : "GET", dataSrc: function(Response)
                 { if (!Response || !Response.IO) return [];
-                  return Response.IO.filter(function(item) { return item.agent_tech_id === PHIDGET_AGENT_TECH_ID; });
+                  return Response.IO;
                 }, contentType: "application/json",
-               data: function() { return ( "classe=io" ) },
+               data: function() { return ( "agent_tech_id=" + encodeURIComponent(PHIDGET_AGENT_TECH_ID) ) },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "phidget_io_id",
@@ -105,6 +107,10 @@ var PHIDGET_AGENT_TECH_ID = null;
             { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
+            },
+            { "data": null, "title":"Unité", "className": "align-middle text-center d-none d-xl-table-cell",
+              "render": function (item)
+                { return ( htmlEncode(item.unite || "") ); }
             },
             { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
               "render": function (item)
