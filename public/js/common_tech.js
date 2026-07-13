@@ -55,7 +55,7 @@
 
     Send_to_API ( "POST", "/agent/log_level", json_request,
       function(Response) { Show_toast_ok ( "Agent "+agent_tech_id+" niveau de log = "+log_level+"." ); },
-      function(Response) { Show_toast_error ( "Erreur lors de la modification du niveau de log de l'agent "+agent_tech_id+"." ); } );
+      function(Response) { Show_shell_error ( "Erreur lors de la modification du niveau de log de l'agent "+agent_tech_id+"." ); } );
   }
 /********************************************* Render Log Level selector *****************************************************/
  function Render_log_level_selector ( agent_tech_id, current_level )

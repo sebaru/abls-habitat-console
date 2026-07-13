@@ -64,17 +64,17 @@
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
               },
           },
-          { "data": null, "title":"Debug", "className": "align-middle text-center d-none d-xl-table-cell",
-            "render": function (item)
-             { if (item.debug==true)
-                 { return( Bouton ( "warning", "Désactiver le debug", "THREAD_set_undebug", item.thread_tech_id, "Actif" ) ); }
-               else
-                { return( Bouton ( "outline-secondary", "Activer le debug", "THREAD_set_debug", item.thread_tech_id, "Désactivé" ) ); }
-             },
-          },
           { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },
+          { "data": null, "title":"Status", "className": "align-middle text-center d-none d-xl-table-cell",
+            "render": function (item)
+             { return ( htmlEncode ( item.agent_status ) ); }
+          },
+          { "data": null, "title":"Log_level", "className": "align-middle text-center d-none d-xl-table-cell",
+            "render": function (item)
+             { return( Render_log_level_selector ( item.thread_tech_id, item.debug ) ); },
+          },
         ],
-       /*order: [ [0, "desc"] ],*/
+               /*order: [ [0, "desc"] ],*/
      });
 
   }
