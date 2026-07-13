@@ -106,7 +106,8 @@ var PHIDGET_AGENT_TECH_ID = null;
               "render": function (item)
                 { return ( htmlEncode(item.libelle) ); }
             },
-            { "data": null, "title":"Actions", "orderable": false, "render": function (item)
+            { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center",
+              "render": function (item)
                 { boutons = Bouton_deroulant_start ( );
                   boutons += Bouton_deroulant_add ( "primary", "Editer cet objet", "PHIDGET_Edit_IO", item.phidget_io_id, "pen" );
                   boutons += Bouton_deroulant_add ( "primary", "Mapper cet objet", "PHIDGET_Map", item.phidget_io_id, "directions" );

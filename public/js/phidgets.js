@@ -119,10 +119,10 @@
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
               { boutons = Bouton_deroulant_start ( );
-                boutons += Bouton_deroulant_add ( "primary", "Editer les I/O", "Redirect", "/phidget/"+encodeURIComponent(item.agent_tech_id), "sliders" );
-                boutons += Bouton_deroulant_add ( "primary", "Voir la source DLS", "Redirect", "/dls/"+encodeURIComponent(item.agent_tech_id), "code" );
-                boutons += Bouton_deroulant_add_spacer ();
                 boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "PHIDGET_Edit", item.agent_tech_id, "pen" );
+                boutons += Bouton_deroulant_add ( "primary", "Editer les I/O", "Redirect", "/phidget/"+encodeURIComponent(item.agent_tech_id), "sliders" );
+                boutons += Bouton_deroulant_add_spacer ();
+                boutons += Bouton_deroulant_add ( "primary", "Voir la source DLS", "Redirect", "/dls/"+encodeURIComponent(item.agent_tech_id), "code" );
                 boutons += Bouton_deroulant_add_spacer ();
                 boutons += Bouton_deroulant_add ( "danger", "Supprimer la connexion", "PHIDGET_Del", item.agent_tech_id, "trash" );
                 boutons += Bouton_deroulant_end ();
