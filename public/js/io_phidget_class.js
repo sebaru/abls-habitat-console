@@ -93,7 +93,7 @@
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
-              { return( Lien ( "/phidget/"+encodeURIComponent(item.agent_tech_id), "Editer les I/O", item.agent_tech_id ) ); }
+              { return( Lien ( "/io/phidget/"+encodeURIComponent(item.agent_tech_id), "Editer les I/O", item.agent_tech_id ) ); }
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell " },
@@ -120,7 +120,7 @@
             "render": function (item)
               { boutons = Bouton_deroulant_start ( );
                 boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "PHIDGET_Edit", item.agent_tech_id, "pen" );
-                boutons += Bouton_deroulant_add ( "primary", "Editer les I/O", "Redirect", "/phidget/"+encodeURIComponent(item.agent_tech_id), "sliders" );
+                boutons += Bouton_deroulant_add ( "primary", "Editer les I/O", "Redirect", "/io/phidget/"+encodeURIComponent(item.agent_tech_id), "sliders" );
                 boutons += Bouton_deroulant_add_spacer ();
                 boutons += Bouton_deroulant_add ( "primary", "Voir la source DLS", "Redirect", "/dls/"+encodeURIComponent(item.agent_tech_id), "code" );
                 boutons += Bouton_deroulant_add_spacer ();

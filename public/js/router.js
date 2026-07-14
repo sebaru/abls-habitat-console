@@ -52,16 +52,16 @@ var Router = (function () {
       breadcrumb: [ { label: 'Agents Legacy', href: '/agents_legacy' }, { label: 'Ajouter un agent au domaine', href: null } ]
     },
     {
-      pattern:    /^\/phidgets$/,
-      view:       'phidgets',
-      script:     'phidgets',
+      pattern:    /^\/io\/phidget$/,
+      view:       'io_phidget_class',
+      script:     'io_phidget_class',
       breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
     },
     {
-      pattern:    /^\/phidget\/[^/]+$/,
-      view:       'phidget',
-      script:     'phidget',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des HUB5000 Phidgets', href: '/phidgets' }, { label: 'Configuration I/O Phidget', href: null } ]
+      pattern:    /^\/io\/phidget\/[^/]+$/,
+      view:       'io_phidget_conf',
+      script:     'io_phidget_conf',
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des HUB5000 Phidgets', href: '/io/phidget' }, { label: 'Configuration I/O Phidget', href: null } ]
     },
     {
       pattern:    /^\/agent\/[^/]+$/,
