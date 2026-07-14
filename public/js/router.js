@@ -137,8 +137,8 @@ var Router = (function () {
     },
     {
       pattern:    /^\/agents$/,
-      view:       'threads',
-      script:     'threads',
+      view:       'agents',
+      script:     'agents',
       breadcrumb: [ { label: 'Liste des Agents', href: null } ]
     },
     {
