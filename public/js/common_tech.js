@@ -46,6 +46,38 @@
        if (fonction_ok) fonction_ok(Response);
      }, fonction_nok );
   }
+ /********************************************* Start Agent ******************************************************************/
+ function Agent_start ( agent_tech_id )
+  { var json_request = { agent_tech_id: agent_tech_id };
+    Send_to_API ( "POST", "/agent/start", json_request,
+                  function(Response) { Show_toast_ok ( "Démarrage demandé pour l'agent "+agent_tech_id ); },
+                  function(Response) { Show_shell_error ( "Erreur au demarrage de l'agent "+agent_tech_id ); }
+                );
+  }
+ /********************************************* Stop Agent *******************************************************************/
+ function Agent_stop ( agent_tech_id, fonction_ok, fonction_nok )
+  { var json_request = { agent_tech_id: agent_tech_id };
+    Send_to_API ( "POST", "/agent/stop", json_request,
+                  function(Response) { Show_toast_ok ( "Arrêt demandé pour l'agent "+agent_tech_id ); },
+                  function(Response) { Show_shell_error ( "Erreur à l'arrêt de l'agent "+agent_tech_id ); }
+                );
+  }
+ /********************************************* Restart Agent ****************************************************************/
+ function Agent_restart ( agent_tech_id, fonction_ok, fonction_nok )
+  { var json_request = { agent_tech_id: agent_tech_id };
+    Send_to_API ( "POST", "/agent/restart", json_request,
+                  function(Response) { Show_toast_ok ( "Redémarrage demandé pour l'agent "+agent_tech_id ); },
+                  function(Response) { Show_shell_error ( "Erreur au redémarrage de l'agent "+agent_tech_id ); }
+                );
+  }
+ /********************************************* Upgrade Agent ****************************************************************/
+ function Agent_upgrade ( agent_tech_id, fonction_ok, fonction_nok )
+  { var json_request = { agent_tech_id: agent_tech_id };
+    Send_to_API ( "POST", "/agent/upgrade", json_request,
+                  function(Response) { Show_toast_ok ( "Upgrade demandé pour l'agent "+agent_tech_id ); },
+                  function(Response) { Show_shell_error ( "Erreur à l'upgrade de l'agent "+agent_tech_id ); }
+                );
+  }
  /********************************************* Reload Process *****************************************************************/
  function Agent_set_log_level ( agent_tech_id, log_level )
   { var json_request =

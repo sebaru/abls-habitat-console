@@ -52,12 +52,12 @@
                 { return( Bouton ( "outline-secondary", "Activer le thread", "THREAD_set_enable", item.thread_tech_id, "Désactivé" ) ); }
               },
           },
-           { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
-             "render": function (item)
-               { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
-                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
-               },
-           },
+          { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
+            "render": function (item)
+              { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
+                return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
+              },
+          },
           { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
@@ -72,6 +72,23 @@
           { "data": null, "title":"Log_level", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
              { return( Render_log_level_selector ( item.thread_tech_id, item.debug ) ); },
+          },
+          { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
+            "render": function (item)
+             { var boutons = Bouton_deroulant_start();
+               if (item.enable)
+                { boutons += Bouton_deroulant_add ( "warning", "Upgrader", "Agent_upgrade", item.thread_tech_id, "download" );
+                  boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "Agent_restart", item.thread_tech_id, "redo" );
+                  boutons += Bouton_deroulant_add_spacer();
+                  boutons += Bouton_deroulant_add ( "danger", "Arrêter",   "Agent_stop", item.thread_tech_id, "stop" );
+
+                }
+               else
+                { boutons += Bouton_deroulant_add ( "success", "Démarrer", "Agent_start", item.thread_tech_id, "play" );
+                }
+               boutons += Bouton_deroulant_end();
+               return ( boutons );
+             }
           },
         ],
                /*order: [ [0, "desc"] ],*/
