@@ -32,17 +32,20 @@
              },
        /*rowId: "thread_id",*/
        columns:
-        [ { "data": null, "title":"Tech_id", "className": "align-middle text-center",
-            "render": function (item)
-              { return( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id ) ); }
-          },
-          { "data": null, "title":"Agent", "className": "align-middle text-center",
+        [ { "data": null, "title":"Server", "className": "align-middle text-center",
             "render": function (item)
               { return( htmlEncode(item.agent_hostname) ); }
           },
+          { "data": null, "title":"Tech_id", "className": "align-middle text-center",
+            "render": function (item)
+              { var classe = encodeURIComponent(item.thread_classe || "");
+                var techId = encodeURIComponent(item.thread_tech_id || "");
+                return( Lien ( "/io/"+classe+"/"+techId, "Voir la configuration du connecteur", item.thread_tech_id ) ); }
+          },
           { "data": null, "title":"Classe", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
-              { return( Lien ( "/"+item.thread_classe, "Voir la configuration du connecteur", htmlEncode(item.thread_classe) ) ); }
+              { var classe = encodeURIComponent(item.thread_classe || "");
+                return( Lien ( "/io/"+classe, "Voir la configuration du connecteur", htmlEncode(item.thread_classe) ) ); }
           },
           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)

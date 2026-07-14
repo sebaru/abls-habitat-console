@@ -99,7 +99,7 @@
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell " },
           { "data": "password", "title":"Password", "className": "align-middle text-center d-none d-xl-table-cell " },
           { "data": "serial", "title":"Serial Number", "className": "align-middle text-center d-none d-xl-table-cell " },
-          { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
+/*          { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
               { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
@@ -115,7 +115,7 @@
             "render": function (item)
               { return( Render_log_level_selector ( item.agent_tech_id, item.log_level ) );
               },
-           },
+           },*/
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
               { boutons = Bouton_deroulant_start ( );
