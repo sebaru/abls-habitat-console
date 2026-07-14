@@ -22,8 +22,8 @@ var Router = (function () {
       breadcrumb: []
     },
     {
-      pattern:    /^\/io_config$/,
-      view:       'io_config',
+      pattern:    /^\/io$/,
+      view:       'io',
       script:     null,
       breadcrumb: [ { label: 'Connecteurs et Mappings', href: null } ]
     },
@@ -55,13 +55,13 @@ var Router = (function () {
       pattern:    /^\/phidgets$/,
       view:       'phidgets',
       script:     'phidgets',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
     },
     {
       pattern:    /^\/phidget\/[^/]+$/,
       view:       'phidget',
       script:     'phidget',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des HUB5000 Phidgets', href: '/phidgets' }, { label: 'Configuration I/O Phidget', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des HUB5000 Phidgets', href: '/phidgets' }, { label: 'Configuration I/O Phidget', href: null } ]
     },
     {
       pattern:    /^\/agent\/[^/]+$/,
@@ -79,25 +79,25 @@ var Router = (function () {
       pattern:    /^\/modbus$/,
       view:       'modbus',
       script:     'modbus',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des Modules WAGO sur Modbus', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des Modules WAGO sur Modbus', href: null } ]
     },
     {
       pattern:    /^\/imsgs$/,
       view:       'imsgs',
       script:     'imsgs',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Configuration Messagerie Instantanée', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Configuration Messagerie Instantanée', href: null } ]
     },
     {
       pattern:    /^\/smsg$/,
       view:       'smsg',
       script:     'smsg',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Configuration des SMSG', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Configuration des SMSG', href: null } ]
     },
     {
       pattern:    /^\/gpiod$/,
       view:       'gpiod',
       script:     'gpiod',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des Threads GPIO', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des Threads GPIO', href: null } ]
     },
     {
       pattern:    /^\/search$/,
@@ -109,31 +109,31 @@ var Router = (function () {
       pattern:    /^\/audio\/zones$/,
       view:       'audio_zones',
       script:     'audio_zones',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Zones audio', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Zones audio', href: null } ]
     },
     {
       pattern:    /^\/audio\/zone\/[^/]+$/,
       view:       'audio_zone',
       script:     'audio_zone',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Zones audio', href: '/audio/zones' }, { label: 'Édition de la zone audio', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Zones audio', href: '/audio/zones' }, { label: 'Édition de la zone audio', href: null } ]
     },
     {
       pattern:    /^\/audio$/,
       view:       'audio',
       script:     'audio',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Connecteurs AUDIO', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Connecteurs AUDIO', href: null } ]
     },
     {
       pattern:    /^\/cameras$/,
       view:       'cameras',
       script:     'cameras',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Gestion des caméras', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Gestion des caméras', href: null } ]
     },
     {
       pattern:    /^\/ups$/,
       view:       'ups',
       script:     'ups',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des Onduleurs', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des Onduleurs', href: null } ]
     },
     {
       pattern:    /^\/agents$/,
@@ -151,19 +151,19 @@ var Router = (function () {
       pattern:    /^\/teleinfoedf$/,
       view:       'teleinfoedf',
       script:     'teleinfoedf',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Configuration des modules Téléinfo EDF', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Configuration des modules Téléinfo EDF', href: null } ]
     },
     {
       pattern:    /^\/shelly$/,
       view:       'shelly',
       script:     'shelly',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des Modules Shelly', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des Modules Shelly', href: null } ]
     },
     {
       pattern:    /^\/meteo$/,
       view:       'meteo',
       script:     'meteo',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Configuration de la météo', href: null } ]
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Configuration de la météo', href: null } ]
     },
     {
       pattern:    /^\/dls\/packages$/,
