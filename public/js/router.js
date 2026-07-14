@@ -49,7 +49,7 @@ var Router = (function () {
       pattern:    /^\/agent\/add$/,
       view:       'agent_add',
       script:     'agent_add',
-      breadcrumb: [ { label: 'Maintenance des Agents', href: '/agents_legacy' }, { label: 'Ajouter un agent au domaine', href: null } ]
+      breadcrumb: [ { label: 'Agents Legacy', href: '/agents_legacy' }, { label: 'Ajouter un agent au domaine', href: null } ]
     },
     {
       pattern:    /^\/phidgets$/,
@@ -67,13 +67,13 @@ var Router = (function () {
       pattern:    /^\/agent\/[^/]+$/,
       view:       'agent_edit',
       script:     'agent_edit',
-      breadcrumb: [ { label: 'Maintenance des Agents', href: '/agents_legacy' }, { label: 'Editer l\'agent', href: null } ]
+      breadcrumb: [ { label: 'Agents Legacy', href: '/agents_legacy' }, { label: 'Editer l\'agent', href: null } ]
     },
     {
       pattern:    /^\/agents_legacy$/,
-      view:       'agents',
-      script:     'agents',
-      breadcrumb: [ { label: 'Maintenance des Agents', href: null } ]
+      view:       'agents_legacy',
+      script:     'agents_legacy',
+      breadcrumb: [ { label: 'Agents Legacy', href: null } ]
     },
     {
       pattern:    /^\/modbus$/,
