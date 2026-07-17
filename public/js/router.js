@@ -154,9 +154,9 @@ var Router = (function () {
       breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Configuration des modules Téléinfo EDF', href: null } ]
     },
     {
-      pattern:    /^\/shelly$/,
-      view:       'shelly',
-      script:     'shelly',
+      pattern:    /^\/io\/shelly$/,
+      view:       'io_shelly_class',
+      script:     'io_shelly_class',
       breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des Modules Shelly', href: null } ]
     },
     {
