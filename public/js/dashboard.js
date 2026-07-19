@@ -31,7 +31,7 @@
        $("#idDBPort").text(Response.db_port);
 
        $("#idNbrAgents").text(Response.nbr_agents);
-       $("#idNbrThreads").text(Response.nbr_threads);
+       $("#idNbrServers").text(Response.nbr_servers);
      });
 
     Charger_une_courbe ( "idCourbeDlsTourParSec", "SYS", "DLS_TOUR_PER_SEC", "BY_10_MINUTE_ON_3_DAYS", "AVG" );
