@@ -2,10 +2,36 @@
  function SERVERS_Refresh ( )
   { $('#idTableSERVERS').DataTable().ajax.reload(null, false);
   }
+/*********************************************** Active ou desactive le mode master ******************************************/
+ function SERVER_Set_Master ( server_uuid, newState )
+  { var selection = $('#idTableSERVERS').DataTable().row("#"+server_uuid).data();
+    var $switch = $('#idSwitchMaster_' + server_uuid);
+
+    if (selection && selection.is_master && newState === false)
+     { $switch.prop('checked', true);
+       Show_shell_error ( "Promouvez un autre serveur en tant que master pour que celui-ci ne le soit plus." );
+       return;
+     }
+
+    $switch.prop('disabled', true);
+
+    var json_request = { server_uuid: server_uuid, master: newState };
+    Send_to_API ( "POST", "/server/set/master", json_request,
+      function(Response)
+       { Show_toast_ok ( "Serveur " + selection.server_hostname + " " + (newState ? "passe en master" : "sort du mode master") + "." );
+         $switch.prop('disabled', false);
+         SERVERS_Refresh();
+       },
+      function(Response)
+       { $switch.prop('checked', !newState).prop('disabled', false);
+         Show_shell_error ( "Erreur lors de la modification du mode master pour " + selection.server_hostname + "." );
+       }
+    );
+  }
 /******************************************* Active ou desactive le mode headless ********************************************/
  function SERVER_Set_Headless ( server_uuid, newState )
   { var selection = $('#idTableSERVERS').DataTable().row("#"+server_uuid).data();
-    var $switch = $('#idSwitch_' + server_uuid);
+    var $switch = $('#idSwitchHeadless_' + server_uuid);
     $switch.prop('disabled', true);
 
     var json_request = { server_uuid: server_uuid, headless: newState };
@@ -30,10 +56,15 @@
              },
        rowId: "server_uuid",
        columns:
-        [ { "data": null, "title":"Rôle", "className": "align-middle text-center",
+        [ { "data": null, "title":"Master", "className": "align-middle text-center",
             "render": function (item)
-              { if (item.is_master) return( Badge( "warning", "Master", "Master" ) );
-                return( Badge( "secondary", "Slave", "Slave" ) );
+              { var extra_attributes = "data-server-uuid='" + item.server_uuid + "'";
+                if (item.is_master) extra_attributes += " disabled";
+                return( Switch ( "idSwitchMaster_" + item.server_uuid,
+                                 "Mode master",
+                                 item.is_master,
+                                 "server-master-switch",
+                                 extra_attributes ) );
               }
           },
           { "data": null, "title":"Hostname", "className": "align-middle text-center",
@@ -48,7 +79,7 @@
           },
           { "data": null, "title":"Headless", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
-              { return( Switch ( "idSwitch_" + item.server_uuid,
+              { return( Switch ( "idSwitchHeadless_" + item.server_uuid,
                                  "Mode headless",
                                  item.headless,
                                  "server-headless-switch",
@@ -69,7 +100,13 @@
        order: [ [1, "asc"] ],
      });
 
-     $(document).off('change.serversHeadless', '.server-headless-switch').on('change.serversHeadless', '.server-headless-switch', function()
+    $(document).off('change.serversMaster', '.server-master-switch').on('change.serversMaster', '.server-master-switch', function()
+      { var server_uuid = $(this).data('server-uuid');
+        var newState = $(this).is(':checked');
+        SERVER_Set_Master(server_uuid, newState);
+      });
+
+    $(document).off('change.serversHeadless', '.server-headless-switch').on('change.serversHeadless', '.server-headless-switch', function()
       { var server_uuid = $(this).data('server-uuid');
         var newState = $(this).is(':checked');
         SERVER_Set_Headless(server_uuid, newState);
