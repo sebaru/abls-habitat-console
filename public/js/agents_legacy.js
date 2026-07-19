@@ -102,8 +102,7 @@
            },
            { "data": null, "title":"Hostname", "className": "align-middle text-center",
              "render": function (item)
-              { result = Lien ( "/agent/"+item.agent_uuid, "Voir l'agent", item.agent_hostname + " " );
-                return(result);
+             { return( htmlEncode(item.agent_hostname) );
               }
            },
            { "data": null, "title":"Version", "className": "align-middle text-center d-none d-md-table-cell",

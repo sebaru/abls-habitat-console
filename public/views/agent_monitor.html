@@ -1,0 +1,89 @@
+<div class="container">
+
+ <div class="row m-2 align-items-center">
+   <div class="col-auto">
+     <h3 class="mb-0"><i class="fas fa-heartbeat text-primary"></i> Monitoring agent <span id="idAgentMonitorTitle"></span></h3>
+   </div>
+   <div class="col-auto ms-auto btn-group align-items-center">
+     <button type="button" onclick="Agent_monitor_refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
+     <a id="idAgentMonitorIoLink" class="btn btn-primary" href="#"><i class="fas fa-cogs"></i> Configuration</a>
+   </div>
+ </div>
+
+ <hr>
+
+ <div class="row g-2 m-1">
+   <div class="col-12 col-md-6 col-lg-3">
+     <div class="card border-info">
+       <div class="card-header">Agent</div>
+       <div class="card-body"><span id="idAgentMonitorHostname">-</span></div>
+     </div>
+   </div>
+   <div class="col-12 col-md-6 col-lg-3">
+     <div class="card border-info">
+       <div class="card-header">Status</div>
+       <div class="card-body"><span id="idAgentMonitorStatus">-</span></div>
+     </div>
+   </div>
+   <div class="col-12 col-md-6 col-lg-3">
+     <div class="card border-info">
+       <div class="card-header">Connexion</div>
+       <div class="card-body"><span id="idAgentMonitorAlive">-</span></div>
+     </div>
+   </div>
+   <div class="col-12 col-md-6 col-lg-3">
+     <div class="card border-info">
+       <div class="card-header">MQTT</div>
+       <div class="card-body"><span id="idAgentMonitorMqtt">-</span></div>
+     </div>
+   </div>
+ </div>
+
+ <div class="row g-2 m-1 mt-2">
+   <div class="col-12 col-lg-6">
+     <div class="card border-info">
+       <div class="card-header">Heartbeat</div>
+       <div class="card-body"><span id="idAgentMonitorHeartbeat">-</span></div>
+     </div>
+   </div>
+   <div class="col-12 col-lg-6 d-flex align-items-center justify-content-lg-end">
+     <div class="d-flex align-items-center w-100 w-lg-auto">
+       <i class='fas fa-clock text-primary me-2'></i>
+       <select id='idAgentMonitorPeriod' class='form-select'></select>
+     </div>
+   </div>
+ </div>
+
+ <hr>
+
+ <div class="row p-1 justify-content-center">
+   <canvas id="idAgentCourbeMaxRss" class="courbe-dashboard border border-info"></canvas>
+ </div>
+
+ <div class="row p-1 justify-content-center">
+   <canvas id="idAgentCourbeTourParSec" class="courbe-dashboard border border-info"></canvas>
+ </div>
+
+ <div class="row p-1 justify-content-center">
+   <canvas id="idAgentCourbeLogParMin" class="courbe-dashboard border border-info"></canvas>
+ </div>
+
+ <hr>
+
+ <div class="row m-2 align-items-center">
+   <div class="col-auto">
+     <h4 class="mb-0"><i class="fas fa-wave-square text-primary"></i> AI embarquées</h4>
+   </div>
+   <div class="col-auto ms-auto">
+     <button type="button" onclick="Agent_monitor_refresh_ai()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh AI</button>
+   </div>
+ </div>
+
+ <table id="idTableAgentAI" class="table table-striped table-bordered table-hover">
+   <thead class="table-dark">
+   </thead>
+   <tbody>
+   </tbody>
+ </table>
+
+</div>

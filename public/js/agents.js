@@ -22,6 +22,10 @@
   { $("#idButtonSpinner_THREAD_set_undebug_"+thread_tech_id).show();
     Thread_debug ( thread_tech_id, false, function(Response) { THREAD_Refresh(); }, function(Response) { THREAD_Refresh(); } );
   }
+/********************************************* Navigation vers la page de monitoring *****************************************/
+ function Agent_monitor ( agent_tech_id )
+  { Redirect ( "/agent/"+encodeURIComponent(agent_tech_id) );
+  }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { $('#idTableTHREAD').DataTable(
@@ -70,7 +74,9 @@
           { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },
           { "data": null, "title":"Status", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
-             { return ( htmlEncode ( item.agent_status ) ); }
+             { return ( Lien ( "/agent/"+encodeURIComponent(item.thread_tech_id || ""),
+                                "Voir le monitoring de l'agent",
+                                item.agent_status || "-" ) ); }
           },
           { "data": null, "title":"Log_level", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
@@ -79,6 +85,8 @@
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
              { var boutons = Bouton_deroulant_start();
+               boutons += Bouton_deroulant_add ( "info", "Monitorer", "Agent_monitor", item.thread_tech_id, "chart-line" );
+               boutons += Bouton_deroulant_add_spacer();
                if (item.enable)
                 { boutons += Bouton_deroulant_add ( "warning", "Upgrader", "Agent_upgrade", item.thread_tech_id, "download" );
                   boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "Agent_restart", item.thread_tech_id, "redo" );

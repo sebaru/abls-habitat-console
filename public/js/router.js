@@ -52,6 +52,12 @@ var Router = (function () {
       breadcrumb: [ { label: 'Agents Legacy', href: '/agents_legacy' }, { label: 'Ajouter un agent au domaine', href: null } ]
     },
     {
+      pattern:    /^\/agent\/[^/]+$/,
+      view:       'agent_monitor',
+      script:     'agent_monitor',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Monitoring agent', href: null } ]
+    },
+    {
       pattern:    /^\/io\/phidget$/,
       view:       'io_phidget_class',
       script:     'io_phidget_class',
@@ -62,12 +68,6 @@ var Router = (function () {
       view:       'io_phidget_conf',
       script:     'io_phidget_conf',
       breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des HUB5000 Phidgets', href: '/io/phidget' }, { label: 'Configuration I/O Phidget', href: null } ]
-    },
-    {
-      pattern:    /^\/agent\/[^/]+$/,
-      view:       'agent_edit',
-      script:     'agent_edit',
-      breadcrumb: [ { label: 'Agents Legacy', href: '/agents_legacy' }, { label: 'Editer l\'agent', href: null } ]
     },
     {
       pattern:    /^\/agents_legacy$/,
