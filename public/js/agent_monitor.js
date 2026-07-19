@@ -1,44 +1,44 @@
 /******************************************************************************************************************************/
  var AgentMonitorTimer = null;
 /******************************************************************************************************************************/
- function Agent_monitor_get_tech_id_raw ()
+ function Agent_monitor_get_tech_id ()
   { var vars = window.location.pathname.split('/');
     return ( decodeURIComponent(vars[2]) || null );
   }
 /******************************************************************************************************************************/
  function Agent_monitor_refresh_status ()
-    var techId = Agent_monitor_get_tech_id_raw();
+  { var techId = Agent_monitor_get_tech_id();
     if (!techId) { Show_shell_error("Tech_id agent invalide."); return; }
 
-    Send_to_API ( "GET", "/thread/list", null, function (Response)
-     { var thread = null;
-       $.each ( Response.threads || [], function (i, item)
-        { if (item.thread_tech_id === techId) { thread = item; return(false); }
-        }
-       );
-
-       if (!thread)
+    Send_to_API ( "GET", "/agent/get", "agent_tech_id="+encodeURIComponent(techId), function (agent)
+     { if (!agent || !agent.thread_tech_id)
         { $("#idAgentMonitorHostname").text("Inconnu");
           $("#idAgentMonitorStatus").html( Badge("secondary", "Status inconnu", "N/A") );
           $("#idAgentMonitorAlive").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorMqtt").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorHeartbeat").text("-");
-          Show_shell_error("Aucun thread trouvé pour '"+techId+"'.");
+          Show_shell_error("Aucun agent trouvé pour '"+techId+"'.");
           return;
         }
 
-       $("#idAgentMonitorHostname").text(thread.agent_hostname || "-");
-       $("#idAgentMonitorStatus").text(thread.agent_status || "-");
-       if (thread.is_alive) $("#idAgentMonitorAlive").html( Badge("success", "Connecté", "Connecté") );
+       $("#idAgentMonitorHostname").text(agent.agent_hostname || "-");
+       $("#idAgentMonitorStatus").text(agent.agent_status || "-");
+       if (agent.is_alive) $("#idAgentMonitorAlive").html( Badge("success", "Connecté", "Connecté") );
                     else $("#idAgentMonitorAlive").html( Badge("danger", "Déconnecté", "Déconnecté") );
-       if (thread.mqtt_connected) $("#idAgentMonitorMqtt").html( Badge("success", "Connecté", "Connecté") );
+       if (agent.mqtt_connected) $("#idAgentMonitorMqtt").html( Badge("success", "Connecté", "Connecté") );
                              else $("#idAgentMonitorMqtt").html( Badge("danger", "Déconnecté", "Déconnecté") );
-       $("#idAgentMonitorHeartbeat").text(thread.heartbeat_time || "-");
+       $("#idAgentMonitorHeartbeat").text(agent.heartbeat_time || "-");
 
-       var classe = encodeURIComponent(thread.thread_classe || "");
-       var techIdUrl = encodeURIComponent(thread.thread_tech_id || "");
+       var classe = encodeURIComponent(agent.thread_classe || "");
+       var techIdUrl = encodeURIComponent(agent.thread_tech_id || "");
        $("#idAgentMonitorIoLink").attr("href", "/io/"+classe+"/"+techIdUrl);
-     }, null );
+     }, function ()
+     { $("#idAgentMonitorHostname").text("Inconnu");
+       $("#idAgentMonitorStatus").html( Badge("secondary", "Status inconnu", "N/A") );
+       $("#idAgentMonitorAlive").html( Badge("secondary", "Etat inconnu", "N/A") );
+       $("#idAgentMonitorMqtt").html( Badge("secondary", "Etat inconnu", "N/A") );
+       $("#idAgentMonitorHeartbeat").text("-");
+     } );
   }
 /******************************************************************************************************************************/
  function Agent_monitor_refresh_curves ()
@@ -71,10 +71,9 @@
   }
 /******************************************************************************************************************************/
  function Load_page ()
-  { var techIdRaw = Agent_monitor_get_tech_id_raw();
-    if (!techIdRaw) { Redirect("/agents"); return; }
-
+  {
     var techId = Agent_monitor_get_tech_id();
+    if (!techId) { Redirect("/agents"); return; }
     $("#idAgentMonitorTitle").text(techId);
     Set_page_context ( "Monitoring agent '" + techId + "'" );
 

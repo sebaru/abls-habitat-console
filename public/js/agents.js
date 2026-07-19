@@ -12,16 +12,6 @@
   { $("#idButtonSpinner_THREAD_set_enable_"+thread_tech_id).show();
     Thread_enable ( thread_tech_id, true, function(Response) { THREAD_Refresh(); }, function(Response) { THREAD_Refresh(); } );
   }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
- function THREAD_set_debug (thread_tech_id)
-  { $("#idButtonSpinner_THREAD_set_debug_"+thread_tech_id).show();
-    Thread_debug ( thread_tech_id, true, function(Response) { THREAD_Refresh(); }, function(Response) { THREAD_Refresh(); } );
-  }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
- function THREAD_set_undebug (thread_tech_id)
-  { $("#idButtonSpinner_THREAD_set_undebug_"+thread_tech_id).show();
-    Thread_debug ( thread_tech_id, false, function(Response) { THREAD_Refresh(); }, function(Response) { THREAD_Refresh(); } );
-  }
 /********************************************* Navigation vers la page de monitoring *****************************************/
  function Agent_monitor ( agent_tech_id )
   { Redirect ( "/agent/"+encodeURIComponent(agent_tech_id) );
@@ -31,7 +21,7 @@
   { $('#idTableTHREAD').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/thread/list", type : "GET", dataSrc: "threads", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/agent/list", type : "GET", dataSrc: "agents", contentType: "application/json",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        /*rowId: "thread_id",*/
