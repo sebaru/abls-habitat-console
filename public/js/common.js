@@ -298,6 +298,15 @@
    return( result );
   }
 
+ function Switch ( id, tooltip, checked, switch_class, extra_attributes )
+  { var extra = "";
+    if (extra_attributes) extra = " " + extra_attributes;
+    return( "<div class='form-check form-switch d-flex justify-content-center'>" +
+            "<input id='"+id+"' type='checkbox' class='form-check-input "+switch_class+"' " +
+            "data-bs-toggle='tooltip' title='"+htmlEncode(tooltip)+"' "+(checked ? "checked" : "")+extra+">" +
+            "</div>" );
+  }
+
  function Lien ( target, tooltip, texte )
   { return( "<a href='"+target+"' data-bs-toggle='tooltip' title='"+htmlEncode(tooltip)+"'>"+htmlEncode(texte)+"</a>" );
   }
