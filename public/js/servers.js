@@ -18,13 +18,13 @@
     var json_request = { server_uuid: server_uuid, master: newState };
     Send_to_API ( "POST", "/server/set/master", json_request,
       function(Response)
-       { Show_toast_ok ( "Serveur " + selection.server_hostname + " " + (newState ? "passe en master" : "sort du mode master") + "." );
+       { Show_toast_ok ( "Serveur " + selection.agent_tech_id + " " + (newState ? "passe en master" : "sort du mode master") + "." );
          $switch.prop('disabled', false);
          SERVERS_Refresh();
        },
       function(Response)
        { $switch.prop('checked', !newState).prop('disabled', false);
-         Show_shell_error ( "Erreur lors de la modification du mode master pour " + selection.server_hostname + "." );
+         Show_shell_error ( "Erreur lors de la modification du mode master pour " + selection.agent_tech_id + "." );
        }
     );
   }
@@ -37,12 +37,12 @@
     var json_request = { server_uuid: server_uuid, headless: newState };
     Send_to_API ( "POST", "/server/set/headless", json_request,
       function(Response)
-       { Show_toast_ok ( "Serveur " + selection.server_hostname + " " + (newState ? "passé en headless" : "sort du mode headless") + "." );
+       { Show_toast_ok ( "Serveur " + selection.agent_tech_id + " " + (newState ? "passé en headless" : "sort du mode headless") + "." );
          $switch.prop('disabled', false);
        },
       function(Response)
        { $switch.prop('checked', !newState).prop('disabled', false);
-         Show_shell_error ( "Erreur lors de la modification du mode headless pour " + selection.server_hostname + "." );
+         Show_shell_error ( "Erreur lors de la modification du mode headless pour " + selection.agent_tech_id + "." );
        }
     );
   }
@@ -69,7 +69,7 @@
           },
           { "data": null, "title":"Hostname", "className": "align-middle text-center",
             "render": function (item)
-              { return( htmlEncode(item.server_hostname) );
+              { return( htmlEncode(item.agent_tech_id) );
               }
           },
           { "data": null, "title":"Version", "className": "align-middle text-center d-none d-md-table-cell",

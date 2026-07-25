@@ -13,6 +13,7 @@
                            { regex: "#define", token: "def" }, // Mots-clés
                            { regex: "#link", token: "def" }, // Mots-clés
                            { regex: "#param", token: "def" }, // Mots-clés
+                           { regex: "switch", token: "operator" }, // Mots-clés
                            { regex: "<->", token: "operator" }, // Mots-clés
                            { regex: "->", token: "operator" }, // Mots-clés
                            { regex: "-", token: "operator" }, // Mots-clés
@@ -22,106 +23,7 @@
                            { regex: /\b_[A-Z]*\b/g, token: "keyword" }, // Variables
                          ];
 
-/********************************************* Reload Process *****************************************************************/
- function Thread_enable ( thread_tech_id, enable, fonction_ok, fonction_nok )
-  { var json_request =
-     { enable        : enable,
-       thread_tech_id: thread_tech_id,
-     };
-
-    Send_to_API ( "POST", "/thread/enable", json_request, function(Response)
-     { Show_toast_ok ( "Thread "+thread_tech_id+(enable ? " activé" : " désactivé") +".");
-       if (fonction_ok) fonction_ok(Response);
-     }, fonction_nok );
-  }
-/********************************************* Reload Process *****************************************************************/
- function Thread_debug ( thread_tech_id, enable, fonction_ok, fonction_nok )
-  { var json_request =
-     { debug         : enable,
-       thread_tech_id: thread_tech_id,
-     };
-
-    Send_to_API ( "POST", "/thread/debug", json_request, function(Response)
-     { Show_toast_ok ( "Thread "+thread_tech_id+(enable ? " en debug" : " hors debug") +".");
-       if (fonction_ok) fonction_ok(Response);
-     }, fonction_nok );
-  }
- /********************************************* Start Agent ******************************************************************/
- function Agent_start ( agent_tech_id )
-  { var json_request = { agent_tech_id: agent_tech_id };
-    Send_to_API ( "POST", "/agent/start", json_request,
-                  function(Response) { Show_toast_ok ( "Démarrage demandé pour l'agent "+agent_tech_id ); },
-                  function(Response) { Show_shell_error ( "Erreur au demarrage de l'agent "+agent_tech_id ); }
-                );
-  }
- /********************************************* Stop Agent *******************************************************************/
- function Agent_stop ( agent_tech_id, fonction_ok, fonction_nok )
-  { var json_request = { agent_tech_id: agent_tech_id };
-    Send_to_API ( "POST", "/agent/stop", json_request,
-                  function(Response) { Show_toast_ok ( "Arrêt demandé pour l'agent "+agent_tech_id ); },
-                  function(Response) { Show_shell_error ( "Erreur à l'arrêt de l'agent "+agent_tech_id ); }
-                );
-  }
- /********************************************* Restart Agent ****************************************************************/
- function Agent_restart ( agent_tech_id, fonction_ok, fonction_nok )
-  { var json_request = { agent_tech_id: agent_tech_id };
-    Send_to_API ( "POST", "/agent/restart", json_request,
-                  function(Response) { Show_toast_ok ( "Redémarrage demandé pour l'agent "+agent_tech_id ); },
-                  function(Response) { Show_shell_error ( "Erreur au redémarrage de l'agent "+agent_tech_id ); }
-                );
-  }
- /********************************************* Upgrade Agent ****************************************************************/
- function Agent_upgrade ( agent_tech_id, fonction_ok, fonction_nok )
-  { var json_request = { agent_tech_id: agent_tech_id };
-    Send_to_API ( "POST", "/agent/upgrade", json_request,
-                  function(Response) { Show_toast_ok ( "Upgrade demandé pour l'agent "+agent_tech_id ); },
-                  function(Response) { Show_shell_error ( "Erreur à l'upgrade de l'agent "+agent_tech_id ); }
-                );
-  }
- /********************************************* Reload Process *****************************************************************/
- function Agent_set_log_level ( agent_tech_id, log_level )
-  { var json_request =
-     { agent_tech_id: agent_tech_id,
-       log_level    : parseInt(log_level),
-     };
-
-    Send_to_API ( "POST", "/agent/log_level", json_request,
-      function(Response) { Show_toast_ok ( "Agent "+agent_tech_id+" niveau de log = "+log_level+"." ); },
-      function(Response) { Show_shell_error ( "Erreur lors de la modification du niveau de log de l'agent "+agent_tech_id+"." ); } );
-  }
-/********************************************* Render Log Level selector *****************************************************/
- function Render_log_level_selector ( agent_tech_id, current_level )
-  { var current = parseInt(current_level);
-    if (isNaN(current) || current < 0 || current > 7) current = 6;
-
-    var options =
-      [ { value: 7, label: "LOG_DEBUG" },
-        { value: 6, label: "LOG_INFO" },
-        { value: 5, label: "LOG_NOTICE" },
-        { value: 4, label: "LOG_WARNING" },
-        { value: 3, label: "LOG_ERR" },
-        { value: 2, label: "LOG_CRIT" },
-        { value: 1, label: "LOG_ALERT" },
-        { value: 0, label: "LOG_EMERG" }
-      ];
-
-    var onChange = "Agent_set_log_level('"+agent_tech_id+"', this.value )";
-    var html = "<select class='form-select form-select-sm' onchange=\""+onChange+"\">";
-    options.forEach(function(opt)
-      { html += "<option value='"+opt.value+"'"+(opt.value === current ? " selected" : "")+">"+opt.label+"</option>";
-      });
-    html += "</select>";
-    return(html);
-  }
-/********************************************* Thread_Delete ******************************************************************/
- function Thread_delete ( thread_tech_id, fonction_ok, fonction_nok )
-  { var json_request = { thread_tech_id: thread_tech_id };
-    Send_to_API ( 'DELETE', "/thread/delete", json_request, function(Response)
-     { Show_toast_ok ( "Thread "+thread_tech_id+" supprimé.");
-       if (fonction_ok) fonction_ok(Response);
-     }, fonction_nok );
-  }
-/********************************************* Supprime un mapping *********************************************************/
+/********************************************* Supprime un mapping ************************************************************/
  function MAPPING_Unmap ( mapping_id, refresh_callback )
   { Send_to_API ( "DELETE", "/mapping/delete", { mapping_id: parseInt(mapping_id) },
                   (Response) => { Show_toast_ok ("Mapping supprimé.");
