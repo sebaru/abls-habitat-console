@@ -11,7 +11,7 @@
     if (!techId) { Show_shell_error("Tech_id agent invalide."); return; }
 
     Send_to_API ( "GET", "/agent/get", "agent_tech_id="+encodeURIComponent(techId), function (agent)
-     { if (!agent || !agent.thread_tech_id)
+     { if (!agent || !agent.agent_tech_id)
         { $("#idAgentMonitorHostname").text("Inconnu");
           $("#idAgentMonitorStatus").html( Badge("secondary", "Status inconnu", "N/A") );
           $("#idAgentMonitorAlive").html( Badge("secondary", "Etat inconnu", "N/A") );

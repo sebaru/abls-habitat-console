@@ -124,7 +124,9 @@
           { "data": null, "title":"Classe", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { var classe = encodeURIComponent(item.agent_classe || "");
-                return( Lien ( "/io/"+classe, "Voir la configuration du connecteur", htmlEncode(item.agent_classe) ) ); }
+                if (classe !== "servers" ) return( Lien ( "/io/"+classe, "Voir la configuration du connecteur", htmlEncode(item.agent_classe) ) );
+                else return ( Lien ("/servers", "Voir la configuration du serveur", htmlEncode(item.agent_classe) ) );
+              }
           },
           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
