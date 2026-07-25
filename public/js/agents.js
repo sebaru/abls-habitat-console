@@ -124,8 +124,9 @@
           { "data": null, "title":"Classe", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { var classe = encodeURIComponent(item.agent_classe || "");
-                if (classe !== "servers" ) return( Lien ( "/io/"+classe, "Voir la configuration du connecteur", htmlEncode(item.agent_classe) ) );
-                else return ( Lien ("/servers", "Voir la configuration du serveur", htmlEncode(item.agent_classe) ) );
+                var classeLabel = htmlEncode(item.agent_classe || "") + " - " + htmlEncode(item.version || "none");
+                if (classe !== "servers" ) return( Lien ( "/io/"+classe, "Voir la configuration du connecteur", classeLabel ) );
+                else return ( Lien ("/servers", "Voir la configuration du serveur", classeLabel ) );
               }
           },
           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
@@ -136,16 +137,11 @@
                 { return( Bouton ( "outline-secondary", "Activer l'agent", "AGENT_set_enable", item.agent_tech_id, "Désactivé" ) ); }
               },
           },
-          { "data": null, "title":"Connexion", "className": "align-middle text-center d-none d-md-table-cell",
+          { "data": null, "title":"Heartbeat", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
-              { if (item.is_alive) return( Badge( "success", "Connecté", "Connecté" ) );
-                return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
-              },
-          },
-          { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
-            "render": function (item)
-              { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
-                return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
+              { var ioBadge = item.is_alive ? Badge( "success", "Etat", "UP" ) : Badge( "secondary", "Etat", "DOWN" );
+                var mqttBadge = item.mqtt_connected ? Badge( "success", "MQTT", "MQTT" ) : Badge( "secondary", "MQTT", "MQTT" );
+                return( ioBadge + " " + mqttBadge );
               },
           },
           { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },
