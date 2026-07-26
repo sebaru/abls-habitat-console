@@ -103,11 +103,17 @@
              },
        rowId: "mnemo_ai_id",
        columns:
-        [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
+        [ { "data": null, "title":"Map from", "className": "align-middle text-center",
             "render": function (item)
-             { return ( Lien ( "/courbe/"+encodeURIComponent(item.tech_id || techId)+"/"+encodeURIComponent(item.acronyme || "")+"/BY_HOUR_ON_2_DAYS",
+             { if (item.agent_tech_id) return ( item.agent_tech_id+":"+item.agent_acronyme );
+               return ( "-" );
+             }
+          },
+          { "data": null, "title":"Acronyme", "className": "align-middle text-center",
+            "render": function (item)
+             { return ( Lien ( "/courbe/"+encodeURIComponent(item.tech_id)+"/"+encodeURIComponent(item.acronyme)+"/BY_HOUR_ON_2_DAYS",
                                "Voir la courbe",
-                               item.acronyme || "-" ) ); }
+                               item.tech_id+":"+item.acronyme ) ); }
           },
           { "data": "valeur", "title":"Valeur", "className": "align-middle text-center" },
           { "data": "unite", "title":"Unité", "className": "align-middle text-center d-none d-md-table-cell" },
