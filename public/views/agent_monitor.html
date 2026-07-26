@@ -4,9 +4,13 @@
    <div class="col-auto">
      <h3 class="mb-0"><i class="fas fa-heartbeat text-primary"></i> Monitoring agent <span id="idAgentMonitorTitle"></span></h3>
    </div>
-   <div class="col-auto ms-auto btn-group align-items-center">
+   <div class="col-auto ms-auto d-flex align-items-center gap-2 flex-wrap justify-content-end">
      <button type="button" onclick="Agent_monitor_refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
-     <a id="idAgentMonitorIoLink" class="btn btn-primary" href="#"><i class="fas fa-cogs"></i> Configuration</a>
+     <a id="idAgentMonitorIoLink" class="btn btn-primary" href="#"><i class="fas fa-cogs"></i> Configurer</a>
+     <div class="input-group input-group-sm flex-nowrap" style="width: 18rem;">
+       <span class="input-group-text bg-white"><i class='fas fa-clock text-primary'></i></span>
+       <select id='idAgentMonitorPeriod' class='form-select'></select>
+     </div>
    </div>
  </div>
 
@@ -15,8 +19,14 @@
  <div class="row g-2 m-1">
    <div class="col-12 col-md-6 col-lg-3">
      <div class="card border-info">
-       <div class="card-header">Agent</div>
-       <div class="card-body"><span id="idAgentMonitorHostname">-</span></div>
+       <div class="card-header">Server</div>
+       <div class="card-body"><span id="idAgentMonitorServerHostname">-</span></div>
+     </div>
+   </div>
+   <div class="col-12 col-md-6 col-lg-3">
+     <div class="card border-info">
+       <div class="card-header">Heartbeat time</div>
+       <div class="card-body"><span id="idAgentMonitorHeartbeat">-</span></div>
      </div>
    </div>
    <div class="col-12 col-md-6 col-lg-3">
@@ -27,14 +37,8 @@
    </div>
    <div class="col-12 col-md-6 col-lg-3">
      <div class="card border-info">
-       <div class="card-header">Connexion</div>
-       <div class="card-body"><span id="idAgentMonitorAlive">-</span></div>
-     </div>
-   </div>
-   <div class="col-12 col-md-6 col-lg-3">
-     <div class="card border-info">
-       <div class="card-header">MQTT</div>
-       <div class="card-body"><span id="idAgentMonitorMqtt">-</span></div>
+       <div class="card-header">Start time</div>
+       <div class="card-body"><span id="idAgentMonitorStartTime">-</span></div>
      </div>
    </div>
  </div>
@@ -42,14 +46,14 @@
  <div class="row g-2 m-1 mt-2">
    <div class="col-12 col-lg-6">
      <div class="card border-info">
-       <div class="card-header">Heartbeat</div>
-       <div class="card-body"><span id="idAgentMonitorHeartbeat">-</span></div>
+       <div class="card-header">MQTT API</div>
+       <div class="card-body"><span id="idAgentMonitorMqttApi">-</span></div>
      </div>
    </div>
-   <div class="col-12 col-lg-6 d-flex align-items-center justify-content-lg-end">
-     <div class="d-flex align-items-center w-100 w-lg-auto">
-       <i class='fas fa-clock text-primary me-2'></i>
-       <select id='idAgentMonitorPeriod' class='form-select'></select>
+   <div class="col-12 col-lg-6">
+     <div class="card border-info">
+       <div class="card-header">MQTT Local</div>
+       <div class="card-body"><span id="idAgentMonitorMqttLocal">-</span></div>
      </div>
    </div>
  </div>

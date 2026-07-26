@@ -6,38 +6,53 @@
     return ( decodeURIComponent(vars[2]) || null );
   }
 /******************************************************************************************************************************/
+ function Agent_monitor_format_datetime ( value )
+  { if (!value || value === "0000-00-00 00:00:00") return("-");
+    return(value);
+  }
+/******************************************************************************************************************************/
  function Agent_monitor_refresh_status ()
   { var techId = Agent_monitor_get_tech_id();
     if (!techId) { Show_shell_error("Tech_id agent invalide."); return; }
 
     Send_to_API ( "GET", "/agent/get", "agent_tech_id="+encodeURIComponent(techId), function (agent)
      { if (!agent || !agent.agent_tech_id)
-        { $("#idAgentMonitorHostname").text("Inconnu");
+        { $("#idAgentMonitorServerHostname").text("Inconnu");
           $("#idAgentMonitorStatus").html( Badge("secondary", "Status inconnu", "N/A") );
-          $("#idAgentMonitorAlive").html( Badge("secondary", "Etat inconnu", "N/A") );
-          $("#idAgentMonitorMqtt").html( Badge("secondary", "Etat inconnu", "N/A") );
-          $("#idAgentMonitorHeartbeat").text("-");
+          $("#idAgentMonitorHeartbeat").html( Badge("secondary", "Etat inconnu", "N/A") );
+          $("#idAgentMonitorMqttApi").html( Badge("secondary", "Etat inconnu", "N/A") );
+          $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
+          $("#idAgentMonitorStartTime").text("-");
           Show_shell_error("Aucun agent trouvé pour '"+techId+"'.");
           return;
         }
 
-       $("#idAgentMonitorHostname").text(agent.agent_hostname || "-");
+       $("#idAgentMonitorServerHostname").text(agent.server_hostname || "-");
        $("#idAgentMonitorStatus").text(agent.agent_status || "-");
-       if (agent.is_alive) $("#idAgentMonitorAlive").html( Badge("success", "Connecté", "Connecté") );
-                    else $("#idAgentMonitorAlive").html( Badge("danger", "Déconnecté", "Déconnecté") );
-       if (agent.mqtt_connected) $("#idAgentMonitorMqtt").html( Badge("success", "Connecté", "Connecté") );
-                             else $("#idAgentMonitorMqtt").html( Badge("danger", "Déconnecté", "Déconnecté") );
-       $("#idAgentMonitorHeartbeat").text(agent.heartbeat_time || "-");
+       if (agent.is_alive) $("#idAgentMonitorHeartbeat").html( Badge("success", "Agent actif", "UP") );
+                    else $("#idAgentMonitorHeartbeat").html( Badge("danger", "Agent inactif", "DOWN") );
+       if (agent.mqtt_api_connected) $("#idAgentMonitorMqttApi").html( Badge("success", "Connecté", "Connecté") );
+                                   else $("#idAgentMonitorMqttApi").html( Badge("danger", "Déconnecté", "Déconnecté") );
+       if (agent.mqtt_local_connected) $("#idAgentMonitorMqttLocal").html( Badge("success", "Connecté", "Connecté") );
+                                     else $("#idAgentMonitorMqttLocal").html( Badge("danger", "Déconnecté", "Déconnecté") );
+       $("#idAgentMonitorStartTime").text( Agent_monitor_format_datetime(agent.start_time) );
 
-       var classe = encodeURIComponent(agent.thread_classe || "");
-       var techIdUrl = encodeURIComponent(agent.thread_tech_id || "");
-       $("#idAgentMonitorIoLink").attr("href", "/io/"+classe+"/"+techIdUrl);
+       var configHref = "#";
+       if (agent.agent_classe === "server")
+        { configHref = "/servers"; }
+       else if (agent.agent_classe && agent.agent_tech_id)
+        { var classe = encodeURIComponent(agent.agent_classe);
+          var agent_tech_id = encodeURIComponent(agent.agent_tech_id);
+          configHref = "/io/"+classe+"/"+agent_tech_id;
+        }
+       $("#idAgentMonitorIoLink").attr("href", configHref);
      }, function ()
-     { $("#idAgentMonitorHostname").text("Inconnu");
+     { $("#idAgentMonitorServerHostname").text("Inconnu");
        $("#idAgentMonitorStatus").html( Badge("secondary", "Status inconnu", "N/A") );
-       $("#idAgentMonitorAlive").html( Badge("secondary", "Etat inconnu", "N/A") );
-       $("#idAgentMonitorMqtt").html( Badge("secondary", "Etat inconnu", "N/A") );
-       $("#idAgentMonitorHeartbeat").text("-");
+       $("#idAgentMonitorHeartbeat").html( Badge("secondary", "Etat inconnu", "N/A") );
+       $("#idAgentMonitorMqttApi").html( Badge("secondary", "Etat inconnu", "N/A") );
+       $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
+       $("#idAgentMonitorStartTime").text("-");
      } );
   }
 /******************************************************************************************************************************/
@@ -105,7 +120,8 @@
         ],
      });
 
-    Agent_monitor_refresh();
+    Agent_monitor_refresh_status();
+    Agent_monitor_refresh_curves();
 
     if (AgentMonitorTimer) clearInterval(AgentMonitorTimer);
     AgentMonitorTimer = setInterval( Agent_monitor_tick, 10000 );

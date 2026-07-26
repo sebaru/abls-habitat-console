@@ -140,8 +140,9 @@
           { "data": null, "title":"Etat", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
               { var ioBadge = item.is_alive ? Badge( "success", "Etat", "UP" ) : Badge( "secondary", "Etat", "DOWN" );
-                var mqttBadge = item.mqtt_connected ? Badge( "success", "MQTT", "MQTT" ) : Badge( "secondary", "MQTT", "MQTT" );
-                return( ioBadge + " " + mqttBadge );
+                var mqttApiBadge = item.mqtt_api_connected ? Badge( "success", "MQTT API", "MQTT API" ) : Badge( "secondary", "MQTT API", "MQTT API" );
+                var mqttLocalBadge = item.mqtt_local_connected ? Badge( "success", "MQTT Local", "MQTT Local" ) : Badge( "secondary", "MQTT Local", "MQTT Local" );
+                return( ioBadge + " " + mqttApiBadge + " " + mqttLocalBadge );
               },
           },
           { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },

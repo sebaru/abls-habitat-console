@@ -170,7 +170,7 @@
           },
           { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
-              { if (item.mqtt_connected) return( Badge( "success", "Connecté", "Connecté" ) );
+              { if (item.mqtt_api_connected) return( Badge( "success", "Connecté", "Connecté" ) );
                 return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
               },
           },
