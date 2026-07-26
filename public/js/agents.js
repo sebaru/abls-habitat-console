@@ -125,7 +125,7 @@
             "render": function (item)
               { var classe = encodeURIComponent(item.agent_classe || "");
                 var classeLabel = htmlEncode(item.agent_classe || "") + " - " + htmlEncode(item.version || "none");
-                if (classe !== "servers" ) return( Lien ( "/io/"+classe, "Voir la configuration du connecteur", classeLabel ) );
+                if (classe !== "server" ) return( Lien ( "/io/"+classe, "Voir la configuration du connecteur", classeLabel ) );
                 else return ( Lien ("/servers", "Voir la configuration du serveur", classeLabel ) );
               }
           },
@@ -137,7 +137,7 @@
                 { return( Bouton ( "outline-secondary", "Activer l'agent", "AGENT_set_enable", item.agent_tech_id, "Désactivé" ) ); }
               },
           },
-          { "data": null, "title":"Heartbeat", "className": "align-middle text-center d-none d-md-table-cell",
+          { "data": null, "title":"Etat", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
               { var ioBadge = item.is_alive ? Badge( "success", "Etat", "UP" ) : Badge( "secondary", "Etat", "DOWN" );
                 var mqttBadge = item.mqtt_connected ? Badge( "success", "MQTT", "MQTT" ) : Badge( "secondary", "MQTT", "MQTT" );
@@ -158,17 +158,17 @@
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
              { var boutons = Bouton_deroulant_start();
+               if (item.is_alive == false)
+                { boutons += Bouton_deroulant_add ( "success", "Démarrer", "AGENT_start", item.agent_tech_id, "play" ); }
                boutons += Bouton_deroulant_add ( "info", "Monitorer", "AGENT_monitor", item.agent_tech_id, "chart-line" );
                boutons += Bouton_deroulant_add_spacer();
-               if (item.enable)
-                { boutons += Bouton_deroulant_add ( "warning", "Upgrader", "AGENT_upgrade", item.agent_tech_id, "upload" );
-                  boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "AGENT_restart", item.agent_tech_id, "sync-alt" );
-                  boutons += Bouton_deroulant_add_spacer();
-                  boutons += Bouton_deroulant_add ( "danger", "Arrêter",   "AGENT_stop", item.agent_tech_id, "stop" );
-
-                }
-               else
-                { boutons += Bouton_deroulant_add ( "success", "Démarrer", "AGENT_start", item.agent_tech_id, "play" );
+               boutons += Bouton_deroulant_add ( "warning", "Upgrader", "AGENT_upgrade", item.agent_tech_id, "upload" );
+               boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "AGENT_restart", item.agent_tech_id, "sync-alt" );
+               if (item.is_alive)
+                { if (item.agent_classe !== "server")
+                   { boutons += Bouton_deroulant_add_spacer();
+                     boutons += Bouton_deroulant_add ( "danger", "Arrêter",   "AGENT_stop", item.agent_tech_id, "stop" );
+                   }
                 }
                boutons += Bouton_deroulant_end();
                return ( boutons );
