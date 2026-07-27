@@ -46,10 +46,10 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste de mes domaines', href: null } ]
     },
     {
-      pattern:    /^\/agent\/add$/,
+      pattern:    /^\/server\/add$/,
       view:       'agent_add',
       script:     'agent_add',
-      breadcrumb: [ { label: 'Agents', href: '/agents' }, { label: 'Ajouter un agent au domaine', href: null } ]
+      breadcrumb: [ { label: 'Liste des Serveurs', href: '/servers' }, { label: 'Ajouter un serveur au domaine', href: null } ]
     },
     {
       pattern:    /^\/agent\/[^/]+$/,

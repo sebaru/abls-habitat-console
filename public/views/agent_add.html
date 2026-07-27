@@ -8,16 +8,23 @@
          <div class="card-body">
 
            <div class="row mb-2 align-items-center">
-             <label class="col-4 col-form-label text-end">Pour un agent natif</label>
-             <div class="col-8">
-               <textarea id="idAGENTLinkNatif" readonly rows="6" type="text" class="form-control" placeholder="Command to link agent"></textarea>
+             <label class="col-12 col-sm-4 col-form-label text-sm-end">Installation Debian/Raspbian</label>
+             <div class="col-12 col-sm-8">
+               <textarea id="idAGENTLinkDebian" readonly rows="5" type="text" class="form-control" placeholder="Commands to install on Debian/Raspbian"></textarea>
              </div>
            </div>
 
            <div class="row mb-2 align-items-center">
-             <label class="col-4 col-form-label text-end">Pour un agent en container</label>
-             <div class="col-8">
-               <textarea id="idAGENTLinkPodman" readonly rows="6" type="text" class="form-control" placeholder="Command to link agent"></textarea>
+             <label class="col-12 col-sm-4 col-form-label text-sm-end">Installation Fedora/RHEL</label>
+             <div class="col-12 col-sm-8">
+               <textarea id="idAGENTLinkFedora" readonly rows="5" type="text" class="form-control" placeholder="Commands to install on Fedora/RHEL"></textarea>
+             </div>
+           </div>
+
+           <div class="row mb-2 align-items-center">
+             <label class="col-12 col-sm-4 col-form-label text-sm-end">Liaison agent-domaine</label>
+             <div class="col-12 col-sm-8">
+               <textarea id="idAGENTLinkDomain" readonly rows="3" type="text" class="form-control" placeholder="Commands to link agent to domain"></textarea>
              </div>
            </div>
 

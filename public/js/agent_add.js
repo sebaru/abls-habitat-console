@@ -3,20 +3,29 @@
   {
     Send_to_API ( 'GET', "/domain/get", "domain_uuid="+localStorage.getItem("domain_uuid"), function (Response)
      {
-       $("#idAGENTLinkNatif").text( "sudo Watchdogd --save"+
-                                    " --api-url " + Response.api_url +
-                                    " --domain-uuid " + localStorage.getItem("domain_uuid") +
-                                    " --domain-secret '" + Response.domain_secret + "'"
-                                  );
-       $("#idAGENTLinkPodman").text( "podman rm abls-agent; "+
-                                     "podman run -d --name abls-agent "+
-                                     "--restart always -v /dev/log:/dev/log --tz local -p 5559:5559 "+
-                                     "--env ABLS_API_URL="+Response.api_url + " "+
-                                     "--env ABLS_DOMAIN_UUID="+localStorage.getItem("domain_uuid") + " "+
-                                     "--env ABLS_DOMAIN_SECRET='"+Response.domain_secret + "' "+
-                                     "--group-add keep-groups "+
-                                     "docker.io/sebaru/abls-agent:latest "
-                                  );
+       $("#idAGENTLinkDebian").text(
+         "# Debian / Raspbian\n"+
+         "sudo wget -O /etc/apt/sources.list.d/abls-deb.sources https://pkgs.abls-habitat.fr/abls-deb.sources\n"+
+         "sudo apt update\n"+
+         "sudo apt install -y abls-agent-server"
+       );
+
+       $("#idAGENTLinkFedora").text(
+         "# Fedora / RHEL\n"+
+         "sudo wget -O /etc/yum.repos.d/abls-rpms.repo https://pkgs.abls-habitat.fr/abls-rpms.repo\n"+
+         "sudo rpm --import https://pkgs.abls-habitat.fr/rpms/keys/RPM-GPG-KEY-ABLS\n"+
+         "sudo dnf makecache\n"+
+         "sudo dnf install -y abls-agent-server"
+       );
+
+       $("#idAGENTLinkDomain").text(
+         "# Lier l'agent au domaine\n"+
+         "sudo abls-agent-server --save"+
+         " --api-url " + Response.api_url +
+         " --domain-uuid " + localStorage.getItem("domain_uuid") +
+         " --domain-secret '" + Response.domain_secret + "'\n"+
+         "sudo systemctl enable --now abls-agent-server.service"
+       );
      }, null );
   }
 /******************************************************************************************************************************/
