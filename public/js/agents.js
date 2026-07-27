@@ -1,4 +1,6 @@
 /********************************************* Active un agent ****************************************************************/
+ var AGENT_refresh_timer = null;
+
  function AGENT_set_enable ( agent_tech_id )
   { var json_request = { enable: true, agent_tech_id: agent_tech_id, };
     Send_to_API ( "POST", "/agent/enable", json_request,
@@ -100,7 +102,22 @@
   { Redirect ( "/agent/"+encodeURIComponent(agent_tech_id) ); }
 /********************************************* Refresh de la table agents *****************************************************/
  function AGENT_refresh ()
-  { $('#idTableAGENT').DataTable().ajax.reload(null, false); }
+  { if (typeof $ === "undefined" || !$.fn || !$.fn.dataTable) return;
+    if (!$.fn.dataTable.isDataTable('#idTableAGENT')) return;
+    $('#idTableAGENT').DataTable().ajax.reload(null, false);
+  }
+
+ function AGENT_start_auto_refresh ()
+  { if (AGENT_refresh_timer) clearInterval(AGENT_refresh_timer);
+    AGENT_refresh_timer = setInterval( function ()
+     { if (window.location.pathname !== '/agents')
+        { clearInterval(AGENT_refresh_timer);
+          AGENT_refresh_timer = null;
+          return;
+        }
+       AGENT_refresh();
+     }, 30000 );
+  }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { $('#idTableAGENT').DataTable(
@@ -139,9 +156,9 @@
           },
           { "data": null, "title":"Etat", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
-              { var ioBadge = item.is_alive ? Badge( "success", "Etat", "UP" ) : Badge( "secondary", "Etat", "DOWN" );
-                var mqttApiBadge = item.mqtt_api_connected ? Badge( "success", "MQTT API", "MQTT API" ) : Badge( "secondary", "MQTT API", "MQTT API" );
-                var mqttLocalBadge = item.mqtt_local_connected ? Badge( "success", "MQTT Local", "MQTT Local" ) : Badge( "secondary", "MQTT Local", "MQTT Local" );
+              { var ioBadge = Badge( (item.is_alive ? "success" : (item.enable ? "danger" : "secondary")), "Etat", (item.is_alive ? "UP" : "DOWN") );
+                var mqttApiBadge = Badge( (item.is_alive && item.mqtt_api_connected) ? "success" : "secondary", "MQTT API", "MQTT API" );
+                var mqttLocalBadge = Badge( (item.is_alive && item.mqtt_local_connected) ? "success" : "secondary", "MQTT Local", "MQTT Local" );
                 return( ioBadge + " " + mqttApiBadge + " " + mqttLocalBadge );
               },
           },
@@ -179,4 +196,5 @@
                /*order: [ [0, "desc"] ],*/
      });
 
+    AGENT_start_auto_refresh();
   }

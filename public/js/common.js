@@ -260,13 +260,13 @@
      }
 
  function Bouton_deroulant_add ( color, texte, clic_func, key, icone, extra_args )
-  { result = "<a class='dropdown-item text-"+(color === "danger" ? "danger" : "white")+(clic_func===null ? " disabled" : "")+"' href='#' "+
+  { result = "<button class='dropdown-item text-"+(color === "danger" ? "danger" : "white")+(clic_func===null ? " disabled" : "")+"' "+
              (clic_func !== null ? "onclick="+clic_func+"('"+key+"'"+(extra_args ? ","+extra_args : "")+"); return(false); "
                                  : "tabindex='-1' aria-disabled='true' ")+
              ">"+
              (icone!==null ? "<i class='fas fa-"+icone+" text-"+color+"'></i> " : "") +
              htmlEncode(texte) +
-             "</a>";
+             "</button>";
     return(result);
   }
 
