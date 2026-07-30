@@ -31,8 +31,6 @@
        $("#idAgentMonitorStatus").text(agent.agent_status || "-");
        if (agent.is_alive) $("#idAgentMonitorHeartbeat").html( Badge("success", "Agent actif", "UP") );
                     else $("#idAgentMonitorHeartbeat").html( Badge("danger", "Agent inactif", "DOWN") );
-       if (agent.mqtt_api_connected) $("#idAgentMonitorMqttApi").html( Badge("success", "Connecté", "Connecté") );
-                                   else $("#idAgentMonitorMqttApi").html( Badge("danger", "Déconnecté", "Déconnecté") );
        if (agent.mqtt_local_connected) $("#idAgentMonitorMqttLocal").html( Badge("success", "Connecté", "Connecté") );
                                      else $("#idAgentMonitorMqttLocal").html( Badge("danger", "Déconnecté", "Déconnecté") );
        $("#idAgentMonitorStartTime").text( Agent_monitor_format_datetime(agent.start_time) );
