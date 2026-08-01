@@ -148,11 +148,11 @@
           },
           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
-              { if (item.enable==true)
-                { return( Bouton ( "success", "Désactiver l'agent", "AGENT_set_disable", item.agent_tech_id, "Actif" ) ); }
-               else
-                { return( Bouton ( "outline-secondary", "Activer l'agent", "AGENT_set_enable", item.agent_tech_id, "Désactivé" ) ); }
-              },
+              { return( Switch ( "idSwitchEnable_" + item.agent_tech_id,
+                                 "Activer/Désactiver l'agent",
+                                 item.enable,
+                                 "agent-enable-switch",
+                                 "data-agent-tech-id='" + item.agent_tech_id + "'" ) ); }
           },
           { "data": null, "title":"Etat", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item)
@@ -181,11 +181,11 @@
                boutons += Bouton_deroulant_add_spacer();
                boutons += Bouton_deroulant_add ( "warning", "Upgrader", "AGENT_upgrade", item.agent_tech_id, "upload" );
                boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "AGENT_restart", item.agent_tech_id, "sync-alt" );
-               if (item.is_alive)
-                { if (item.agent_classe !== "server")
-                   { boutons += Bouton_deroulant_add_spacer();
-                     boutons += Bouton_deroulant_add ( "danger", "Arrêter",   "AGENT_stop", item.agent_tech_id, "stop" );
-                   }
+               if (item.agent_classe !== "server")
+                { if (item.is_alive)
+                   { boutons += Bouton_deroulant_add ( "danger", "Arrêter",   "AGENT_stop", item.agent_tech_id, "stop" ); }
+                  else
+                   { boutons += Bouton_deroulant_add ( "success", "Démarrer", "AGENT_start", item.agent_tech_id, "play" ); }
                 }
                boutons += Bouton_deroulant_end();
                return ( boutons );
@@ -194,6 +194,13 @@
         ],
                /*order: [ [0, "desc"] ],*/
      });
+
+    $(document).off('change.agentsEnable', '.agent-enable-switch').on('change.agentsEnable', '.agent-enable-switch', function()
+      { var agent_tech_id = $(this).data('agent-tech-id');
+        var newState = $(this).is(':checked');
+        if (newState) AGENT_set_enable(agent_tech_id);
+        else AGENT_set_disable(agent_tech_id);
+      });
 
     AGENT_start_auto_refresh();
   }
