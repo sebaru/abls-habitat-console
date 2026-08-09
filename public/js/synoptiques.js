@@ -146,24 +146,27 @@
   { selection = $('#idTableSYN').DataTable().row("#"+syn_id).data();
     $('#idSynEditImageTitre').text ( "Modifier l'image pour " + htmlEncode(selection.libelle) );
 
-    images = [ "syn_maison.png", "syn_communication.png", "syn_reseau.png",
-               "syn_buanderie.png", "syn_camera.png", "syn_chambre_double.png", "syn_chambre_simple.png",
-               "syn_bureaux.svg",
-               "syn_cuisine.png", "syn_garage.png", "syn_cour.png",
-               "syn_jardin.png", "syn_arrosage_1.svg", "syn_arrosage_2.svg", "syn_tondeuse.svg",
-               "syn_robinet.svg", "syn_robinet_ecs.svg", "syn_eau_chaude.svg", "syn_eau_froide.svg",
-               "syn_piscine.png", "syn_chimie.svg", "syn_puit.svg",
+    images = [ "syn_maison.png",
+               "syn_buanderie.png", "syn_chambre_double.png", "syn_chambre_simple.png",
                "syn_salle_de_bain.png", "syn_congelateur.svg", "syn_salon.png", "syn_jeux.png", "syn_tele.png",
+               "syn_piscine.png", "syn_chimie.svg", "syn_puit.svg",
                "syn_ouvrants.png", "syn_porte.png", "syn_volets.png", "syn_velux.svg",
                "syn_soleil.svg", "syn_luminaires.png", "syn_spot.png", "syn_sonorisation.png",
                "syn_confort.png", "syn_poele.svg", "syn_ventilateur.svg",
+               "syn_bureaux.svg", "syn_cuisine.png", "syn_garage.png", "syn_cour.png",
+
+               "syn_jardin.png", "syn_arrosage.svg", "syn_tondeuse.svg",
+
 
                "syn_energie.png", "syn_electricite.png", "syn_shelly.jpg", "syn_linky.jpg", "syn_ups.png", "syn_panneau_solaire.png",
-               "syn_groupe_electrogene.svg",
+               "syn_groupe_electrogene.svg", "syn_essence.svg",
 
                "syn_chaudiere.png", "syn_chauffe_eau.svg", "syn_chauffe_eau_solaire.svg", "syn_chauffage.svg",
-               "syn_essence.svg",
+               "syn_robinet.svg", "syn_robinet_ecs.svg", "syn_eau_chaude.svg", "syn_eau_froide.svg",
+
+
                "syn_acces.svg", "syn_maintenance.png", "syn_parametres.png", "syn_menu_parametres.png", "syn_horloge.png",
+               "syn_camera.png", "syn_communication.png", "syn_reseau.png",
              ];
 
     liste = $("#idSynEditImageListe");
