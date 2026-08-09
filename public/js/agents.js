@@ -175,8 +175,6 @@
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
              { var boutons = Bouton_deroulant_start();
-               if (item.is_alive == false)
-                { boutons += Bouton_deroulant_add ( "success", "Démarrer", "AGENT_start", item.agent_tech_id, "play" ); }
                boutons += Bouton_deroulant_add ( "info", "Monitorer", "AGENT_monitor", item.agent_tech_id, "chart-line" );
                boutons += Bouton_deroulant_add_spacer();
                boutons += Bouton_deroulant_add ( "warning", "Upgrader", "AGENT_upgrade", item.agent_tech_id, "upload" );
