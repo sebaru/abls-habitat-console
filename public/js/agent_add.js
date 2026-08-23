@@ -5,7 +5,8 @@
      {
        $("#idAGENTLinkDebian").text(
          "# Debian / Raspbian\n"+
-         "sudo wget -O /etc/apt/sources.list.d/abls-deb.sources https://pkgs.abls-habitat.fr/abls-deb.sources\n"+
+         "source /etc/os-release\n"+
+         "sudo wget -O /etc/apt/sources.list.d/abls-pkgs.sources https://pkgs.abls-habitat.fr/abls-pkgs-${VERSION_CODENAME}.sources\n"+
          "sudo apt update\n"+
          "sudo apt install -y abls-agent-server"
        );
