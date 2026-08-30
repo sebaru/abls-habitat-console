@@ -11,6 +11,16 @@
     return(value);
   }
 /******************************************************************************************************************************/
+ function Agent_monitor_test ()
+  { var techId = Agent_monitor_get_tech_id();
+    if (!techId) { Show_shell_error("Tech_id agent invalide."); return; }
+
+    Send_to_API ( "POST", "/agent/test", { agent_tech_id: techId },
+                  function(Response) { Show_toast_ok ( "Test demandé pour l'agent "+techId ); },
+                  function(Response) { Show_shell_error ( "Erreur lors du test de l'agent "+techId ); }
+                );
+  }
+/******************************************************************************************************************************/
  function Agent_monitor_refresh_status ()
   { var techId = Agent_monitor_get_tech_id();
     if (!techId) { Show_shell_error("Tech_id agent invalide."); return; }
@@ -23,6 +33,7 @@
           $("#idAgentMonitorMqttApi").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorStartTime").text("-");
+          $("#idAgentMonitorTest").prop("disabled", true);
           Show_shell_error("Aucun agent trouvé pour '"+techId+"'.");
           return;
         }
@@ -31,6 +42,7 @@
        $("#idAgentMonitorStatus").text(agent.agent_status || "-");
        if (agent.is_alive) $("#idAgentMonitorHeartbeat").html( Badge("success", "Agent actif", "UP") );
                     else $("#idAgentMonitorHeartbeat").html( Badge("danger", "Agent inactif", "DOWN") );
+       $("#idAgentMonitorTest").prop("disabled", !agent.is_alive);
        if (agent.mqtt_local_connected) $("#idAgentMonitorMqttLocal").html( Badge("success", "Connecté", "Connecté") );
                                      else $("#idAgentMonitorMqttLocal").html( Badge("danger", "Déconnecté", "Déconnecté") );
        $("#idAgentMonitorStartTime").text( Agent_monitor_format_datetime(agent.start_time) );
@@ -51,6 +63,7 @@
        $("#idAgentMonitorMqttApi").html( Badge("secondary", "Etat inconnu", "N/A") );
        $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
        $("#idAgentMonitorStartTime").text("-");
+       $("#idAgentMonitorTest").prop("disabled", true);
      } );
   }
 /******************************************************************************************************************************/

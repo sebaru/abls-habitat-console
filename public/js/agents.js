@@ -61,6 +61,15 @@
                   function(Response) { Show_shell_error ( "Erreur à l'upgrade de l'agent "+agent_tech_id ); }
                 );
   }
+ /********************************************* Test Agent *******************************************************************/
+ function AGENT_test ( agent_tech_id, fonction_ok, fonction_nok )
+  { var json_request = { agent_tech_id: agent_tech_id };
+    Send_to_API ( "POST", "/agent/test", json_request,
+                  function(Response) { Show_toast_ok ( "Test demandé pour l'agent "+agent_tech_id ); },
+                  function(Response) { Show_shell_error ( "Erreur lors du test de l'agent "+agent_tech_id ); }
+                );
+  }
+
  /********************************************* Reload Process *****************************************************************/
  function AGENT_set_log_level ( agent_tech_id, log_level )
   { var json_request =
@@ -178,6 +187,7 @@
                boutons += Bouton_deroulant_add ( "info", "Monitorer", "AGENT_monitor", item.agent_tech_id, "chart-line" );
                if (item.is_alive)
                 { boutons += Bouton_deroulant_add_spacer();
+                  boutons += Bouton_deroulant_add ( "warning", "Tester", "AGENT_test", item.agent_tech_id, "vial" );
                   boutons += Bouton_deroulant_add ( "warning", "Upgrader", "AGENT_upgrade", item.agent_tech_id, "upload" );
                   boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "AGENT_restart", item.agent_tech_id, "sync-alt" );
                 }
