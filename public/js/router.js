@@ -112,10 +112,16 @@ var Router = (function () {
       breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Zones audio', href: '/audio/zones' }, { label: 'Édition de la zone audio', href: null } ]
     },
     {
-      pattern:    /^\/audio$/,
-      view:       'audio',
-      script:     'audio',
+      pattern:    /^\/io\/audio$/,
+      view:       'io_audio_class',
+      script:     'io_audio_class',
       breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Connecteurs AUDIO', href: null } ]
+    },
+    {
+      pattern:    /^\/io\/audio\/[^/]+$/,
+      view:       'io_audio_conf',
+      script:     'io_audio_conf',
+      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Connecteurs AUDIO', href: '/io/audio' }, { label: 'Configuration Audio', href: null } ]
     },
     {
       pattern:    /^\/cameras$/,
