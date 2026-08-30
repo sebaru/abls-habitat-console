@@ -85,7 +85,7 @@ var AUDIO_CONFIG = null;
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { vars = window.location.pathname.split('/');
-    if (vars[3] == null) { Redirect ("/io/audio"); return; }
+    if (vars[3] == null) { Redirect ("/agents/audio"); return; }
 
     AUDIO_AGENT_TECH_ID = decodeURIComponent(vars[3]).toUpperCase();
     $('#idAUDIOCONFTitle').text( AUDIO_AGENT_TECH_ID );

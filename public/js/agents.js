@@ -145,14 +145,14 @@
             "render": function (item)
               { var classe = encodeURIComponent(item.agent_classe || "");
                 var techId = encodeURIComponent(item.agent_tech_id || "");
-                return( Lien ( "/io/"+classe+"/"+techId, "Voir la configuration du connecteur", item.agent_tech_id ) ); }
+                return( Lien ( "/agents/"+classe+"/"+techId, "Voir la configuration du connecteur", item.agent_tech_id ) ); }
           },
           { "data": null, "title":"Classe", "className": "align-middle text-center d-none d-lg-table-cell",
             "render": function (item)
               { var classe = encodeURIComponent(item.agent_classe || "");
                 var classeLabel = htmlEncode(item.agent_classe || "") + " - " + htmlEncode(item.version || "none");
-                if (classe !== "server" ) return( Lien ( "/io/"+classe, "Voir la configuration du connecteur", classeLabel ) );
-                else return ( Lien ("/servers", "Voir la configuration du serveur", classeLabel ) );
+                if (classe !== "server" ) return( Lien ( "/agents/"+classe, "Voir la configuration du connecteur", classeLabel ) );
+                else return ( Lien ("/agents/server", "Voir la configuration du serveur", classeLabel ) );
               }
           },
           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",

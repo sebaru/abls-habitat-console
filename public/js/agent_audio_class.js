@@ -51,7 +51,7 @@
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
-              { return( Lien ( "/io/audio/"+encodeURIComponent(item.agent_tech_id), "Configurer la diffusion audio", item.agent_tech_id ) ); }
+              { return( Lien ( "/agents/audio/"+encodeURIComponent(item.agent_tech_id), "Configurer la diffusion audio", item.agent_tech_id ) ); }
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
           { "data": null, "title":"Status", "className": "align-middle text-center d-none d-xl-table-cell",
@@ -63,7 +63,7 @@
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
               { boutons = Bouton_deroulant_start ( );
-                boutons += Bouton_deroulant_add ( "primary", "Configurer la diffusion audio", "Redirect", "/io/audio/"+encodeURIComponent(item.agent_tech_id), "sliders" );
+                boutons += Bouton_deroulant_add ( "primary", "Configurer la diffusion audio", "Redirect", "/agents/audio/"+encodeURIComponent(item.agent_tech_id), "sliders" );
                 boutons += Bouton_deroulant_add ( "info", "Monitorer l'agent", "Redirect", "/agent/"+encodeURIComponent(item.agent_tech_id), "chart-line" );
                 boutons += Bouton_deroulant_add_spacer ();
                 boutons += Bouton_deroulant_add ( "danger", "Supprimer le thread", "AUDIO_Del", item.agent_tech_id, "trash" );

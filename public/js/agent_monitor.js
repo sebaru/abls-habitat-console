@@ -49,11 +49,11 @@
 
        var configHref = "#";
        if (agent.agent_classe === "server")
-        { configHref = "/servers"; }
+        { configHref = "/agents/server"; }
        else if (agent.agent_classe && agent.agent_tech_id)
         { var classe = encodeURIComponent(agent.agent_classe);
           var agent_tech_id = encodeURIComponent(agent.agent_tech_id);
-          configHref = "/io/"+classe+"/"+agent_tech_id;
+          configHref = "/agents/"+classe+"/"+agent_tech_id;
         }
        $("#idAgentMonitorIoLink").attr("href", configHref);
      }, function ()

@@ -22,10 +22,10 @@ var Router = (function () {
       breadcrumb: []
     },
     {
-      pattern:    /^\/io$/,
-      view:       'io',
-      script:     null,
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: null } ]
+      pattern:    /^\/agents$/,
+      view:       'agents',
+      script:     'agents',
+      breadcrumb: [ { label: 'Liste des Agents', href: null } ]
     },
     {
       pattern:    /^\/domain_maintenance$/,
@@ -47,9 +47,15 @@ var Router = (function () {
     },
     {
       pattern:    /^\/server\/add$/,
+      view:       'server_add',
+      script:     'server_add',
+      breadcrumb: [ { label: 'Liste des Serveurs', href: '/agents/server' }, { label: 'Ajouter un serveur au domaine', href: null } ]
+    },
+    {
+      pattern:    /^\/agent\/add$/,
       view:       'agent_add',
-      script:     'agent_add',
-      breadcrumb: [ { label: 'Liste des Serveurs', href: '/servers' }, { label: 'Ajouter un serveur au domaine', href: null } ]
+      script:     null,
+      breadcrumb: [ { label: 'Ajouter un agent', href: null } ]
     },
     {
       pattern:    /^\/agent\/[^/]+$/,
@@ -58,40 +64,40 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Monitoring agent', href: null } ]
     },
     {
-      pattern:    /^\/io\/phidget$/,
-      view:       'io_phidget_class',
-      script:     'io_phidget_class',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
+      pattern:    /^\/agents\/phidget$/,
+      view:       'agent_phidget_class',
+      script:     'agent_phidget_class',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
     },
     {
-      pattern:    /^\/io\/phidget\/[^/]+$/,
-      view:       'io_phidget_conf',
-      script:     'io_phidget_conf',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des HUB5000 Phidgets', href: '/io/phidget' }, { label: 'Configuration I/O Phidget', href: null } ]
+      pattern:    /^\/agents\/phidget\/[^/]+$/,
+      view:       'agent_phidget_conf',
+      script:     'agent_phidget_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des HUB5000 Phidgets', href: '/agents/phidget' }, { label: 'Configuration I/O Phidget', href: null } ]
     },
     {
       pattern:    /^\/modbus$/,
       view:       'modbus',
       script:     'modbus',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des Modules WAGO sur Modbus', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Modules WAGO sur Modbus', href: null } ]
     },
     {
       pattern:    /^\/imsgs$/,
       view:       'imsgs',
       script:     'imsgs',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Configuration Messagerie Instantanée', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration Messagerie Instantanée', href: null } ]
     },
     {
       pattern:    /^\/smsg$/,
       view:       'smsg',
       script:     'smsg',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Configuration des SMSG', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration des SMSG', href: null } ]
     },
     {
       pattern:    /^\/gpiod$/,
       view:       'gpiod',
       script:     'gpiod',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des Threads GPIO', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Threads GPIO', href: null } ]
     },
     {
       pattern:    /^\/search$/,
@@ -103,46 +109,40 @@ var Router = (function () {
       pattern:    /^\/audio\/zones$/,
       view:       'audio_zones',
       script:     'audio_zones',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Zones audio', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Zones audio', href: null } ]
     },
     {
       pattern:    /^\/audio\/zone\/[^/]+$/,
       view:       'audio_zone',
       script:     'audio_zone',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Zones audio', href: '/audio/zones' }, { label: 'Édition de la zone audio', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Zones audio', href: '/audio/zones' }, { label: 'Édition de la zone audio', href: null } ]
     },
     {
-      pattern:    /^\/io\/audio$/,
-      view:       'io_audio_class',
-      script:     'io_audio_class',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Connecteurs AUDIO', href: null } ]
+      pattern:    /^\/agents\/audio$/,
+      view:       'agent_audio_class',
+      script:     'agent_audio_class',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Connecteurs AUDIO', href: null } ]
     },
     {
-      pattern:    /^\/io\/audio\/[^/]+$/,
-      view:       'io_audio_conf',
-      script:     'io_audio_conf',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Connecteurs AUDIO', href: '/io/audio' }, { label: 'Configuration Audio', href: null } ]
+      pattern:    /^\/agents\/audio\/[^/]+$/,
+      view:       'agent_audio_conf',
+      script:     'agent_audio_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Connecteurs AUDIO', href: '/agents/audio' }, { label: 'Configuration Audio', href: null } ]
     },
     {
       pattern:    /^\/cameras$/,
       view:       'cameras',
       script:     'cameras',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Gestion des caméras', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Gestion des caméras', href: null } ]
     },
     {
       pattern:    /^\/ups$/,
       view:       'ups',
       script:     'ups',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des Onduleurs', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Onduleurs', href: null } ]
     },
     {
-      pattern:    /^\/agents$/,
-      view:       'agents',
-      script:     'agents',
-      breadcrumb: [ { label: 'Liste des Agents', href: null } ]
-    },
-    {
-      pattern:    /^\/servers$/,
+      pattern:    /^\/agents\/server$/,
       view:       'servers',
       script:     'servers',
       breadcrumb: [ { label: 'Liste des Serveurs', href: null } ]
@@ -151,19 +151,19 @@ var Router = (function () {
       pattern:    /^\/teleinfoedf$/,
       view:       'teleinfoedf',
       script:     'teleinfoedf',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Configuration des modules Téléinfo EDF', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration des modules Téléinfo EDF', href: null } ]
     },
     {
-      pattern:    /^\/io\/shelly$/,
-      view:       'io_shelly_class',
-      script:     'io_shelly_class',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Liste des Modules Shelly', href: null } ]
+      pattern:    /^\/agents\/shelly$/,
+      view:       'agent_shelly_class',
+      script:     'agent_shelly_class',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Modules Shelly', href: null } ]
     },
     {
       pattern:    /^\/meteo$/,
       view:       'meteo',
       script:     'meteo',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io' }, { label: 'Configuration de la météo', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration de la météo', href: null } ]
     },
     {
       pattern:    /^\/dls\/packages$/,

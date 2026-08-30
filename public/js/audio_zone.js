@@ -63,7 +63,7 @@
            },
            { "data": null, "title":"Thread", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
-               { return( Lien ( "/io/audio/"+encodeURIComponent(item.agent_tech_id), "Configurer la diffusion audio", item.agent_tech_id ) ); }
+               { return( Lien ( "/agents/audio/"+encodeURIComponent(item.agent_tech_id), "Configurer la diffusion audio", item.agent_tech_id ) ); }
            },
            { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
