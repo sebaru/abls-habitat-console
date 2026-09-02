@@ -121,13 +121,13 @@ var Router = (function () {
       pattern:    /^\/agents\/audio$/,
       view:       'agent_audio_class',
       script:     'agent_audio_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Connecteurs AUDIO', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents AUDIO', href: null } ]
     },
     {
       pattern:    /^\/agents\/audio\/[^/]+$/,
       view:       'agent_audio_conf',
       script:     'agent_audio_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Connecteurs AUDIO', href: '/agents/audio' }, { label: 'Configuration Audio', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents AUDIO', href: '/agents/audio' }, { label: 'Zones de diffusion', href: null } ]
     },
     {
       pattern:    /^\/cameras$/,

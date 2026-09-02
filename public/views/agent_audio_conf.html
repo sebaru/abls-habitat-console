@@ -2,47 +2,11 @@
 
  <div class="row m-2 align-items-center">
    <div class="col-auto">
-     <h3 class="mb-0"><i class="fas fa-volume-up text-primary"></i> Audio <span id="idAUDIOCONFTitle"></span></h3>
+     <h3 class="mb-0"><i class="fas fa-directions text-primary"></i> Zones de diffusion de <span id="idAUDIOCONFTitle"></span></h3>
    </div>
    <div class="col-auto ms-auto btn-group align-items-center">
-        <button type="button" onclick="AUDIOCONF_Edit()" class="btn btn-primary"><i class="fas fa-pen"></i> Editer la configuration</button>
-        <button type="button" onclick="AUDIOCONF_Map()" class="btn btn-primary"><i class="fas fa-directions"></i> Mapper une zone</button>
+        <button type="button" onclick="AUDIOCONF_Map()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter à une zone</button>
         <button type="button" onclick="AUDIOCONF_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
-   </div>
- </div>
-
-<hr>
-
- <div class="row g-2 m-1">
-   <div class="col-12 col-md-6 col-lg-3">
-     <div class="card border-info">
-       <div class="card-header">Serveur</div>
-       <div class="card-body"><span id="idAUDIOCONFServerHostname">-</span></div>
-     </div>
-   </div>
-   <div class="col-12 col-md-6 col-lg-3">
-     <div class="card border-info">
-       <div class="card-header">Description</div>
-       <div class="card-body"><span id="idAUDIOCONFInfoDescription">-</span></div>
-     </div>
-   </div>
-   <div class="col-12 col-md-6 col-lg-2">
-     <div class="card border-info">
-       <div class="card-header">Langue</div>
-       <div class="card-body"><span id="idAUDIOCONFInfoLanguage">-</span></div>
-     </div>
-   </div>
-   <div class="col-12 col-md-6 col-lg-2">
-     <div class="card border-info">
-       <div class="card-header">Périphérique</div>
-       <div class="card-body"><span id="idAUDIOCONFInfoDevice">-</span></div>
-     </div>
-   </div>
-   <div class="col-12 col-md-6 col-lg-2">
-     <div class="card border-info">
-       <div class="card-header">Volume</div>
-       <div class="card-body"><span id="idAUDIOCONFInfoVolume">-</span></div>
-     </div>
    </div>
  </div>
 
@@ -80,57 +44,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
         <button id="idAUDIOCONFMapValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!------------------------------------------------- Modal Edition configuration ----------------------------------------------->
-<div id="idAUDIOCONFEdit" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content ">
-      <div class="modal-header bg-info text-white">
-        <h5 class="modal-title"><i class="fas fa-pen"></i> <span id="idAUDIOCONFEditTitre"></span></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-        </button>
-      </div>
-
-      <div class="modal-body">
-       <div class="row mb-2 align-items-center">
-         <label class="col-5 col-sm-4 col-form-label text-end">Description</label>
-         <div class="col-7 col-sm-8">
-          <input id="idAUDIOCONFDescription" type="text" class="form-control" placeholder="Description">
-         </div>
-       </div>
-
-       <div class="row mb-2 align-items-center">
-         <label class="col-5 col-sm-4 col-form-label text-end">Langue</label>
-         <div class="col-7 col-sm-8">
-          <input id="idAUDIOCONFLanguage" type="text" class="form-control" placeholder="fr">
-         </div>
-       </div>
-
-       <div class="row mb-2 align-items-center">
-         <label class="col-5 col-sm-4 col-form-label text-end">Périphérique</label>
-         <div class="col-7 col-sm-8">
-          <input id="idAUDIOCONFDevice" type="text" class="form-control" placeholder="default">
-         </div>
-       </div>
-
-       <div class="row mb-2 align-items-center">
-         <label class="col-5 col-sm-4 col-form-label text-end">Volume</label>
-         <div class="col-7 col-sm-8">
-          <div class="input-group">
-           <input id="idAUDIOCONFVolume" required type="number" class="form-control" min=0 max=100 placeholder="Volume de diffusion">
-           <span class="input-group-text">%</span>
-          </div>
-         </div>
-       </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
-        <button id="idAUDIOCONFValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
       </div>
     </div>
   </div>

@@ -1,60 +1,31 @@
 var AUDIO_AGENT_TECH_ID = null;
-var AUDIO_CONFIG = null;
 
 /************************************ Demande de refresh **********************************************************************/
  function AUDIOCONF_Refresh ( )
-  { AUDIOCONF_Load_config();
-    $('#idTableAUDIOZones').DataTable().ajax.reload(null, false);
-  }
-/************************************ Charge la configuration du thread audio *************************************************/
- function AUDIOCONF_Load_config ( )
-  { Send_to_API ( "GET", "/audio/get", "agent_tech_id="+encodeURIComponent(AUDIO_AGENT_TECH_ID), function (audio)
-     { AUDIO_CONFIG = audio;
-       $('#idAUDIOCONFServerHostname').text( audio.server_hostname || "-" );
-       $('#idAUDIOCONFInfoDescription').text( audio.description || "-" );
-       $('#idAUDIOCONFInfoLanguage').text( audio.language || "-" );
-       $('#idAUDIOCONFInfoDevice').text( audio.device || "-" );
-       $('#idAUDIOCONFInfoVolume').text( audio.volume + " %" );
-     }, function (Response)
-     { AUDIO_CONFIG = null;
-       Show_shell_error ( "Aucune configuration audio pour '"+AUDIO_AGENT_TECH_ID+"'." );
-     } );
-  }
-/************************************ Edition de la configuration du thread audio *********************************************/
- function AUDIOCONF_Edit ( )
-  { if (!AUDIO_CONFIG) { Show_shell_error ( "Configuration audio non chargée." ); return; }
-    $('#idAUDIOCONFEditTitre').text( "Editer la configuration audio " + AUDIO_AGENT_TECH_ID );
-    $('#idAUDIOCONFDescription').val( AUDIO_CONFIG.description );
-    $('#idAUDIOCONFLanguage').val( AUDIO_CONFIG.language );
-    $('#idAUDIOCONFDevice').val( AUDIO_CONFIG.device );
-    $('#idAUDIOCONFVolume').val( AUDIO_CONFIG.volume );
-    $('#idAUDIOCONFValider').off("click").on( "click", function ()
-     { $('#idAUDIOCONFEdit').modal("hide");
-       var json_request =
-        { server_uuid   : AUDIO_CONFIG.server_uuid,
-          agent_tech_id : AUDIO_AGENT_TECH_ID,
-          language      : $('#idAUDIOCONFLanguage').val(),
-          device        : $('#idAUDIOCONFDevice').val(),
-          volume        : parseInt($('#idAUDIOCONFVolume').val()),
-          description   : $('#idAUDIOCONFDescription').val(),
-        };
-       if (json_request.language.length==0) json_request.language = "fr";
-       if (json_request.device.length==0)   json_request.device   = "default";
-
-       Send_to_API ( "POST", "/audio/set", json_request,
-                     function(Response) { Show_toast_ok ( "Modifications sauvegardées." );
-                                          AUDIOCONF_Refresh();
-                                        },
-                     function(Response) { Show_shell_error ( "Erreur à la sauvegarde de la configuration audio." ); }
-                   );
-     });
-    $('#idAUDIOCONFEdit').modal("show");
+  { $('#idTableAUDIOZones').DataTable().ajax.reload(null, false);
   }
 /************************************ Ajout du thread dans une zone de diffusion **********************************************/
  function AUDIOCONF_Map ( )
   { $('#idAUDIOCONFMapTitre').text( "Ajouter " + AUDIO_AGENT_TECH_ID + " à une zone de diffusion" );
-    Select_from_api ( "idTargetZone", "/audio/zones/list", null, "audio_zones", "audio_zone_name", function (Response)
-                        { return ( Response.audio_zone_name + " - " + Response.description ); }, null );
+    $('#idTargetZone').empty().append($('<option>', { text: "Chargement..." }));
+    $('#idAUDIOCONFMapValider').prop('disabled', true);
+   Send_to_API ( "GET", "/audio/zone/get", "agent_tech_id="+encodeURIComponent(AUDIO_AGENT_TECH_ID), function (Mappings)
+    { var mapped_zones = {};
+     $.each ( Mappings.audio_zone_map || [], function ( i, item ) { mapped_zones[item.audio_zone_name] = true; } );
+     Send_to_API ( "GET", "/audio/zones/list", null, function (Response)
+      { $('#idTargetZone').empty();
+       $.each ( Response.audio_zones || [], function ( i, item )
+        { if (item.audio_zone_id!=1 && !mapped_zones[item.audio_zone_name])
+          { $('#idTargetZone').append($('<option>',
+            { value: item.audio_zone_name, text: item.audio_zone_name + " - " + item.description }));
+          }
+        });
+       if ($('#idTargetZone option').length==0)
+        { $('#idTargetZone').append($('<option>', { text: "Aucune zone disponible" })); }
+       else
+        { $('#idAUDIOCONFMapValider').prop('disabled', false); }
+      }, function (Response) { Show_shell_error ( "Erreur lors du chargement des zones de diffusion." ); } );
+    }, function (Response) { Show_shell_error ( "Erreur lors du chargement des associations audio." ); } );
     $('#idAUDIOCONFMapValider').off("click").on( "click", function ()
      { $('#idAUDIOCONFMap').modal("hide");
        var json_request = { audio_zone_name: $('#idTargetZone').val(), agent_tech_id: AUDIO_AGENT_TECH_ID };
@@ -89,9 +60,7 @@ var AUDIO_CONFIG = null;
 
     AUDIO_AGENT_TECH_ID = decodeURIComponent(vars[3]).toUpperCase();
     $('#idAUDIOCONFTitle').text( AUDIO_AGENT_TECH_ID );
-    Set_page_context ( "Configuration Audio " + AUDIO_AGENT_TECH_ID );
-
-    AUDIOCONF_Load_config();
+    Set_page_context ( "Zones de diffusion de l'agent Audio " + AUDIO_AGENT_TECH_ID );
 
     $('#idTableAUDIOZones').DataTable(
      { pageLength : 50,
