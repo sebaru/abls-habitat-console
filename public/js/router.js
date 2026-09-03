@@ -160,10 +160,16 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Modules Shelly', href: null } ]
     },
     {
-      pattern:    /^\/meteo$/,
-      view:       'meteo',
-      script:     'meteo',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration de la météo', href: null } ]
+      pattern:    /^\/agents\/meteo$/,
+      view:       'agent_meteo_class',
+      script:     'agent_meteo_class',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Météo', href: null } ]
+    },
+    {
+      pattern:    /^\/agents\/meteo\/[^/]+$/,
+      view:       'agent_meteo_conf',
+      script:     'agent_meteo_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Météo', href: '/agents/meteo' }, { label: 'Mnémoniques', href: null } ]
     },
     {
       pattern:    /^\/dls\/packages$/,
