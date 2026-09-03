@@ -2,19 +2,19 @@
  function PHIDGET_Refresh ( )
   { $('#idTablePHIDGET').DataTable().ajax.reload(null, false);
   }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
- function PHIDGET_Disable (phidget_id)
-  { $("#idButtonSpinner_PHIDGET_Disable_"+phidget_id).show();
-    selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
-    Send_to_API ( "POST", "/agent/enable", { agent_tech_id: selection.agent_tech_id, enable: false },
-                  function(Response) { PHIDGET_Refresh(); }, function(Response) { PHIDGET_Refresh(); } );
-  }
-/********************************************* Afichage du modal d'edition synoptique *****************************************/
- function PHIDGET_Enable (phidget_id)
-  { $("#idButtonSpinner_PHIDGET_Enable_"+phidget_id).show();
-    selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
-    Send_to_API ( "POST", "/agent/enable", { agent_tech_id: selection.agent_tech_id, enable: true },
-                  function(Response) { PHIDGET_Refresh(); }, function(Response) { PHIDGET_Refresh(); } );
+/********************************************* Activation de l'agent phidget **************************************************/
+ function PHIDGET_Toggle ( agent_tech_id, newState, toggle )
+  { toggle.prop('disabled', true);
+    Send_to_API ( "POST", "/agent/enable", { agent_tech_id: agent_tech_id, enable: newState },
+                  function(Response)
+                   { Show_toast_ok ( "Agent phidget " + (newState ? "activé." : "désactivé.") );
+                     toggle.prop('disabled', false);
+                     PHIDGET_Refresh();
+                   },
+                  function(Response)
+                   { toggle.prop('checked', !newState).prop('disabled', false);
+                     Show_shell_error ( "Erreur lors de la modification de l'agent phidget." );
+                   } );
   }
 /**************************************** Supprime une connexion PHIDGET *******************************************************/
  function PHIDGET_Del (phidget_id)
@@ -73,8 +73,7 @@
   { $('#idTablePHIDGET').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/agent/list", type : "GET", dataSrc: "agents", contentType: "application/json",
-               data: function() { return ( "classe=phidget" ) },
+       ajax: { url : $ABLS_API+"/phidget/list", type : "GET", dataSrc: "phidgets", contentType: "application/json",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
       rowId: "agent_tech_id",
@@ -83,27 +82,31 @@
              "render": function (item)
                { return( htmlEncode(item.server_hostname) ); }
           },
-          { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
+          { "data": null, "title":"Activé", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
-              { if (item.enable==true)
-                { return( Bouton ( "success", "Désactiver le module", "PHIDGET_Disable", item.agent_tech_id, "Actif" ) ); }
-               else
-                { return( Bouton ( "outline-secondary", "Activer le module", "PHIDGET_Enable", item.agent_tech_id, "Désactivé" ) ); }
+              { return( Switch ( "idPHIDGETSwitch_"+item.agent_tech_id, "Activer ou désactiver l'agent phidget", item.enable,
+                                 "phidget-toggle-switch", "data-agent-tech-id='"+htmlEncode(item.agent_tech_id)+"'" ) );
               },
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
-              { return( Lien ( "/agents/phidget/"+encodeURIComponent(item.agent_tech_id), "Editer les I/O", item.agent_tech_id ) ); }
+              { return( Lien ( "/agents/phidget/"+encodeURIComponent(item.agent_tech_id), "Gérer les I/O", item.agent_tech_id ) ); }
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell " },
           { "data": "password", "title":"Password", "className": "align-middle text-center d-none d-xl-table-cell " },
           { "data": "serial", "title":"Serial Number", "className": "align-middle text-center d-none d-xl-table-cell " },
+          { "data": null, "title":"Status", "className": "align-middle text-center d-none d-xl-table-cell",
+            "render": function (item)
+              { if (item.is_alive) return( Badge("success", "Agent actif", "UP") );
+                return( Badge("danger", "Agent inactif", "DOWN") );
+              }
+          },
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
               { boutons = Bouton_deroulant_start ( );
                 boutons += Bouton_deroulant_add ( "primary", "Editer la connexion", "PHIDGET_Edit", item.agent_tech_id, "pen" );
-                boutons += Bouton_deroulant_add ( "primary", "Editer les I/O", "Redirect", "/agents/phidget/"+encodeURIComponent(item.agent_tech_id), "sliders" );
+                boutons += Bouton_deroulant_add ( "primary", "Gérer les I/O", "Redirect", "/agents/phidget/"+encodeURIComponent(item.agent_tech_id), "sliders" );
                 boutons += Bouton_deroulant_add_spacer ();
                 boutons += Bouton_deroulant_add ( "primary", "Voir la source DLS", "Redirect", "/dls/"+encodeURIComponent(item.agent_tech_id), "code" );
                 boutons += Bouton_deroulant_add_spacer ();
@@ -115,4 +118,9 @@
          ],
        /*order: [ [0, "desc"] ],*/
      });
+
+    $(document).off('change', '.phidget-toggle-switch').on('change', '.phidget-toggle-switch', function()
+      { var toggle = $(this);
+        PHIDGET_Toggle ( toggle.data('agent-tech-id'), toggle.is(':checked'), toggle );
+      });
   }

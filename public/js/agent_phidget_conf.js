@@ -74,10 +74,7 @@ var PHIDGET_AGENT_TECH_ID = null;
     $('#idTablePHIDGET_IO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/phidget/list", type : "GET", dataSrc: function(Response)
-                { if (!Response || !Response.IO) return [];
-                  return Response.IO;
-                }, contentType: "application/json",
+       ajax: { url : $ABLS_API+"/phidget/get", type : "GET", dataSrc: "IO", contentType: "application/json",
                data: function() { return ( "agent_tech_id=" + encodeURIComponent(PHIDGET_AGENT_TECH_ID) ) },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
