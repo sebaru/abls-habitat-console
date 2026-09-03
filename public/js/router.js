@@ -136,10 +136,16 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Gestion des caméras', href: null } ]
     },
     {
-      pattern:    /^\/ups$/,
-      view:       'ups',
-      script:     'ups',
+      pattern:    /^\/agents\/ups$/,
+      view:       'agent_ups_class',
+      script:     'agent_ups_class',
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Onduleurs', href: null } ]
+    },
+    {
+      pattern:    /^\/agents\/ups\/[^/]+$/,
+      view:       'agent_ups_conf',
+      script:     'agent_ups_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Onduleurs', href: '/agents/ups' }, { label: 'Mnémoniques', href: null } ]
     },
     {
       pattern:    /^\/agents\/server$/,
