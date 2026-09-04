@@ -76,10 +76,16 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des HUB5000 Phidgets', href: '/agents/phidget' }, { label: 'Configuration I/O Phidget', href: null } ]
     },
     {
-      pattern:    /^\/modbus$/,
-      view:       'modbus',
-      script:     'modbus',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Modules WAGO sur Modbus', href: null } ]
+      pattern:    /^\/agents\/modbus$/,
+      view:       'agent_modbus_class',
+      script:     'agent_modbus_class',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Modbus', href: null } ]
+    },
+    {
+      pattern:    /^\/agents\/modbus\/[^/]+$/,
+      view:       'agent_modbus_conf',
+      script:     'agent_modbus_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Modbus', href: '/agents/modbus' }, { label: 'Configuration I/O', href: null } ]
     },
     {
       pattern:    /^\/imsgs$/,
@@ -88,10 +94,16 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration Messagerie Instantanée', href: null } ]
     },
     {
-      pattern:    /^\/smsg$/,
-      view:       'smsg',
-      script:     'smsg',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration des SMSG', href: null } ]
+      pattern:    /^\/agents\/smsg$/,
+      view:       'agent_smsg_class',
+      script:     'agent_smsg_class',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents SMS', href: null } ]
+    },
+    {
+      pattern:    /^\/agents\/smsg\/[^/]+$/,
+      view:       'agent_smsg_conf',
+      script:     'agent_smsg_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents SMS', href: '/agents/smsg' }, { label: 'Mnémoniques', href: null } ]
     },
     {
       pattern:    /^\/gpiod$/,

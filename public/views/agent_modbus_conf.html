@@ -1,0 +1,36 @@
+<div class="container-fluid">
+ <div class="row m-2 align-items-center">
+  <div class="col-auto"><h3 class="mb-0">Configuration I/O Modbus <span id="idMODBUSCONFTitle"></span></h3></div>
+  <div class="col-auto ms-auto btn-group align-items-center"><button type="button" onclick="Redirect('/agents/modbus')" class="btn btn-outline-secondary"><i class="fas fa-list"></i> Retour à la liste</button><button type="button" onclick="MODBUSCONF_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button></div>
+ </div>
+ <hr>
+ <ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#idTabEntreeTor">Entrées TOR</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#idTabEntreeAna">Entrées ANA</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#idTabSortieTor">Sorties TOR</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#idTabSortieAna">Sorties ANA</a></li>
+ </ul>
+ <div class="tab-content">
+  <div id="idTabEntreeTor" class="tab-pane fade mt-1 show active"><table id="idTableMODBUS_DI" class="table table-striped table-bordered table-hover w-100"><thead class="table-dark"></thead><tbody></tbody></table></div>
+  <div id="idTabEntreeAna" class="tab-pane fade mt-1"><table id="idTableMODBUS_AI" class="table table-striped table-bordered table-hover w-100"><thead class="table-dark"></thead><tbody></tbody></table></div>
+  <div id="idTabSortieTor" class="tab-pane fade mt-1"><table id="idTableMODBUS_DO" class="table table-striped table-bordered table-hover w-100"><thead class="table-dark"></thead><tbody></tbody></table></div>
+  <div id="idTabSortieAna" class="tab-pane fade mt-1"><table id="idTableMODBUS_AO" class="table table-striped table-bordered table-hover w-100"><thead class="table-dark"></thead><tbody></tbody></table></div>
+ </div>
+</div>
+
+<div id="idMODBUSIOEdit" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content">
+ <div class="modal-header bg-info text-white"><h5 class="modal-title"><i class="fas fa-pen"></i> <span id="idMODBUSIOEditTitre"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+ <div class="modal-body">
+  <input id="idMODBUSIOClass" type="hidden"><input id="idMODBUSIOId" type="hidden">
+  <div class="row mb-2 align-items-center modbus-di-field"><label class="col-5 col-sm-4 col-form-label text-end">Flip</label><div class="col-7 col-sm-8"><select id="idMODBUSIOFlip" class="form-select"><option value="0">Non - logique normale</option><option value="1">Oui - logique inversée</option></select></div></div>
+  <div class="row mb-2 align-items-center modbus-ai-field"><label class="col-5 col-sm-4 col-form-label text-end">Type de borne</label><div class="col-7 col-sm-8"><select id="idMODBUSIOTypeBorne" class="form-select"></select></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Archivage</label><div class="col-7 col-sm-8"><select id="idMODBUSIOArchivage" class="form-select"></select></div></div>
+  <div class="row mb-2 align-items-center modbus-ai-field"><label class="col-5 col-sm-4 col-form-label text-end">Minimum</label><div class="col-7 col-sm-8"><input id="idMODBUSIOMin" type="number" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center modbus-ai-field"><label class="col-5 col-sm-4 col-form-label text-end">Maximum</label><div class="col-7 col-sm-8"><input id="idMODBUSIOMax" type="number" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center modbus-ai-field"><label class="col-5 col-sm-4 col-form-label text-end">Unité</label><div class="col-7 col-sm-8"><input id="idMODBUSIOUnite" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Borne</label><div class="col-7 col-sm-8"><input id="idMODBUSIOBorne" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">ED</label><div class="col-7 col-sm-8"><input id="idMODBUSIOED" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Description</label><div class="col-7 col-sm-8"><input id="idMODBUSIOLibelle" type="text" class="form-control"></div></div>
+ </div>
+ <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button><button id="idMODBUSIOValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button></div>
+</div></div></div>
