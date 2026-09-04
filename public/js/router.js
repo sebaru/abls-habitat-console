@@ -112,10 +112,16 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents SMS', href: '/agents/smsg' }, { label: 'Mnémoniques', href: null } ]
     },
     {
-      pattern:    /^\/gpiod$/,
-      view:       'gpiod',
-      script:     'gpiod',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Threads GPIO', href: null } ]
+      pattern:    /^\/agents\/gpiod$/,
+      view:       'agent_gpiod_class',
+      script:     'agent_gpiod_class',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents GPIOD', href: null } ]
+    },
+    {
+      pattern:    /^\/agents\/gpiod\/[^/]+$/,
+      view:       'agent_gpiod_conf',
+      script:     'agent_gpiod_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents GPIOD', href: '/agents/gpiod' }, { label: 'Configuration I/O GPIOD', href: null } ]
     },
     {
       pattern:    /^\/search$/,
