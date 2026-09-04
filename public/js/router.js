@@ -178,9 +178,9 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Serveurs', href: null } ]
     },
     {
-      pattern:    /^\/teleinfoedf$/,
-      view:       'teleinfoedf',
-      script:     'teleinfoedf',
+      pattern:    /^\/agents\/teleinfoedf$/,
+      view:       'agent_teleinfoedf_class',
+      script:     'agent_teleinfoedf_class',
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration des modules Téléinfo EDF', href: null } ]
     },
     {

@@ -18,16 +18,10 @@ function GPIOD_Toggle ( agent_tech_id, newState, toggle )
                   } );
  }
 
-/********************************************* Modification du niveau de debug ***********************************************/
-function GPIOD_Debug ( agent_tech_id, newState )
- { Send_to_API ( 'POST', '/agent/log_level', { agent_tech_id: agent_tech_id, log_level: newState ? 7 : 6 },
-                 function(Response) { Show_toast_ok ( 'Niveau de log GPIOD modifié.' ); GPIOD_Refresh(); }, null );
- }
-
 /************************************ Envoi les informations de configuration GPIOD ******************************************/
 function GPIOD_Set ( )
  { var request =
-    { server_uuid: $('#idTargetAgent').val(),
+    { server_uuid: $('#idTargetServer').val(),
       agent_tech_id: $('#idGPIODTechID').val().toUpperCase(),
       description: $('#idGPIODDescription').val()
     };
@@ -42,8 +36,8 @@ function GPIOD_Edit ( agent_tech_id )
  { var gpiod = $('#idTableGPIOD').DataTable().row('#' + agent_tech_id).data();
    if (!gpiod) { Show_shell_error ( "Aucune configuration GPIOD pour '" + agent_tech_id + "'." ); return; }
    $('#idGPIODTitre').text ( 'Editer la configuration GPIOD ' + agent_tech_id );
-  Select_from_api ( 'idTargetAgent', '/agent/list', 'classe=gpiod', 'agents', 'server_uuid',
-              function(item) { return item.agent_tech_id; }, gpiod.server_uuid );
+    Select_from_api ( 'idTargetServer', '/servers/list', null, 'servers', 'server_uuid',
+                function(item) { return item.agent_tech_id; }, gpiod.server_uuid );
    $('#idGPIODTechID').prop('disabled', true).val(gpiod.agent_tech_id);
    $('#idGPIODDescription').val(gpiod.description);
    $('#idGPIODValider').off('click').on('click', GPIOD_Set);
@@ -53,8 +47,8 @@ function GPIOD_Edit ( agent_tech_id )
 /********************************************* Ajout d'un agent GPIOD **********************************************************/
 function GPIOD_Add ( )
  { $('#idGPIODTitre').text ( 'Ajouter un agent GPIOD' );
-  Select_from_api ( 'idTargetAgent', '/agent/list', 'classe=gpiod', 'agents', 'server_uuid',
-                    function(item) { return item.agent_tech_id; }, null );
+    Select_from_api ( 'idTargetServer', '/servers/list', null, 'servers', 'server_uuid',
+                function(item) { return item.agent_tech_id; }, null );
    $('#idGPIODTechID').prop('disabled', false).val('')
      .off('input').on('input', function() { Controle_tech_id('idGPIOD', null); }).trigger('input');
    $('#idGPIODDescription').val('');
@@ -89,9 +83,6 @@ function Load_page ( )
          { data: null, title: 'Activé', className: 'align-middle text-center d-none d-md-table-cell',
            render: function(item) { return Switch('idGPIODSwitch_' + item.agent_tech_id, "Activer ou désactiver l'agent GPIOD", item.enable, 'gpiod-toggle-switch', "data-agent-tech-id='" + htmlEncode(item.agent_tech_id) + "'"); }
          },
-         { data: null, title: 'Debug', className: 'align-middle text-center d-none d-xl-table-cell',
-           render: function(item) { return Switch('idGPIODDebug_' + item.agent_tech_id, 'Activer ou désactiver le debug GPIOD', item.log_level >= 7, 'gpiod-debug-switch', "data-agent-tech-id='" + htmlEncode(item.agent_tech_id) + "'"); }
-         },
          { data: null, title: 'Tech_id', className: 'align-middle text-center', render: function(item) { return Lien('/agents/gpiod/' + encodeURIComponent(item.agent_tech_id), 'Gérer les I/O', item.agent_tech_id); } },
          { data: 'description', title: 'Description', className: 'align-middle text-center d-none d-lg-table-cell' },
          { data: null, title: 'Status', className: 'align-middle text-center d-none d-xl-table-cell', render: function(item) { return item.is_alive ? Badge('success', 'Agent actif', 'UP') : Badge('danger', 'Agent inactif', 'DOWN'); } },
@@ -109,5 +100,4 @@ function Load_page ( )
        ]
     } );
    $(document).off('change', '.gpiod-toggle-switch').on('change', '.gpiod-toggle-switch', function() { var toggle = $(this); GPIOD_Toggle(toggle.data('agent-tech-id'), toggle.is(':checked'), toggle); });
-   $(document).off('change', '.gpiod-debug-switch').on('change', '.gpiod-debug-switch', function() { var toggle = $(this); GPIOD_Debug(toggle.data('agent-tech-id'), toggle.is(':checked')); });
  }

@@ -29,8 +29,8 @@
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function TELEINFO_Set ( selection )
   { var json_request =
-     { agent_uuid    : $('#idTargetAgent').val(),
-       thread_tech_id: $('#idTELEINFOTechID').val().toUpperCase(),
+     { server_uuid   : $('#idTargetServer').val(),
+       agent_tech_id : $('#idTELEINFOTechID').val().toUpperCase(),
        description:    $('#idTELEINFODescription').val(),
        port:           $('#idTELEINFOPort').val(),
        standard:       $('#idTELEINFOStandard').val() == "true",
@@ -46,10 +46,10 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function TELEINFO_Edit ( teleinfoedf_id )
   { selection = $('#idTableTELEINFO').DataTable().row("#"+teleinfoedf_id).data();
-    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
-                        { return ( Response.agent_hostname ); }, selection.agent_uuid );
-    $('#idTELEINFOTitre').text("Editer la connexion GSM " + selection.thread_tech_id);
-    $('#idTELEINFOTechID').prop ("disabled", true).val( selection.thread_tech_id );
+    Select_from_api ( "idTargetServer", "/servers/list", null, "servers", "server_uuid", function (Response)
+              { return ( Response.agent_tech_id ); }, selection.server_uuid );
+    $('#idTELEINFOTitre').text("Editer la connexion GSM " + selection.agent_tech_id);
+    $('#idTELEINFOTechID').prop ("disabled", true).val( selection.agent_tech_id );
     $('#idTELEINFODescription').val( selection.description );
     $('#idTELEINFOStandard').replaceWith (
                                            Select ( "idTELEINFOStandard", null,
@@ -63,8 +63,8 @@
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function TELEINFO_Add ( )
   { $('#idTELEINFOTitre').text("Ajouter une téléinfo E.D.F");
-    Select_from_api ( "idTargetAgent", "/agent/list", null, "agents", "agent_uuid", function (Response)
-                        { return ( Response.agent_hostname ); }, null );
+    Select_from_api ( "idTargetServer", "/servers/list", null, "servers", "server_uuid", function (Response)
+              { return ( Response.agent_tech_id ); }, null );
     $('#idTELEINFOTechID').prop ("disabled", false).val("").off("input").on("input", function () { Controle_thread_tech_id( "idTELEINFO", null ); } );
     $('#idTELEINFODescription').val("");
     $('#idTELEINFOPort').val("");
@@ -146,8 +146,9 @@
            },
            { "data": null, "title":"MQTT", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
+              {
                  return( Badge( "danger", "Déconnecté", "Déconnecté" ) );
-               },
+              },
            },
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)

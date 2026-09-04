@@ -22,13 +22,15 @@
     if (!audio) { Show_shell_error ( "Aucune configuration audio pour '"+agent_tech_id+"'." ); return; }
 
     $('#idAUDIOEditTitre').text( "Editer la configuration audio " + agent_tech_id );
+    Select_from_api ( "idTargetServer", "/servers/list", null, "servers", "server_uuid", function (Response)
+                        { return ( Response.agent_tech_id ); }, audio.server_uuid );
     $('#idAUDIODescription').val( audio.description );
     $('#idAUDIOLanguage').val( audio.language );
     $('#idAUDIODevice').val( audio.device );
     $('#idAUDIOVolume').val( audio.volume );
     $('#idAUDIOValider').off("click").on( "click", function ()
      { var json_request =
-        { server_uuid   : audio.server_uuid,
+        { server_uuid   : $('#idTargetServer').val(),
           agent_tech_id : audio.agent_tech_id,
           language      : $('#idAUDIOLanguage').val(),
           device        : $('#idAUDIODevice').val(),
