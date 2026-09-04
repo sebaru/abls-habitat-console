@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row m-2 align-items-center">
+    <div class="col-auto">
+      <h3 class="mb-0">Configuration Téléinfo EDF <span id="idTELEINFOCONFTitle"></span></h3>
+    </div>
+    <div class="col-auto ms-auto btn-group align-items-center">
+      <button type="button" onclick="Redirect('/agents/teleinfoedf')" class="btn btn-outline-secondary"><i class="fas fa-list"></i> Retour à la liste</button>
+      <button type="button" onclick="TELEINFOCONF_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
+    </div>
+  </div>
+  <hr>
+  <div class="row g-2 m-1">
+    <div class="col-12 col-md-4">
+      <div class="card border-info">
+        <div class="card-header">Serveur</div>
+        <div class="card-body"><span id="idTELEINFOCONFServer">-</span></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card border-info">
+        <div class="card-header">Port Device</div>
+        <div class="card-body"><span id="idTELEINFOCONFPort">-</span></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card border-info">
+        <div class="card-header">Statut</div>
+        <div class="card-body"><span id="idTELEINFOCONFStatus">-</span></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="card border-info">
+        <div class="card-header">Mode</div>
+        <div class="card-body"><span id="idTELEINFOCONFMode">-</span></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="card border-info">
+        <div class="card-header">Description</div>
+        <div class="card-body"><span id="idTELEINFOCONFDescription">-</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Téléinfo EDF configuration -->

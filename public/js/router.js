@@ -184,6 +184,12 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration des modules Téléinfo EDF', href: null } ]
     },
     {
+      pattern:    /^\/agents\/teleinfoedf\/[^/]+$/,
+      view:       'agent_teleinfoedf_conf',
+      script:     'agent_teleinfoedf_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration des modules Téléinfo EDF', href: '/agents/teleinfoedf' }, { label: 'Configuration Téléinfo EDF', href: null } ]
+    },
+    {
       pattern:    /^\/agents\/shelly$/,
       view:       'agent_shelly_class',
       script:     'agent_shelly_class',
