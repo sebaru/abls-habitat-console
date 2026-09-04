@@ -88,10 +88,16 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Modbus', href: '/agents/modbus' }, { label: 'Configuration I/O', href: null } ]
     },
     {
-      pattern:    /^\/imsgs$/,
-      view:       'imsgs',
-      script:     'imsgs',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration Messagerie Instantanée', href: null } ]
+      pattern:    /^\/agents\/imsgs$/,
+      view:       'agent_imsgs_class',
+      script:     'agent_imsgs_class',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents XMPP', href: null } ]
+    },
+    {
+      pattern:    /^\/agents\/imsgs\/[^/]+$/,
+      view:       'agent_imsgs_conf',
+      script:     'agent_imsgs_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents XMPP', href: '/agents/imsgs' }, { label: 'Connexion XMPP', href: null } ]
     },
     {
       pattern:    /^\/agents\/smsg$/,
