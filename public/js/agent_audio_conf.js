@@ -4,6 +4,13 @@ var AUDIO_AGENT_TECH_ID = null;
  function AUDIOCONF_Refresh ( )
   { $('#idTableAUDIOZones').DataTable().ajax.reload(null, false);
   }
+/************************************ Demande un test de l'agent audio *********************************************************/
+ function AUDIOCONF_Test ( )
+  { Send_to_API ( "POST", "/agent/test", { agent_tech_id: AUDIO_AGENT_TECH_ID },
+                  function(Response) { Show_toast_ok ( "Test demandé pour l'agent "+AUDIO_AGENT_TECH_ID ); },
+                  function(Response) { Show_shell_error ( "Erreur lors du test de l'agent "+AUDIO_AGENT_TECH_ID ); }
+                );
+  }
 /************************************ Ajout du thread dans une zone de diffusion **********************************************/
  function AUDIOCONF_Map ( )
   { $('#idAUDIOCONFMapTitre').text( "Ajouter " + AUDIO_AGENT_TECH_ID + " à une zone de diffusion" );
@@ -53,6 +60,11 @@ var AUDIO_AGENT_TECH_ID = null;
                                     );
                       } );
   }
+/************************************ Demande un test de la zone de diffusion **************************************************/
+ function AUDIOCONF_TestZone ( audio_zone_map_id )
+  { selection = $('#idTableAUDIOZones').DataTable().row("#"+audio_zone_map_id).data();
+    Send_to_API ( 'POST', "/audio/zone/test", { audio_zone_id : selection.audio_zone_id }, null );
+  }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { vars = window.location.pathname.split('/');
@@ -83,6 +95,8 @@ var AUDIO_AGENT_TECH_ID = null;
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons  = Bouton_deroulant_start();
+                 boutons += Bouton_deroulant_add ( "warning", "Tester la zone "+item.audio_zone_name,
+                                                   "AUDIOCONF_TestZone", item.audio_zone_map_id, "vial" );
                  boutons += Bouton_deroulant_add ( "danger", "Retirer de la zone "+item.audio_zone_name,
                                                    "AUDIOCONF_Unmap", item.audio_zone_map_id, "trash" );
                  boutons += Bouton_deroulant_end ();

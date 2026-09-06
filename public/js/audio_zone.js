@@ -48,6 +48,9 @@
     var zoneName = decodeURIComponent(vars[3]);
     $("#idAudioZoneTitle").text( zoneName );
     Set_page_context ( "Édition de la zone audio " + zoneName );
+    Send_to_API ( "GET", "/audio/zones/list", null, function(Response)
+     { $.each ( Response.audio_zones, function ( i, item ) { if (item.audio_zone_name === zoneName) AUDIOZONE_ID = item.audio_zone_id; } );
+     }, null );
     $('#idTableAUDIOZONE').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
@@ -57,11 +60,11 @@
              },
        rowId: "audio_zone_map_id",
        columns:
-         [ { "data": null, "title":"Agent", "className": "align-middle text-center",
+         [ { "data": null, "title":"Serveur", "className": "align-middle text-center",
              "render": function (item)
                { return( htmlEncode(item.server_hostname) ); }
            },
-           { "data": null, "title":"Thread", "className": "align-middle text-center d-none d-md-table-cell",
+           { "data": null, "title":"Agent", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
                { return( Lien ( "/agents/audio/"+encodeURIComponent(item.agent_tech_id), "Configurer la diffusion audio", item.agent_tech_id ) ); }
            },
@@ -72,7 +75,7 @@
            { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
              "render": function (item)
                { boutons  = Bouton_deroulant_start();
-                 boutons += Bouton_deroulant_add ( "danger", "Supprimer le thread de la zone "+item.audio_zone_name, "AUDIOZONE_Unmap", item.audio_zone_map_id, "trash" );
+                 boutons += Bouton_deroulant_add ( "danger", "Supprimer", "AUDIOZONE_Unmap", item.audio_zone_map_id, "trash" );
                  boutons += Bouton_deroulant_end ();
                  return(boutons);
                },

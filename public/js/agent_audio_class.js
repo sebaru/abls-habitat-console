@@ -50,11 +50,19 @@
      });
     $('#idAUDIOEdit').modal("show");
   }
+/********************************************* Test Agent *******************************************************************/
+ function AUDIO_test ( agent_tech_id )
+  { var json_request = { agent_tech_id: agent_tech_id };
+    Send_to_API ( "POST", "/agent/test", json_request,
+                  function(Response) { Show_toast_ok ( "Test demandé pour l'agent "+agent_tech_id ); },
+                  function(Response) { Show_shell_error ( "Erreur lors du test de l'agent "+agent_tech_id ); }
+                );
+  }
 /**************************************** Supprime un thread audio ************************************************************/
  function AUDIO_Del (agent_tech_id)
   { selection = $('#idTableAUDIO').DataTable().row("#"+agent_tech_id).data();
-    Show_modal_del ( "Supprimer le thread audio "+selection.agent_tech_id,
-                     "Etes-vous sûr de vouloir supprimer ce thread audio ?",
+    Show_modal_del ( "Supprimer l'agent audio "+selection.agent_tech_id,
+                     "Etes-vous sûr de vouloir supprimer cet agent audio ?",
                      selection.agent_tech_id + " - " + selection.description,
                      function () { Send_to_API ( "DELETE", "/agent/delete", { agent_tech_id: selection.agent_tech_id },
                                                  function(Response) { AUDIO_Refresh(); }, null ); } ) ;
@@ -104,6 +112,7 @@
                 boutons += Bouton_deroulant_add ( "primary", "Editer la configuration audio", "AUDIO_Edit", item.agent_tech_id, "pen" );
                 boutons += Bouton_deroulant_add ( "primary", "Gérer les zones de diffusion", "Redirect", "/agents/audio/"+encodeURIComponent(item.agent_tech_id), "directions" );
                 boutons += Bouton_deroulant_add ( "info", "Monitorer l'agent", "Redirect", "/agent/"+encodeURIComponent(item.agent_tech_id), "chart-line" );
+                boutons += Bouton_deroulant_add ( "warning", "Tester la diffusion", "AUDIO_test", item.agent_tech_id, "vial" );
                 boutons += Bouton_deroulant_add_spacer ();
                 boutons += Bouton_deroulant_add ( "danger", "Supprimer le thread", "AUDIO_Del", item.agent_tech_id, "trash" );
                 boutons += Bouton_deroulant_end ();
