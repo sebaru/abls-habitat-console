@@ -9,18 +9,20 @@
 
  var myDLSLangageRegex = [ { regex: /\/\*[^*]*\*+(?:[^*\/][^*]*\*+)*\//, token: "comment" }, // Commentaires #
                            { regex: /"(?:[^\\]|\\.)*?"/, token: "string" }, // Chaînes de caractères
-                           { regex: "/\b_[A-Z].*/", token: "type" }, // Mots-clés
                            { regex: "#define", token: "def" }, // Mots-clés
                            { regex: "#link", token: "def" }, // Mots-clés
                            { regex: "#param", token: "def" }, // Mots-clés
                            { regex: "switch", token: "operator" }, // Mots-clés
+                           { regex: "/|/", token: "operator" }, // Mots-clés
                            { regex: "<->", token: "operator" }, // Mots-clés
                            { regex: "->", token: "operator" }, // Mots-clés
+                           { regex: "{", token: "operator" }, // Mots-clés
+                           { regex: "}", token: "operator" }, // Mots-clés
                            { regex: "-", token: "operator" }, // Mots-clés
                            { regex: "=", token: "operator" }, // Mots-clés
                            { regex: /\d+/, token: "number" }, // Nombres
                            { regex: /[A-Z][A-Za-z0-9_]*/, token: "variable" }, // Variables
-                           { regex: /\b_[A-Z]*\b/g, token: "keyword" }, // Variables
+                           { regex: /\b_[A-Z]*\b/g, token: "type" }, // Variables
                          ];
 
 /********************************************* Supprime un mapping ************************************************************/
