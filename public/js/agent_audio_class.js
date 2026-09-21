@@ -114,7 +114,7 @@
                 boutons += Bouton_deroulant_add ( "info", "Monitorer l'agent", "Redirect", "/agent/"+encodeURIComponent(item.agent_tech_id), "chart-line" );
                 boutons += Bouton_deroulant_add ( "warning", "Tester la diffusion", "AUDIO_test", item.agent_tech_id, "vial" );
                 boutons += Bouton_deroulant_add_spacer ();
-                boutons += Bouton_deroulant_add ( "danger", "Supprimer le thread", "AUDIO_Del", item.agent_tech_id, "trash" );
+                boutons += Bouton_deroulant_add ( "danger", "Supprimer l'agent audio", "AUDIO_Del", item.agent_tech_id, "trash" );
                 boutons += Bouton_deroulant_end ();
                 return(boutons);
               },
