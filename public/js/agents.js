@@ -185,12 +185,9 @@
             "render": function (item)
              { var boutons = Bouton_deroulant_start();
                boutons += Bouton_deroulant_add ( "info", "Monitorer", "AGENT_monitor", item.agent_tech_id, "chart-line" );
-               if (item.is_alive)
-                { boutons += Bouton_deroulant_add_spacer();
-                  boutons += Bouton_deroulant_add ( "warning", "Tester", "AGENT_test", item.agent_tech_id, "vial" );
-                  boutons += Bouton_deroulant_add ( "warning", "Upgrader", "AGENT_upgrade", item.agent_tech_id, "upload" );
-                  boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "AGENT_restart", item.agent_tech_id, "sync-alt" );
-                }
+               boutons += Bouton_deroulant_add ( "warning", "Tester", "AGENT_test", item.agent_tech_id, "vial" );
+               boutons += Bouton_deroulant_add ( "warning", "Upgrader", "AGENT_upgrade", item.agent_tech_id, "upload" );
+               boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "AGENT_restart", item.agent_tech_id, "sync-alt" );
                if (item.agent_classe !== "server")
                 { boutons += Bouton_deroulant_add_spacer();
                   if (item.is_alive)
