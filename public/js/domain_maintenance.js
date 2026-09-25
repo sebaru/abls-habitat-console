@@ -13,11 +13,16 @@
      { Show_toast_ok ( "Visuels deleted." );
      }, null );
   }
-/************************************ Envoi un tag aux agents *****************************************************************/
- function Domain_Send_to_Agent ( tag )
-  { var json_request = { tag: tag };
-    Send_to_API ( "POST", "/agent/send", json_request, function(Response)
-     { Show_toast_ok ( tag.toUpperCase() + " Sent to Agents." );
+/************************************ Demande le rechargement des mappings D.L.S **********************************************/
+ function Domain_Remap_DLS ()
+  { Send_to_API ( "POST", "/dls/remap", null, function(Response)
+    { Show_toast_ok ( "D.L.S mappings reload requested." );
+    }, null );
+  }
+/************************************ Demande le rechargement des ticks horloges D.L.S ****************************************/
+ function Domain_Reload_Horloges_Tick ()
+  { Send_to_API ( "POST", "/dls/reload_horloges_tick", null, function(Response)
+    { Show_toast_ok ( "D.L.S horloge ticks reload requested." );
      }, null );
   }
 /************************************ Vide le tampon des visuels **************************************************************/
@@ -57,8 +62,8 @@
     $("#idDomainDLSRenameDLSButton").off("click").click( function () { Domain_Rename_DLS(); } );
     $("#idDomainDLSRenameBITButton").off("click").click( function () { Domain_Rename_DLS_bit(); } );
     $("#idDomainCompilAllButton").off("click").click( function () { Domain_Compil_all_DLS(); } );
-    $("#idDomainRemap")          .off("click").click( function () { Domain_Send_to_Agent( "REMAP" ); } );
-    $("#idDomainHorlogeReload")  .off("click").click( function () { Domain_Send_to_Agent( "RELOAD_HORLOGE_TICK" ); } );
+    $("#idDomainRemap")          .off("click").click( function () { Domain_Remap_DLS(); } );
+    $("#idDomainHorlogeReload")  .off("click").click( function () { Domain_Reload_Horloges_Tick(); } );
     $("#idDomainHorlogeClearVisuel").off("click").click( function () { Domain_Clear_Visuels(); } );
     $("#idApiReloadIcons").off("click").click( function () { Api_Reload_Icons(); } );
   }
