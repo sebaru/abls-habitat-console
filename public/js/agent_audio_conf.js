@@ -1,4 +1,8 @@
-var AUDIO_AGENT_TECH_ID = null;
+/* agent_audio_conf.js
+ * Configuration des zones de diffusion audio d'un agent.
+ */
+
+ var AUDIO_AGENT_TECH_ID = null;
 
 /************************************ Demande de refresh **********************************************************************/
  function AUDIOCONF_Refresh ( )

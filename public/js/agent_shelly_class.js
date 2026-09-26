@@ -1,8 +1,11 @@
-
+/* agent_shelly_class.js
+ * Liste et gestion des agents Shelly.
+ */
 
  var Shelly_Type = [ { texte: "Shelly PRO EM", id: "shellyproem50" } ];
 
- function SHELLY_Refresh ( )
+/************************************ Actualise la liste des agents Shelly **********************************************/
+ function SHELLY_Refresh ()
   { $('#idTableSHELLY').DataTable().ajax.reload(null, false);
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/

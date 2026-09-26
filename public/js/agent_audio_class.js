@@ -1,3 +1,7 @@
+/* agent_audio_class.js
+ * Liste et gestion des agents audio.
+ */
+
 /************************************ Demande de refresh **********************************************************************/
  function AUDIO_Refresh ( )
   { $('#idTableAUDIO').DataTable().ajax.reload(null, false);

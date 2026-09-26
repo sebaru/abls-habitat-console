@@ -1,3 +1,7 @@
+/* agent_meteo_class.js
+ * Liste et gestion des agents meteo.
+ */
+
 /************************************ Demande de refresh **********************************************************************/
  function METEO_Refresh ( )
   { $('#idTableMETEO').DataTable().ajax.reload(null, false);

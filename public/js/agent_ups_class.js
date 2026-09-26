@@ -1,3 +1,7 @@
+/* agent_ups_class.js
+ * Liste et gestion des agents onduleur.
+ */
+
 /************************************ Demande de refresh **********************************************************************/
  function UPS_Refresh ( )
   { $('#idTableUPS').DataTable().ajax.reload(null, false);

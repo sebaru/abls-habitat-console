@@ -1,3 +1,7 @@
+/* agent_phidget_class.js
+ * Liste et gestion des agents Phidget.
+ */
+
 /************************************ Demande de refresh **********************************************************************/
  function PHIDGET_Refresh ( )
   { $('#idTablePHIDGET').DataTable().ajax.reload(null, false);

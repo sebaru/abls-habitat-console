@@ -1,3 +1,7 @@
+/* agent_phidget_conf.js
+ * Configuration des capteurs et entrees/sorties Phidget.
+ */
+
 var Capteurs =
   [ { valeur: "DIGITAL-INPUT",        texte: "DI - DIGITAL-INPUT" },
     { valeur: "ADP1000-PH",           texte: "AI - ADP1000-PH" },

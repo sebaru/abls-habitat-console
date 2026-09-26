@@ -1,4 +1,8 @@
-var UPS_AGENT_TECH_ID = null;
+/* agent_ups_conf.js
+ * Configuration des entrees/sorties onduleur.
+ */
+
+ var UPS_AGENT_TECH_ID = null;
 
 /************************************ Demande de refresh **********************************************************************/
  function UPSCONF_Refresh ( )

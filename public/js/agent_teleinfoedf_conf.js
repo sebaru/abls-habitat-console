@@ -1,12 +1,16 @@
+/* agent_teleinfoedf_conf.js
+ * Configuration d'un agent Teleinfo EDF.
+ */
+
 var TELEINFO_AGENT_TECH_ID = null;
 
 /************************************ Demande de refresh **********************************************************************/
-function TELEINFOCONF_Refresh ( )
+ function TELEINFOCONF_Refresh ()
  { Load_page();
  }
 
 /********************************************* Appelé au chargement de la page ************************************************/
-function Load_page ( )
+ function Load_page ()
  { var parts = window.location.pathname.split('/');
    if (!parts[3]) { Redirect('/agents/teleinfoedf'); return; }
 

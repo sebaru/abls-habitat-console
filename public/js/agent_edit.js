@@ -1,3 +1,7 @@
+/* agent_edit.js
+ * Edition des informations generales d'un agent.
+ */
+
 /************************************ Envoi les infos de modifications synoptique *********************************************/
  function AGENT_Save ( agent_uuid )
   { var json_request =

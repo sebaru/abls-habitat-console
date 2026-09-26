@@ -1,10 +1,14 @@
+/* agent_gpiod_class.js
+ * Liste et gestion des agents GPIOD.
+ */
+
 /************************************ Demande de refresh **********************************************************************/
-function GPIOD_Refresh ( )
+ function GPIOD_Refresh ()
  { $('#idTableGPIOD').DataTable().ajax.reload(null, false);
  }
 
 /********************************************* Activation de l'agent GPIOD ****************************************************/
-function GPIOD_Toggle ( agent_tech_id, newState, toggle )
+ function GPIOD_Toggle ( agent_tech_id, newState, toggle )
  { toggle.prop('disabled', true);
    Send_to_API ( 'POST', '/agent/enable', { agent_tech_id: agent_tech_id, enable: newState },
                  function(Response)
@@ -19,7 +23,7 @@ function GPIOD_Toggle ( agent_tech_id, newState, toggle )
  }
 
 /************************************ Envoi les informations de configuration GPIOD ******************************************/
-function GPIOD_Set ( )
+ function GPIOD_Set ()
  { var request =
     { server_uuid: $('#idTargetServer').val(),
       agent_tech_id: $('#idGPIODTechID').val().toUpperCase(),
@@ -32,12 +36,12 @@ function GPIOD_Set ( )
  }
 
 /**************************************** Edition de la configuration de l'agent GPIOD ***************************************/
-function GPIOD_Edit ( agent_tech_id )
+ function GPIOD_Edit ( agent_tech_id )
  { var gpiod = $('#idTableGPIOD').DataTable().row('#' + agent_tech_id).data();
    if (!gpiod) { Show_shell_error ( "Aucune configuration GPIOD pour '" + agent_tech_id + "'." ); return; }
    $('#idGPIODTitre').text ( 'Editer la configuration GPIOD ' + agent_tech_id );
     Select_from_api ( 'idTargetServer', '/servers/list', null, 'servers', 'server_uuid',
-                function(item) { return item.agent_tech_id; }, gpiod.server_uuid );
+              function ( item ) { return item.agent_tech_id; }, gpiod.server_uuid );
    $('#idGPIODTechID').prop('disabled', true).val(gpiod.agent_tech_id);
    $('#idGPIODDescription').val(gpiod.description);
    $('#idGPIODValider').off('click').on('click', GPIOD_Set);
@@ -45,10 +49,10 @@ function GPIOD_Edit ( agent_tech_id )
  }
 
 /********************************************* Ajout d'un agent GPIOD **********************************************************/
-function GPIOD_Add ( )
+ function GPIOD_Add ()
  { $('#idGPIODTitre').text ( 'Ajouter un agent GPIOD' );
     Select_from_api ( 'idTargetServer', '/servers/list', null, 'servers', 'server_uuid',
-                function(item) { return item.agent_tech_id; }, null );
+              function ( item ) { return item.agent_tech_id; }, null );
    $('#idGPIODTechID').prop('disabled', false).val('')
      .off('input').on('input', function() { Controle_tech_id('idGPIOD', null); }).trigger('input');
    $('#idGPIODDescription').val('');
@@ -57,7 +61,7 @@ function GPIOD_Add ( )
  }
 
 /********************************************* Suppression d'un agent GPIOD **************************************************/
-function GPIOD_Del ( agent_tech_id )
+ function GPIOD_Del ( agent_tech_id )
  { var gpiod = $('#idTableGPIOD').DataTable().row('#' + agent_tech_id).data();
    Show_modal_del ( "Supprimer l'agent GPIOD " + gpiod.agent_tech_id,
                     'Etes-vous sûr de vouloir supprimer cet agent ?',
@@ -69,7 +73,7 @@ function GPIOD_Del ( agent_tech_id )
  }
 
 /********************************************* Appelé au chargement de la page ************************************************/
-function Load_page ( )
+ function Load_page ()
  { $('#idTableGPIOD').DataTable(
     { pageLength: 50, fixedHeader: true, paging: false, ordering: true, searching: true,
       ajax:

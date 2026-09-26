@@ -1,14 +1,18 @@
-var GPIOD_AGENT_TECH_ID = null;
+/* agent_gpiod_conf.js
+ * Configuration des entrees/sorties GPIOD.
+ */
+
+ var GPIOD_AGENT_TECH_ID = null;
 var Modes_InOut = [ { valeur: false, texte: 'DI - DIGITAL-INPUT' }, { valeur: true, texte: 'DO - DIGITAL OUTPUT' } ];
 var Modes_ActiveLow = [ { valeur: false, texte: 'FALSE' }, { valeur: true, texte: 'TRUE' } ];
 
 /************************************ Demande de refresh **********************************************************************/
-function GPIODCONF_Refresh ( )
+ function GPIODCONF_Refresh ()
  { $('#idTableGPIOD_IO').DataTable().ajax.reload(null, false);
  }
 
 /********************************************* Edition d'une I/O GPIOD *******************************************************/
-function GPIODCONF_Edit ( gpiod_io_id )
+ function GPIODCONF_Edit ( gpiod_io_id )
  { var io = $('#idTableGPIOD_IO').DataTable().row('#' + gpiod_io_id).data();
    $('#idGPIODEditIOTitre').text ( 'Configurer ' + io.agent_tech_id + ':' + io.agent_acronyme );
    $('#idGPIODEditIOLibelle').val(io.libelle);
@@ -28,20 +32,24 @@ function GPIODCONF_Edit ( gpiod_io_id )
  }
 
 /********************************************* Edition d'un mapping GPIOD *****************************************************/
-function GPIODCONF_Map ( gpiod_io_id )
+ function GPIODCONF_Map ( gpiod_io_id )
  { var io = $('#idTableGPIOD_IO').DataTable().row('#' + gpiod_io_id).data();
    $('#idMODALMapTitre').text('Mapper ' + io.agent_tech_id + ':' + io.agent_acronyme);
-   $('#idMODALMapRechercherTechID').off('input').on('input', function() { Common_Updater_Choix_TechID('idMODALMap', io.mode_inout ? 'DO' : 'DI'); });
+  $('#idMODALMapRechercherTechID').off('input').on('input', function ()
+   { Common_Updater_Choix_TechID('idMODALMap', io.mode_inout ? 'DO' : 'DI'); } );
    Common_Updater_Choix_TechID('idMODALMap', io.mode_inout ? 'DO' : 'DI', io.tech_id, io.acronyme);
-   $('#idMODALMapValider').off('click').on('click', function()
+  $('#idMODALMapValider').off('click').on('click', function ()
     { $('#idMODALMap').modal('hide');
-      Send_to_API('POST', '/mapping/set', { agent_tech_id: io.agent_tech_id, agent_acronyme: io.agent_acronyme, tech_id: $('#idMODALMapSelectTechID').val(), acronyme: $('#idMODALMapSelectAcronyme').val() }, function() { GPIODCONF_Refresh(); }, null);
+      Send_to_API ( 'POST', '/mapping/set',
+                    { agent_tech_id: io.agent_tech_id, agent_acronyme: io.agent_acronyme,
+                      tech_id: $('#idMODALMapSelectTechID').val(), acronyme: $('#idMODALMapSelectAcronyme').val() },
+                    function () { GPIODCONF_Refresh(); }, null );
     });
    $('#idMODALMap').modal('show');
  }
 
 /********************************************* Appelé au chargement de la page ************************************************/
-function Load_page ( )
+ function Load_page ()
  { var parts = window.location.pathname.split('/');
    if (!parts[3]) { Redirect('/agents/gpiod'); return; }
    GPIOD_AGENT_TECH_ID = decodeURIComponent(parts[3]).toUpperCase();
@@ -49,7 +57,10 @@ function Load_page ( )
    Set_page_context('Configuration I/O GPIOD ' + GPIOD_AGENT_TECH_ID);
    $('#idTableGPIOD_IO').DataTable(
     { pageLength: 50, fixedHeader: true, paging: false, ordering: true, searching: true,
-      ajax: { url: $ABLS_API + '/gpiod/list', type: 'GET', dataSrc: 'IO', contentType: 'application/json', data: function() { return 'classe=io'; }, error: function(xhr) { Show_shell_error(xhr.statusText); } },
+      ajax: { url: $ABLS_API + '/gpiod/list', type: 'GET', dataSrc: 'IO', contentType: 'application/json',
+          data: function () { return 'classe=io'; },
+          error: function ( xhr ) { Show_shell_error ( xhr.statusText ); }
+        },
       rowId: 'gpiod_io_id',
       columns:
        [ { data: null, title: 'GPIOD TechID', className: 'align-middle text-center', render: function(item) { return Lien('/dls/' + item.agent_tech_id, 'Voir la source', item.agent_tech_id); } },

@@ -1,10 +1,14 @@
+/* agent_teleinfoedf_class.js
+ * Liste et gestion des agents Teleinfo EDF.
+ */
+
 /************************************ Demande de refresh **********************************************************************/
-function TELEINFO_Refresh ( )
+ function TELEINFO_Refresh ()
  { $('#idTableTELEINFO').DataTable().ajax.reload(null, false);
  }
 
 /********************************************* Activation de l'agent Téléinfo EDF ********************************************/
-function TELEINFO_Toggle ( agent_tech_id, newState, toggle )
+ function TELEINFO_Toggle ( agent_tech_id, newState, toggle )
  { toggle.prop('disabled', true);
    Send_to_API ( 'POST', '/agent/enable', { agent_tech_id: agent_tech_id, enable: newState },
                  function(Response)
@@ -19,7 +23,7 @@ function TELEINFO_Toggle ( agent_tech_id, newState, toggle )
  }
 
 /************************************ Envoi la configuration de l'agent Téléinfo EDF ******************************************/
-function TELEINFO_Set ( )
+ function TELEINFO_Set ()
  { var request =
     { server_uuid: $('#idTargetServer').val(),
       agent_tech_id: $('#idTELEINFOTechID').val().toUpperCase(),
@@ -34,7 +38,7 @@ function TELEINFO_Set ( )
  }
 
 /**************************************** Edition de la configuration Téléinfo EDF ******************************************/
-function TELEINFO_Edit ( agent_tech_id )
+ function TELEINFO_Edit ( agent_tech_id )
  { var teleinfo = $('#idTableTELEINFO').DataTable().row('#' + agent_tech_id).data();
    if (!teleinfo) { Show_shell_error ( "Aucune configuration Téléinfo EDF pour '" + agent_tech_id + "'." ); return; }
    $('#idTELEINFOTitre').text ( 'Editer la configuration Téléinfo EDF ' + agent_tech_id );
@@ -51,7 +55,7 @@ function TELEINFO_Edit ( agent_tech_id )
  }
 
 /********************************************* Ajout d'un agent Téléinfo EDF **************************************************/
-function TELEINFO_Add ( )
+ function TELEINFO_Add ()
  { $('#idTELEINFOTitre').text ( 'Ajouter un agent Téléinfo EDF' );
    Select_from_api ( 'idTargetServer', '/servers/list', null, 'servers', 'server_uuid',
                      function(item) { return item.agent_tech_id; }, null );
@@ -67,7 +71,7 @@ function TELEINFO_Add ( )
  }
 
 /********************************************* Suppression d'un agent Téléinfo EDF ********************************************/
-function TELEINFO_Del ( agent_tech_id )
+ function TELEINFO_Del ( agent_tech_id )
  { var teleinfo = $('#idTableTELEINFO').DataTable().row('#' + agent_tech_id).data();
    Show_modal_del ( "Supprimer l'agent Téléinfo EDF " + teleinfo.agent_tech_id,
                     'Etes-vous sûr de vouloir supprimer cet agent ?',
@@ -79,7 +83,7 @@ function TELEINFO_Del ( agent_tech_id )
  }
 
 /********************************************* Appelé au chargement de la page ************************************************/
-function Load_page ( )
+ function Load_page ()
  { $('#idTableTELEINFO').DataTable(
     { pageLength: 50, fixedHeader: true, paging: false, ordering: true, searching: true,
       ajax:

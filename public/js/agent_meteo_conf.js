@@ -1,4 +1,8 @@
-var METEO_AGENT_TECH_ID = null;
+/* agent_meteo_conf.js
+ * Configuration des entrees/sorties meteo.
+ */
+
+ var METEO_AGENT_TECH_ID = null;
 
 /************************************ Demande de refresh **********************************************************************/
  function METEOCONF_Refresh ( )
