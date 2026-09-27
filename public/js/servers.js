@@ -28,24 +28,6 @@
        }
     );
   }
-/******************************************* Active ou desactive le mode headless ********************************************/
- function SERVER_Set_Headless ( server_uuid, newState )
-  { var selection = $('#idTableSERVERS').DataTable().row("#"+server_uuid).data();
-    var $switch = $('#idSwitchHeadless_' + server_uuid);
-    $switch.prop('disabled', true);
-
-    var json_request = { server_uuid: server_uuid, headless: newState };
-    Send_to_API ( "POST", "/server/set/headless", json_request,
-      function(Response)
-       { Show_toast_ok ( "Serveur " + selection.agent_tech_id + " " + (newState ? "passé en headless" : "sort du mode headless") + "." );
-         $switch.prop('disabled', false);
-       },
-      function(Response)
-       { $switch.prop('checked', !newState).prop('disabled', false);
-         Show_shell_error ( "Erreur lors de la modification du mode headless pour " + selection.agent_tech_id + "." );
-       }
-    );
-  }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { $('#idTableSERVERS').DataTable(
@@ -77,15 +59,6 @@
               { return( htmlEncode(item.version) );
               }
           },
-          { "data": null, "title":"Headless", "className": "align-middle text-center d-none d-md-table-cell",
-            "render": function (item)
-              { return( Switch ( "idSwitchHeadless_" + item.server_uuid,
-                                 "Mode headless",
-                                 item.headless,
-                                 "server-headless-switch",
-                                 "data-server-uuid='" + item.server_uuid + "'" ) );
-              }
-          },
           { "data": null, "title":"Start/Heartbeat", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
               { return( htmlEncode(item.start_time) +"<br>"+ htmlEncode(item.heartbeat_time) );
@@ -104,11 +77,5 @@
       { var server_uuid = $(this).data('server-uuid');
         var newState = $(this).is(':checked');
         SERVER_Set_Master(server_uuid, newState);
-      });
-
-    $(document).off('change.serversHeadless', '.server-headless-switch').on('change.serversHeadless', '.server-headless-switch', function()
-      { var server_uuid = $(this).data('server-uuid');
-        var newState = $(this).is(':checked');
-        SERVER_Set_Headless(server_uuid, newState);
       });
   }
