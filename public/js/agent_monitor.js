@@ -33,7 +33,6 @@
         { $("#idAgentMonitorServerHostname").text("Inconnu");
           $("#idAgentMonitorStatus").html( Badge("secondary", "Status inconnu", "N/A") );
           $("#idAgentMonitorHeartbeat").html( Badge("secondary", "Etat inconnu", "N/A") );
-          $("#idAgentMonitorMqttApi").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorStartTime").text("-");
           $("#idAgentMonitorTest").prop("disabled", true);
@@ -63,7 +62,6 @@
      { $("#idAgentMonitorServerHostname").text("Inconnu");
        $("#idAgentMonitorStatus").html( Badge("secondary", "Status inconnu", "N/A") );
        $("#idAgentMonitorHeartbeat").html( Badge("secondary", "Etat inconnu", "N/A") );
-       $("#idAgentMonitorMqttApi").html( Badge("secondary", "Etat inconnu", "N/A") );
        $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
        $("#idAgentMonitorStartTime").text("-");
        $("#idAgentMonitorTest").prop("disabled", true);
