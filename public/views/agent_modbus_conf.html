@@ -18,19 +18,59 @@
  </div>
 </div>
 
-<div id="idMODBUSIOEdit" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content">
- <div class="modal-header bg-info text-white"><h5 class="modal-title"><i class="fas fa-pen"></i> <span id="idMODBUSIOEditTitre"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+<div id="idMODBUSDIEdit" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content">
+ <div class="modal-header bg-info text-white"><h5 class="modal-title"><i class="fas fa-pen"></i> <span id="idMODBUSDIEditTitre"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
  <div class="modal-body">
-  <input id="idMODBUSIOClass" type="hidden"><input id="idMODBUSIOId" type="hidden">
-  <div class="row mb-2 align-items-center modbus-di-field"><label class="col-5 col-sm-4 col-form-label text-end">Flip</label><div class="col-7 col-sm-8"><select id="idMODBUSIOFlip" class="form-select"><option value="0">Non - logique normale</option><option value="1">Oui - logique inversée</option></select></div></div>
-  <div class="row mb-2 align-items-center modbus-ai-field"><label class="col-5 col-sm-4 col-form-label text-end">Type de borne</label><div class="col-7 col-sm-8"><select id="idMODBUSIOTypeBorne" class="form-select"></select></div></div>
-  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Archivage</label><div class="col-7 col-sm-8"><select id="idMODBUSIOArchivage" class="form-select"></select></div></div>
-  <div class="row mb-2 align-items-center modbus-ai-field"><label class="col-5 col-sm-4 col-form-label text-end">Minimum</label><div class="col-7 col-sm-8"><input id="idMODBUSIOMin" type="number" class="form-control"></div></div>
-  <div class="row mb-2 align-items-center modbus-ai-field"><label class="col-5 col-sm-4 col-form-label text-end">Maximum</label><div class="col-7 col-sm-8"><input id="idMODBUSIOMax" type="number" class="form-control"></div></div>
-  <div class="row mb-2 align-items-center modbus-ai-field"><label class="col-5 col-sm-4 col-form-label text-end">Unité</label><div class="col-7 col-sm-8"><input id="idMODBUSIOUnite" type="text" class="form-control"></div></div>
-  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Borne</label><div class="col-7 col-sm-8"><input id="idMODBUSIOBorne" type="text" class="form-control"></div></div>
-  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">ED</label><div class="col-7 col-sm-8"><input id="idMODBUSIOED" type="text" class="form-control"></div></div>
-  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Description</label><div class="col-7 col-sm-8"><input id="idMODBUSIOLibelle" type="text" class="form-control"></div></div>
+  <input id="idMODBUSDIId" type="hidden">
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Description</label><div class="col-7 col-sm-8"><input id="idMODBUSDILibelle" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Borne</label><div class="col-7 col-sm-8"><input id="idMODBUSDIBorne" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">ED</label><div class="col-7 col-sm-8"><input id="idMODBUSDIED" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Archivage</label><div class="col-7 col-sm-8"><select id="idMODBUSDIArchivage" class="form-select"></select></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Flip</label><div class="col-7 col-sm-8"><select id="idMODBUSDIFlip" class="form-select"><option value="0">Non - logique normale</option><option value="1">Oui - logique inversée</option></select></div></div>
  </div>
- <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button><button id="idMODBUSIOValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button></div>
+ <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button><button id="idMODBUSDIValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button></div>
+</div></div></div>
+
+<div id="idMODBUSDOEdit" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content">
+ <div class="modal-header bg-info text-white"><h5 class="modal-title"><i class="fas fa-pen"></i> <span id="idMODBUSDOEditTitre"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+ <div class="modal-body">
+  <input id="idMODBUSDOId" type="hidden">
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Description</label><div class="col-7 col-sm-8"><input id="idMODBUSDOLibelle" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Borne</label><div class="col-7 col-sm-8"><input id="idMODBUSDOBorne" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">ED</label><div class="col-7 col-sm-8"><input id="idMODBUSDOED" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Archivage</label><div class="col-7 col-sm-8"><select id="idMODBUSDOArchivage" class="form-select"></select></div></div>
+ </div>
+ <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button><button id="idMODBUSDOValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button></div>
+</div></div></div>
+
+<div id="idMODBUSAIEdit" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content">
+ <div class="modal-header bg-info text-white"><h5 class="modal-title"><i class="fas fa-pen"></i> <span id="idMODBUSAIEditTitre"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+ <div class="modal-body">
+  <input id="idMODBUSAIId" type="hidden">
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Description</label><div class="col-7 col-sm-8"><input id="idMODBUSAILibelle" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Borne</label><div class="col-7 col-sm-8"><input id="idMODBUSAIBorne" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">ED</label><div class="col-7 col-sm-8"><input id="idMODBUSAIED" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Archivage</label><div class="col-7 col-sm-8"><select id="idMODBUSAIArchivage" class="form-select"></select></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Type de borne</label><div class="col-7 col-sm-8"><select id="idMODBUSAITypeBorne" class="form-select"></select></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Valeur mini</label><div class="col-7 col-sm-8"><input id="idMODBUSAIMin" type="number" step="any" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Valeur maxi</label><div class="col-7 col-sm-8"><input id="idMODBUSAIMax" type="number" step="any" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Unité</label><div class="col-7 col-sm-8"><input id="idMODBUSAIUnite" type="text" class="form-control"></div></div>
+ </div>
+ <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button><button id="idMODBUSAIValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button></div>
+</div></div></div>
+
+<div id="idMODBUSAOEdit" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content">
+ <div class="modal-header bg-info text-white"><h5 class="modal-title"><i class="fas fa-pen"></i> <span id="idMODBUSAOEditTitre"></span></h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+ <div class="modal-body">
+  <input id="idMODBUSAOId" type="hidden">
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Description</label><div class="col-7 col-sm-8"><input id="idMODBUSAOLibelle" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Borne</label><div class="col-7 col-sm-8"><input id="idMODBUSAOBorne" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">ED</label><div class="col-7 col-sm-8"><input id="idMODBUSAOED" type="text" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Archivage</label><div class="col-7 col-sm-8"><select id="idMODBUSAOArchivage" class="form-select"></select></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Type de borne</label><div class="col-7 col-sm-8"><select id="idMODBUSAOTypeBorne" class="form-select"></select></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Valeur mini</label><div class="col-7 col-sm-8"><input id="idMODBUSAOMin" type="number" step="any" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Valeur maxi</label><div class="col-7 col-sm-8"><input id="idMODBUSAOMax" type="number" step="any" class="form-control"></div></div>
+  <div class="row mb-2 align-items-center"><label class="col-5 col-sm-4 col-form-label text-end">Unité</label><div class="col-7 col-sm-8"><input id="idMODBUSAOUnite" type="text" class="form-control"></div></div>
+ </div>
+ <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button><button id="idMODBUSAOValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button></div>
 </div></div></div>
