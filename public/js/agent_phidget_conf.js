@@ -28,7 +28,7 @@ var PHIDGET_AGENT_TECH_ID = null;
  function PHIDGET_Edit_IO (phidget_io_id)
   { selection = $('#idTablePHIDGET_IO').DataTable().row("#"+phidget_io_id).data();
     $('#idPHIDGETEditIOTitre').text( "Configurer "+selection.agent_tech_id+", port "+selection.port );
-    $('#idPHIDGETEditIOLibelle').val ( selection.libelle );
+    $('#idPHIDGETEditIOLibelle').val ( selection.description );
     $('#idPHIDGETEditIOUnite').val ( selection.unite );
     $('#idPHIDGETEditIOCapteur')
      .replaceWith ( Select ( "idPHIDGETEditIOCapteur", null, Capteurs, selection.capteur ) );
@@ -41,7 +41,7 @@ var PHIDGET_AGENT_TECH_ID = null;
           intervalle: parseInt($('#idPHIDGETEditIOIntervalle').val()),
           archivage: parseInt($('#idPHIDGETEditIOArchivage').val()),
           capteur: $('#idPHIDGETEditIOCapteur').val(),
-          libelle: $('#idPHIDGETEditIOLibelle').val(),
+          description: $('#idPHIDGETEditIOLibelle').val(),
           unite: $('#idPHIDGETEditIOUnite').val(),
         };
 
@@ -95,7 +95,9 @@ var PHIDGET_AGENT_TECH_ID = null;
             { "data": null, "title":"Mapped on", "className": "align-middle text-center d-none d-md-table-cell",
               "render": function (item)
                 { if(item.tech_id)
-                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
+                   { var html = Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + htmlEncode(item.acronyme);
+                     if (item.libelle) html += "<br><small class='text-muted'>" + htmlEncode(item.libelle) + "</small>";
+                     return ( html );
                    } else return( "--" );
                 }
             },
@@ -107,7 +109,7 @@ var PHIDGET_AGENT_TECH_ID = null;
             { "data": "intervalle", "title":"Interval", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)
-                { return ( htmlEncode(item.libelle) ); }
+                { return ( htmlEncode(item.description) ); }
             },
             { "data": null, "title":"Unité", "className": "align-middle text-center d-none d-xl-table-cell",
               "render": function (item)

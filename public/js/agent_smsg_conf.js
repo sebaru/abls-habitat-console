@@ -21,7 +21,8 @@
        rowId: 'mnemo_id',
        columns:
         [ { data: 'acronyme', title: 'Acronyme', className: 'align-middle text-center' },
-          { data: 'libelle', title: 'Description', className: 'align-middle text-center d-none d-md-table-cell' },
+          { data: 'agent_description', title: 'Description', className: 'align-middle text-center d-none d-md-table-cell',
+            render: function ( description ) { return htmlEncode ( description || "" ); } },
           { data: null, title: 'Valeur', className: 'align-middle text-center',
             render: function ( item ) { return item.valeur+' '+htmlEncode ( item.unite || '' ); }
           },

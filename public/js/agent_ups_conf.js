@@ -35,7 +35,7 @@
            },
            { "data": null, "title":"Description", "className": "align-middle text-center d-none d-md-table-cell",
              "render": function (item)
-               { return( htmlEncode(item.libelle || "") ); }
+               { return( htmlEncode(item.agent_description || "") ); }
            },
            { "data": null, "title":"Valeur", "className": "align-middle text-center",
              "render": function (item)
