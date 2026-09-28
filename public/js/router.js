@@ -88,28 +88,28 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Modbus', href: '/agents/modbus' }, { label: 'Configuration I/O', href: null } ]
     },
     {
-      pattern:    /^\/agents\/imsgs$/,
-      view:       'agent_imsgs_class',
-      script:     'agent_imsgs_class',
+      pattern:    /^\/agents\/imsg$/,
+      view:       'agent_imsg_class',
+      script:     'agent_imsg_class',
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents XMPP', href: null } ]
     },
     {
-      pattern:    /^\/agents\/imsgs\/[^/]+$/,
-      view:       'agent_imsgs_conf',
-      script:     'agent_imsgs_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents XMPP', href: '/agents/imsgs' }, { label: 'Connexion XMPP', href: null } ]
+      pattern:    /^\/agents\/imsg\/[^/]+$/,
+      view:       'agent_imsg_conf',
+      script:     'agent_imsg_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents XMPP', href: '/agents/imsg' }, { label: 'Connexion XMPP', href: null } ]
     },
     {
-      pattern:    /^\/agents\/smsg$/,
-      view:       'agent_smsg_class',
-      script:     'agent_smsg_class',
+      pattern:    /^\/agents\/sms$/,
+      view:       'agent_sms_class',
+      script:     'agent_sms_class',
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents SMS', href: null } ]
     },
     {
-      pattern:    /^\/agents\/smsg\/[^/]+$/,
-      view:       'agent_smsg_conf',
-      script:     'agent_smsg_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents SMS', href: '/agents/smsg' }, { label: 'Mnémoniques', href: null } ]
+      pattern:    /^\/agents\/sms\/[^/]+$/,
+      view:       'agent_sms_conf',
+      script:     'agent_sms_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents SMS', href: '/agents/sms' }, { label: 'Mnémoniques', href: null } ]
     },
     {
       pattern:    /^\/agents\/gpiod$/,
@@ -163,13 +163,13 @@ var Router = (function () {
       pattern:    /^\/agents\/ups$/,
       view:       'agent_ups_class',
       script:     'agent_ups_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Onduleurs', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agent UPS', href: null } ]
     },
     {
       pattern:    /^\/agents\/ups\/[^/]+$/,
       view:       'agent_ups_conf',
       script:     'agent_ups_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Onduleurs', href: '/agents/ups' }, { label: 'Mnémoniques', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agent UPS', href: '/agents/ups' }, { label: 'Configuration I/O', href: null } ]
     },
     {
       pattern:    /^\/agents\/server$/,

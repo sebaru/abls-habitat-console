@@ -1,21 +1,21 @@
-/* agent_smsg_conf.js
+/* agent_sms_conf.js
  * Configuration des mnémoniques de l'agent SMS.
  */
 
- var SMSG_AGENT_TECH_ID = null;
+ var SMS_AGENT_TECH_ID = null;
 
 /************************************ Actualise les tableaux de mnémoniques SMS ***************************************/
- function SMSGCONF_Refresh ()
+ function SMSCONF_Refresh ()
   { [ 'AI', 'CI' ].forEach ( function ( classe )
-     { $('#idTableSMSG_'+classe).DataTable().ajax.reload ( null, false ); } );
+     { $('#idTableSMS_'+classe).DataTable().ajax.reload ( null, false ); } );
   }
 
 /************************************ Configure le tableau des mnémoniques SMS ****************************************/
- function SMSGCONF_Table ( classe )
-  { $('#idTableSMSG_'+classe).DataTable(
+ function SMSCONF_Table ( classe )
+  { $('#idTableSMS_'+classe).DataTable(
      { pageLength: 50, fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url: $ABLS_API+'/smsg/get', type: 'GET', dataSrc: classe, contentType: 'application/json',
-               data: function () { return 'agent_tech_id='+encodeURIComponent ( SMSG_AGENT_TECH_ID ); },
+       ajax: { url: $ABLS_API+'/sms/get', type: 'GET', dataSrc: classe, contentType: 'application/json',
+               data: function () { return 'agent_tech_id='+encodeURIComponent ( SMS_AGENT_TECH_ID ); },
                error: function ( xhr ) { Show_shell_error ( xhr.statusText ); }
              },
        rowId: 'mnemo_id',
@@ -43,9 +43,9 @@
 /************************************ Chargement de la page de configuration SMS ***************************************/
  function Load_page ()
   { var parts = window.location.pathname.split ( '/' );
-    if ( !parts[3] ) { Redirect ( '/agents/smsg' ); return; }
-    SMSG_AGENT_TECH_ID = decodeURIComponent ( parts[3] ).toUpperCase();
-    $('#idSMSGCONFTitle').text ( SMSG_AGENT_TECH_ID );
-    Set_page_context ( "Mnémoniques de l'agent SMS "+SMSG_AGENT_TECH_ID );
-    [ 'AI', 'CI' ].forEach ( SMSGCONF_Table );
+    if ( !parts[3] ) { Redirect ( '/agents/sms' ); return; }
+    SMS_AGENT_TECH_ID = decodeURIComponent ( parts[3] ).toUpperCase();
+    $('#idSMSCONFTitle').text ( SMS_AGENT_TECH_ID );
+    Set_page_context ( "Mnémoniques de l'agent SMS "+SMS_AGENT_TECH_ID );
+    [ 'AI', 'CI' ].forEach ( SMSCONF_Table );
   }

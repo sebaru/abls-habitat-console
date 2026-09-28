@@ -3,10 +3,11 @@
  */
 
  var UPS_AGENT_TECH_ID = null;
+ var UPS_CLASSES = [ 'DI', 'DO', 'AI', 'AO' ];
 
 /************************************ Demande de refresh **********************************************************************/
  function UPSCONF_Refresh ( )
-  { $('#idTableUPS_IO').DataTable().ajax.reload(null, false);
+  { UPS_CLASSES.forEach ( function ( classe ) { $('#idTableUPS_'+classe).DataTable().ajax.reload(null, false); } );
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
@@ -15,21 +16,21 @@
 
     UPS_AGENT_TECH_ID = decodeURIComponent(vars[3]).toUpperCase();
     $('#idUPSCONFTitle').text( UPS_AGENT_TECH_ID );
-    Set_page_context ( "Mnémoniques de l'agent onduleur " + UPS_AGENT_TECH_ID );
+    Set_page_context ( "Configuration I/O UPS " + UPS_AGENT_TECH_ID );
 
-    $('#idTableUPS_IO').DataTable(
+    UPS_CLASSES.forEach ( UPSCONF_Load_IO );
+  }
+
+ function UPSCONF_Load_IO ( classe )
+  { $('#idTableUPS_'+classe).DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/ups/get", type : "GET", dataSrc: "IO", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/ups/get", type : "GET", dataSrc: classe, contentType: "application/json",
                data: function() { return ( "agent_tech_id=" + encodeURIComponent(UPS_AGENT_TECH_ID) ) },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        columns:
-         [ { "data": null, "title":"Classe", "className": "align-middle text-center",
-             "render": function (item)
-               { return( Badge( "info", "Classe de la mnémonique", item.classe ) ); }
-           },
-           { "data": null, "title":"Acronyme", "className": "align-middle text-center",
+         [ { "data": null, "title":"Acronyme", "className": "align-middle text-center",
              "render": function (item)
                { return( htmlEncode(item.acronyme) ); }
            },
@@ -39,7 +40,7 @@
            },
            { "data": null, "title":"Valeur", "className": "align-middle text-center",
              "render": function (item)
-               { if (item.classe == "DI")
+               { if (classe == "DI" || classe == "DO")
                   { if (item.valeur) return( Badge("success", "Etat actif", "Actif") );
                     return( Badge("secondary", "Etat inactif", "Inactif") );
                   }

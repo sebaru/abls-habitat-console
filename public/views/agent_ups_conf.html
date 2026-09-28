@@ -2,7 +2,7 @@
 
  <div class="row m-2 align-items-center">
    <div class="col-auto">
-     <h3 class="mb-0"><i class="fas fa-car-battery text-primary"></i> Mnémoniques de <span id="idUPSCONFTitle"></span></h3>
+    <h3 class="mb-0"><i class="fas fa-car-battery text-primary"></i> Configuration I/O UPS <span id="idUPSCONFTitle"></span></h3>
    </div>
    <div class="col-auto ms-auto btn-group align-items-center">
         <button type="button" onclick="Redirect('/agents/ups')" class="btn btn-outline-secondary"><i class="fas fa-list"></i> Retour à la liste</button>
@@ -12,13 +12,17 @@
 
 <hr>
 
-<div>
-    <table id="idTableUPS_IO" class="table table-striped table-bordered table-hover w-100">
-      <thead class="table-dark">
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#idTabUPS_DI">Entrées TOR</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#idTabUPS_AI">Entrées ANA</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#idTabUPS_DO">Sorties TOR</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#idTabUPS_AO">Sorties ANA</a></li>
+</ul>
+<div class="tab-content">
+  <div id="idTabUPS_DI" class="tab-pane fade mt-1 show active"><table id="idTableUPS_DI" class="table table-striped table-bordered table-hover w-100"><thead class="table-dark"></thead><tbody></tbody></table></div>
+  <div id="idTabUPS_AI" class="tab-pane fade mt-1"><table id="idTableUPS_AI" class="table table-striped table-bordered table-hover w-100"><thead class="table-dark"></thead><tbody></tbody></table></div>
+  <div id="idTabUPS_DO" class="tab-pane fade mt-1"><table id="idTableUPS_DO" class="table table-striped table-bordered table-hover w-100"><thead class="table-dark"></thead><tbody></tbody></table></div>
+  <div id="idTabUPS_AO" class="tab-pane fade mt-1"><table id="idTableUPS_AO" class="table table-striped table-bordered table-hover w-100"><thead class="table-dark"></thead><tbody></tbody></table></div>
 </div>
 
 <!-- Container -->
