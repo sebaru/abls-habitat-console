@@ -27,7 +27,7 @@
   { var json_request =
      { server_uuid: $('#idTargetServer').val(), agent_tech_id: $('#idMODBUSTechID').val().toUpperCase(),
        hostname: $('#idMODBUSHostname').val(), description: $('#idMODBUSDescription').val(),
-       watchdog: parseInt ( $('#idMODBUSWatchdog').val() ), max_request_par_sec: parseInt ( $('#idMODBUSMaxRequestParSec').val() ) };
+       watchdog: parseInt ( $('#idMODBUSWatchdog').val() ) };
     $('#idMODBUSEdit').modal ( "hide" );
     Send_to_API ( "POST", "/modbus/set", json_request,
                   function ( Response ) { Show_toast_ok ( "Modifications sauvegardées." ); MODBUS_Refresh(); },
@@ -45,7 +45,6 @@
     $('#idMODBUSHostname').val ( modbus.hostname );
     $('#idMODBUSDescription').val ( modbus.description );
     $('#idMODBUSWatchdog').val ( modbus.watchdog );
-    $('#idMODBUSMaxRequestParSec').val ( modbus.max_request_par_sec );
     $('#idMODBUSValider').off ( "click" ).on ( "click", MODBUS_Set );
     $('#idMODBUSEdit').modal ( "show" );
   }
@@ -59,7 +58,6 @@
       .on ( "input", function () { Controle_tech_id ( "idMODBUS", null ); } ).trigger ( "input" );
     $('#idMODBUSHostname, #idMODBUSDescription').val ( "" );
     $('#idMODBUSWatchdog').val ( "600" );
-    $('#idMODBUSMaxRequestParSec').val ( "50" );
     $('#idMODBUSValider').off ( "click" ).on ( "click", MODBUS_Set );
     $('#idMODBUSEdit').modal ( "show" );
   }
@@ -100,7 +98,6 @@
           { data: "description", title: "Description", className: "align-middle text-center d-none d-lg-table-cell" },
           { data: "hostname", title: "Hostname", className: "align-middle text-center d-none d-lg-table-cell" },
           { data: "watchdog", title: "Watchdog", className: "align-middle text-center d-none d-xl-table-cell" },
-          { data: "max_request_par_sec", title: "Requêtes/s", className: "align-middle text-center d-none d-xl-table-cell" },
           { data: null, title: "Status", className: "align-middle text-center d-none d-xl-table-cell",
             render: function ( item )
              { return item.is_alive ? Badge ( "success", "Agent actif", "UP" ) : Badge ( "danger", "Agent inactif", "DOWN" ); }
