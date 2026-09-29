@@ -122,7 +122,7 @@ var PHIDGET_AGENT_TECH_ID = null;
                   boutons += Bouton_deroulant_add ( "primary", "Mapper cet objet", "PHIDGET_Map", item.phidget_io_id, "directions" );
                   if (item.mapping_id)
                    { boutons += Bouton_deroulant_add_spacer ();
-                     boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.mapping_id, "trash", "'PHIDGET_Refresh'" );
+                     boutons += Bouton_deroulant_add ( "danger", "Supprimer le mapping", "MAPPING_Unmap", item.phidget_io_id, "trash", "'idTablePHIDGET_IO','PHIDGET_Refresh'" );
                    }
                   boutons += Bouton_deroulant_end ();
                   return(boutons);

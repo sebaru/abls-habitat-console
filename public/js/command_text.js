@@ -4,12 +4,10 @@
 /**************************************** Supprime une connexion modbus *******************************************************/
  function COMMAND_TEXT_Del (mapping_id)
   { selection = $('#idTableTXT').DataTable().row("#"+mapping_id).data();
-    Show_modal_del ( "Supprimer le mapping "+selection.thread_acronyme,
+    Show_modal_del ( "Supprimer le mapping "+selection.agent_acronyme,
                      "Etes-vous sûr de vouloir supprimer ce mapping ?",
-                     selection.thread_acronyme + " - "+selection.tech_id +":"+ selection.acronyme,
-                     function () { Send_to_API ( 'DELETE', "/mapping/delete", { mapping_id: parseInt(mapping_id) },
-                                                 function () { COMMAND_TEXT_Refresh (); } )
-                                 });
+                     selection.agent_acronyme + " - "+selection.tech_id +":"+ selection.acronyme,
+                     function () { MAPPING_Unmap ( mapping_id, 'idTableTXT', COMMAND_TEXT_Refresh ); } );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function COMMAND_TEXT_Add ( )

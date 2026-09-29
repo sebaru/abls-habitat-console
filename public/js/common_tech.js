@@ -26,8 +26,14 @@
                          ];
 
 /********************************************* Supprime un mapping ************************************************************/
- function MAPPING_Unmap ( mapping_id, refresh_callback )
-  { Send_to_API ( "DELETE", "/mapping/delete", { mapping_id: parseInt(mapping_id) },
+ function MAPPING_Unmap ( row_id, table_id, refresh_callback )
+  { var mapping = $('#'+table_id).DataTable().row('#'+row_id).data();
+    if (!mapping) { Show_shell_error ("Mapping introuvable."); return; }
+    var json_request = { agent_tech_id : mapping.agent_tech_id,
+                         agent_acronyme: mapping.agent_acronyme,
+                         tech_id        : mapping.tech_id,
+                         acronyme       : mapping.acronyme };
+    Send_to_API ( "DELETE", "/mapping/delete", json_request,
                   (Response) => { Show_toast_ok ("Mapping supprimé.");
                                   if (typeof refresh_callback === 'function') refresh_callback();
                                   else if (typeof refresh_callback === 'string' && window[refresh_callback]) window[refresh_callback]();

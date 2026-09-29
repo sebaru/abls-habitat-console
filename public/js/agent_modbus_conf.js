@@ -53,7 +53,7 @@
                buttons += Bouton_deroulant_add ( 'primary', 'Mapper cet objet', 'MODBUSCONF_Map_DI', io.modbus_di_id, 'directions' );
                if ( io.mapping_id )
                 { buttons += Bouton_deroulant_add_spacer();
-                  buttons += Bouton_deroulant_add ( 'danger', 'Supprimer le mapping', 'MAPPING_Unmap', io.mapping_id, 'trash', "'MODBUSCONF_Refresh_DI'" );
+                  buttons += Bouton_deroulant_add ( 'danger', 'Supprimer le mapping', 'MAPPING_Unmap', io.modbus_di_id, 'trash', "'idTableMODBUS_DI','MODBUSCONF_Refresh_DI'" );
                 }
                return buttons+Bouton_deroulant_end();
              }
@@ -136,7 +136,7 @@
                buttons += Bouton_deroulant_add ( 'primary', 'Mapper cet objet', 'MODBUSCONF_Map_DO', io.modbus_do_id, 'directions' );
                if ( io.mapping_id )
                 { buttons += Bouton_deroulant_add_spacer();
-                  buttons += Bouton_deroulant_add ( 'danger', 'Supprimer le mapping', 'MAPPING_Unmap', io.mapping_id, 'trash', "'MODBUSCONF_Refresh_DO'" );
+                  buttons += Bouton_deroulant_add ( 'danger', 'Supprimer le mapping', 'MAPPING_Unmap', io.modbus_do_id, 'trash', "'idTableMODBUS_DO','MODBUSCONF_Refresh_DO'" );
                 }
                return buttons+Bouton_deroulant_end();
              }
@@ -231,7 +231,7 @@
                buttons += Bouton_deroulant_add ( 'primary', 'Mapper cet objet', 'MODBUSCONF_Map_AI', io.modbus_ai_id, 'directions' );
                if ( io.mapping_id )
                 { buttons += Bouton_deroulant_add_spacer();
-                  buttons += Bouton_deroulant_add ( 'danger', 'Supprimer le mapping', 'MAPPING_Unmap', io.mapping_id, 'trash', "'MODBUSCONF_Refresh_AI'" );
+                  buttons += Bouton_deroulant_add ( 'danger', 'Supprimer le mapping', 'MAPPING_Unmap', io.modbus_ai_id, 'trash', "'idTableMODBUS_AI','MODBUSCONF_Refresh_AI'" );
                 }
                return buttons+Bouton_deroulant_end();
              }
@@ -337,7 +337,7 @@
                buttons += Bouton_deroulant_add ( 'primary', 'Mapper cet objet', 'MODBUSCONF_Map_AO', io.modbus_ao_id, 'directions' );
                if ( io.mapping_id )
                 { buttons += Bouton_deroulant_add_spacer();
-                  buttons += Bouton_deroulant_add ( 'danger', 'Supprimer le mapping', 'MAPPING_Unmap', io.mapping_id, 'trash', "'MODBUSCONF_Refresh_AO'" );
+                  buttons += Bouton_deroulant_add ( 'danger', 'Supprimer le mapping', 'MAPPING_Unmap', io.modbus_ao_id, 'trash', "'idTableMODBUS_AO','MODBUSCONF_Refresh_AO'" );
                 }
                return buttons+Bouton_deroulant_end();
              }
