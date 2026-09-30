@@ -31,6 +31,12 @@
      { Show_toast_ok ( "Icons reloaded." );
      }, null );
   }
+/************************************ Vide le cache DB du domaine *************************************************************/
+ function Domain_Flush_Cache ()
+  { Send_to_API ( "POST", "/domain/cache/flush", null, function(Response)
+     { Show_toast_ok ( "Domain cache flushed." );
+     }, null );
+  }
 /************************************ Envoi les infos de modifications d'un bit interne ***************************************/
  function Domain_Rename_DLS_bit ( )
   { var json_request =
@@ -66,5 +72,6 @@
     $("#idDomainHorlogeReload")  .off("click").click( function () { Domain_Reload_Horloges_Tick(); } );
     $("#idDomainHorlogeClearVisuel").off("click").click( function () { Domain_Clear_Visuels(); } );
     $("#idApiReloadIcons").off("click").click( function () { Api_Reload_Icons(); } );
+    $("#idApiFlushCache").off("click").click( function () { Domain_Flush_Cache(); } );
   }
 /******************************************************************************************************************************/
