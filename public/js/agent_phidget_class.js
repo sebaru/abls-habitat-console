@@ -48,7 +48,7 @@
  function PHIDGET_Edit ( phidget_id )
   { selection = $('#idTablePHIDGET').DataTable().row("#"+phidget_id).data();
     Select_from_api ( "idTargetServer", "/servers/list", null, "servers", "server_uuid", function (Response)
-                        { return ( Response.server_hostname ); }, selection.server_uuid );
+                        { return ( Response.agent_tech_id ); }, selection.server_uuid );
     $('#idPHIDGETTitre').text("Editer la connexion " + selection.agent_tech_id);
     $('#idPHIDGETTechID').prop ("disabled", true).val( selection.agent_tech_id );
     $('#idPHIDGETDescription').val( selection.description );
@@ -62,7 +62,7 @@
  function PHIDGET_Add ( )
   { $('#idPHIDGETTitre').text("Ajouter un équipement Phidget");
     Select_from_api ( "idTargetServer", "/servers/list", null, "servers", "server_uuid", function (Response)
-                        { return ( Response.server_hostname ); }, null );
+                        { return ( Response.agent_tech_id ); }, null );
     $('#idPHIDGETTechID').prop ("disabled", false).val("")
       .off("input").on("input", function () { Controle_tech_id( "idPHIDGET", null ); } ).trigger("input");
     $('#idPHIDGETDescription').val("");

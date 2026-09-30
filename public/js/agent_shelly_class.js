@@ -50,7 +50,7 @@
  function SHELLY_Edit ( shelly_id )
   { selection = $('#idTableSHELLY').DataTable().row("#"+shelly_id).data();
     Select_from_api ( "idTargetServer", "/servers/list", null, "servers", "server_uuid", function (Response)
-                        { return ( Response.server_hostname ); }, selection.server_uuid );
+                        { return ( Response.agent_tech_id ); }, selection.server_uuid );
     $('#idSHELLYTitre').text("Editer la connexion SHELLY " + selection.agent_tech_id);
     $('#idSHELLYTechID').prop ("disabled", true).val( selection.agent_tech_id );
     $('#idSHELLYHostname').val ( selection.hostname );
@@ -63,7 +63,7 @@
  function SHELLY_Add ( )
   { $('#idSHELLYTitre').text("Ajouter un SHELLY");
     Select_from_api ( "idTargetServer", "/servers/list", null, "servers", "server_uuid", function (Response)
-                        { return ( Response.server_hostname ); }, null );
+                        { return ( Response.agent_tech_id ); }, null );
     $('#idSHELLYTechID').prop ("disabled", false).val("")
       .off("input").on("input", function () { Controle_tech_id( "idSHELLY", null ); } ).trigger("input");
     $('#idSHELLYHostname').val ( "" );
