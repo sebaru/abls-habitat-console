@@ -221,8 +221,8 @@ var Router = (function () {
     },
     {
       pattern:    /^\/dls\/run\/[^/]+$/,
-      view:       'dls_run',
-      script:     'dls_run',
+      view:       'dls_monitor',
+      script:     'dls_monitor',
       breadcrumb: [ { label: 'Liste des Modules D.L.S', href: '/dls' }, { label: 'Etat du module', href: null } ]
     },
     {
@@ -475,6 +475,10 @@ var Router = (function () {
   function navigate(path) {
     var route = matchRoute(path);
     if (!route) { console.warn('Router: aucune route pour', path); return; }
+
+    /* La page quittée doit pouvoir libérer ses souscriptions MQTT et ses timers */
+    if (typeof Unload_page === 'function') { try { Unload_page(); } catch (e) {} }
+    window.Unload_page = undefined;
 
     currentPath = normalizePath(path);
     currentRoute = route;

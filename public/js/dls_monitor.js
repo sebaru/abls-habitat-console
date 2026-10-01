@@ -9,7 +9,7 @@
     Redirect ( "/dls/mnemos/"+vars[3] );
   }
 /******************************************************************************************************************************/
- async function Dls_run_set ( table, classe, acronyme, valeur )
+ async function Dls_monitor_set ( table, classe, acronyme, valeur )
   { vars = window.location.pathname.split('/');
     var json_request = JSON.stringify(
      { classe: classe,
@@ -17,25 +17,86 @@
        acronyme: acronyme,
        valeur: valeur
      });
-   /* let response = await fetch ( localStorage.getItem( "master_url" ) + "/dls/run/set",
-                                 { method: 'POST', headers: { 'Content-Type': 'application/json;charset=utf-8' },
-                                   body: json_request
-                                 });
-    if (response.ok)
-     { $('#'+table).DataTable().ajax.reload(null, false); }*/
+
   }
 /******************************************************************************************************************************/
- function Dls_run_refresh ( table )
+ function Dls_monitor_refresh ( table )
   { $('#'+table).DataTable().ajax.reload(null, false); }
 /******************************************************************************************************************************/
- function Dls_run_MONO_set ( acronyme )
-  { Dls_run_set ( "idTableMONO", "MONO", acronyme, true ); }
+ function Dls_monitor_MONO_set ( acronyme )
+  { Dls_monitor_set ( "idTableMONO", "MONO", acronyme, true ); }
 /******************************************************************************************************************************/
- function Dls_run_BI_set ( acronyme )
-  { Dls_run_set ( "idTableBI", "BI", acronyme, true ); }
+ function Dls_monitor_BI_set ( acronyme )
+  { Dls_monitor_set ( "idTableBI", "BI", acronyme, true ); }
 /******************************************************************************************************************************/
- function Dls_run_BI_reset ( acronyme )
-  { Dls_run_set ( "idTableBI", "BI", acronyme, false ); }
+ function Dls_monitor_BI_reset ( acronyme )
+  { Dls_monitor_set ( "idTableBI", "BI", acronyme, false ); }
+
+/*********************************************** Monitoring temps réel du plugin **********************************************/
+ var Dls_monitor_tech_id    = null;
+ var Dls_monitor_watcher_id = null;
+ var Dls_monitor_keepalive  = null;
+
+ var DLS_MONITOR_TABLES = { DI: "idTableEntreeTOR", AI: "idTableEntreeANA",
+                            DO: "idTableSortieTOR", AO: "idTableSortieANA",
+                            CI: "idTableCI",        CH: "idTableCH",
+                            MONO: "idTableMONO",    BI: "idTableBI",
+                            REGISTRE: "idTableRegistre" };
+/******************************************************************************************************************************/
+ function Dls_monitor_set_badge ( nbr_watchers )
+  { if (nbr_watchers > 0) $('#idDlsRunMonitor').html( Badge("success", "Le moteur D.L.S remonte les changements de bits", "Temps réel") );
+                     else $('#idDlsRunMonitor').html( Badge("secondary", "Les valeurs affichées proviennent de la base", "Différé") );
+  }
+/******************************************************************************************************************************/
+/* Dls_monitor_apply_bit: Met à jour en place la ligne du bit reçu, sans recharger la table                                   */
+/******************************************************************************************************************************/
+ function Dls_monitor_apply_bit ( bit, redrawn )
+  { var table_id = DLS_MONITOR_TABLES[bit.classe];
+    if (!table_id) return;
+    if (DataTable.isDataTable('#'+table_id) == false) return;
+
+    var table   = $('#'+table_id).DataTable();
+    var indexes = table.rows( function ( index, data, node )
+                   { return ( data.tech_id == bit.tech_id && data.acronyme == bit.acronyme ); } ).indexes();
+    if (!indexes.length) return;
+
+    var row  = table.row ( indexes[0] );
+    var data = row.data();
+    [ "etat", "valeur", "in_range" ].forEach ( function (champ)
+     { if (bit[champ] !== undefined) data[champ] = bit[champ]; } );
+    row.data( data );
+    redrawn[table_id] = true;
+  }
+/******************************************************************************************************************************/
+/* Dls_monitor_on_monitor: Traite un lot de bits remonté par le moteur D.L.S via l'API                                       */
+/******************************************************************************************************************************/
+ function Dls_monitor_on_monitor ( target, Response )
+  { if (!Response || !Response.bits) return;
+    if (target != Dls_monitor_tech_id) return;
+
+    var redrawn = {};
+    Response.bits.forEach ( function (bit) { Dls_monitor_apply_bit ( bit, redrawn ); } );
+    Object.keys(redrawn).forEach ( function (table_id) { $('#'+table_id).DataTable().draw(false); } );
+  }
+/******************************************************************************************************************************/
+/* Dls_monitor_watch: Déclare ou retire ce navigateur de la liste des observateurs du plugin                                   */
+/******************************************************************************************************************************/
+ function Dls_monitor_watch ( watch )
+  { var json_request = { tech_id: Dls_monitor_tech_id, watcher_id: Dls_monitor_watcher_id, enable: watch };
+    Send_to_API ( "POST", "/dls/monitor", json_request, function (Response)
+     { Dls_monitor_set_badge ( watch ? Response.nbr_watchers : 0 ); }, null );
+  }
+/******************************************************************************************************************************/
+/* Unload_page: Appelé par le routeur quand on quitte la page                                                                 */
+/******************************************************************************************************************************/
+ function Unload_page ()
+  { if (Dls_monitor_keepalive) { clearInterval ( Dls_monitor_keepalive ); Dls_monitor_keepalive = null; }
+    Mqtt_unset_handler ( "DLS_MONITOR" );
+    if (!Dls_monitor_tech_id) return;
+    Mqtt_unsubscribe ( "DLS_MONITOR/" + Dls_monitor_tech_id );
+    Dls_monitor_watch ( false );
+    Dls_monitor_tech_id = null;
+  }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { vars = window.location.pathname.split('/');
@@ -44,20 +105,13 @@
     var techId = decodeURIComponent(vars[3]);
     $('#idTitle').html(techId);
     Set_page_context ( "Etat du module '" + techId + "'" );
-    setInterval( function()
-                  { Dls_run_refresh ( "idTableEntreeTOR" );
-                    Dls_run_refresh ( "idTableEntreeANA" );
-                    Dls_run_refresh ( "idTableSortieTOR" );
-                    Dls_run_refresh ( "idTableSortieANA" );
-                    Dls_run_refresh ( "idTableCI"        );
-                    Dls_run_refresh ( "idTableCH"        );
-                    Dls_run_refresh ( "idTableMONO"      );
-                    Dls_run_refresh ( "idTableBI"        );
-                    Dls_run_refresh ( "idTableRegistre"  );
-                    Dls_run_refresh ( "idTableVisuel"    );
-                  },
-                 5000
-               );
+
+    Dls_monitor_tech_id    = techId;
+    Dls_monitor_watcher_id = (crypto.randomUUID ? crypto.randomUUID() : "w" + Date.now() + Math.random());
+    Load_mqtt();
+    Mqtt_set_handler ( "DLS_MONITOR", Dls_monitor_on_monitor );
+    Mqtt_subscribe ( "DLS_MONITOR/" + techId );
+    window.addEventListener ( "beforeunload", Unload_page );
     $('#idTableEntreeTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
@@ -342,4 +396,7 @@
          ],
        /*order: [ [0, "desc"] ],*/
      });
+
+    Dls_monitor_watch ( true );                           /* Les tables existent: le moteur D.L.S peut commencer à les alimenter */
+    Dls_monitor_keepalive = setInterval ( function () { Dls_monitor_watch ( true ); }, 10000 );
   }
