@@ -41,7 +41,9 @@
                             DO: "idTableSortieTOR", AO: "idTableSortieANA",
                             CI: "idTableCI",        CH: "idTableCH",
                             MONO: "idTableMONO",    BI: "idTableBI",
-                            REGISTRE: "idTableRegistre" };
+                            REGISTRE: "idTableRegistre",
+                            VISUEL: "idTableVisuel", WATCHDOG: "idTableWatchdog",
+                            MSG: "idTableMessages" };
 /******************************************************************************************************************************/
  function Dls_monitor_set_badge ( nbr_watchers )
   { if (nbr_watchers > 0) $('#idDlsRunMonitor').html( Badge("success", "Le moteur D.L.S remonte les changements de bits", "Temps réel") );
@@ -62,7 +64,8 @@
 
     var row  = table.row ( indexes[0] );
     var data = row.data();
-    [ "etat", "valeur", "in_range" ].forEach ( function (champ)
+    [ "etat", "valeur", "in_range", "unite", "libelle",
+      "mode", "color", "badge", "cligno", "noshow", "disable", "decompte" ].forEach ( function (champ)
      { if (bit[champ] !== undefined) data[champ] = bit[champ]; } );
     row.data( data );
     redrawn[table_id] = true;
