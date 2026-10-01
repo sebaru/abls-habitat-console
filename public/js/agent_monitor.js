@@ -111,7 +111,7 @@
     $('#idTableAgentAI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: techId, classe: "AI" }, dataSrc: "AI",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: techId, classe: "AI" }, dataSrc: "AI",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ai_id",
