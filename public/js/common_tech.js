@@ -42,12 +42,12 @@
                 );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function COMMON_Map ( thread_tech_id, thread_acronyme, tech_id, acronyme )
+ function COMMON_Map ( agent_tech_id, agent_acronyme, tech_id, acronyme )
   { var json_request =
-     { thread_tech_id : thread_tech_id,
-       thread_acronyme: thread_acronyme,
-       tech_id        : tech_id.toUpperCase(),
-       acronyme       : acronyme.toUpperCase(),
+     { agent_tech_id : agent_tech_id,
+       agent_acronyme: agent_acronyme,
+       tech_id       : tech_id.toUpperCase(),
+       acronyme      : acronyme.toUpperCase(),
      };
     Send_to_API ( 'POST', "/mapping/set", json_request, function () { Show_toast_ok("Mapping done.") }, null );
   }

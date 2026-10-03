@@ -11,19 +11,19 @@
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function COMMAND_TEXT_Add ( )
-  { var json_request = { thread_tech_id: "_COMMAND_TEXT", thread_acronyme: $('#idModalCommandTextAdd').val().toUpperCase(),
+  { var json_request = { agent_tech_id: "_COMMAND_TEXT", agent_acronyme: $('#idModalCommandTextAdd').val().toUpperCase(),
                          tech_id: "SYS", acronyme: "DEFAULT_MAP" };
     Send_to_API ( 'POST', "/mapping/set", json_request, function () { COMMAND_TEXT_Refresh (); });
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
  function COMMAND_TEXT_Map_DI ( mapping_id )
   { selection = $('#idTableTXT').DataTable().row("#"+mapping_id).data();
-    $('#idMODALMapTitre').text( "Mapper la commande textuelle '"+selection.thread_acronyme+"'" );
+    $('#idMODALMapTitre').text( "Mapper la commande textuelle '"+selection.agent_acronyme+"'" );
     $('#idMODALMapRechercherTechID').off("input").on("input", function () { Common_Updater_Choix_TechID ( "idMODALMap", "DI" ); } );
     Common_Updater_Choix_TechID ( "idMODALMap", "DI", selection.tech_id, selection.acronyme );
     $('#idMODALMapValider').off("click").on( "click", function ()
      { $('#idMODALMap').modal("hide");
-       COMMON_Map ( "_COMMAND_TEXT", selection.thread_acronyme,
+       COMMON_Map ( "_COMMAND_TEXT", selection.agent_acronyme,
                     $('#idMODALMapSelectTechID').val(),  $('#idMODALMapSelectAcronyme').val()
                   );
        COMMAND_TEXT_Refresh();
@@ -36,12 +36,12 @@
        { pageLength : 50,
          fixedHeader: true,
          rowId: "mapping_id", paging: false,
-         ajax: {	url : $ABLS_API+"/mapping/list",	type : "GET", dataSrc: "mappings", data: { "thread_tech_id": "_COMMAND_TEXT" },
+         ajax: {	url : $ABLS_API+"/mapping/list",	type : "GET", dataSrc: "mappings", data: { "agent_tech_id": "_COMMAND_TEXT" },
                  error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); },
                },
 
          columns:
-          [ { "data": "thread_acronyme", "title":"Texte Source", "className": "align-middle text-center" },
+          [ { "data": "agent_acronyme", "title":"Texte Source", "className": "align-middle text-center" },
             { "data": null, "title":"Mapped on", "className": "align-middle text-center",
               "render": function (item)
                 { if(item.tech_id)

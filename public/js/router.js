@@ -220,7 +220,7 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Modules D.L.S', href: '/dls' }, { label: 'Liste des Packages D.L.S', href: '/dls/packages' }, { label: 'Edition du package D.L.S', href: null } ]
     },
     {
-      pattern:    /^\/dls\/run\/[^/]+$/,
+      pattern:    /^\/dls\/monitor\/[^/]+$/,
       view:       'dls_monitor',
       script:     'dls_monitor',
       breadcrumb: [ { label: 'Liste des Modules D.L.S', href: '/dls' }, { label: 'Etat du module', href: null } ]

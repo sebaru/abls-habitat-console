@@ -126,12 +126,12 @@
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Map on", "className": "align-middle text-center",
              "render": function (item)
-               { if (item.thread_tech_id==null)
+               { if (item.agent_tech_id==null)
                   { if (item.acronyme.endsWith("_CLIC")) return("Clic Synoptique");
                     if (item.acronyme == "OSYN_ACQUIT") return("Clic Synoptique");
                     return ( "Not Mapped" );
                   }
-                 else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
+                 else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
                },
            },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -158,8 +158,8 @@
            },
            { "data": null, "title":"Map on", "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
-               { if (item.thread_tech_id==null) return("Not Mapped");
-                 else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
+               { if (item.agent_tech_id==null) return("Not Mapped");
+                 else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
                },
            },
            { "data": "valeur", "title":"Valeur", "className": "align-middle text-center " },
@@ -185,8 +185,8 @@
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Map on", "className": "align-middle ",
              "render": function (item)
-               { if (item.thread_tech_id==null) return("Not Mapped");
-                 else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
+               { if (item.agent_tech_id==null) return("Not Mapped");
+                 else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
                },
            },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -213,8 +213,8 @@
            },
            { "data": null, "title":"Map on", "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
-               { if (item.thread_tech_id==null) return("Not Mapped");
-                 else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
+               { if (item.agent_tech_id==null) return("Not Mapped");
+                 else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
                },
            },
            { "data": "valeur", "title":"Valeur", "className": "align-middle text-center " },

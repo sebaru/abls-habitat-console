@@ -194,7 +194,7 @@
                   boutons += Bouton_deroulant_add ( "primary", "Editer", "Show_Modal_Dls_Edit", item.dls_id, "pen" );
                   boutons += Bouton_deroulant_add_spacer();
                   boutons += Bouton_deroulant_add ( "primary", "Voir les messages", "Redirect", "/messages/"+item.tech_id, "book" );
-                  boutons += Bouton_deroulant_add ( "primary", "Voir les RUN", "Redirect", "/dls/run/"+item.tech_id, "eye" );
+                  boutons += Bouton_deroulant_add ( "primary", "Voir le Monitor", "Redirect", "/dls/monitor/"+item.tech_id, "eye" );
                   if (item.dls_id!=1)
                    { boutons += Bouton_deroulant_add_spacer ();
                      boutons += Bouton_deroulant_add ( "danger", "Supprimer le plugin", "Show_Modal_Dls_Del", item.dls_id, "trash" );
