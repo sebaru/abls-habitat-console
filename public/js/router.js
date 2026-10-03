@@ -178,6 +178,12 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Serveurs', href: null } ]
     },
     {
+      pattern:    /^\/agents\/server\/[^/]+$/,
+      view:       'agent_server_conf',
+      script:     'agent_server_conf',
+      breadcrumb: [ { label: 'Liste des Serveurs', href: '/agents/server' }, { label: 'Détail du serveur', href: null } ]
+    },
+    {
       pattern:    /^\/agents\/teleinfoedf$/,
       view:       'agent_teleinfoedf_class',
       script:     'agent_teleinfoedf_class',
@@ -194,6 +200,12 @@ var Router = (function () {
       view:       'agent_shelly_class',
       script:     'agent_shelly_class',
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Modules Shelly', href: null } ]
+    },
+    {
+      pattern:    /^\/agents\/shelly\/[^/]+$/,
+      view:       'agent_shelly_conf',
+      script:     'agent_shelly_conf',
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Modules Shelly', href: '/agents/shelly' }, { label: 'Détail Shelly', href: null } ]
     },
     {
       pattern:    /^\/agents\/meteo$/,

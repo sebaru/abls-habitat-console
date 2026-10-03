@@ -93,7 +93,7 @@
           },
           { "data": null, "title":"Hostname", "className": "align-middle text-center",
             "render": function (item)
-              { return( htmlEncode(item.agent_tech_id) );
+              { return( Lien ( "/agents/server/"+encodeURIComponent(item.server_uuid), "Voir le détail du serveur", item.agent_tech_id ) );
               }
           },
           { "data": null, "title":"Version", "className": "align-middle text-center d-none d-md-table-cell",

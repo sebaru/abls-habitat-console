@@ -143,7 +143,9 @@
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
-              { var classe = encodeURIComponent(item.agent_classe || "");
+              { if (item.agent_classe === "server")
+                 { return( Lien ( "/agents/server/"+encodeURIComponent(item.server_uuid || ""), "Voir le détail du serveur", item.agent_tech_id ) ); }
+                var classe = encodeURIComponent(item.agent_classe || "");
                 var techId = encodeURIComponent(item.agent_tech_id || "");
                 return( Lien ( "/agents/"+classe+"/"+techId, "Voir la configuration du connecteur", item.agent_tech_id ) ); }
           },

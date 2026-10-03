@@ -97,7 +97,7 @@
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
             "render": function (item)
-              { return( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id ) ); }
+              { return( Lien ( "/agents/shelly/"+encodeURIComponent(item.agent_tech_id), "Voir le détail Shelly", item.agent_tech_id ) ); }
           },
           { "data": "description", "title":"Description", "className": "align-middle text-center d-none d-lg-table-cell " },
           { "data": "hostname", "title":"Hostname", "className": "align-middle text-center d-none d-lg-table-cell ",
@@ -112,6 +112,7 @@
           },
           { "data": null, "title":"Actions", "orderable": false, "className": "align-middle text-center", "render": function (item)
               { boutons = Bouton_deroulant_start ( );
+                boutons += Bouton_deroulant_add ( "info", "Voir le détail Shelly", "Redirect", "/agents/shelly/"+encodeURIComponent(item.agent_tech_id), "info-circle" );
                 boutons += Bouton_deroulant_add ( "primary", "Editer le module", "SHELLY_Edit", item.agent_tech_id, "pen" );
                 boutons += Bouton_deroulant_add_spacer ();
                 boutons += Bouton_deroulant_add ( "danger", "Supprimer le module", "SHELLY_Del", item.agent_tech_id, "trash" );
