@@ -59,8 +59,8 @@
     imsg:
      { label: "Messagerie XMPP", icon: "comments", tab: null,
        load: { url: "/imsg/list", dataSrc: "imsg" }, set: "/imsg/set",
-       fields: [ { name: "jabberid", label: "JabberID", type: "email" },
-                 { name: "password", label: "Mot de passe XMPP", type: "password" } ]
+      fields: [ { name: "jabber_id", label: "JabberID", type: "email" },
+           { name: "jabber_password", label: "Mot de passe XMPP", type: "password" } ]
      },
     teleinfoedf:
      { label: "Téléinfo EDF", icon: "bolt", tab: null,
