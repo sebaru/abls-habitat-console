@@ -1,5 +1,5 @@
-/* agent_audio_conf.js
- * Configuration des zones de diffusion audio d'un agent.
+/* agent_audio_zones.js
+ * Onglet Zones de diffusion d'un agent audio.
  */
 
  var AUDIO_AGENT_TECH_ID = null;
@@ -7,13 +7,6 @@
 /************************************ Demande de refresh **********************************************************************/
  function AUDIOCONF_Refresh ( )
   { $('#idTableAUDIOZones').DataTable().ajax.reload(null, false);
-  }
-/************************************ Demande un test de l'agent audio *********************************************************/
- function AUDIOCONF_Test ( )
-  { Send_to_API ( "POST", "/agent/test", { agent_tech_id: AUDIO_AGENT_TECH_ID },
-                  function(Response) { Show_toast_ok ( "Test demandé pour l'agent "+AUDIO_AGENT_TECH_ID ); },
-                  function(Response) { Show_shell_error ( "Erreur lors du test de l'agent "+AUDIO_AGENT_TECH_ID ); }
-                );
   }
 /************************************ Ajout du thread dans une zone de diffusion **********************************************/
  function AUDIOCONF_Map ( )
@@ -71,12 +64,10 @@
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { vars = window.location.pathname.split('/');
-    if (vars[3] == null) { Redirect ("/agents/audio"); return; }
-
-    AUDIO_AGENT_TECH_ID = decodeURIComponent(vars[3]).toUpperCase();
-    $('#idAUDIOCONFTitle').text( AUDIO_AGENT_TECH_ID );
-    Set_page_context ( "Zones de diffusion de l'agent Audio " + AUDIO_AGENT_TECH_ID );
+  { var agent = AGENT_from_path();
+    if (!agent) { Redirect ("/agents?classe=audio"); return; }
+    AUDIO_AGENT_TECH_ID = agent.agent_tech_id;
+    AGENT_Header ( "audio", AUDIO_AGENT_TECH_ID, "zones" );
 
     $('#idTableAUDIOZones').DataTable(
      { pageLength : 50,

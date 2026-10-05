@@ -5,23 +5,13 @@
  var AgentMonitorTimer = null;
 /******************************************************************************************************************************/
  function Agent_monitor_get_tech_id ()
-  { var vars = window.location.pathname.split('/');
-    return ( decodeURIComponent(vars[2]) || null );
+  { var agent = AGENT_from_path();
+    return ( agent ? agent.agent_tech_id : null );
   }
 /******************************************************************************************************************************/
  function Agent_monitor_format_datetime ( value )
   { if (!value || value === "0000-00-00 00:00:00") return("-");
     return(value);
-  }
-/******************************************************************************************************************************/
- function Agent_monitor_test ()
-  { var techId = Agent_monitor_get_tech_id();
-    if (!techId) { Show_shell_error("Tech_id agent invalide."); return; }
-
-    Send_to_API ( "POST", "/agent/test", { agent_tech_id: techId },
-                  function(Response) { Show_toast_ok ( "Test demandé pour l'agent "+techId ); },
-                  function(Response) { Show_shell_error ( "Erreur lors du test de l'agent "+techId ); }
-                );
   }
 /******************************************************************************************************************************/
  function Agent_monitor_refresh_status ()
@@ -35,7 +25,6 @@
           $("#idAgentMonitorHeartbeat").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorStartTime").text("-");
-          $("#idAgentMonitorTest").prop("disabled", true);
           Show_shell_error("Aucun agent trouvé pour '"+techId+"'.");
           return;
         }
@@ -44,27 +33,15 @@
        $("#idAgentMonitorStatus").text(agent.agent_status || "-");
        if (agent.is_alive) $("#idAgentMonitorHeartbeat").html( Badge("success", "Agent actif", "UP") );
                     else $("#idAgentMonitorHeartbeat").html( Badge("danger", "Agent inactif", "DOWN") );
-       $("#idAgentMonitorTest").prop("disabled", !agent.is_alive);
        if (agent.mqtt_local_connected) $("#idAgentMonitorMqttLocal").html( Badge("success", "Connecté", "Connecté") );
                                      else $("#idAgentMonitorMqttLocal").html( Badge("danger", "Déconnecté", "Déconnecté") );
        $("#idAgentMonitorStartTime").text( Agent_monitor_format_datetime(agent.start_time) );
-
-       var configHref = "#";
-       if (agent.agent_classe === "server")
-        { configHref = "/agents/server"; }
-       else if (agent.agent_classe && agent.agent_tech_id)
-        { var classe = encodeURIComponent(agent.agent_classe);
-          var agent_tech_id = encodeURIComponent(agent.agent_tech_id);
-          configHref = "/agents/"+classe+"/"+agent_tech_id;
-        }
-       $("#idAgentMonitorIoLink").attr("href", configHref);
      }, function ()
      { $("#idAgentMonitorServerHostname").text("Inconnu");
        $("#idAgentMonitorStatus").html( Badge("secondary", "Status inconnu", "N/A") );
        $("#idAgentMonitorHeartbeat").html( Badge("secondary", "Etat inconnu", "N/A") );
        $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
        $("#idAgentMonitorStartTime").text("-");
-       $("#idAgentMonitorTest").prop("disabled", true);
      } );
   }
 /******************************************************************************************************************************/
@@ -93,17 +70,16 @@
   }
 /******************************************************************************************************************************/
  function Agent_monitor_tick ()
-  { if (!window.location.pathname.match(/^\/agent\/[^/]+$/)) return;
-    Agent_monitor_refresh_status();
+  { Agent_monitor_refresh_status();
     Agent_monitor_refresh_ai();
   }
 /******************************************************************************************************************************/
  function Load_page ()
   {
-    var techId = Agent_monitor_get_tech_id();
-    if (!techId) { Redirect("/agents"); return; }
-    $("#idAgentMonitorTitle").text(techId);
-    Set_page_context ( "Monitoring agent '" + techId + "'" );
+    var agent = AGENT_from_path();
+    if (!agent) { Redirect("/agents"); return; }
+    var techId = agent.agent_tech_id;
+    AGENT_Header ( agent.classe, techId, null );
 
     $("#idAgentMonitorPeriod").replaceWith ( Select ( "idAgentMonitorPeriod", null, PeriodeTableau, "BY_HOUR_ON_2_WEEKS" ) );
     $("#idAgentMonitorPeriod").off("change").on("change", Agent_monitor_refresh_curves );
@@ -144,5 +120,7 @@
 
     if (AgentMonitorTimer) clearInterval(AgentMonitorTimer);
     AgentMonitorTimer = setInterval( Agent_monitor_tick, 10000 );
+    window.Unload_page = function ()
+     { if (AgentMonitorTimer) { clearInterval(AgentMonitorTimer); AgentMonitorTimer = null; } };
   }
 /******************************************************************************************************************************/

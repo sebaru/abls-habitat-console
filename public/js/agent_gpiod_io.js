@@ -1,5 +1,5 @@
-/* agent_gpiod_conf.js
- * Configuration des entrees/sorties GPIOD.
+/* agent_gpiod_io.js
+ * Onglet Configuration I/O d'un agent GPIOD.
  */
 
  var GPIOD_AGENT_TECH_ID = null;
@@ -50,11 +50,10 @@
 
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { var parts = window.location.pathname.split ( '/' );
-    if ( !parts[3] ) { Redirect ( '/agents/gpiod' ); return; }
-    GPIOD_AGENT_TECH_ID = decodeURIComponent ( parts[3] ).toUpperCase();
-    $('#idGPIODCONFTitle').text ( GPIOD_AGENT_TECH_ID );
-    Set_page_context ( 'Configuration I/O GPIOD '+GPIOD_AGENT_TECH_ID );
+  { var agent = AGENT_from_path();
+    if ( !agent ) { Redirect ( '/agents?classe=gpiod' ); return; }
+    GPIOD_AGENT_TECH_ID = agent.agent_tech_id;
+    AGENT_Header ( 'gpiod', GPIOD_AGENT_TECH_ID, 'io' );
     $('#idTableGPIOD_IO').DataTable(
      { pageLength: 50, fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url: $ABLS_API+'/gpiod/list', type: 'GET', dataSrc: 'IO', contentType: 'application/json',

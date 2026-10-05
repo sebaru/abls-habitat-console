@@ -1,5 +1,5 @@
-/* agent_meteo_conf.js
- * Configuration des entrees/sorties meteo.
+/* agent_meteo_mnemos.js
+ * Onglet Mnémoniques (lecture seule) d'un agent météo.
  */
 
  var METEO_AGENT_TECH_ID = null;
@@ -10,12 +10,10 @@
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { vars = window.location.pathname.split('/');
-    if (vars[3] == null) { Redirect ("/agents/meteo"); return; }
-
-    METEO_AGENT_TECH_ID = decodeURIComponent(vars[3]).toUpperCase();
-    $('#idMETEOCONFTitle').text( METEO_AGENT_TECH_ID );
-    Set_page_context ( "Mnémoniques de l'agent météo " + METEO_AGENT_TECH_ID );
+  { var agent = AGENT_from_path();
+    if (!agent) { Redirect ("/agents?classe=meteo"); return; }
+    METEO_AGENT_TECH_ID = agent.agent_tech_id;
+    AGENT_Header ( "meteo", METEO_AGENT_TECH_ID, "mnemos" );
 
     $('#idTableMETEO_IO').DataTable(
      { pageLength : 50,

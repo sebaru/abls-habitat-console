@@ -1,9 +1,36 @@
 <div class="container-fluid">
 
- <div class="row m-2">
-   <div class ="col-auto ms-auto btn-group align-items-center">
-        <button type="button" onclick="Redirect('/server/add')" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter Server</button>
-        <button type="button" onclick="AGENT_refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
+ <div class="row m-2 g-2 align-items-center">
+   <div class="col-12 col-md-auto">
+     <div class="input-group input-group-sm">
+       <span class="input-group-text"><i class="fas fa-filter text-primary"></i>&nbsp;Classe</span>
+       <select id="idAgentsFilterClasse" class="form-select"></select>
+     </div>
+   </div>
+   <div class="col-12 col-md-auto">
+     <div class="input-group input-group-sm">
+       <span class="input-group-text">Serveur</span>
+       <select id="idAgentsFilterServeur" class="form-select"></select>
+     </div>
+   </div>
+   <div class="col-12 col-md-auto">
+     <div class="input-group input-group-sm">
+       <span class="input-group-text">Etat</span>
+       <select id="idAgentsFilterEtat" class="form-select">
+         <option value="">Tous</option>
+         <option value="UP">UP</option>
+         <option value="DOWN">DOWN</option>
+         <option value="DISABLED">Désactivés</option>
+       </select>
+     </div>
+   </div>
+   <div class="col-auto ms-auto btn-group align-items-center">
+     <div class="btn-group">
+       <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-plus"></i> Ajouter un agent</button>
+       <ul id="idAgentsAddMenu" class="dropdown-menu dropdown-menu-end"></ul>
+     </div>
+     <button type="button" onclick="Redirect('/server/add')" class="btn btn-outline-primary"><i class="fas fa-plus"></i> Ajouter Server</button>
+     <button type="button" onclick="AGENT_refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
    </div>
  </div>
 

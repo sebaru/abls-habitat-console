@@ -1,5 +1,5 @@
-/* agent_modbus_conf.js
- * Configuration des entrees/sorties Modbus.
+/* agent_modbus_io.js
+ * Onglet Configuration I/O d'un agent Modbus.
  */
 
  var MODBUS_AGENT_TECH_ID = null;
@@ -401,11 +401,10 @@
 
 /************************************ Charge la page de configuration Modbus ******************************************/
  function Load_page ()
-  { var parts = window.location.pathname.split ( '/' );
-    if ( !parts[3] ) { Redirect ( '/agents/modbus' ); return; }
-    MODBUS_AGENT_TECH_ID = decodeURIComponent ( parts[3] ).toUpperCase();
-    $('#idMODBUSCONFTitle').text ( MODBUS_AGENT_TECH_ID );
-    Set_page_context ( "Configuration I/O Modbus "+MODBUS_AGENT_TECH_ID );
+  { var agent = AGENT_from_path();
+    if ( !agent ) { Redirect ( '/agents?classe=modbus' ); return; }
+    MODBUS_AGENT_TECH_ID = agent.agent_tech_id;
+    AGENT_Header ( 'modbus', MODBUS_AGENT_TECH_ID, 'io' );
     MODBUSCONF_Load_DI();
     MODBUSCONF_Load_DO();
     MODBUSCONF_Load_AI();

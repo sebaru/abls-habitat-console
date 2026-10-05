@@ -8,70 +8,77 @@
  <div class="card shadow m-1">
    <div class="card-header text-center">Les I/O Wago</div>
    <div class="card-body text-center">
-    <a href="/agents/modbus"><img src="https://static.abls-habitat.fr/img/wago_750342.webp" class="card-img-top wtd-img-card" alt="Wago 750-342"></a>
+    <a href="/agents?classe=modbus"><img src="https://static.abls-habitat.fr/img/wago_750342.webp" class="card-img-top wtd-img-card" alt="Wago 750-342"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/modbus')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('modbus')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=modbus')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 
  <div class="card shadow m-1">
    <div class="card-header text-center">Les GSM</div>
    <div class="card-body text-center">
-    <a href="/agents/sms"><img src="https://static.abls-habitat.fr/img/sms.jpg" class="card-img-top wtd-img-card" alt="GSM"></a>
+    <a href="/agents?classe=sms"><img src="https://static.abls-habitat.fr/img/sms.jpg" class="card-img-top wtd-img-card" alt="GSM"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/sms')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('sms')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=sms')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 
  <div class="card shadow m-1t">
    <div class="card-header text-center">La Messagerie XMPP</div>
    <div class="card-body text-center">
-    <a href="/agents/imsg"><img src="https://static.abls-habitat.fr/img/imsgs.png" class="card-img-top wtd-img-card" alt="Messagerie XMPP"></a>
+    <a href="/agents?classe=imsg"><img src="https://static.abls-habitat.fr/img/imsgs.png" class="card-img-top wtd-img-card" alt="Messagerie XMPP"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/imsg')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('imsg')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=imsg')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 
  <div class="card shadow m-1">
    <div class="card-header text-center">Diffusion Audio</div>
    <div class="card-body text-center">
-    <a href="/agents/audio"><img src="https://static.abls-habitat.fr/img/audio.png" class="card-img-top wtd-img-card" alt="Diffusion Audio"></a>
+    <a href="/agents?classe=audio"><img src="https://static.abls-habitat.fr/img/audio.png" class="card-img-top wtd-img-card" alt="Diffusion Audio"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/audio')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('audio')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=audio')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 
  <div class="card shadow m-1">
    <div class="card-header text-center">Les Onduleurs</div>
    <div class="card-body text-center">
-     <a href="/agents/ups"><img src="https://static.abls-habitat.fr/img/onduleur.jpg" class="card-img-top wtd-img-card" alt="Onduleurs"></a>
+     <a href="/agents?classe=ups"><img src="https://static.abls-habitat.fr/img/onduleur.jpg" class="card-img-top wtd-img-card" alt="Onduleurs"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/ups')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('ups')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=ups')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 
  <div class="card shadow m-1">
    <div class="card-header text-center">Les Raspberry PI</div>
    <div class="card-body text-center">
-    <a href="/agents/gpiod"><img src="https://static.abls-habitat.fr/img/raspberrypi.png" class="card-img-top wtd-img-card" alt="RaspberryPI"></a>
+    <a href="/agents?classe=gpiod"><img src="https://static.abls-habitat.fr/img/raspberrypi.png" class="card-img-top wtd-img-card" alt="RaspberryPI"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/gpiod')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('gpiod')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=gpiod')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 
  <div class="card shadow m-1">
    <div class="card-header text-center">Les Compteurs EDF</div>
    <div class="card-body text-center">
-    <a href="/agents/teleinfoedf"><img src="https://static.abls-habitat.fr/img/linky.jpg" class="card-img-top wtd-img-card" alt="Compteurs EDF"></a>
+    <a href="/agents?classe=teleinfoedf"><img src="https://static.abls-habitat.fr/img/linky.jpg" class="card-img-top wtd-img-card" alt="Compteurs EDF"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/teleinfoedf')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('teleinfoedf')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=teleinfoedf')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 
@@ -88,30 +95,33 @@
  <div class="card shadow m-1">
    <div class="card-header text-center">La Méteo</div>
    <div class="card-body text-center">
-     <a href="/agents/meteo"><img src="https://static.abls-habitat.fr/img/meteo.svg" class="card-img-top wtd-img-card" alt="La météo"></a>
+     <a href="/agents?classe=meteo"><img src="https://static.abls-habitat.fr/img/meteo.svg" class="card-img-top wtd-img-card" alt="La météo"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/meteo')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('meteo')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=meteo')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 
  <div class="card shadow m-1">
    <div class="card-header text-center">Les Phidgets</div>
    <div class="card-body text-center">
-    <a href="/agents/phidget"><img src="https://static.abls-habitat.fr/img/phidget_hub5000.jpg" class="card-img-top wtd-img-card" alt="Phidget"></a>
+    <a href="/agents?classe=phidget"><img src="https://static.abls-habitat.fr/img/phidget_hub5000.jpg" class="card-img-top wtd-img-card" alt="Phidget"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/phidget')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('phidget')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=phidget')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 
  <div class="card shadow m-1">
    <div class="card-header text-center">Les Shelly</div>
    <div class="card-body text-center">
-    <a href="/agents/shelly"><img src="https://static.abls-habitat.fr/img/shelly.jpg" class="card-img-top wtd-img-card" alt="Shelly"></a>
+    <a href="/agents?classe=shelly"><img src="https://static.abls-habitat.fr/img/shelly.jpg" class="card-img-top wtd-img-card" alt="Shelly"></a>
    </div>
    <div class="card-footer text-center">
-        <button type="button" onclick="Redirect('/agents/shelly')" class="btn btn-primary btn-sm"><i class="fas fa-list"></i> Configurer</button>
+        <button type="button" onclick="AGENT_Create('shelly')" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Ajouter</button>
+        <button type="button" onclick="Redirect('/agents?classe=shelly')" class="btn btn-outline-secondary btn-sm"><i class="fas fa-list"></i> Voir</button>
    </div>
  </div>
 

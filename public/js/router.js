@@ -10,6 +10,20 @@ var Router = (function () {
   var currentRoute = null;
   var currentPageContext = {};
 
+  /* Fil d'Ariane des pages d'instance : Agents > {classe} > {tech_id} > {onglet} */
+  function agentBreadcrumb(tabLabel) {
+    return function (path) {
+      var parts  = path.split('/');
+      var classe = decodeURIComponent(parts[2] || '');
+      var techId = decodeURIComponent(parts[3] || '').toUpperCase();
+      var label  = (typeof AGENT_class === 'function') ? AGENT_class(classe).label : classe;
+      return [ { label: 'Agents', href: '/agents' },
+               { label: label,    href: '/agents?classe=' + encodeURIComponent(classe) },
+               { label: techId,   href: '/agents/' + encodeURIComponent(classe) + '/' + encodeURIComponent(techId) },
+               { label: tabLabel, href: null } ];
+    };
+  }
+
   /* Table des routes : ordre identique à app/Config/Routes.php (premier match gagne).
    * view      : nom du fichier dans /views/ (sans extension .html)
    * script    : nom du fichier dans /js/   (sans extension .js), null si pas de script de page
@@ -25,7 +39,7 @@ var Router = (function () {
       pattern:    /^\/agents$/,
       view:       'agents',
       script:     'agents',
-      breadcrumb: [ { label: 'Liste des Agents', href: null } ]
+      breadcrumb: [ { label: 'Agents', href: null } ]
     },
     {
       pattern:    /^\/domain_maintenance$/,
@@ -57,71 +71,79 @@ var Router = (function () {
       script:     null,
       breadcrumb: [ { label: 'Ajouter un agent', href: null } ]
     },
+    /* Serveurs : déclarés avant les routes génériques /agents/{classe}/... */
     {
-      pattern:    /^\/agent\/[^/]+$/,
+      pattern:    /^\/agents\/server$/,
+      view:       'servers',
+      script:     'servers',
+      breadcrumb: [ { label: 'Liste des Serveurs', href: null } ]
+    },
+    {
+      pattern:    /^\/agents\/server\/[^/]+$/,
+      view:       'agent_server_conf',
+      script:     'agent_server_conf',
+      breadcrumb: [ { label: 'Liste des Serveurs', href: '/agents/server' }, { label: 'Détail du serveur', href: null } ]
+    },
+    {
+      pattern:    /^\/agents\/modbus\/[^/]+\/io$/,
+      view:       'agent_modbus_io',
+      script:     'agent_modbus_io',
+      breadcrumb: agentBreadcrumb('Configuration I/O')
+    },
+    {
+      pattern:    /^\/agents\/phidget\/[^/]+\/io$/,
+      view:       'agent_phidget_io',
+      script:     'agent_phidget_io',
+      breadcrumb: agentBreadcrumb('Configuration I/O')
+    },
+    {
+      pattern:    /^\/agents\/gpiod\/[^/]+\/io$/,
+      view:       'agent_gpiod_io',
+      script:     'agent_gpiod_io',
+      breadcrumb: agentBreadcrumb('Configuration I/O')
+    },
+    {
+      pattern:    /^\/agents\/ups\/[^/]+\/mnemos$/,
+      view:       'agent_ups_mnemos',
+      script:     'agent_ups_mnemos',
+      breadcrumb: agentBreadcrumb('Mnémoniques')
+    },
+    {
+      pattern:    /^\/agents\/sms\/[^/]+\/mnemos$/,
+      view:       'agent_sms_mnemos',
+      script:     'agent_sms_mnemos',
+      breadcrumb: agentBreadcrumb('Mnémoniques')
+    },
+    {
+      pattern:    /^\/agents\/meteo\/[^/]+\/mnemos$/,
+      view:       'agent_meteo_mnemos',
+      script:     'agent_meteo_mnemos',
+      breadcrumb: agentBreadcrumb('Mnémoniques')
+    },
+    {
+      pattern:    /^\/agents\/audio\/[^/]+\/zones$/,
+      view:       'agent_audio_zones',
+      script:     'agent_audio_zones',
+      breadcrumb: agentBreadcrumb('Zones de diffusion')
+    },
+    {
+      pattern:    /^\/agents\/[^/]+\/[^/]+\/parametres$/,
+      view:       'agent_params',
+      script:     'agent_params',
+      breadcrumb: agentBreadcrumb('Paramètres')
+    },
+    {
+      pattern:    /^\/agents\/[^/]+\/[^/]+$/,
       view:       'agent_monitor',
       script:     'agent_monitor',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Monitoring agent', href: null } ]
+      breadcrumb: agentBreadcrumb('Supervision')
     },
+    /* Ancienne page de classe : agents.js la convertit en /agents?classe=... */
     {
-      pattern:    /^\/agents\/phidget$/,
-      view:       'agent_phidget_class',
-      script:     'agent_phidget_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/phidget\/[^/]+$/,
-      view:       'agent_phidget_conf',
-      script:     'agent_phidget_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des HUB5000 Phidgets', href: '/agents/phidget' }, { label: 'Configuration I/O Phidget', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/modbus$/,
-      view:       'agent_modbus_class',
-      script:     'agent_modbus_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Modbus', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/modbus\/[^/]+$/,
-      view:       'agent_modbus_conf',
-      script:     'agent_modbus_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Modbus', href: '/agents/modbus' }, { label: 'Configuration I/O', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/imsg$/,
-      view:       'agent_imsg_class',
-      script:     'agent_imsg_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents XMPP', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/imsg\/[^/]+$/,
-      view:       'agent_imsg_conf',
-      script:     'agent_imsg_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents XMPP', href: '/agents/imsg' }, { label: 'Connexion XMPP', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/sms$/,
-      view:       'agent_sms_class',
-      script:     'agent_sms_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents SMS', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/sms\/[^/]+$/,
-      view:       'agent_sms_conf',
-      script:     'agent_sms_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents SMS', href: '/agents/sms' }, { label: 'Mnémoniques', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/gpiod$/,
-      view:       'agent_gpiod_class',
-      script:     'agent_gpiod_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents GPIOD', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/gpiod\/[^/]+$/,
-      view:       'agent_gpiod_conf',
-      script:     'agent_gpiod_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents GPIOD', href: '/agents/gpiod' }, { label: 'Configuration I/O GPIOD', href: null } ]
+      pattern:    /^\/agents\/[^/]+$/,
+      view:       'agents',
+      script:     'agents',
+      breadcrumb: [ { label: 'Agents', href: null } ]
     },
     {
       pattern:    /^\/search$/,
@@ -142,82 +164,10 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Zones audio', href: '/audio/zones' }, { label: 'Édition de la zone audio', href: null } ]
     },
     {
-      pattern:    /^\/agents\/audio$/,
-      view:       'agent_audio_class',
-      script:     'agent_audio_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents AUDIO', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/audio\/[^/]+$/,
-      view:       'agent_audio_conf',
-      script:     'agent_audio_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents AUDIO', href: '/agents/audio' }, { label: 'Zones de diffusion', href: null } ]
-    },
-    {
       pattern:    /^\/cameras$/,
       view:       'cameras',
       script:     'cameras',
       breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Gestion des caméras', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/ups$/,
-      view:       'agent_ups_class',
-      script:     'agent_ups_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agent UPS', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/ups\/[^/]+$/,
-      view:       'agent_ups_conf',
-      script:     'agent_ups_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agent UPS', href: '/agents/ups' }, { label: 'Configuration I/O', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/server$/,
-      view:       'servers',
-      script:     'servers',
-      breadcrumb: [ { label: 'Liste des Serveurs', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/server\/[^/]+$/,
-      view:       'agent_server_conf',
-      script:     'agent_server_conf',
-      breadcrumb: [ { label: 'Liste des Serveurs', href: '/agents/server' }, { label: 'Détail du serveur', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/teleinfoedf$/,
-      view:       'agent_teleinfoedf_class',
-      script:     'agent_teleinfoedf_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration des modules Téléinfo EDF', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/teleinfoedf\/[^/]+$/,
-      view:       'agent_teleinfoedf_conf',
-      script:     'agent_teleinfoedf_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Configuration des modules Téléinfo EDF', href: '/agents/teleinfoedf' }, { label: 'Configuration Téléinfo EDF', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/shelly$/,
-      view:       'agent_shelly_class',
-      script:     'agent_shelly_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Modules Shelly', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/shelly\/[^/]+$/,
-      view:       'agent_shelly_conf',
-      script:     'agent_shelly_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Liste des Modules Shelly', href: '/agents/shelly' }, { label: 'Détail Shelly', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/meteo$/,
-      view:       'agent_meteo_class',
-      script:     'agent_meteo_class',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Météo', href: null } ]
-    },
-    {
-      pattern:    /^\/agents\/meteo\/[^/]+$/,
-      view:       'agent_meteo_conf',
-      script:     'agent_meteo_conf',
-      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Agents Météo', href: '/agents/meteo' }, { label: 'Mnémoniques', href: null } ]
     },
     {
       pattern:    /^\/dls\/packages$/,
@@ -379,6 +329,7 @@ var Router = (function () {
 
   function normalizePath(path) {
     if (!path) return '/';
+    path = path.split(/[?#]/)[0] || '/';
     return (path.length > 1) ? path.replace(/\/$/, '') : path;
   }
 
@@ -412,11 +363,12 @@ var Router = (function () {
     };
   }
 
-  function resolveBreadcrumb(route) {
+  function resolveBreadcrumb(path, route) {
     var routeSegments = [];
 
     if (route && route.breadcrumb) {
-      routeSegments = route.breadcrumb.map(function (segment, index, array) {
+      var breadcrumb = (typeof route.breadcrumb === 'function') ? route.breadcrumb(path) : route.breadcrumb;
+      routeSegments = breadcrumb.map(function (segment, index, array) {
         return {
           label: segment.label,
           href: index === array.length - 1 ? null : segment.href,
@@ -458,7 +410,7 @@ var Router = (function () {
   function renderBreadcrumb(path, route) {
     var shell = document.getElementById('idBreadcrumbShell');
     var list = document.getElementById('idBreadcrumbList');
-    var segments = resolveBreadcrumb(route);
+    var segments = resolveBreadcrumb(path, route);
 
     updateDocumentTitle(segments);
 
@@ -569,8 +521,9 @@ var Router = (function () {
 
     /* Première navigation : déclenché par common.js après la connexion Keycloak */
     window.addEventListener('keycloak-ready', function () {
-      history.replaceState({ path: window.location.pathname }, '', window.location.pathname);
-      navigate(window.location.pathname);
+      var initialPath = window.location.pathname + window.location.search;
+      history.replaceState({ path: initialPath }, '', initialPath);
+      navigate(initialPath);
     });
   }
 

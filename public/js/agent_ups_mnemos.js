@@ -1,5 +1,5 @@
-/* agent_ups_conf.js
- * Configuration des entrees/sorties onduleur.
+/* agent_ups_mnemos.js
+ * Onglet Mnémoniques (lecture seule) d'un agent onduleur.
  */
 
  var UPS_AGENT_TECH_ID = null;
@@ -11,12 +11,10 @@
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { vars = window.location.pathname.split('/');
-    if (vars[3] == null) { Redirect ("/agents/ups"); return; }
-
-    UPS_AGENT_TECH_ID = decodeURIComponent(vars[3]).toUpperCase();
-    $('#idUPSCONFTitle').text( UPS_AGENT_TECH_ID );
-    Set_page_context ( "Configuration I/O UPS " + UPS_AGENT_TECH_ID );
+  { var agent = AGENT_from_path();
+    if (!agent) { Redirect ("/agents?classe=ups"); return; }
+    UPS_AGENT_TECH_ID = agent.agent_tech_id;
+    AGENT_Header ( "ups", UPS_AGENT_TECH_ID, "mnemos" );
 
     UPS_CLASSES.forEach ( UPSCONF_Load_IO );
   }

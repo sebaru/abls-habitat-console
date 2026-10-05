@@ -1,5 +1,5 @@
-/* agent_sms_conf.js
- * Configuration des mnémoniques de l'agent SMS.
+/* agent_sms_mnemos.js
+ * Onglet Mnémoniques (lecture seule) d'un agent SMS.
  */
 
  var SMS_AGENT_TECH_ID = null;
@@ -42,10 +42,9 @@
 
 /************************************ Chargement de la page de configuration SMS ***************************************/
  function Load_page ()
-  { var parts = window.location.pathname.split ( '/' );
-    if ( !parts[3] ) { Redirect ( '/agents/sms' ); return; }
-    SMS_AGENT_TECH_ID = decodeURIComponent ( parts[3] ).toUpperCase();
-    $('#idSMSCONFTitle').text ( SMS_AGENT_TECH_ID );
-    Set_page_context ( "Mnémoniques de l'agent SMS "+SMS_AGENT_TECH_ID );
+  { var agent = AGENT_from_path();
+    if ( !agent ) { Redirect ( '/agents?classe=sms' ); return; }
+    SMS_AGENT_TECH_ID = agent.agent_tech_id;
+    AGENT_Header ( 'sms', SMS_AGENT_TECH_ID, 'mnemos' );
     [ 'AI', 'CI' ].forEach ( SMSCONF_Table );
   }

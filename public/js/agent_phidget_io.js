@@ -1,5 +1,5 @@
-/* agent_phidget_conf.js
- * Configuration des capteurs et entrees/sorties Phidget.
+/* agent_phidget_io.js
+ * Onglet Configuration I/O d'un agent Phidget.
  */
 
 var Capteurs =
@@ -69,11 +69,10 @@ var PHIDGET_AGENT_TECH_ID = null;
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { vars = window.location.pathname.split('/');
-    if (vars[3] == null) Redirect ("/agents/phidget");
-
-    PHIDGET_AGENT_TECH_ID = decodeURIComponent(vars[3]).toUpperCase();
-    Set_page_context ( "Configuration I/O Phidget " + PHIDGET_AGENT_TECH_ID );
+  { var agent = AGENT_from_path();
+    if (!agent) { Redirect ("/agents?classe=phidget"); return; }
+    PHIDGET_AGENT_TECH_ID = agent.agent_tech_id;
+    AGENT_Header ( "phidget", PHIDGET_AGENT_TECH_ID, "io" );
 
     $('#idTablePHIDGET_IO').DataTable(
      { pageLength : 50,

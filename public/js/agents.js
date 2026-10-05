@@ -1,114 +1,63 @@
-/********************************************* Active un agent ****************************************************************/
+/* agents.js
+ * Liste globale des agents, filtrable par classe, serveur et état (synchronisés avec l'URL).
+ */
  var AGENT_refresh_timer = null;
+ var AGENT_filters = { classe: "", serveur: "", etat: "" };
 
- function AGENT_set_enable ( agent_tech_id )
-  { var json_request = { enable: true, agent_tech_id: agent_tech_id, };
-    Send_to_API ( "POST", "/agent/enable", json_request,
-                  function(Response)
-                   { Show_toast_ok ( "Agent "+agent_tech_id+" activé." );
-                     AGENT_refresh();
-                   },
-                  function(Response)
-                   { Show_shell_error ( "Erreur à l'activation de l'agent "+agent_tech_id ); }
-                );
+/********************************************* Etat synthétique d'un agent ***************************************************/
+ function AGENT_etat ( item )
+  { if (!item.enable) return("DISABLED");
+    return ( item.is_alive ? "UP" : "DOWN" );
   }
-/********************************************* Desactive un agent *************************************************************/
- function AGENT_set_disable ( agent_tech_id )
-  { var json_request = { enable: false, agent_tech_id: agent_tech_id, };
-
-    Send_to_API ( "POST", "/agent/enable", json_request,
-                  function(Response)
-                   { Show_toast_ok ( "Agent "+agent_tech_id+" désactivé." );
-                     AGENT_refresh();
-                   },
-                  function(Response)
-                   { Show_shell_error ( "Erreur à la désactivation de l'agent "+agent_tech_id ); }
-                );
-  }
-/********************************************* Start Agent ******************************************************************/
- function AGENT_start ( agent_tech_id )
-  { var json_request = { agent_tech_id: agent_tech_id };
-    Send_to_API ( "POST", "/agent/start", json_request,
-                  function(Response) { Show_toast_ok ( "Démarrage demandé pour l'agent "+agent_tech_id );
-                                       AGENT_refresh(); },
-                  function(Response) { Show_shell_error ( "Erreur au demarrage de l'agent "+agent_tech_id ); }
-                );
-  }
- /********************************************* Stop Agent *******************************************************************/
- function AGENT_stop ( agent_tech_id, fonction_ok, fonction_nok )
-  { var json_request = { agent_tech_id: agent_tech_id };
-    Send_to_API ( "POST", "/agent/stop", json_request,
-                  function(Response) { Show_toast_ok ( "Arrêt demandé pour l'agent "+agent_tech_id );
-                                       AGENT_refresh(); },
-                  function(Response) { Show_shell_error ( "Erreur à l'arrêt de l'agent "+agent_tech_id ); }
-                );
-  }
- /********************************************* Restart Agent ****************************************************************/
- function AGENT_restart ( agent_tech_id, fonction_ok, fonction_nok )
-  { var json_request = { agent_tech_id: agent_tech_id };
-    Send_to_API ( "POST", "/agent/restart", json_request,
-                  function(Response) { Show_toast_ok ( "Redémarrage demandé pour l'agent "+agent_tech_id );
-                                       AGENT_refresh(); },
-                  function(Response) { Show_shell_error ( "Erreur au redémarrage de l'agent "+agent_tech_id ); }
-                );
-  }
- /********************************************* Upgrade Agent ****************************************************************/
- function AGENT_upgrade ( agent_tech_id, fonction_ok, fonction_nok )
-  { var json_request = { agent_tech_id: agent_tech_id };
-    Send_to_API ( "POST", "/agent/upgrade", json_request,
-                  function(Response) { Show_toast_ok ( "Upgrade demandé pour l'agent "+agent_tech_id );
-                                       AGENT_refresh(); },
-                  function(Response) { Show_shell_error ( "Erreur à l'upgrade de l'agent "+agent_tech_id ); }
-                );
-  }
- /********************************************* Test Agent *******************************************************************/
- function AGENT_test ( agent_tech_id, fonction_ok, fonction_nok )
-  { var json_request = { agent_tech_id: agent_tech_id };
-    Send_to_API ( "POST", "/agent/test", json_request,
-                  function(Response) { Show_toast_ok ( "Test demandé pour l'agent "+agent_tech_id ); },
-                  function(Response) { Show_shell_error ( "Erreur lors du test de l'agent "+agent_tech_id ); }
-                );
+/********************************************* Filtres <-> URL ****************************************************************/
+ function AGENT_filters_to_url ()
+  { var params = new URLSearchParams();
+    if (AGENT_filters.classe)  params.set ( "classe",  AGENT_filters.classe );
+    if (AGENT_filters.serveur) params.set ( "serveur", AGENT_filters.serveur );
+    if (AGENT_filters.etat)    params.set ( "etat",    AGENT_filters.etat );
+    var url = "/agents" + (params.toString() ? "?"+params.toString() : "");
+    history.replaceState ( { path: url }, '', url );
   }
 
- /********************************************* Reload Process *****************************************************************/
- function AGENT_set_log_level ( agent_tech_id, log_level )
-  { var json_request =
-     { agent_tech_id: agent_tech_id,
-       log_level    : parseInt(log_level),
-     };
-
-    Send_to_API ( "POST", "/agent/log_level", json_request,
-      function(Response) { Show_toast_ok ( "Agent "+agent_tech_id+" niveau de log = "+log_level+"." );
-                           AGENT_refresh(); },
-      function(Response) { Show_shell_error ( "Erreur lors de la modification du niveau de log de l'agent "+agent_tech_id+"." ); } );
+ function AGENT_filters_apply ()
+  { var table = $('#idTableAGENT').DataTable();
+    var regex = function (value) { return ( value ? "^"+$.fn.dataTable.util.escapeRegex(value)+"$" : "" ); };
+    table.column(0).search ( regex(AGENT_filters.serveur), true, false );
+    table.column(2).search ( regex(AGENT_filters.classe),  true, false );
+    table.column(4).search ( regex(AGENT_filters.etat),    true, false );
+    table.draw();
   }
-/********************************************* Render Log Level selector *****************************************************/
- function AGENT_log_level_selector ( agent_tech_id, current_level )
-  { var current = parseInt(current_level);
-    if (isNaN(current) || current < 0 || current > 7) current = 6;
 
-    var options =
-      [ { value: 7, label: "LOG_DEBUG" },
-        { value: 6, label: "LOG_INFO" },
-        { value: 5, label: "LOG_NOTICE" },
-        { value: 4, label: "LOG_WARNING" },
-        { value: 3, label: "LOG_ERR" },
-        { value: 2, label: "LOG_CRIT" },
-        { value: 1, label: "LOG_ALERT" },
-        { value: 0, label: "LOG_EMERG" }
-      ];
-
-    var onChange = "AGENT_set_log_level('"+agent_tech_id+"', this.value )";
-    var html = "<select class='form-select form-select-sm' onchange=\""+onChange+"\">";
-    options.forEach(function(opt)
-      { html += "<option value='"+opt.value+"'"+(opt.value === current ? " selected" : "")+">"+opt.label+"</option>";
-      });
-    html += "</select>";
-    return(html);
+ function AGENT_filters_changed ()
+  { AGENT_filters.classe  = $('#idAgentsFilterClasse').val();
+    AGENT_filters.serveur = $('#idAgentsFilterServeur').val();
+    AGENT_filters.etat    = $('#idAgentsFilterEtat').val();
+    AGENT_filters_to_url();
+    AGENT_filters_apply();
   }
-/********************************************* Navigation vers la page de monitoring *****************************************/
- function AGENT_monitor ( agent_tech_id )
-  { Redirect ( "/agent/"+encodeURIComponent(agent_tech_id) ); }
+
+/* Remplit les filtres classe/serveur avec compteurs, à partir des données reçues */
+ function AGENT_filters_populate ( agents )
+  { var classes = {}, serveurs = {};
+    agents.forEach ( function (item)
+     { classes[item.agent_classe]     = (classes[item.agent_classe] || 0) + 1;
+       serveurs[item.server_hostname] = (serveurs[item.server_hostname] || 0) + 1;
+     });
+    if (AGENT_filters.classe && !classes[AGENT_filters.classe])     classes[AGENT_filters.classe] = 0;
+    if (AGENT_filters.serveur && !serveurs[AGENT_filters.serveur]) serveurs[AGENT_filters.serveur] = 0;
+
+    var html = "<option value=''>Toutes ("+agents.length+")</option>";
+    Object.keys(classes).sort().forEach ( function (classe)
+     { var label = (classe === "server" ? "Serveurs" : AGENT_class(classe).label);
+       html += "<option value='"+htmlEncode(classe)+"'>"+htmlEncode(label)+" ("+classes[classe]+")</option>";
+     });
+    $('#idAgentsFilterClasse').html(html).val(AGENT_filters.classe);
+
+    html = "<option value=''>Tous</option>";
+    Object.keys(serveurs).sort().forEach ( function (serveur)
+     { html += "<option value='"+htmlEncode(serveur)+"'>"+htmlEncode(serveur)+" ("+serveurs[serveur]+")</option>"; });
+    $('#idAgentsFilterServeur').html(html).val(AGENT_filters.serveur);
+  }
 /********************************************* Refresh de la table agents *****************************************************/
  function AGENT_refresh ()
   { if (typeof $ === "undefined" || !$.fn || !$.fn.dataTable) return;
@@ -127,34 +76,59 @@
        AGENT_refresh();
      }, 30000 );
   }
+/********************************************* Lien vers la page d'un agent ***************************************************/
+ function AGENT_link ( item, texte, tooltip )
+  { if (item.agent_classe === "server")
+     { return( Lien ( "/agents/server/"+encodeURIComponent(item.server_uuid || ""), "Voir le détail du serveur", texte ) ); }
+    return( Lien ( AGENT_url ( item.agent_classe, item.agent_tech_id ), tooltip, texte ) );
+  }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { $('#idTableAGENT').DataTable(
+  { var legacy = window.location.pathname.match(/^\/agents\/([^/]+)$/);         /* Ancienne URL /agents/{classe} */
+    var params = new URLSearchParams(window.location.search);
+    AGENT_filters.classe  = (legacy ? decodeURIComponent(legacy[1]) : (params.get("classe") || ""));
+    AGENT_filters.serveur = params.get("serveur") || "";
+    AGENT_filters.etat    = params.get("etat") || "";
+    if (legacy) AGENT_filters_to_url();
+    $('#idAgentsFilterEtat').val(AGENT_filters.etat);
+    $('#idAgentsFilterClasse, #idAgentsFilterServeur, #idAgentsFilterEtat').off('change').on('change', AGENT_filters_changed);
+
+    var menu = "";
+    Object.keys(AGENT_CLASSES).forEach ( function (classe)
+     { var def = AGENT_CLASSES[classe];
+       if (!def.set) return;
+       menu += "<li><a class='dropdown-item' href='#' onclick=\"AGENT_Create('"+classe+"'); return(false);\">"+
+               "<i class='fas fa-"+def.icon+" text-primary'></i> "+htmlEncode(def.label)+"</a></li>";
+     });
+    $('#idAgentsAddMenu').html(menu);
+
+    AGENT_on_change = AGENT_refresh;
+
+    $('#idTableAGENT').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/agent/list", type : "GET", dataSrc: "agents", contentType: "application/json",
+       ajax: { url : $ABLS_API+"/agent/list", type : "GET", contentType: "application/json",
+               dataSrc: function (json) { AGENT_filters_populate ( json.agents || [] ); return ( json.agents || [] ); },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
-       /*rowId: "thread_id",*/
+       initComplete: AGENT_filters_apply,
        columns:
         [ { "data": null, "title":"Server", "className": "align-middle text-center",
-            "render": function (item)
-              { return( htmlEncode(item.server_hostname) ); }
+            "render": function (item, type)
+              { if (type === "filter") return( item.server_hostname );
+                return( htmlEncode(item.server_hostname) ); }
           },
           { "data": null, "title":"Tech_id", "className": "align-middle text-center",
-            "render": function (item)
-              { if (item.agent_classe === "server")
-                 { return( Lien ( "/agents/server/"+encodeURIComponent(item.server_uuid || ""), "Voir le détail du serveur", item.agent_tech_id ) ); }
-                var classe = encodeURIComponent(item.agent_classe || "");
-                var techId = encodeURIComponent(item.agent_tech_id || "");
-                return( Lien ( "/agents/"+classe+"/"+techId, "Voir la configuration du connecteur", item.agent_tech_id ) ); }
+            "render": function (item, type)
+              { if (type === "filter" || type === "sort") return( item.agent_tech_id );
+                return( AGENT_link ( item, item.agent_tech_id, "Ouvrir l'agent" ) ); }
           },
           { "data": null, "title":"Classe", "className": "align-middle text-center d-none d-lg-table-cell",
-            "render": function (item)
-              { var classe = encodeURIComponent(item.agent_classe || "");
-                var classeLabel = htmlEncode(item.agent_classe || "") + " - " + htmlEncode(item.version || "none");
-                if (classe !== "server" ) return( Lien ( "/agents/"+classe, "Voir la configuration du connecteur", classeLabel ) );
-                else return ( Lien ("/agents/server", "Voir la configuration du serveur", classeLabel ) );
+            "render": function (item, type)
+              { if (type === "filter" || type === "sort") return( item.agent_classe );
+                var label = (item.agent_classe === "server" ? "Serveur" : AGENT_class(item.agent_classe).label) +
+                            " - " + (item.version || "none");
+                return( Lien ( "/agents?classe="+encodeURIComponent(item.agent_classe || ""), "Filtrer sur cette classe", label ) );
               }
           },
           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
@@ -166,8 +140,9 @@
                                  "data-agent-tech-id='" + item.agent_tech_id + "'" ) ); }
           },
           { "data": null, "title":"Etat", "className": "align-middle text-center d-none d-md-table-cell",
-            "render": function (item)
-              { var ioBadge = Badge( (item.is_alive ? "success" : (item.enable ? "danger" : "secondary")), "Etat", (item.is_alive ? "UP" : "DOWN") );
+            "render": function (item, type)
+              { if (type === "filter" || type === "sort") return( AGENT_etat(item) );
+                var ioBadge = Badge( (item.is_alive ? "success" : (item.enable ? "danger" : "secondary")), "Etat", (item.is_alive ? "UP" : "DOWN") );
                 var mqttLocalBadge = Badge( (item.is_alive && item.mqtt_local_connected) ? "success" : "secondary", "MQTT Local", "MQTT Local" );
                 return( ioBadge + " " + mqttLocalBadge );
               },
@@ -175,9 +150,7 @@
           { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },
           { "data": null, "title":"Status", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
-             { return ( Lien ( "/agent/"+encodeURIComponent(item.agent_tech_id || ""),
-                                "Voir le monitoring de l'agent",
-                                item.agent_status || "-" ) ); }
+             { return( AGENT_link ( item, item.agent_status || "-", "Voir la supervision de l'agent" ) ); }
           },
           { "data": null, "title":"Log_level", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
@@ -186,23 +159,29 @@
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
              { var boutons = Bouton_deroulant_start();
-               boutons += Bouton_deroulant_add ( "info", "Monitorer", "AGENT_monitor", item.agent_tech_id, "chart-line" );
+               if (item.agent_classe !== "server")
+                { var def = AGENT_class(item.agent_classe);
+                  if (def.set) boutons += Bouton_deroulant_add ( "primary", "Paramètres", "Redirect", AGENT_url ( item.agent_classe, item.agent_tech_id, "parametres" ), "cog" );
+                  if (def.tab) boutons += Bouton_deroulant_add ( "primary", AGENT_TABS[def.tab].label, "Redirect",
+                                                                 AGENT_url ( item.agent_classe, item.agent_tech_id, def.tab ), AGENT_TABS[def.tab].icon );
+                  boutons += Bouton_deroulant_add_spacer();
+                }
                boutons += Bouton_deroulant_add ( "warning", "Tester", "AGENT_test", item.agent_tech_id, "vial" );
                boutons += Bouton_deroulant_add ( "warning", "Upgrader", "AGENT_upgrade", item.agent_tech_id, "upload" );
                boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "AGENT_restart", item.agent_tech_id, "sync-alt" );
                if (item.agent_classe !== "server")
-                { boutons += Bouton_deroulant_add_spacer();
-                  if (item.is_alive)
+                { if (item.is_alive)
                    { boutons += Bouton_deroulant_add ( "danger", "Arrêter",   "AGENT_stop", item.agent_tech_id, "stop" ); }
                   else
                    { boutons += Bouton_deroulant_add ( "success", "Démarrer", "AGENT_start", item.agent_tech_id, "play" ); }
+                  boutons += Bouton_deroulant_add_spacer();
+                  boutons += Bouton_deroulant_add ( "danger", "Supprimer", "AGENT_delete", item.agent_tech_id, "trash", "'"+htmlEncode(item.agent_classe)+"'" );
                 }
                boutons += Bouton_deroulant_end();
                return ( boutons );
              }
           },
         ],
-               /*order: [ [0, "desc"] ],*/
      });
 
     $(document).off('change.agentsEnable', '.agent-enable-switch').on('change.agentsEnable', '.agent-enable-switch', function()
@@ -213,4 +192,8 @@
       });
 
     AGENT_start_auto_refresh();
+    window.Unload_page = function ()
+     { if (AGENT_refresh_timer) { clearInterval(AGENT_refresh_timer); AGENT_refresh_timer = null; }
+       AGENT_on_change = null;
+     };
   }
