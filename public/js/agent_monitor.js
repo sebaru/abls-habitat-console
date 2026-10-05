@@ -52,8 +52,8 @@
     var period = $("#idAgentMonitorPeriod").val();
     if (!period) period = PeriodeTableau[5].valeur;
 
-    Charger_une_courbe ( "idAgentCourbeRssMem", techId, "RSS_MEM", period, "MAX" );
-    Charger_une_courbe ( "idAgentCourbeVirtMem", techId, "VIRT_MEM", period, "MAX" );
+    Charger_une_courbe ( "idAgentCourbeRssMem", techId, "MEMORY_RSS", period, "MAX" );
+    Charger_une_courbe ( "idAgentCourbeVirtMem", techId, "MEMORY_VIRTUAL", period, "MAX" );
     Charger_une_courbe ( "idAgentCourbeTourParSec", techId, "TOUR_PAR_SEC", period, "AVG" );
     Charger_une_courbe ( "idAgentCourbeLogParMin", techId, "LOG_PAR_MIN", period, "MAX" );
   }

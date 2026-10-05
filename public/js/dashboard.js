@@ -52,7 +52,7 @@
     Charger_une_courbe ( "idCourbeDlsNbErrors",   "SYS", "NBR_DLS_ERROR", "BY_HOUR_ON_2_WEEKS", "MAX" );
     Charger_une_courbe ( "idCourbeDlsNbLigne",    "SYS", "NBR_LIGNE_DLS", "BY_HOUR_ON_2_WEEKS", "MAX" );
     Charger_une_courbe ( "idCourbeNbCleanup",     "SYS", "NBR_CLEANUP", "BY_10_MINUTE_ON_3_DAYS", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsVirtMem",    "SYS", "VIRT_MEM", "BY_HOUR_ON_2_WEEKS", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsRssMem",     "SYS", "RSS_MEM", "BY_HOUR_ON_2_WEEKS", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsVirtMem",    "SYS", "MEMORY_VIRTUAL", "BY_HOUR_ON_2_WEEKS", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsRssMem",     "SYS", "MEMORY_RSS", "BY_HOUR_ON_2_WEEKS", "MAX" );
     Charger_une_courbe ( "idCourbeDlsLogParMin",  "SYS", "LOG_PER_MIN", "BY_10_MINUTE_ON_3_DAYS", "MAX" );
   }
