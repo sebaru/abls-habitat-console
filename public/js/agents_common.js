@@ -160,6 +160,7 @@
     var tabs = [ { path: null, label: "Supervision", icon: "heartbeat" } ];
     if (def.set) tabs.push ( { path: "parametres", label: "Paramètres", icon: "cog" } );
     if (def.tab) tabs.push ( { path: def.tab, label: AGENT_TABS[def.tab].label, icon: AGENT_TABS[def.tab].icon } );
+    tabs.push ( { path: "facilities", label: "Facilities", icon: "bug" } );
 
     var html = "<div class='row m-2 align-items-center'>"+
                " <div class='col-auto'>"+

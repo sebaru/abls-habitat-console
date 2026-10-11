@@ -127,6 +127,12 @@ var Router = (function () {
       breadcrumb: agentBreadcrumb('Zones de diffusion')
     },
     {
+      pattern:    /^\/agents\/[^/]+\/[^/]+\/facilities$/,
+      view:       'agent_facilities',
+      script:     'agent_facilities',
+      breadcrumb: agentBreadcrumb('Facilities')
+    },
+    {
       pattern:    /^\/agents\/[^/]+\/[^/]+\/parametres$/,
       view:       'agent_params',
       script:     'agent_params',
