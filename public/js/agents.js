@@ -150,7 +150,7 @@
           { "data": "description", "title":"Description", "className": "align-middle d-none d-lg-table-cell " },
           { "data": null, "title":"Status", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
-             { return( AGENT_link ( item, item.agent_status || "-", "Voir la supervision de l'agent" ) ); }
+             { return( '<span class="d-inline-flex align-items-center gap-1"><i class="fas fa-heartbeat text-danger"></i> ' + AGENT_link ( item, item.agent_status || "-", "Voir la supervision de l'agent" ) + '</span>' ); }
           },
           { "data": null, "title":"Log_level", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
