@@ -4,7 +4,6 @@
 
  var AGENT_TABS =
   { io:     { label: "Configuration I/O",  icon: "sliders-h" },
-    mnemos: { label: "Mnémoniques",        icon: "list" },
     zones:  { label: "Zones de diffusion", icon: "directions" }
   };
 
@@ -28,7 +27,7 @@
        fields: []
      },
     ups:
-     { label: "Onduleur (UPS)", icon: "car-battery", tab: "mnemos",
+     { label: "Onduleur (UPS)", icon: "car-battery", tab: null,
        load: { url: "/ups/list", dataSrc: "ups" }, set: "/ups/set",
        fields: [ { name: "name",           label: "Nom de l'onduleur", placeholder: "Nom de l'onduleur dans NUT" },
                  { name: "host",           label: "Host", placeholder: "Adresse du serveur NUT" },
@@ -36,7 +35,7 @@
                  { name: "admin_password", label: "Admin Password", type: "password" } ]
      },
     sms:
-     { label: "SMS", icon: "sms", tab: "mnemos",
+     { label: "SMS", icon: "sms", tab: null,
        load: { url: "/sms/list", dataSrc: "sms" }, set: "/sms/set",
        fields: [ { name: "ovh_service_name",       label: "Service OVH" },
                  { name: "ovh_application_key",    label: "Application Key",    type: "password" },
@@ -44,7 +43,7 @@
                  { name: "ovh_consumer_key",       label: "Consumer Key",       type: "password" } ]
      },
     meteo:
-     { label: "Météo", icon: "cloud-sun", tab: "mnemos",
+     { label: "Météo", icon: "cloud-sun", tab: null,
        load: { url: "/meteo/list", dataSrc: "meteo" }, set: "/meteo/set",
        fields: [ { name: "token",      label: "Token API", placeholder: "Token API METEO Concept" },
                  { name: "code_insee", label: "Code Insee Commune", placeholder: "Code Insee de la commune" } ]

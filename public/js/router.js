@@ -103,24 +103,6 @@ var Router = (function () {
       breadcrumb: agentBreadcrumb('Configuration I/O')
     },
     {
-      pattern:    /^\/agents\/ups\/[^/]+\/mnemos$/,
-      view:       'agent_ups_mnemos',
-      script:     'agent_ups_mnemos',
-      breadcrumb: agentBreadcrumb('Mnémoniques')
-    },
-    {
-      pattern:    /^\/agents\/sms\/[^/]+\/mnemos$/,
-      view:       'agent_sms_mnemos',
-      script:     'agent_sms_mnemos',
-      breadcrumb: agentBreadcrumb('Mnémoniques')
-    },
-    {
-      pattern:    /^\/agents\/meteo\/[^/]+\/mnemos$/,
-      view:       'agent_meteo_mnemos',
-      script:     'agent_meteo_mnemos',
-      breadcrumb: agentBreadcrumb('Mnémoniques')
-    },
-    {
       pattern:    /^\/agents\/audio\/[^/]+\/zones$/,
       view:       'agent_audio_zones',
       script:     'agent_audio_zones',

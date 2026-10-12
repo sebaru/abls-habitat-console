@@ -58,20 +58,13 @@
     Charger_une_courbe ( "idAgentCourbeLogParMin", techId, "LOG_PAR_MIN", period, "MAX" );
   }
 /******************************************************************************************************************************/
- function Agent_monitor_refresh_ai ()
-  { if (!$.fn.DataTable.isDataTable('#idTableAgentAI')) return;
-    $('#idTableAgentAI').DataTable().ajax.reload(null, false);
-  }
-/******************************************************************************************************************************/
  function Agent_monitor_refresh ()
   { Agent_monitor_refresh_status();
     Agent_monitor_refresh_curves();
-    Agent_monitor_refresh_ai();
   }
 /******************************************************************************************************************************/
  function Agent_monitor_tick ()
   { Agent_monitor_refresh_status();
-    Agent_monitor_refresh_ai();
   }
 /******************************************************************************************************************************/
  function Load_page ()
@@ -83,37 +76,6 @@
 
     $("#idAgentMonitorPeriod").replaceWith ( Select ( "idAgentMonitorPeriod", null, PeriodeTableau, "BY_HOUR_ON_2_WEEKS" ) );
     $("#idAgentMonitorPeriod").off("change").on("change", Agent_monitor_refresh_curves );
-
-    $('#idTableAgentAI').DataTable(
-     { pageLength : 50,
-       fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: techId, classe: "AI" }, dataSrc: "AI",
-               error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
-             },
-       rowId: "mnemo_ai_id",
-       columns:
-        [ { "data": null, "title":"Map from", "className": "align-middle text-center",
-            "render": function (item)
-             { if (item.agent_tech_id) return ( item.agent_tech_id+":"+item.agent_acronyme );
-               return ( "-" );
-             }
-          },
-          { "data": null, "title":"Acronyme", "className": "align-middle text-center",
-            "render": function (item)
-             { return ( Lien ( "/courbe/"+encodeURIComponent(item.tech_id)+"/"+encodeURIComponent(item.acronyme)+"/BY_HOUR_ON_2_DAYS",
-                               "Voir la courbe",
-                               item.tech_id+":"+item.acronyme ) ); }
-          },
-          { "data": "valeur", "title":"Valeur", "className": "align-middle text-center" },
-          { "data": "unite", "title":"Unité", "className": "align-middle text-center d-none d-md-table-cell" },
-          { "data": null, "title":"In range", "className": "align-middle text-center d-none d-lg-table-cell",
-            "render": function (item)
-             { if (item.in_range==true) return( Badge("success", "Dans les clous", "Oui") );
-               return( Badge("warning", "Hors plage", "Non") );
-             }
-          },
-        ],
-     });
 
     Agent_monitor_refresh_status();
     Agent_monitor_refresh_curves();
