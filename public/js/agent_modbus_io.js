@@ -124,7 +124,7 @@
        columns:
         [ { data: 'agent_acronyme', title: 'I/O', className: 'align-middle text-center' },
           { data: 'borne', title: 'Borne', className: 'align-middle text-center d-none d-md-table-cell' },
-          { data: 'ed', title: 'ED', className: 'align-middle text-center d-none d-xl-table-cell' },
+          { data: 'sd', title: 'SD', className: 'align-middle text-center d-none d-xl-table-cell' },
           { data: 'description', title: 'Description', className: 'align-middle text-center d-none d-lg-table-cell',
             render: function ( description ) { return htmlEncode ( description ); } },
           { data: 'archivage', title: 'Archivage (s)', className: 'align-middle text-center d-none d-xl-table-cell' },
@@ -167,7 +167,7 @@
     $('#idMODBUSDOId').val ( io.modbus_do_id );
     $('#idMODBUSDOLibelle').val ( io.description );
     $('#idMODBUSDOBorne').val ( io.borne );
-    $('#idMODBUSDOED').val ( io.ed );
+    $('#idMODBUSDOSD').val ( io.sd );
     $('#idMODBUSDOArchivage').replaceWith ( Select ( 'idMODBUSDOArchivage', null, ModeArchivage, io.archivage ) );
     $('#idMODBUSDOValider').off ( "click" ).on ( "click", MODBUSCONF_Set_DO );
     $('#idMODBUSDOEdit').modal ( "show" );
@@ -179,7 +179,7 @@
      { modbus_do_id: parseInt ( $('#idMODBUSDOId').val() ),
        description: $('#idMODBUSDOLibelle').val(),
        borne: $('#idMODBUSDOBorne').val(),
-       ed: $('#idMODBUSDOED').val(),
+       sd: $('#idMODBUSDOSD').val(),
        archivage: parseInt ( $('#idMODBUSDOArchivage').val() )
      };
     $('#idMODBUSDOEdit').modal ( "hide" );
@@ -214,7 +214,7 @@
        columns:
         [ { data: 'agent_acronyme', title: 'I/O', className: 'align-middle text-center' },
           { data: 'borne', title: 'Borne', className: 'align-middle text-center d-none d-md-table-cell' },
-          { data: 'ed', title: 'ED', className: 'align-middle text-center d-none d-xl-table-cell' },
+          { data: 'ea', title: 'EA', className: 'align-middle text-center d-none d-xl-table-cell' },
           { data: 'description', title: 'Description', className: 'align-middle text-center d-none d-lg-table-cell',
             render: function ( description ) { return htmlEncode ( description ); } },
           { data: 'archivage', title: 'Archivage (s)', className: 'align-middle text-center d-none d-xl-table-cell' },
@@ -262,7 +262,7 @@
     $('#idMODBUSAIId').val ( io.modbus_ai_id );
     $('#idMODBUSAILibelle').val ( io.description );
     $('#idMODBUSAIBorne').val ( io.borne );
-    $('#idMODBUSAIED').val ( io.ed );
+    $('#idMODBUSAIEA').val ( io.ea );
     $('#idMODBUSAIArchivage').replaceWith ( Select ( 'idMODBUSAIArchivage', null, ModeArchivage, io.archivage ) );
     var options = MODBUS_AI_TYPE_BORNE.slice();
     if ( MODBUSCONF_Type_Borne_Label_AI ( io.type_borne ).indexOf ( "Type inconnu" ) === 0 )
@@ -281,7 +281,7 @@
      { modbus_ai_id: parseInt ( $('#idMODBUSAIId').val() ),
        description: $('#idMODBUSAILibelle').val(),
        borne: $('#idMODBUSAIBorne').val(),
-       ed: $('#idMODBUSAIED').val(),
+       ea: $('#idMODBUSAIEA').val(),
        archivage: parseInt ( $('#idMODBUSAIArchivage').val() ),
        type_borne: parseInt ( $('#idMODBUSAITypeBorne').val() ),
        min: parseFloat ( $('#idMODBUSAIMin').val() ),
@@ -320,7 +320,7 @@
        columns:
         [ { data: 'agent_acronyme', title: 'I/O', className: 'align-middle text-center' },
           { data: 'borne', title: 'Borne', className: 'align-middle text-center d-none d-md-table-cell' },
-          { data: 'ed', title: 'ED', className: 'align-middle text-center d-none d-xl-table-cell' },
+          { data: 'sa', title: 'SA', className: 'align-middle text-center d-none d-xl-table-cell' },
           { data: 'description', title: 'Description', className: 'align-middle text-center d-none d-lg-table-cell',
             render: function ( description ) { return htmlEncode ( description ); } },
           { data: 'archivage', title: 'Archivage (s)', className: 'align-middle text-center d-none d-xl-table-cell' },
@@ -368,7 +368,7 @@
     $('#idMODBUSAOId').val ( io.modbus_ao_id );
     $('#idMODBUSAOLibelle').val ( io.description );
     $('#idMODBUSAOBorne').val ( io.borne );
-    $('#idMODBUSAOED').val ( io.ed );
+    $('#idMODBUSAOSA').val ( io.sa );
     $('#idMODBUSAOArchivage').replaceWith ( Select ( 'idMODBUSAOArchivage', null, ModeArchivage, io.archivage ) );
     var options = MODBUS_AO_TYPE_BORNE.slice();
     if ( MODBUSCONF_Type_Borne_Label_AO ( io.type_borne ).indexOf ( "Type inconnu" ) === 0 )
@@ -387,7 +387,7 @@
      { modbus_ao_id: parseInt ( $('#idMODBUSAOId').val() ),
        description: $('#idMODBUSAOLibelle').val(),
        borne: $('#idMODBUSAOBorne').val(),
-       ed: $('#idMODBUSAOED').val(),
+       sa: $('#idMODBUSAOSA').val(),
        archivage: parseInt ( $('#idMODBUSAOArchivage').val() ),
        type_borne: parseInt ( $('#idMODBUSAOTypeBorne').val() ),
        min: parseFloat ( $('#idMODBUSAOMin').val() ),
