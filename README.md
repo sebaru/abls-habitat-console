@@ -18,6 +18,18 @@ Have a good day, Sebaru.
 **Console** is the priviledged user part of project.
 It permits to manage domains and user access, to handle synoptics, DLS modules, and set every connectors configuration and mappings.
 
+## Action buttons
+
+Page action bars use standard Bootstrap buttons with `text-nowrap flex-shrink-0`.
+Their grid column uses `col-12 col-md-auto ms-md-auto d-flex flex-wrap gap-2 justify-content-end align-items-start`
+so whole buttons wrap onto a new line instead of splitting their labels. Do not set fixed button heights.
+
+Keep `btn-sm` for table actions and compact card actions. Card action containers use flex wrapping and `gap-2`.
+Reserve joined button groups for related commands; do not add `flex-wrap` to a joined `btn-group`.
+Mixed controls must fit their container (`mw-100` for bounded widths), and modal footers keep Bootstrap's layout.
+
+Check action heights, wrapping, dropdowns and disabled/loading states on narrow and wide screens when changing these controls.
+
 ## Installation with apache Httpd
 
 Make sure apache, php and composer packages are installed. Then follow these command lines:

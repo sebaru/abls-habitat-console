@@ -162,12 +162,12 @@
     tabs.push ( { path: "facilities", label: "Facilities", icon: "bug" } );
 
     var html = "<div class='row m-2 align-items-center'>"+
-               " <div class='col-auto'>"+
-               "  <h3 class='mb-0'><i class='fas fa-"+def.icon+" text-primary'></i> "+htmlEncode(agent_tech_id)+
+               " <div class='col-12 col-md'>"+
+               "  <h3 class='mb-0 text-break'><i class='fas fa-"+def.icon+" text-primary'></i> "+htmlEncode(agent_tech_id)+
                "   <small class='text-muted fs-6'>"+htmlEncode(def.label)+"</small> <span id='idAgentHeaderBadges'></span></h3>"+
-               "  <div class='text-muted small' id='idAgentHeaderInfo'></div>"+
+               "  <div class='text-muted small text-break' id='idAgentHeaderInfo'></div>"+
                " </div>"+
-               " <div class='col-auto ms-auto d-flex align-items-center gap-2' id='idAgentHeaderActions'></div>"+
+               " <div class='col-12 col-md-auto ms-md-auto d-flex flex-wrap align-items-center gap-2 justify-content-end' id='idAgentHeaderActions'></div>"+
                "</div>"+
                "<ul class='nav nav-tabs mx-2'>";
     tabs.forEach ( function (tab)
@@ -192,7 +192,8 @@
 
        var id = htmlEncode(agent.agent_tech_id);
        var actions = Switch ( "idAgentHeaderEnable", "Activer/Désactiver l'agent", agent.enable, "agent-header-enable", "" ) +
-                     "<div style='width: 9rem;'>"+AGENT_log_level_selector ( agent.agent_tech_id, agent.log_level )+"</div>" +
+                     "<div class='flex-shrink-0 mw-100' style='width: 9rem;'>"+AGENT_log_level_selector ( agent.agent_tech_id, agent.log_level )+"</div>" +
+                     "<div class='flex-shrink-0'>" +
                      Bouton_deroulant_start() +
                      Bouton_deroulant_add ( "warning", "Tester",     "AGENT_test",    id, "vial" ) +
                      Bouton_deroulant_add ( "warning", "Upgrader",   "AGENT_upgrade", id, "upload" ) +
@@ -201,7 +202,7 @@
                                      : Bouton_deroulant_add ( "success", "Démarrer", "AGENT_start", id, "play" )) +
                      Bouton_deroulant_add_spacer() +
                      Bouton_deroulant_add ( "danger", "Supprimer l'agent", "AGENT_delete", id, "trash", "'"+htmlEncode(classe)+"'" ) +
-                     Bouton_deroulant_end();
+                     Bouton_deroulant_end() + "</div>";
        $('#idAgentHeaderActions').html(actions);
        $('#idAgentHeaderEnable').off('change').on('change', function ()
         { if ($(this).is(':checked')) AGENT_set_enable(agent.agent_tech_id);
