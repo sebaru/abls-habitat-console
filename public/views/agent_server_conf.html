@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="row m-2 align-items-center">
+    <div class="col-auto">
+      <h3 class="mb-0">Détail serveur <span id="idSERVERCONFTitle"></span></h3>
+    </div>
+    <div class="col-auto ms-auto btn-group align-items-center">
+      <button type="button" onclick="Redirect('/agents/server')" class="btn btn-outline-secondary"><i class="fas fa-list"></i> Retour à la liste</button>
+      <button type="button" onclick="SERVERCONF_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
+    </div>
+  </div>
+  <hr>
+  <div class="row g-2 m-1">
+    <div class="col-12 col-md-4">
+      <div class="card border-info">
+        <div class="card-header">UUID</div>
+        <div class="card-body"><span id="idSERVERCONFUUID">-</span></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card border-info">
+        <div class="card-header">Connexion</div>
+        <div class="card-body"><span id="idSERVERCONFStatus">-</span></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card border-info">
+        <div class="card-header">Mode</div>
+        <div class="card-body"><span id="idSERVERCONFMaster">-</span></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card border-info">
+        <div class="card-header">Version</div>
+        <div class="card-body"><span id="idSERVERCONFVersion">-</span></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card border-info">
+        <div class="card-header">Démarrage</div>
+        <div class="card-body"><span id="idSERVERCONFStart">-</span></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card border-info">
+        <div class="card-header">Dernier heartbeat</div>
+        <div class="card-body"><span id="idSERVERCONFHeartbeat">-</span></div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card border-info">
+        <div class="card-header">Description</div>
+        <div class="card-body"><span id="idSERVERCONFDescription">-</span></div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <h4>Agents locaux <span class="badge text-bg-secondary" id="idSERVERCONFAgentCount">0</span></h4>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="table-dark">
+        <tr><th>Classe</th><th>Tech ID</th><th>Description</th><th>Activé</th></tr>
+      </thead>
+      <tbody id="idSERVERCONFAgents"></tbody>
+    </table>
+  </div>
+</div>

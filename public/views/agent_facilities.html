@@ -1,0 +1,27 @@
+<div class="container">
+
+ <div id="idAgentHeader"></div>
+
+ <div class="row m-2 align-items-center">
+   <div class="col-auto text-muted">Facilities de log forcées en debug pour cet agent.</div>
+   <div class="col-auto ms-auto btn-group align-items-center">
+     <button type="button" onclick="AGENTFAC_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Rafraichir</button>
+   </div>
+ </div>
+
+ <hr>
+
+ <div class="row justify-content-center">
+   <div class="col-12 col-lg-6">
+     <div class="input-group mb-2">
+       <span class="input-group-text"><i class="fas fa-filter"></i></span>
+       <input id="idAgentFacilitiesFilter" type="search" class="form-control" placeholder="Filtrer les facilities" oninput="AGENTFAC_Filter()">
+     </div>
+     <table class="table table-sm table-striped table-hover align-middle">
+       <thead><tr><th>Facility</th><th class="text-center">Debug forcé</th></tr></thead>
+       <tbody id="idAgentFacilitiesBody"></tbody>
+     </table>
+   </div>
+ </div>
+
+</div>

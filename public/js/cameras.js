@@ -5,15 +5,15 @@
 
     var json_request = { camera_id: camera_id, enable: newState };
 
-    Send_to_API ( "POST", "/camera/set", json_request, 
-      function(Response) 
+    Send_to_API ( "POST", "/camera/set", json_request,
+      function(Response)
         { Show_toast_ok ( "Caméra " + (newState ? "activée" : "désactivée") + "." );
           $switch.prop('disabled', false);
-        }, 
-      function(Response) 
+        },
+      function(Response)
         { $switch.prop('checked', !newState).prop('disabled', false);
-          Show_toast_error ( "Erreur lors de la modification." );
-        } 
+          Show_shell_error ( "Erreur lors de la modification." );
+        }
     );
   }
 /************************************ Demande de refresh **********************************************************************/
@@ -120,7 +120,7 @@
      });
 
     /* Attach event listener to camera toggle switches (using delegation for dynamic elements) */
-    $(document).on('change', '.camera-toggle-switch', function() 
+    $(document).on('change', '.camera-toggle-switch', function()
       { var camera_id = $(this).data('camera-id');
         var newState  = $(this).is(':checked');
         CAMERA_Toggle(camera_id, newState);

@@ -1,0 +1,49 @@
+<div class="container-fluid">
+
+ <div id="idAgentHeader"></div>
+
+ <div class="row m-2 align-items-center">
+   <div class="col-auto ms-auto btn-group align-items-center">
+        <button type="button" onclick="AUDIOCONF_Map()" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter à une zone</button>
+        <button type="button" onclick="AUDIOCONF_Refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
+   </div>
+ </div>
+
+<hr>
+
+     <table id="idTableAUDIOZones" class="table table-striped table-bordered table-hover w-100">
+       <thead class="table-dark">
+       </thead>
+       <tbody>
+       </tbody>
+     </table>
+
+<!-- Container -->
+</div>
+
+<!------------------------------------------------- Modal Mapping d'une zone -------------------------------------------------->
+<div id="idAUDIOCONFMap" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content ">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title"><i class="fas fa-directions"></i> <span id="idAUDIOCONFMapTitre"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+
+      <div class="modal-body">
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-sm-4 col-form-label text-end">Zone de diffusion</label>
+         <div class="col-7 col-sm-8">
+          <select id="idTargetZone" class="form-select border-info"></select>
+         </div>
+       </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Annuler</button>
+        <button id="idAUDIOCONFMapValider" type="button" class="btn btn-primary"><i class="fas fa-save"></i> Valider</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,8 +8,8 @@
  function Go_to_source ()
   { Redirect ( "/dls/"+Dls.tech_id );
   }
- function Go_to_dls_run ()
-  { Redirect ( "/dls/run/"+Dls.tech_id );
+ function Go_to_dls_monitor ()
+  { Redirect ( "/dls/monitor/"+Dls.tech_id );
   }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Dls_Restart ()

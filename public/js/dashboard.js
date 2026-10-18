@@ -31,17 +31,28 @@
        $("#idDBPort").text(Response.db_port);
 
        $("#idNbrAgents").text(Response.nbr_agents);
-       $("#idNbrThreads").text(Response.nbr_threads);
+       $("#idNbrServers").text(Response.nbr_servers);
+
+       $("#idCacheHits").text(Response.cache_hits);
+       $("#idCacheMisses").text(Response.cache_misses);
+       $("#idCacheErrors").text(Response.cache_errors);
+       $("#idCacheHitRatio").text(Response.cache_hit_ratio.toFixed(1));
+       $("#idCacheGeneration").text(Response.cache_generation);
+       $("#idMasterCacheHits").text(Response.master_cache_hits);
+       $("#idMasterCacheMisses").text(Response.master_cache_misses);
+       $("#idMasterCacheErrors").text(Response.master_cache_errors);
+       $("#idMasterCacheHitRatio").text(Response.master_cache_hit_ratio.toFixed(1));
      });
 
-    Charger_une_courbe ( "idCourbeDlsTourParSec", "SYS", "DLS_TOUR_PER_SEC", "BY_10_MINUTE_ON_3_DAYS", "AVG" );
-    Charger_une_courbe ( "idCourbeDlsBitParSec",  "SYS", "DLS_BIT_PER_SEC", "BY_10_MINUTE_ON_3_DAYS", "AVG" );
+    Charger_une_courbe ( "idCourbeDlsTourParSec", "SYS", "TOUR_PAR_SEC", "BY_10_MINUTE_ON_3_DAYS", "AVG" );
+    Charger_une_courbe ( "idCourbeDlsBitParMin",  "SYS", "BIT_PAR_MIN", "BY_10_MINUTE_ON_3_DAYS", "AVG" );
     Charger_une_courbe ( "idCourbeDlsAttente",    "SYS", "DLS_WAIT", "BY_10_MINUTE_ON_3_DAYS", "MAX" );
     Charger_une_courbe ( "idCourbeDlsNbMotifs",   "SYS", "NBR_MOTIFS", "BY_HOUR_ON_2_WEEKS", "MAX" );
     Charger_une_courbe ( "idCourbeDlsNbPlugins",  "SYS", "NBR_DLS", "BY_HOUR_ON_2_WEEKS", "MAX" );
     Charger_une_courbe ( "idCourbeDlsNbErrors",   "SYS", "NBR_DLS_ERROR", "BY_HOUR_ON_2_WEEKS", "MAX" );
     Charger_une_courbe ( "idCourbeDlsNbLigne",    "SYS", "NBR_LIGNE_DLS", "BY_HOUR_ON_2_WEEKS", "MAX" );
     Charger_une_courbe ( "idCourbeNbCleanup",     "SYS", "NBR_CLEANUP", "BY_10_MINUTE_ON_3_DAYS", "MAX" );
-    Charger_une_courbe ( "idCourbeDlsMaxRss",     "SYS", "MAXRSS", "BY_HOUR_ON_2_WEEKS", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsVirtMem",    "SYS", "MEMORY_VIRTUAL", "BY_HOUR_ON_2_WEEKS", "MAX" );
+    Charger_une_courbe ( "idCourbeDlsRssMem",     "SYS", "MEMORY_RSS", "BY_HOUR_ON_2_WEEKS", "MAX" );
     Charger_une_courbe ( "idCourbeDlsLogParMin",  "SYS", "LOG_PER_MIN", "BY_10_MINUTE_ON_3_DAYS", "MAX" );
   }

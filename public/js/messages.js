@@ -1,4 +1,4 @@
- var SMSG_NOTIF = [ { valeur: -1, texte: "Use DLS Settings" },
+ var SMS_NOTIF = [ { valeur: -1, texte: "Use DLS Settings" },
                     { valeur:  0, texte: "No" },
                     { valeur:  1, texte: "Yes" },
                     { valeur:  2, texte: "OVH_Only" },
@@ -18,7 +18,7 @@
   { var json_request =
        { tech_id         : selection.tech_id,
          acronyme        : selection.acronyme,
-         notif_sms       : parseInt($('#idMSGEditNotifSMSG').val()),
+         notif_sms       : parseInt($('#idMSGEditNotifSMS').val()),
          notif_chat      : parseInt($('#idMSGEditNotifIMSG').val()),
          audio_zone_name : $('#idMSGEditAudioZone').val(),
          audio_libelle   : $('#idMSGEditAudioLibelle').val(),
@@ -35,7 +35,7 @@
   { selection = $('#idTableMESSAGES').DataTable().row("#"+msg_id).data();
     $('#idMSGEditTitre').text("Editer les paramètres du message " + selection.tech_id+":"+selection.acronyme);
     $('#idMSGEditLibelle').prop ("disabled", true).val( selection.libelle );
-    $('#idMSGEditNotifSMSG').replaceWith ( Select ( "idMSGEditNotifSMSG", null, SMSG_NOTIF, selection.notif_sms ) );
+    $('#idMSGEditNotifSMS').replaceWith ( Select ( "idMSGEditNotifSMS", null, SMS_NOTIF, selection.notif_sms ) );
     $('#idMSGEditNotifIMSG').replaceWith ( Select ( "idMSGEditNotifIMSG", null, IMSG_NOTIF, selection.notif_chat ) );
     Select_from_api ( "idMSGEditAudioZone", "/audio/zones/list", null, "audio_zones", "audio_zone_name", function (Response)
                         { return ( Response.audio_zone_name ); }, selection.audio_zone_name );
@@ -90,10 +90,10 @@
            },
            { "data": null, "title":"GSM", "className": "align-middle text-center d-none d-lg-table-cell",
              "render": function (item)
-               { var result = SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms); } )[0].texte;
+               { var result = SMS_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms); } )[0].texte;
                  if (item.notif_sms == -1)
                  result = result + "(=" +
-                                   SMSG_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms_by_dls); } )[0].texte +
+                                   SMS_NOTIF.filter ( function(notif) { return(notif.valeur == item.notif_sms_by_dls); } )[0].texte +
                                    ")";
                  return ( result );
                }

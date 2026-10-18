@@ -9,54 +9,31 @@
 
  var myDLSLangageRegex = [ { regex: /\/\*[^*]*\*+(?:[^*\/][^*]*\*+)*\//, token: "comment" }, // Commentaires #
                            { regex: /"(?:[^\\]|\\.)*?"/, token: "string" }, // Chaînes de caractères
-                           { regex: "/\b_[A-Z].*/", token: "type" }, // Mots-clés
                            { regex: "#define", token: "def" }, // Mots-clés
                            { regex: "#link", token: "def" }, // Mots-clés
                            { regex: "#param", token: "def" }, // Mots-clés
+                           { regex: "switch", token: "operator" }, // Mots-clés
+                           { regex: "/|/", token: "operator" }, // Mots-clés
                            { regex: "<->", token: "operator" }, // Mots-clés
                            { regex: "->", token: "operator" }, // Mots-clés
+                           { regex: "{", token: "operator" }, // Mots-clés
+                           { regex: "}", token: "operator" }, // Mots-clés
                            { regex: "-", token: "operator" }, // Mots-clés
                            { regex: "=", token: "operator" }, // Mots-clés
                            { regex: /\d+/, token: "number" }, // Nombres
                            { regex: /[A-Z][A-Za-z0-9_]*/, token: "variable" }, // Variables
-                           { regex: /\b_[A-Z]*\b/g, token: "keyword" }, // Variables
+                           { regex: /\b_[A-Z]*\b/g, token: "type" }, // Variables
                          ];
 
-/********************************************* Reload Process *****************************************************************/
- function Thread_enable ( thread_tech_id, enable, fonction_ok, fonction_nok )
-  { var json_request =
-     { enable        : enable,
-       thread_tech_id: thread_tech_id,
-     };
-
-    Send_to_API ( "POST", "/thread/enable", json_request, function(Response)
-     { Show_toast_ok ( "Thread "+thread_tech_id+(enable ? " activé" : " désactivé") +".");
-       if (fonction_ok) fonction_ok(Response);
-     }, fonction_nok );
-  }
-/********************************************* Reload Process *****************************************************************/
- function Thread_debug ( thread_tech_id, enable, fonction_ok, fonction_nok )
-  { var json_request =
-     { debug         : enable,
-       thread_tech_id: thread_tech_id,
-     };
-
-    Send_to_API ( "POST", "/thread/debug", json_request, function(Response)
-     { Show_toast_ok ( "Thread "+thread_tech_id+(enable ? " en debug" : " hors debug") +".");
-       if (fonction_ok) fonction_ok(Response);
-     }, fonction_nok );
-  }
-/********************************************* Thread_Delete ******************************************************************/
- function Thread_delete ( thread_tech_id, fonction_ok, fonction_nok )
-  { var json_request = { thread_tech_id: thread_tech_id };
-    Send_to_API ( 'DELETE', "/thread/delete", json_request, function(Response)
-     { Show_toast_ok ( "Thread "+thread_tech_id+" supprimé.");
-       if (fonction_ok) fonction_ok(Response);
-     }, fonction_nok );
-  }
-/********************************************* Supprime un mapping *********************************************************/
- function MAPPING_Unmap ( mapping_id, refresh_callback )
-  { Send_to_API ( "DELETE", "/mapping/delete", { mapping_id: parseInt(mapping_id) },
+/********************************************* Supprime un mapping ************************************************************/
+ function MAPPING_Unmap ( row_id, table_id, refresh_callback )
+  { var mapping = $('#'+table_id).DataTable().row('#'+row_id).data();
+    if (!mapping) { Show_shell_error ("Mapping introuvable."); return; }
+    var json_request = { agent_tech_id : mapping.agent_tech_id,
+                         agent_acronyme: mapping.agent_acronyme,
+                         tech_id        : mapping.tech_id,
+                         acronyme       : mapping.acronyme };
+    Send_to_API ( "DELETE", "/mapping/delete", json_request,
                   (Response) => { Show_toast_ok ("Mapping supprimé.");
                                   if (typeof refresh_callback === 'function') refresh_callback();
                                   else if (typeof refresh_callback === 'string' && window[refresh_callback]) window[refresh_callback]();
@@ -65,12 +42,12 @@
                 );
   }
 /********************************************* Afichage du modal d'edition synoptique *****************************************/
- function COMMON_Map ( thread_tech_id, thread_acronyme, tech_id, acronyme )
+ function COMMON_Map ( agent_tech_id, agent_acronyme, tech_id, acronyme )
   { var json_request =
-     { thread_tech_id : thread_tech_id,
-       thread_acronyme: thread_acronyme,
-       tech_id        : tech_id.toUpperCase(),
-       acronyme       : acronyme.toUpperCase(),
+     { agent_tech_id : agent_tech_id,
+       agent_acronyme: agent_acronyme,
+       tech_id       : tech_id.toUpperCase(),
+       acronyme      : acronyme.toUpperCase(),
      };
     Send_to_API ( 'POST', "/mapping/set", json_request, function () { Show_toast_ok("Mapping done.") }, null );
   }

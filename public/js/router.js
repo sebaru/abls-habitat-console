@@ -10,6 +10,20 @@ var Router = (function () {
   var currentRoute = null;
   var currentPageContext = {};
 
+  /* Fil d'Ariane des pages d'instance : Agents > {classe} > {tech_id} > {onglet} */
+  function agentBreadcrumb(tabLabel) {
+    return function (path) {
+      var parts  = path.split('/');
+      var classe = decodeURIComponent(parts[2] || '');
+      var techId = decodeURIComponent(parts[3] || '').toUpperCase();
+      var label  = (typeof AGENT_class === 'function') ? AGENT_class(classe).label : classe;
+      return [ { label: 'Agents', href: '/agents' },
+               { label: label,    href: '/agents?classe=' + encodeURIComponent(classe) },
+               { label: techId,   href: '/agents/' + encodeURIComponent(classe) + '/' + encodeURIComponent(techId) },
+               { label: tabLabel, href: null } ];
+    };
+  }
+
   /* Table des routes : ordre identique à app/Config/Routes.php (premier match gagne).
    * view      : nom du fichier dans /views/ (sans extension .html)
    * script    : nom du fichier dans /js/   (sans extension .js), null si pas de script de page
@@ -22,10 +36,10 @@ var Router = (function () {
       breadcrumb: []
     },
     {
-      pattern:    /^\/io_config$/,
-      view:       'io_config',
-      script:     null,
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: null } ]
+      pattern:    /^\/agents$/,
+      view:       'agents',
+      script:     'agents',
+      breadcrumb: [ { label: 'Agents', href: null } ]
     },
     {
       pattern:    /^\/domain_maintenance$/,
@@ -46,46 +60,78 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste de mes domaines', href: null } ]
     },
     {
+      pattern:    /^\/server\/add$/,
+      view:       'server_add',
+      script:     'server_add',
+      breadcrumb: [ { label: 'Liste des Serveurs', href: '/agents/server' }, { label: 'Ajouter un serveur au domaine', href: null } ]
+    },
+    {
       pattern:    /^\/agent\/add$/,
       view:       'agent_add',
-      script:     'agent_add',
-      breadcrumb: [ { label: 'Maintenance des Agents', href: '/agents_legacy' }, { label: 'Ajouter un agent au domaine', href: null } ]
+      script:     null,
+      breadcrumb: [ { label: 'Ajouter un agent', href: null } ]
+    },
+    /* Serveurs : déclarés avant les routes génériques /agents/{classe}/... */
+    {
+      pattern:    /^\/agents\/server$/,
+      view:       'servers',
+      script:     'servers',
+      breadcrumb: [ { label: 'Liste des Serveurs', href: null } ]
     },
     {
-      pattern:    /^\/agent\/[^/]+$/,
-      view:       'agent_edit',
-      script:     'agent_edit',
-      breadcrumb: [ { label: 'Maintenance des Agents', href: '/agents_legacy' }, { label: 'Editer l\'agent', href: null } ]
+      pattern:    /^\/agents\/server\/[^/]+$/,
+      view:       'agent_server_conf',
+      script:     'agent_server_conf',
+      breadcrumb: [ { label: 'Liste des Serveurs', href: '/agents/server' }, { label: 'Détail du serveur', href: null } ]
     },
     {
-      pattern:    /^\/agents_legacy$/,
+      pattern:    /^\/agents\/modbus\/[^/]+\/io$/,
+      view:       'agent_modbus_io',
+      script:     'agent_modbus_io',
+      breadcrumb: agentBreadcrumb('Configuration I/O')
+    },
+    {
+      pattern:    /^\/agents\/phidget\/[^/]+\/io$/,
+      view:       'agent_phidget_io',
+      script:     'agent_phidget_io',
+      breadcrumb: agentBreadcrumb('Configuration I/O')
+    },
+    {
+      pattern:    /^\/agents\/gpiod\/[^/]+\/io$/,
+      view:       'agent_gpiod_io',
+      script:     'agent_gpiod_io',
+      breadcrumb: agentBreadcrumb('Configuration I/O')
+    },
+    {
+      pattern:    /^\/agents\/audio\/[^/]+\/zones$/,
+      view:       'agent_audio_zones',
+      script:     'agent_audio_zones',
+      breadcrumb: agentBreadcrumb('Zones de diffusion')
+    },
+    {
+      pattern:    /^\/agents\/[^/]+\/[^/]+\/facilities$/,
+      view:       'agent_facilities',
+      script:     'agent_facilities',
+      breadcrumb: agentBreadcrumb('Facilities')
+    },
+    {
+      pattern:    /^\/agents\/[^/]+\/[^/]+\/parametres$/,
+      view:       'agent_params',
+      script:     'agent_params',
+      breadcrumb: agentBreadcrumb('Paramètres')
+    },
+    {
+      pattern:    /^\/agents\/[^/]+\/[^/]+$/,
+      view:       'agent_monitor',
+      script:     'agent_monitor',
+      breadcrumb: agentBreadcrumb('Supervision')
+    },
+    /* Ancienne page de classe : agents.js la convertit en /agents?classe=... */
+    {
+      pattern:    /^\/agents\/[^/]+$/,
       view:       'agents',
       script:     'agents',
-      breadcrumb: [ { label: 'Maintenance des Agents', href: null } ]
-    },
-    {
-      pattern:    /^\/modbus$/,
-      view:       'modbus',
-      script:     'modbus',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des Modules WAGO sur Modbus', href: null } ]
-    },
-    {
-      pattern:    /^\/imsgs$/,
-      view:       'imsgs',
-      script:     'imsgs',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Configuration Messagerie Instantanée', href: null } ]
-    },
-    {
-      pattern:    /^\/smsg$/,
-      view:       'smsg',
-      script:     'smsg',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Configuration des SMSG', href: null } ]
-    },
-    {
-      pattern:    /^\/gpiod$/,
-      view:       'gpiod',
-      script:     'gpiod',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des Threads GPIO', href: null } ]
+      breadcrumb: [ { label: 'Agents', href: null } ]
     },
     {
       pattern:    /^\/search$/,
@@ -97,61 +143,19 @@ var Router = (function () {
       pattern:    /^\/audio\/zones$/,
       view:       'audio_zones',
       script:     'audio_zones',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Zones audio', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Zones audio', href: null } ]
     },
     {
       pattern:    /^\/audio\/zone\/[^/]+$/,
       view:       'audio_zone',
       script:     'audio_zone',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Zones audio', href: '/audio/zones' }, { label: 'Édition de la zone audio', href: null } ]
-    },
-    {
-      pattern:    /^\/audio$/,
-      view:       'audio',
-      script:     'audio',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Connecteurs AUDIO', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Zones audio', href: '/audio/zones' }, { label: 'Édition de la zone audio', href: null } ]
     },
     {
       pattern:    /^\/cameras$/,
       view:       'cameras',
       script:     'cameras',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Gestion des caméras', href: null } ]
-    },
-    {
-      pattern:    /^\/ups$/,
-      view:       'ups',
-      script:     'ups',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des Onduleurs', href: null } ]
-    },
-    {
-      pattern:    /^\/phidget$/,
-      view:       'phidget',
-      script:     'phidget',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des HUB5000 Phidgets', href: null } ]
-    },
-    {
-      pattern:    /^\/agents$/,
-      view:       'threads',
-      script:     'threads',
-      breadcrumb: [ { label: 'Liste des Agents', href: null } ]
-    },
-    {
-      pattern:    /^\/teleinfoedf$/,
-      view:       'teleinfoedf',
-      script:     'teleinfoedf',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Configuration des modules Téléinfo EDF', href: null } ]
-    },
-    {
-      pattern:    /^\/shelly$/,
-      view:       'shelly',
-      script:     'shelly',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Liste des Modules Shelly', href: null } ]
-    },
-    {
-      pattern:    /^\/meteo$/,
-      view:       'meteo',
-      script:     'meteo',
-      breadcrumb: [ { label: 'Connecteurs et Mappings', href: '/io_config' }, { label: 'Configuration de la météo', href: null } ]
+      breadcrumb: [ { label: 'Liste des Agents', href: '/agents' }, { label: 'Gestion des caméras', href: null } ]
     },
     {
       pattern:    /^\/dls\/packages$/,
@@ -166,9 +170,9 @@ var Router = (function () {
       breadcrumb: [ { label: 'Liste des Modules D.L.S', href: '/dls' }, { label: 'Liste des Packages D.L.S', href: '/dls/packages' }, { label: 'Edition du package D.L.S', href: null } ]
     },
     {
-      pattern:    /^\/dls\/run\/[^/]+$/,
-      view:       'dls_run',
-      script:     'dls_run',
+      pattern:    /^\/dls\/monitor\/[^/]+$/,
+      view:       'dls_monitor',
+      script:     'dls_monitor',
       breadcrumb: [ { label: 'Liste des Modules D.L.S', href: '/dls' }, { label: 'Etat du module', href: null } ]
     },
     {
@@ -313,6 +317,7 @@ var Router = (function () {
 
   function normalizePath(path) {
     if (!path) return '/';
+    path = path.split(/[?#]/)[0] || '/';
     return (path.length > 1) ? path.replace(/\/$/, '') : path;
   }
 
@@ -346,11 +351,12 @@ var Router = (function () {
     };
   }
 
-  function resolveBreadcrumb(route) {
+  function resolveBreadcrumb(path, route) {
     var routeSegments = [];
 
     if (route && route.breadcrumb) {
-      routeSegments = route.breadcrumb.map(function (segment, index, array) {
+      var breadcrumb = (typeof route.breadcrumb === 'function') ? route.breadcrumb(path) : route.breadcrumb;
+      routeSegments = breadcrumb.map(function (segment, index, array) {
         return {
           label: segment.label,
           href: index === array.length - 1 ? null : segment.href,
@@ -392,7 +398,7 @@ var Router = (function () {
   function renderBreadcrumb(path, route) {
     var shell = document.getElementById('idBreadcrumbShell');
     var list = document.getElementById('idBreadcrumbList');
-    var segments = resolveBreadcrumb(route);
+    var segments = resolveBreadcrumb(path, route);
 
     updateDocumentTitle(segments);
 
@@ -421,6 +427,10 @@ var Router = (function () {
   function navigate(path) {
     var route = matchRoute(path);
     if (!route) { console.warn('Router: aucune route pour', path); return; }
+
+    /* La page quittée doit pouvoir libérer ses souscriptions MQTT et ses timers */
+    if (typeof Unload_page === 'function') { try { Unload_page(); } catch (e) {} }
+    window.Unload_page = undefined;
 
     currentPath = normalizePath(path);
     currentRoute = route;
@@ -499,8 +509,9 @@ var Router = (function () {
 
     /* Première navigation : déclenché par common.js après la connexion Keycloak */
     window.addEventListener('keycloak-ready', function () {
-      history.replaceState({ path: window.location.pathname }, '', window.location.pathname);
-      navigate(window.location.pathname);
+      var initialPath = window.location.pathname + window.location.search;
+      history.replaceState({ path: initialPath }, '', initialPath);
+      navigate(initialPath);
     });
   }
 

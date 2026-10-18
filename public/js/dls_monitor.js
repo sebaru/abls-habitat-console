@@ -9,7 +9,7 @@
     Redirect ( "/dls/mnemos/"+vars[3] );
   }
 /******************************************************************************************************************************/
- async function Dls_run_set ( table, classe, acronyme, valeur )
+ async function Dls_monitor_set ( table, classe, acronyme, valeur )
   { vars = window.location.pathname.split('/');
     var json_request = JSON.stringify(
      { classe: classe,
@@ -17,25 +17,89 @@
        acronyme: acronyme,
        valeur: valeur
      });
-   /* let response = await fetch ( localStorage.getItem( "master_url" ) + "/dls/run/set",
-                                 { method: 'POST', headers: { 'Content-Type': 'application/json;charset=utf-8' },
-                                   body: json_request
-                                 });
-    if (response.ok)
-     { $('#'+table).DataTable().ajax.reload(null, false); }*/
+
   }
 /******************************************************************************************************************************/
- function Dls_run_refresh ( table )
+ function Dls_monitor_refresh ( table )
   { $('#'+table).DataTable().ajax.reload(null, false); }
 /******************************************************************************************************************************/
- function Dls_run_MONO_set ( acronyme )
-  { Dls_run_set ( "idTableMONO", "MONO", acronyme, true ); }
+ function Dls_monitor_MONO_set ( acronyme )
+  { Dls_monitor_set ( "idTableMONO", "MONO", acronyme, true ); }
 /******************************************************************************************************************************/
- function Dls_run_BI_set ( acronyme )
-  { Dls_run_set ( "idTableBI", "BI", acronyme, true ); }
+ function Dls_monitor_BI_set ( acronyme )
+  { Dls_monitor_set ( "idTableBI", "BI", acronyme, true ); }
 /******************************************************************************************************************************/
- function Dls_run_BI_reset ( acronyme )
-  { Dls_run_set ( "idTableBI", "BI", acronyme, false ); }
+ function Dls_monitor_BI_reset ( acronyme )
+  { Dls_monitor_set ( "idTableBI", "BI", acronyme, false ); }
+
+/*********************************************** Monitoring temps réel du plugin **********************************************/
+ var Dls_monitor_tech_id    = null;
+ var Dls_monitor_watcher_id = null;
+ var Dls_monitor_keepalive  = null;
+
+ var DLS_MONITOR_TABLES = { DI: "idTableEntreeTOR", AI: "idTableEntreeANA",
+                            DO: "idTableSortieTOR", AO: "idTableSortieANA",
+                            CI: "idTableCI",        CH: "idTableCH",
+                            MONO: "idTableMONO",    BI: "idTableBI",
+                            REGISTRE: "idTableRegistre",
+                            VISUEL: "idTableVisuel", WATCHDOG: "idTableWatchdog",
+                            MSG: "idTableMessages" };
+/******************************************************************************************************************************/
+ function Dls_monitor_set_badge ( nbr_watchers )
+  { if (nbr_watchers > 0) $('#idDlsRunMonitor').html( Badge("success", "Le moteur D.L.S remonte les changements de bits", "Temps réel") );
+                     else $('#idDlsRunMonitor').html( Badge("secondary", "Les valeurs affichées proviennent de la base", "Différé") );
+  }
+/******************************************************************************************************************************/
+/* Dls_monitor_apply_bit: Met à jour en place la ligne du bit reçu, sans recharger la table                                   */
+/******************************************************************************************************************************/
+ function Dls_monitor_apply_bit ( bit, redrawn )
+  { var table_id = DLS_MONITOR_TABLES[bit.classe];
+    if (!table_id) return;
+    if (DataTable.isDataTable('#'+table_id) == false) return;
+
+    var table   = $('#'+table_id).DataTable();
+    var indexes = table.rows( function ( index, data, node )
+                   { return ( data.tech_id == bit.tech_id && data.acronyme == bit.acronyme ); } ).indexes();
+    if (!indexes.length) return;
+
+    var row  = table.row ( indexes[0] );
+    var data = row.data();
+    [ "etat", "valeur", "in_range", "unite", "libelle",
+      "mode", "color", "badge", "cligno", "noshow", "disable", "decompte" ].forEach ( function (champ)
+     { if (bit[champ] !== undefined) data[champ] = bit[champ]; } );
+    row.data( data );
+    redrawn[table_id] = true;
+  }
+/******************************************************************************************************************************/
+/* Dls_monitor_on_monitor: Traite un lot de bits remonté par le moteur D.L.S via l'API                                       */
+/******************************************************************************************************************************/
+ function Dls_monitor_on_monitor ( target, Response )
+  { if (!Response || !Response.bits) return;
+    if (target != Dls_monitor_tech_id) return;
+
+    var redrawn = {};
+    Response.bits.forEach ( function (bit) { Dls_monitor_apply_bit ( bit, redrawn ); } );
+    Object.keys(redrawn).forEach ( function (table_id) { $('#'+table_id).DataTable().draw(false); } );
+  }
+/******************************************************************************************************************************/
+/* Dls_monitor_watch: Déclare ou retire ce navigateur de la liste des observateurs du plugin                                   */
+/******************************************************************************************************************************/
+ function Dls_monitor_watch ( watch )
+  { var json_request = { tech_id: Dls_monitor_tech_id, watcher_id: Dls_monitor_watcher_id, enable: watch };
+    Send_to_API ( "POST", "/dls/monitor", json_request, function (Response)
+     { Dls_monitor_set_badge ( watch ? Response.nbr_watchers : 0 ); }, null );
+  }
+/******************************************************************************************************************************/
+/* Unload_page: Appelé par le routeur quand on quitte la page                                                                 */
+/******************************************************************************************************************************/
+ function Unload_page ()
+  { if (Dls_monitor_keepalive) { clearInterval ( Dls_monitor_keepalive ); Dls_monitor_keepalive = null; }
+    Mqtt_unset_handler ( "DLS_MONITOR" );
+    if (!Dls_monitor_tech_id) return;
+    Mqtt_unsubscribe ( "DLS_MONITOR/" + Dls_monitor_tech_id );
+    Dls_monitor_watch ( false );
+    Dls_monitor_tech_id = null;
+  }
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
   { vars = window.location.pathname.split('/');
@@ -44,24 +108,17 @@
     var techId = decodeURIComponent(vars[3]);
     $('#idTitle').html(techId);
     Set_page_context ( "Etat du module '" + techId + "'" );
-    setInterval( function()
-                  { Dls_run_refresh ( "idTableEntreeTOR" );
-                    Dls_run_refresh ( "idTableEntreeANA" );
-                    Dls_run_refresh ( "idTableSortieTOR" );
-                    Dls_run_refresh ( "idTableSortieANA" );
-                    Dls_run_refresh ( "idTableCI"        );
-                    Dls_run_refresh ( "idTableCH"        );
-                    Dls_run_refresh ( "idTableMONO"      );
-                    Dls_run_refresh ( "idTableBI"        );
-                    Dls_run_refresh ( "idTableRegistre"  );
-                    Dls_run_refresh ( "idTableVisuel"    );
-                  },
-                 5000
-               );
+
+    Dls_monitor_tech_id    = techId;
+    Dls_monitor_watcher_id = (crypto.randomUUID ? crypto.randomUUID() : "w" + Date.now() + Math.random());
+    Load_mqtt();
+    Mqtt_set_handler ( "DLS_MONITOR", Dls_monitor_on_monitor );
+    Mqtt_subscribe ( "DLS_MONITOR/" + techId );
+    window.addEventListener ( "beforeunload", Unload_page );
     $('#idTableEntreeTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "DI" }, dataSrc: "DI",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_di_id",
@@ -69,12 +126,12 @@
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Map on", "className": "align-middle text-center",
              "render": function (item)
-               { if (item.thread_tech_id==null)
+               { if (item.agent_tech_id==null)
                   { if (item.acronyme.endsWith("_CLIC")) return("Clic Synoptique");
                     if (item.acronyme == "OSYN_ACQUIT") return("Clic Synoptique");
                     return ( "Not Mapped" );
                   }
-                 else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
+                 else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
                },
            },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -90,7 +147,7 @@
     $('#idTableEntreeANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "AI" }, dataSrc: "AI",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ai_id",
@@ -101,8 +158,8 @@
            },
            { "data": null, "title":"Map on", "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
-               { if (item.thread_tech_id==null) return("Not Mapped");
-                 else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
+               { if (item.agent_tech_id==null) return("Not Mapped");
+                 else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
                },
            },
            { "data": "valeur", "title":"Valeur", "className": "align-middle text-center " },
@@ -120,7 +177,7 @@
     $('#idTableSortieTOR').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "DO" }, dataSrc: "DO",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_do_id",
@@ -128,8 +185,8 @@
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
            { "data": null, "title":"Map on", "className": "align-middle ",
              "render": function (item)
-               { if (item.thread_tech_id==null) return("Not Mapped");
-                 else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
+               { if (item.agent_tech_id==null) return("Not Mapped");
+                 else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
                },
            },
            { "data": null, "title":"Etat", "className": "align-middle ",
@@ -145,7 +202,7 @@
     $('#idTableSortieANA').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "AO" }, dataSrc: "AO",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ao_id",
@@ -156,8 +213,8 @@
            },
            { "data": null, "title":"Map on", "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
-               { if (item.thread_tech_id==null) return("Not Mapped");
-                 else return ( Lien ( "/dls/"+item.thread_tech_id, "Voir la source", item.thread_tech_id )+":"+item.thread_acronyme );
+               { if (item.agent_tech_id==null) return("Not Mapped");
+                 else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
                },
            },
            { "data": "valeur", "title":"Valeur", "className": "align-middle text-center " },
@@ -169,7 +226,7 @@
     $('#idTableCI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "CI" }, dataSrc: "CI",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ci_id",
@@ -193,7 +250,7 @@
     $('#idTableCH').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run",  type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
+       ajax: { url : $ABLS_API+"/dls/monitor",  type : "GET", data: { tech_id: vars[3], classe: "CH" }, dataSrc: "CH",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_ch_id",
@@ -219,7 +276,7 @@
     $('#idTableRegistre').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "REGISTRE" }, dataSrc: "REGISTRE",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_registre_id",
@@ -237,7 +294,7 @@
     $('#idTableMONO').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "MONO" }, dataSrc: "MONO",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_mono_id",
@@ -256,7 +313,7 @@
     $('#idTableBI').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "BI" }, dataSrc: "BI",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_bi_id",
@@ -276,7 +333,7 @@
     $('#idTableVisuel').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "VISUEL" }, dataSrc: "VISUEL",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_visuel_id",
@@ -304,7 +361,7 @@
     $('#idTableWatchdog').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "WATCHDOG" }, dataSrc: "WATCHDOG",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "watchdog_id",
@@ -327,7 +384,7 @@
     $('#idTableMessages').DataTable(
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
-       ajax: { url : $ABLS_API+"/dls/run", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
+       ajax: { url : $ABLS_API+"/dls/monitor", type : "GET", data: { tech_id: vars[3], classe: "MSG" }, dataSrc: "MSG",
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        rowId: "mnemo_msg_id",
@@ -342,4 +399,7 @@
          ],
        /*order: [ [0, "desc"] ],*/
      });
+
+    Dls_monitor_watch ( true );                           /* Les tables existent: le moteur D.L.S peut commencer à les alimenter */
+    Dls_monitor_keepalive = setInterval ( function () { Dls_monitor_watch ( true ); }, 10000 );
   }

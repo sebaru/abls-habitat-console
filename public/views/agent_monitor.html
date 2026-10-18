@@ -1,0 +1,68 @@
+<div class="container">
+
+ <div id="idAgentHeader"></div>
+
+ <div class="row m-2 align-items-center">
+   <div class="col-auto ms-auto d-flex align-items-center gap-2 flex-wrap justify-content-end">
+     <button type="button" onclick="Agent_monitor_refresh()" class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Refresh</button>
+     <div class="input-group input-group-sm flex-nowrap" style="width: 18rem;">
+       <span class="input-group-text bg-white"><i class='fas fa-clock text-primary'></i></span>
+       <select id='idAgentMonitorPeriod' class='form-select'></select>
+     </div>
+   </div>
+ </div>
+
+ <hr>
+
+ <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-5 g-2 m-1">
+   <div class="col">
+     <div class="card border-info">
+       <div class="card-header">Server</div>
+       <div class="card-body"><span id="idAgentMonitorServerHostname">-</span></div>
+     </div>
+   </div>
+   <div class="col">
+     <div class="card border-info">
+       <div class="card-header">Status</div>
+       <div class="card-body"><span id="idAgentMonitorStatus">-</span></div>
+     </div>
+   </div>
+   <div class="col">
+     <div class="card border-info">
+       <div class="card-header">Start time</div>
+       <div class="card-body"><span id="idAgentMonitorStartTime">-</span></div>
+     </div>
+   </div>
+   <div class="col">
+     <div class="card border-info">
+       <div class="card-header">Heartbeat time</div>
+       <div class="card-body"><span id="idAgentMonitorHeartbeat">-</span></div>
+     </div>
+   </div>
+   <div class="col">
+     <div class="card border-info">
+       <div class="card-header">MQTT Local</div>
+       <div class="card-body"><span id="idAgentMonitorMqttLocal">-</span></div>
+     </div>
+   </div>
+ </div>
+
+ <hr>
+
+ <div class="row p-1 justify-content-center">
+   <canvas id="idAgentCourbeRssMem" class="courbe-dashboard border border-info"></canvas>
+ </div>
+
+ <div class="row p-1 justify-content-center">
+   <canvas id="idAgentCourbeVirtMem" class="courbe-dashboard border border-info"></canvas>
+ </div>
+
+ <div class="row p-1 justify-content-center">
+   <canvas id="idAgentCourbeTourParSec" class="courbe-dashboard border border-info"></canvas>
+ </div>
+
+ <div class="row p-1 justify-content-center">
+   <canvas id="idAgentCourbeLogParMin" class="courbe-dashboard border border-info"></canvas>
+ </div>
+
+</div>
