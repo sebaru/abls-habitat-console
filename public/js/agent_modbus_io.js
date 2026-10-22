@@ -4,15 +4,6 @@
 
  var MODBUS_AGENT_TECH_ID = null;
 
-/************************************ Affiche le bit DLS mappé et son libellé ***************************************/
- function MODBUSCONF_Render_Mapping ( io )
-  { if ( !io.tech_id ) return '--';
-    var html = Lien ( '/dls/'+io.tech_id, 'Voir la source', io.tech_id )+':' +
-               Lien ( '/courbe/'+io.tech_id+'/'+io.acronyme, 'Voir le graphe', io.acronyme );
-    if ( io.libelle ) html += '<br><small class="text-muted">'+htmlEncode ( io.libelle )+'</small>';
-    return html;
-  }
-
 /************************************ Actualise les quatre tableaux Modbus *******************************************/
  function MODBUSCONF_Refresh ()
   { MODBUSCONF_Refresh_DI();
@@ -38,6 +29,7 @@
        rowId: 'modbus_di_id',
        columns:
         [ { data: 'agent_acronyme', title: 'I/O', className: 'align-middle text-center' },
+          { data: null, title: 'Mapped on', className: 'align-middle text-center d-none d-md-table-cell', render: MAPPING_Render_Mapped_on },
           { data: 'borne', title: 'Borne', className: 'align-middle text-center d-none d-md-table-cell' },
           { data: 'ed', title: 'ED', className: 'align-middle text-center d-none d-xl-table-cell' },
           { data: 'description', title: 'Description', className: 'align-middle text-center d-none d-lg-table-cell',
@@ -45,7 +37,6 @@
           { data: 'archivage', title: 'Archivage (s)', className: 'align-middle text-center d-none d-xl-table-cell' },
           { data: null, title: 'Flip', className: 'align-middle text-center',
             render: function ( io ) { return io.flip ? 'Oui - logique inversée' : 'Non - logique normale'; } },
-          { data: null, title: 'Mapping', className: 'align-middle text-center', render: MODBUSCONF_Render_Mapping },
           { data: null, title: 'Actions', orderable: false, className: 'align-middle text-center',
             render: function ( io )
              { var buttons = Bouton_deroulant_start();
@@ -123,12 +114,12 @@
        rowId: 'modbus_do_id',
        columns:
         [ { data: 'agent_acronyme', title: 'I/O', className: 'align-middle text-center' },
+          { data: null, title: 'Mapped on', className: 'align-middle text-center d-none d-md-table-cell', render: MAPPING_Render_Mapped_on },
           { data: 'borne', title: 'Borne', className: 'align-middle text-center d-none d-md-table-cell' },
           { data: 'sd', title: 'SD', className: 'align-middle text-center d-none d-xl-table-cell' },
           { data: 'description', title: 'Description', className: 'align-middle text-center d-none d-lg-table-cell',
             render: function ( description ) { return htmlEncode ( description ); } },
           { data: 'archivage', title: 'Archivage (s)', className: 'align-middle text-center d-none d-xl-table-cell' },
-          { data: null, title: 'Mapping', className: 'align-middle text-center', render: MODBUSCONF_Render_Mapping },
           { data: null, title: 'Actions', orderable: false, className: 'align-middle text-center',
             render: function ( io )
              { var buttons = Bouton_deroulant_start();
@@ -213,6 +204,7 @@
        rowId: 'modbus_ai_id',
        columns:
         [ { data: 'agent_acronyme', title: 'I/O', className: 'align-middle text-center' },
+          { data: null, title: 'Mapped on', className: 'align-middle text-center d-none d-md-table-cell', render: MAPPING_Render_Mapped_on },
           { data: 'borne', title: 'Borne', className: 'align-middle text-center d-none d-md-table-cell' },
           { data: 'ea', title: 'EA', className: 'align-middle text-center d-none d-xl-table-cell' },
           { data: 'description', title: 'Description', className: 'align-middle text-center d-none d-lg-table-cell',
@@ -223,7 +215,6 @@
           { data: 'min', title: 'Valeur mini', className: 'align-middle text-center' },
           { data: 'max', title: 'Valeur maxi', className: 'align-middle text-center' },
           { data: 'unite', title: 'Unité', className: 'align-middle text-center' },
-          { data: null, title: 'Mapping', className: 'align-middle text-center', render: MODBUSCONF_Render_Mapping },
           { data: null, title: 'Actions', orderable: false, className: 'align-middle text-center',
             render: function ( io )
              { var buttons = Bouton_deroulant_start();
@@ -319,6 +310,7 @@
        rowId: 'modbus_ao_id',
        columns:
         [ { data: 'agent_acronyme', title: 'I/O', className: 'align-middle text-center' },
+          { data: null, title: 'Mapped on', className: 'align-middle text-center d-none d-md-table-cell', render: MAPPING_Render_Mapped_on },
           { data: 'borne', title: 'Borne', className: 'align-middle text-center d-none d-md-table-cell' },
           { data: 'sa', title: 'SA', className: 'align-middle text-center d-none d-xl-table-cell' },
           { data: 'description', title: 'Description', className: 'align-middle text-center d-none d-lg-table-cell',
@@ -329,7 +321,6 @@
           { data: 'min', title: 'Valeur mini', className: 'align-middle text-center' },
           { data: 'max', title: 'Valeur maxi', className: 'align-middle text-center' },
           { data: 'unite', title: 'Unité', className: 'align-middle text-center' },
-          { data: null, title: 'Mapping', className: 'align-middle text-center', render: MODBUSCONF_Render_Mapping },
           { data: null, title: 'Actions', orderable: false, className: 'align-middle text-center',
             render: function ( io )
              { var buttons = Bouton_deroulant_start();

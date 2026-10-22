@@ -66,14 +66,7 @@
             render: function ( item ) { return Lien ( '/dls/'+item.agent_tech_id, 'Voir la source', item.agent_tech_id ); }
           },
           { data: 'agent_acronyme', title: 'GPIOD I/O', className: 'align-middle text-center' },
-          { data: null, title: 'Mapped on', className: 'align-middle text-center d-none d-md-table-cell',
-            render: function ( item )
-             { if ( !item.tech_id ) return '--';
-               var html = Lien ( '/dls/'+item.tech_id, 'Voir la source', item.tech_id )+':'+htmlEncode ( item.acronyme );
-               if ( item.libelle ) html += '<br><small class="text-muted">'+htmlEncode ( item.libelle )+'</small>';
-               return html;
-             }
-          },
+          { data: null, title: 'Mapped on', className: 'align-middle text-center d-none d-md-table-cell', render: MAPPING_Render_Mapped_on },
           { data: 'description', title: 'Description', className: 'align-middle text-center d-none d-lg-table-cell',
             render: function ( item ) { return htmlEncode ( item ); }
           },

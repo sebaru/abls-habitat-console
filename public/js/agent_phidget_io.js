@@ -91,15 +91,7 @@ var PHIDGET_AGENT_TECH_ID = null;
               "render": function (item)
                 { return( item.agent_acronyme ); }
             },
-            { "data": null, "title":"Mapped on", "className": "align-middle text-center d-none d-md-table-cell",
-              "render": function (item)
-                { if(item.tech_id)
-                   { var html = Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + htmlEncode(item.acronyme);
-                     if (item.libelle) html += "<br><small class='text-muted'>" + htmlEncode(item.libelle) + "</small>";
-                     return ( html );
-                   } else return( "--" );
-                }
-            },
+            { "data": null, "title":"Mapped on", "className": "align-middle text-center d-none d-md-table-cell", "render": MAPPING_Render_Mapped_on },
             { "data": "port", "title":"Port", "className": "align-middle text-center d-none d-xl-table-cell" },
             { "data": null, "title":"Capteur/Classe", "className": "align-middle text-center d-none d-lg-table-cell",
               "render": function (item)

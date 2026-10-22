@@ -25,6 +25,15 @@
                            { regex: /\b_[A-Z]*\b/g, token: "type" }, // Variables
                          ];
 
+/********************************************* Affiche le bit DLS mappé et son libellé ****************************************/
+ function MAPPING_Render_Mapped_on ( item )
+  { if ( !item.tech_id ) return '--';
+    var html = Lien ( '/dls/'+item.tech_id, 'Voir la source', item.tech_id )+':' +
+               Lien ( '/courbe/'+item.tech_id+'/'+item.acronyme, 'Voir le graphe', item.acronyme );
+    if ( item.libelle ) html += '<br><small class="text-muted">'+htmlEncode ( item.libelle )+'</small>';
+    return html;
+  }
+
 /********************************************* Supprime un mapping ************************************************************/
  function MAPPING_Unmap ( row_id, table_id, refresh_callback )
   { var mapping = $('#'+table_id).DataTable().row('#'+row_id).data();

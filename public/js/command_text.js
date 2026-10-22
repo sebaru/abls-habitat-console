@@ -42,13 +42,7 @@
 
          columns:
           [ { "data": "agent_acronyme", "title":"Texte Source", "className": "align-middle text-center" },
-            { "data": null, "title":"Mapped on", "className": "align-middle text-center",
-              "render": function (item)
-                { if(item.tech_id)
-                   { return ( Lien ( "/dls/"+item.tech_id, "Voir la source", item.tech_id ) +":" + item.acronyme );
-                   } else return( "--" );
-                }
-            },
+            { "data": null, "title":"Mapped on", "className": "align-middle text-center d-none d-md-table-cell", "render": MAPPING_Render_Mapped_on },
             { "data": null, "title":"Actions", "orderable": false, "render": function (item)
                 { boutons = Bouton_deroulant_start();
                   boutons += Bouton_deroulant_add ( "primary", "Mapper cette commande", "COMMAND_TEXT_Map_DI", item.mapping_id, "directions" );

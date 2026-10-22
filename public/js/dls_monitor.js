@@ -124,7 +124,7 @@
        rowId: "mnemo_di_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
-           { "data": null, "title":"Map on", "className": "align-middle text-center",
+           { "data": null, "title":"Mapped on", "className": "align-middle text-center",
              "render": function (item)
                { if (item.agent_tech_id==null)
                   { if (item.acronyme.endsWith("_CLIC")) return("Clic Synoptique");
@@ -156,7 +156,7 @@
              "render": function (item)
                { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); },
            },
-           { "data": null, "title":"Map on", "className": "align-middle d-none d-md-table-cell ",
+           { "data": null, "title":"Mapped on", "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
                { if (item.agent_tech_id==null) return("Not Mapped");
                  else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
@@ -183,7 +183,7 @@
        rowId: "mnemo_do_id",
        columns:
          [ { "data": "acronyme",   "title":"Acronyme",   "className": "align-middle text-center" },
-           { "data": null, "title":"Map on", "className": "align-middle ",
+           { "data": null, "title":"Mapped on", "className": "align-middle ",
              "render": function (item)
                { if (item.agent_tech_id==null) return("Not Mapped");
                  else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
@@ -211,7 +211,7 @@
              "render": function (item)
               { return ( Lien ("/courbe/"+item.tech_id+"/"+item.acronyme+"/HOUR'", "Voir le graphe", item.acronyme ) ); }
            },
-           { "data": null, "title":"Map on", "className": "align-middle d-none d-md-table-cell ",
+           { "data": null, "title":"Mapped on", "className": "align-middle d-none d-md-table-cell ",
              "render": function (item)
                { if (item.agent_tech_id==null) return("Not Mapped");
                  else return ( Lien ( "/dls/"+item.agent_tech_id, "Voir la source", item.agent_tech_id )+":"+item.agent_acronyme );
