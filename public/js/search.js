@@ -1,7 +1,12 @@
 /********************************************* Appelé au chargement de la page ************************************************/
+ var SEARCH_DebounceTimer = null;
+ var SEARCH_RequestId = 0;
+
  function SEARCH_Rechercher ( )
-  { Send_to_API ( 'GET', "/search", "search="+$("#idSearchQuery").val(), function (Response)
-     { $('#idTableSearchResults').DataTable(
+  { var requestId = ++SEARCH_RequestId;
+    Send_to_API ( 'GET', "/search", "search="+$("#idSearchQuery").val(), function (Response)
+     { if (requestId !== SEARCH_RequestId) return;
+       $('#idTableSearchResults').DataTable(
         { pageLength : 200, destroy: true,
           fixedHeader: true, paging: false, ordering: true, searching: false,
           rowId: "id",
@@ -40,14 +45,31 @@
              }
            ]
         });
-     });
+        });
   }
 
 /********************************************* Appelé au chargement de la page ************************************************/
  function Load_page ()
-  { $('#idSearchQuery').off("enter").on( "enter", () => { SEARCH_Rechercher(); });
-    $('#idSearchQuery').off("input").on( "input", () => { SEARCH_Rechercher(); });
+  { $('#idSearchQuery').off("enter").on( "enter", () =>
+     { if (SEARCH_DebounceTimer !== null) clearTimeout(SEARCH_DebounceTimer);
+       SEARCH_DebounceTimer = null;
+       SEARCH_Rechercher();
+     });
+    $('#idSearchQuery').off("input").on( "input", () =>
+     { SEARCH_RequestId++;
+       if (SEARCH_DebounceTimer !== null) clearTimeout(SEARCH_DebounceTimer);
+       SEARCH_DebounceTimer = setTimeout( () =>
+        { SEARCH_DebounceTimer = null;
+          SEARCH_Rechercher();
+        }, 300);
+     });
     var target = Get_url_parameter( "search" );
     if (target!==null) { $("#idSearchQuery").val(target); SEARCH_Rechercher(); }
+
+    window.Unload_page = function ()
+     { if (SEARCH_DebounceTimer !== null) clearTimeout(SEARCH_DebounceTimer);
+       SEARCH_DebounceTimer = null;
+       SEARCH_RequestId++;
+     };
   }
 /*----------------------------------------------------------------------------------------------------------------------------*/

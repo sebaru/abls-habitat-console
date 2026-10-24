@@ -6,6 +6,13 @@
  var MQTT_Client = null;
  var MQTT_handlers = {};                                                      /* tag du topic -> fonction (target, Response) */
 
+ function Mqtt_set_status ( label, style )
+  { var indicator = document.getElementById("idMqttStatus");
+    if (!indicator) return;
+    indicator.textContent = label;
+    indicator.className = "badge "+style+" ms-2";
+  }
+
 /******************************************************************************************************************************/
 /* Mqtt_subscribe: Souscrit à un topic, relatif au préfixe 'browsers' du domaine                                              */
 /******************************************************************************************************************************/
@@ -43,6 +50,7 @@
 /******************************************************************************************************************************/
  function Load_mqtt ()
   { if (MQTT_Client) return;
+    Mqtt_set_status ( "Connexion MQTT...", "text-bg-warning" );
 
     var domain_uuid = localStorage.getItem("domain_uuid");
     var methode = (localStorage.getItem("mqtt_over_ssl") == 1 ? "wss" : "ws");
@@ -55,9 +63,12 @@
                                        password: sessionStorage.getItem("browser_password"),
                                      });
 
-    MQTT_Client.on('connect',    function ()      { console.log('MQTT Connected'); });
-    MQTT_Client.on('disconnect', function ()      { console.log('MQTT Disconnected'); });
-    MQTT_Client.on('error',      function (error) { console.log('MQTT Error: ' + error); });
+    MQTT_Client.on('connect',    function ()      { console.log('MQTT Connected'); Mqtt_set_status ( "MQTT en ligne", "text-bg-success" ); });
+    MQTT_Client.on('reconnect',  function ()      { Mqtt_set_status ( "MQTT reconnexion", "text-bg-warning" ); });
+    MQTT_Client.on('offline',    function ()      { Mqtt_set_status ( "MQTT hors ligne", "text-bg-danger" ); });
+    MQTT_Client.on('close',      function ()      { Mqtt_set_status ( "MQTT hors ligne", "text-bg-danger" ); });
+    MQTT_Client.on('disconnect', function ()      { console.log('MQTT Disconnected'); Mqtt_set_status ( "MQTT déconnecté", "text-bg-danger" ); });
+    MQTT_Client.on('error',      function (error) { console.log('MQTT Error: ' + error); Mqtt_set_status ( "Erreur MQTT", "text-bg-danger" ); });
 
     MQTT_Client.on('message', function (topic, message)
      { var topics = topic.split("/");
