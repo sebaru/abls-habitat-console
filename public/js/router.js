@@ -474,19 +474,21 @@ var Router = (function () {
 
       return "<li class='breadcrumb-item active' aria-current='page'><span class='breadcrumb-last'>" +
              escapeHtml(segment.label) + "</span></li>";
-    }).join('') + renderHelpButton(path, route);
+    }).join('');
+
+    var helpBox = document.getElementById('idBreadcrumbHelp');
+    if (helpBox) helpBox.innerHTML = renderHelpButton(path, route);
 
     shell.classList.remove('d-none');
   }
 
-  /* Bouton Aide en fin de fil d'Ariane, vers la page DOCS de la route */
+  /* Bouton Aide à droite du fil d'Ariane, vers la page DOCS de la route */
   function renderHelpButton(path, route) {
     var help = route ? ((typeof route.help === 'function') ? route.help(path) : route.help) : null;
     if (!help) return '';
-    return "<li class='ms-auto ps-2 d-flex align-items-center'>" +
-           "<a class='btn btn-sm btn-outline-info py-0' href='" + escapeHtml(DOCS_URL + help) + "' " +
+    return "<a class='btn btn-outline-info' href='" + escapeHtml(DOCS_URL + help) + "' " +
            "target='_blank' rel='noopener noreferrer' title='Aide' aria-label='Aide' data-bs-toggle='tooltip'>" +
-           "<i class='fas fa-question-circle'></i></a></li>";
+           "<i class='fas fa-question-circle'></i></a>";
   }
 
   /* Détruit les instances DataTable existantes avant de changer de vue */
