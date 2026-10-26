@@ -25,6 +25,12 @@
     { Show_toast_ok ( "D.L.S horloge ticks reload requested." );
      }, null );
   }
+/************************************ Recalcule les bits de status des synoptiques ********************************************/
+ function Domain_Recalc_Syn_Status ()
+  { Send_to_API ( "POST", "/syn/recalc_status", null, function(Response)
+     { Show_toast_ok ( "Synoptiques status recalculated." );
+     }, null );
+  }
 /************************************ Vide le tampon des visuels **************************************************************/
  function Api_Reload_Icons ()
   { Send_to_API ( "POST", "/api/reload_icons", null, function(Response)
@@ -71,6 +77,7 @@
     $("#idDomainRemap")          .off("click").click( function () { Domain_Remap_DLS(); } );
     $("#idDomainHorlogeReload")  .off("click").click( function () { Domain_Reload_Horloges_Tick(); } );
     $("#idDomainHorlogeClearVisuel").off("click").click( function () { Domain_Clear_Visuels(); } );
+    $("#idDomainSynRecalcStatus").off("click").click( function () { Domain_Recalc_Syn_Status(); } );
     $("#idApiReloadIcons").off("click").click( function () { Api_Reload_Icons(); } );
     $("#idApiFlushCache").off("click").click( function () { Domain_Flush_Cache(); } );
   }
