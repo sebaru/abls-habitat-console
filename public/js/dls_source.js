@@ -78,7 +78,7 @@
        history: DlsIAHistory.slice(-20),
      };
     $("#idDlsIASend").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Envoi');
-    Send_to_API ( "POST", "/dls/ia/chat", json_request, function(Response)
+    Send_to_API ( "POST", "/ia/chat", json_request, function(Response)
      { var reply = Response.reply || "Aucune réponse textuelle.";
        var message = Dls_IA_append_message ( "assistant", reply );
        if (Response.sourcecode) Dls_IA_add_proposal ( message, Response.sourcecode );
