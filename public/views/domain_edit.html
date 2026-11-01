@@ -98,7 +98,31 @@
            <div class="row mb-2 align-items-center">
              <label class="col-4 col-form-label text-end">Clef d'API Mistral.AI</label>
              <div class="col-8">
-               <input id="idDomainMistralAPIKey" type="text" class="form-control" placeholder="Mistral API Key">
+               <input id="idDomainMistralAPIKey" type="password" class="form-control" autocomplete="new-password" placeholder="Mistral API Key">
+             </div>
+           </div>
+
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Jeton GitHub Models</label>
+             <div class="col-8">
+               <input id="idDomainGithubModelsToken" type="password" class="form-control" autocomplete="new-password" placeholder="GitHub token avec accès Models en lecture">
+             </div>
+           </div>
+
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Fournisseur IA</label>
+             <div class="col-8">
+               <select id="idDomainIAProvider" class="form-select">
+                 <option value="mistral">Mistral API</option>
+                 <option value="github">GitHub Models</option>
+               </select>
+             </div>
+           </div>
+
+           <div class="row mb-2 align-items-center">
+             <label class="col-4 col-form-label text-end">Modèle IA</label>
+             <div class="col-8">
+               <input id="idDomainIAModel" type="text" class="form-control" maxlength="64" placeholder="Modèle par défaut du fournisseur">
              </div>
            </div>
 
