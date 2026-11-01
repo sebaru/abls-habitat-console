@@ -16,8 +16,9 @@ function SERVERCONF_Refresh ()
                     $('#idSERVERCONFAgentCount').text(agents.length);
                     var rows = '';
                     agents.forEach(function(agent)
-                     { rows += '<tr><td>' + htmlEncode(agent.agent_classe || '') + '</td><td>' + htmlEncode(agent.agent_tech_id || '') + '</td><td>' + htmlEncode(agent.description || '') + '</td><td>' + (agent.enable ? 'Oui' : 'Non') + '</td></tr>'; });
-                    if (!rows) rows = '<tr><td colspan="4" class="text-center fst-italic">Aucun agent local</td></tr>';
+                     { rows += '<tr><td>' + htmlEncode(agent.agent_classe || '') + '</td><td>' + htmlEncode(agent.agent_tech_id || '') + '</td><td class="d-none d-md-table-cell">' + htmlEncode(agent.description || '') + '</td><td>' + (agent.enable ? 'Oui' : 'Non') + '</td></tr>'; });
+                    if (!rows) rows = '<tr class="d-md-none"><td colspan="3" class="text-center fst-italic">Aucun agent local</td></tr>' +
+                                     '<tr class="d-none d-md-table-row"><td colspan="4" class="text-center fst-italic">Aucun agent local</td></tr>';
                     $('#idSERVERCONFAgents').html(rows);
                   },
                  function() { Show_shell_error ( "Aucun serveur pour '" + SERVER_UUID + "'." ); } );

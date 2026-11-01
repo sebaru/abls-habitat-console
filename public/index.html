@@ -279,18 +279,6 @@
       <a href="#" id="idHrefVueCliente" class="nav-link rounded" target="_blank"><i class="fas fa-home text-primary"></i> <span> Vue Cliente</span></a>
 
       <li class="nav-item dropdown">
-        <a class="nav-link rounded dropdown-toggle ms-2" href="#" id="navbarDOCS" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-question-circle text-primary"></i> Aide
-        </a>
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUSER">
-          <a class="dropdown-item" href="https://docs.abls-habitat.fr"><i class="fas fa-book"></i> <span> Portail de documentation</span></a>
-          <a class="dropdown-item" href="https://docs.abls-habitat.fr/guide_demarrage/#installation-dun-agent" target="_blank">
-            <i class="fas fa-asterisk text-info"></i> <span>Installer un agent</span>
-          </a>
-        </div>
-      </li>
-
-      <li class="nav-item dropdown">
         <a class="nav-link rounded dropdown-toggle ms-2" href="#" id="navbarUSER" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user  text-warning"></i> <span id="idUsername">-</span>
         </a>
@@ -317,9 +305,12 @@
 <div id="idDomainNotification" class='alert alert-info m-1' style="display:none" role="status"></div>
 
 <div id="idBreadcrumbShell" class="container-fluid px-3 px-lg-4 py-2 wtd-breadcrumb-shell d-none">
-  <nav aria-label="breadcrumb">
-    <ol id="idBreadcrumbList" class="breadcrumb shadow-sm"></ol>
-  </nav>
+  <div class="d-flex align-items-center gap-2">
+    <nav aria-label="breadcrumb" class="flex-grow-1">
+      <ol id="idBreadcrumbList" class="breadcrumb shadow-sm"></ol>
+    </nav>
+    <div id="idBreadcrumbHelp" class="flex-shrink-0"></div>
+  </div>
 </div>
 
 <div id="idShellError" class="container-fluid px-3 px-lg-4 pb-2 wtd-shell-banner d-none">

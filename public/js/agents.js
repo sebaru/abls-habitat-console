@@ -159,7 +159,7 @@
           { "data": null, "title":"Actions", "orderable": false, "className":"align-middle text-center",
             "render": function (item)
              { var boutons = Bouton_deroulant_start();
-               if (item.agent_classe !== "server")
+               if (item.agent_classe !== "server" && item.agent_classe !== "dls")
                 { var def = AGENT_class(item.agent_classe);
                   if (def.set) boutons += Bouton_deroulant_add ( "primary", "Paramètres", "Redirect", AGENT_url ( item.agent_classe, item.agent_tech_id, "parametres" ), "cog" );
                   if (def.tab) boutons += Bouton_deroulant_add ( "primary", AGENT_TABS[def.tab].label, "Redirect",
