@@ -3,6 +3,42 @@
  */
  var AGENT_refresh_timer = null;
  var AGENT_filters = { classe: "", serveur: "", etat: "" };
+ var AGENT_latest_versions = {};
+ var AGENT_version_collator = new Intl.Collator ( undefined, { numeric: true, sensitivity: "base" } );
+
+ function AGENT_version_compare ( a, b )
+  { var normalize = function (version)
+     { var parts = String(version || "").replace(/^\d+:/, "").replace(/^v/i, "")
+                           .replace(/-\d+(?:\.\d+)*$/, "").split(".");
+       while (parts.length > 1 && /^0+$/.test(parts[parts.length - 1])) parts.pop();
+       return( parts.join(".") );
+     };
+    return( AGENT_version_collator.compare ( normalize(a), normalize(b) ) );
+  }
+
+ function AGENT_upgrade_available ( item )
+  { var latest = AGENT_latest_versions["abls-agent-"+item.agent_classe];
+    return( !!latest && !!item.version && AGENT_version_compare ( latest, item.version ) > 0 );
+  }
+
+ function AGENT_load_inventory ()
+  { /* fetch plutôt que $.ajax : $.ajaxSetup ajoute le jeton Authorization, refusé en CORS et à ne pas envoyer à pkgs */
+    fetch ( "https://pkgs.abls-habitat.fr/inventory.json", { credentials: "omit" } )
+     .then ( function (r) { if (!r.ok) throw new Error("HTTP "+r.status); return( r.json() ); } )
+     .then ( function (json)
+      { var latest = {};
+        (json.packages || []).forEach ( function (pkg)
+         { if (!pkg.name || !pkg.version) return;
+           if (!latest[pkg.name] || AGENT_version_compare ( pkg.version, latest[pkg.name] ) > 0)
+            latest[pkg.name] = pkg.version;
+         });
+        AGENT_latest_versions = latest;
+        if ($.fn.dataTable.isDataTable('#idTableAGENT'))
+         $('#idTableAGENT').DataTable().rows().invalidate().draw(false);
+      })
+     .catch ( function (error)
+      { console.error ( "Impossible de charger l'inventaire des paquets ABLS", error ); });
+  }
 
 /********************************************* Etat synthétique d'un agent ***************************************************/
  function AGENT_etat ( item )
@@ -128,7 +164,14 @@
               { if (type === "filter" || type === "sort") return( item.agent_classe );
                 var label = (item.agent_classe === "server" ? "Serveur" : AGENT_class(item.agent_classe).label) +
                             " - " + (item.version || "none");
-                return( Lien ( "/agents?classe="+encodeURIComponent(item.agent_classe || ""), "Filtrer sur cette classe", label ) );
+                var html = Lien ( "/agents?classe="+encodeURIComponent(item.agent_classe || ""), "Filtrer sur cette classe", label );
+                if (AGENT_upgrade_available(item))
+                 { var latest = AGENT_latest_versions["abls-agent-"+item.agent_classe];
+                   html += " <button type='button' class='btn btn-link text-warning p-0 ms-1 agent-upgrade-button'"+
+                           " title='Upgrader vers la version "+htmlEncode(latest)+"'"+
+                           " aria-label='Upgrader vers la version "+htmlEncode(latest)+"'><i class='fas fa-upload'></i></button>";
+                 }
+                return( html );
               }
           },
           { "data": null, "title":"Enable", "className": "align-middle text-center d-none d-md-table-cell",
@@ -167,7 +210,6 @@
                   boutons += Bouton_deroulant_add_spacer();
                 }
                boutons += Bouton_deroulant_add ( "warning", "Tester", "AGENT_test", item.agent_tech_id, "vial" );
-               boutons += Bouton_deroulant_add ( "warning", "Upgrader", "AGENT_upgrade", item.agent_tech_id, "upload" );
                boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "AGENT_restart", item.agent_tech_id, "sync-alt" );
                if (item.agent_classe !== "server")
                 { if (item.is_alive)
@@ -184,11 +226,18 @@
         ],
      });
 
+    AGENT_load_inventory();
+
     $(document).off('change.agentsEnable', '.agent-enable-switch').on('change.agentsEnable', '.agent-enable-switch', function()
       { var agent_tech_id = $(this).data('agent-tech-id');
         var newState = $(this).is(':checked');
         if (newState) AGENT_set_enable(agent_tech_id);
         else AGENT_set_disable(agent_tech_id);
+      });
+
+    $(document).off('click.agentsUpgrade', '.agent-upgrade-button').on('click.agentsUpgrade', '.agent-upgrade-button', function()
+      { var item = $('#idTableAGENT').DataTable().row($(this).closest('tr')).data();
+        if (item) AGENT_upgrade(item.agent_tech_id);
       });
 
     AGENT_start_auto_refresh();
