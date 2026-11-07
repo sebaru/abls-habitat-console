@@ -112,6 +112,26 @@
        AGENT_refresh();
      }, 30000 );
   }
+
+ function AGENT_on_mqtt ( type, msg )
+  { if (!msg || !msg.agent_tech_id || typeof $ === "undefined" || !$.fn.dataTable ||
+         !$.fn.dataTable.isDataTable('#idTableAGENT')) return;
+    var table = $('#idTableAGENT').DataTable();
+    var rows = table.rows ( function (index, data)
+     { return ( data.agent_tech_id === msg.agent_tech_id ); } );
+    if (!rows.count()) return;
+
+    rows.every ( function ()
+     { var item = this.data();
+       if (type === "STATUS") item.agent_status = msg.status || "-";
+       else if (type === "HEARTBEAT")
+        { item.is_alive = true;
+          item.mqtt_local_connected = !!msg.mqtt_local_connected;
+        }
+       this.data(item);
+     });
+    table.draw(false);
+  }
 /********************************************* Lien vers la page d'un agent ***************************************************/
  function AGENT_link ( item, texte, tooltip )
   { if (item.agent_classe === "server")
@@ -128,6 +148,11 @@
     if (legacy) AGENT_filters_to_url();
     $('#idAgentsFilterEtat').val(AGENT_filters.etat);
     $('#idAgentsFilterClasse, #idAgentsFilterServeur, #idAgentsFilterEtat').off('change').on('change', AGENT_filters_changed);
+
+    Load_mqtt();
+    Mqtt_set_handler ( "AGENT", AGENT_on_mqtt );
+    Mqtt_subscribe ( "AGENT/STATUS" );
+    Mqtt_subscribe ( "AGENT/HEARTBEAT" );
 
     var menu = "";
     Object.keys(AGENT_CLASSES).forEach ( function (classe)
@@ -243,6 +268,9 @@
     AGENT_start_auto_refresh();
     window.Unload_page = function ()
      { if (AGENT_refresh_timer) { clearInterval(AGENT_refresh_timer); AGENT_refresh_timer = null; }
+       Mqtt_unsubscribe ( "AGENT/STATUS" );
+       Mqtt_unsubscribe ( "AGENT/HEARTBEAT" );
+       Mqtt_unset_handler ( "AGENT" );
        AGENT_on_change = null;
      };
   }

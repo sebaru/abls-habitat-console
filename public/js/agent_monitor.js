@@ -77,12 +77,29 @@
     $("#idAgentMonitorPeriod").replaceWith ( Select ( "idAgentMonitorPeriod", null, PeriodeTableau, "BY_HOUR_ON_2_WEEKS" ) );
     $("#idAgentMonitorPeriod").off("change").on("change", Agent_monitor_refresh_curves );
 
+    Load_mqtt();
+    Mqtt_set_handler ( "AGENT", function ( type, msg )
+     { if (!msg || msg.agent_tech_id !== techId) return;
+       if (type === "STATUS") $("#idAgentMonitorStatus").text( msg.status || "-" );
+       else if (type === "HEARTBEAT")
+        { $("#idAgentMonitorHeartbeat").html( Badge("success", "Agent actif", "UP") );
+          if (msg.mqtt_local_connected) $("#idAgentMonitorMqttLocal").html( Badge("success", "Connecté", "Connecté") );
+                                       else $("#idAgentMonitorMqttLocal").html( Badge("danger", "Déconnecté", "Déconnecté") );
+        }
+     });
+    Mqtt_subscribe ( "AGENT/STATUS" );
+    Mqtt_subscribe ( "AGENT/HEARTBEAT" );
+
     Agent_monitor_refresh_status();
     Agent_monitor_refresh_curves();
 
     if (AgentMonitorTimer) clearInterval(AgentMonitorTimer);
     AgentMonitorTimer = setInterval( Agent_monitor_tick, 10000 );
     window.Unload_page = function ()
-     { if (AgentMonitorTimer) { clearInterval(AgentMonitorTimer); AgentMonitorTimer = null; } };
+     { if (AgentMonitorTimer) { clearInterval(AgentMonitorTimer); AgentMonitorTimer = null; }
+       Mqtt_unsubscribe ( "AGENT/STATUS" );
+       Mqtt_unsubscribe ( "AGENT/HEARTBEAT" );
+       Mqtt_unset_handler ( "AGENT" );
+     };
   }
 /******************************************************************************************************************************/
