@@ -1,9 +1,9 @@
 /* agents.js
  * Liste globale des agents, filtrable par classe, serveur et état (synchronisés avec l'URL).
  */
- var AGENT_refresh_timer = null;
  var AGENT_filters = { classe: "", serveur: "", etat: "" };
  var AGENT_latest_versions = {};
+ var AGENT_live_states = {};
  var AGENT_version_collator = new Intl.Collator ( undefined, { numeric: true, sensitivity: "base" } );
 
  function AGENT_version_compare ( a, b )
@@ -43,7 +43,7 @@
 /********************************************* Etat synthétique d'un agent ***************************************************/
  function AGENT_etat ( item )
   { if (!item.enable) return("DISABLED");
-    return ( item.is_alive ? "UP" : "DOWN" );
+    return ( AGENT_is_alive(item) ? "UP" : "DOWN" );
   }
 /********************************************* Filtres <-> URL ****************************************************************/
  function AGENT_filters_to_url ()
@@ -101,36 +101,38 @@
     $('#idTableAGENT').DataTable().ajax.reload(null, false);
   }
 
- function AGENT_start_auto_refresh ()
-  { if (AGENT_refresh_timer) clearInterval(AGENT_refresh_timer);
-    AGENT_refresh_timer = setInterval( function ()
-     { if (window.location.pathname !== '/agents')
-        { clearInterval(AGENT_refresh_timer);
-          AGENT_refresh_timer = null;
-          return;
-        }
-       AGENT_refresh();
-     }, 30000 );
-  }
-
- function AGENT_on_mqtt ( type, msg )
-  { if (!msg || !msg.agent_tech_id || typeof $ === "undefined" || !$.fn.dataTable ||
-         !$.fn.dataTable.isDataTable('#idTableAGENT')) return;
+ function AGENT_list_on_live ( type, msg )
+  { if (type === "RECONNECT") { AGENT_refresh(); return; }
+    if (typeof $ === "undefined" || !$.fn.dataTable ||
+        !$.fn.dataTable.isDataTable('#idTableAGENT')) return;
     var table = $('#idTableAGENT').DataTable();
-    var rows = table.rows ( function (index, data)
-     { return ( data.agent_tech_id === msg.agent_tech_id ); } );
-    if (!rows.count()) return;
-
-    rows.every ( function ()
+    if (type === "HEARTBEAT" || type === "STATUS")
+     { if (!msg || !msg.agent_tech_id) return;
+       var rows = table.rows ( function (index, data) { return(data.agent_tech_id === msg.agent_tech_id); } );
+       if (!rows.count()) return;
+       rows.every ( function ()
+        { var item = this.data();
+          AGENT_live_apply(item);
+          if (type === "STATUS") item.agent_status = msg.status || "-";
+          this.data(item);
+          AGENT_live_states[item.agent_tech_id] = AGENT_etat(item);
+        });
+       table.draw(false);
+       return;
+     }
+    if (type !== "TICK") return;
+    var changed = false;
+    table.rows().every ( function ()
      { var item = this.data();
-       if (type === "STATUS") item.agent_status = msg.status || "-";
-       else if (type === "HEARTBEAT")
-        { item.is_alive = true;
-          item.mqtt_local_connected = !!msg.mqtt_local_connected;
+       AGENT_live_apply(item);
+       var state = AGENT_etat(item);
+       if (AGENT_live_states[item.agent_tech_id] !== state)
+        { AGENT_live_states[item.agent_tech_id] = state;
+          this.invalidate();
+          changed = true;
         }
-       this.data(item);
      });
-    table.draw(false);
+    if (changed) table.draw(false);
   }
 /********************************************* Lien vers la page d'un agent ***************************************************/
  function AGENT_link ( item, texte, tooltip )
@@ -149,10 +151,7 @@
     $('#idAgentsFilterEtat').val(AGENT_filters.etat);
     $('#idAgentsFilterClasse, #idAgentsFilterServeur, #idAgentsFilterEtat').off('change').on('change', AGENT_filters_changed);
 
-    Load_mqtt();
-    Mqtt_set_handler ( "AGENT", AGENT_on_mqtt );
-    Mqtt_subscribe ( "AGENT/STATUS" );
-    Mqtt_subscribe ( "AGENT/HEARTBEAT" );
+    AGENT_live_subscribe ( AGENT_list_on_live );
 
     var menu = "";
     Object.keys(AGENT_CLASSES).forEach ( function (classe)
@@ -169,7 +168,14 @@
      { pageLength : 50,
        fixedHeader: true, paging: false, ordering: true, searching: true,
        ajax: { url : $ABLS_API+"/agent/list", type : "GET", contentType: "application/json",
-               dataSrc: function (json) { AGENT_filters_populate ( json.agents || [] ); return ( json.agents || [] ); },
+               dataSrc: function (json)
+                { var agents = json.agents || [];
+                  AGENT_live_states = {};
+                  agents.forEach ( function (item)
+                   { AGENT_heartbeat_load(item); AGENT_live_states[item.agent_tech_id] = AGENT_etat(item); });
+                  AGENT_filters_populate ( agents );
+                  return(agents);
+                },
                error: function ( xhr, status, error ) { Show_shell_error(xhr.statusText); }
              },
        initComplete: AGENT_filters_apply,
@@ -210,8 +216,10 @@
           { "data": null, "title":"Etat", "className": "align-middle text-center d-none d-md-table-cell",
             "render": function (item, type)
               { if (type === "filter" || type === "sort") return( AGENT_etat(item) );
-                var ioBadge = Badge( (item.is_alive ? "success" : (item.enable ? "danger" : "secondary")), "Etat", (item.is_alive ? "UP" : "DOWN") );
-                var mqttLocalBadge = Badge( (item.is_alive && item.mqtt_local_connected) ? "success" : "secondary", "MQTT Local", "MQTT Local" );
+                var alive = AGENT_is_alive(item);
+                var ioBadge = Badge( (alive ? "success" : (item.enable ? "danger" : "secondary")),
+                                     "Dernier heartbeat : "+AGENT_heartbeat_display(item.heartbeat_time), (alive ? "UP" : "DOWN") );
+                var mqttLocalBadge = Badge( (alive && item.mqtt_local_connected) ? "success" : "secondary", "MQTT Local", "MQTT Local" );
                 return( ioBadge + " " + mqttLocalBadge );
               },
           },
@@ -237,7 +245,7 @@
                boutons += Bouton_deroulant_add ( "warning", "Tester", "AGENT_test", item.agent_tech_id, "vial" );
                boutons += Bouton_deroulant_add ( "warning", "Redémarrer", "AGENT_restart", item.agent_tech_id, "sync-alt" );
                if (item.agent_classe !== "server")
-                { if (item.is_alive)
+                { if (AGENT_is_alive(item))
                    { boutons += Bouton_deroulant_add ( "danger", "Arrêter",   "AGENT_stop", item.agent_tech_id, "stop" ); }
                   else
                    { boutons += Bouton_deroulant_add ( "success", "Démarrer", "AGENT_start", item.agent_tech_id, "play" ); }
@@ -265,12 +273,8 @@
         if (item) AGENT_upgrade(item.agent_tech_id);
       });
 
-    AGENT_start_auto_refresh();
     window.Unload_page = function ()
-     { if (AGENT_refresh_timer) { clearInterval(AGENT_refresh_timer); AGENT_refresh_timer = null; }
-       Mqtt_unsubscribe ( "AGENT/STATUS" );
-       Mqtt_unsubscribe ( "AGENT/HEARTBEAT" );
-       Mqtt_unset_handler ( "AGENT" );
+     { AGENT_live_unsubscribe ( AGENT_list_on_live );
        AGENT_on_change = null;
      };
   }

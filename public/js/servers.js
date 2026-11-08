@@ -103,7 +103,8 @@
           },
           { "data": null, "title":"Start/Heartbeat", "className": "align-middle text-center d-none d-xl-table-cell",
             "render": function (item)
-              { return( htmlEncode(item.start_time) +"<br>"+ htmlEncode(item.heartbeat_time) );
+              { return( htmlEncode(AGENT_datetime_display(item.start_time)) +"<br>"+
+                        htmlEncode(AGENT_heartbeat_display(item.heartbeat_time)) );
               }
           },
           { "data": null, "title":"Description", "className": "align-middle d-none d-lg-table-cell",

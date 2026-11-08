@@ -2,16 +2,28 @@
  * Monitoring et rafraichissement des informations d'un agent.
  */
 
- var AgentMonitorTimer = null;
+ var AgentMonitor_agent = null;
+ var AgentMonitor_alive = null;
 /******************************************************************************************************************************/
  function Agent_monitor_get_tech_id ()
   { var agent = AGENT_from_path();
     return ( agent ? agent.agent_tech_id : null );
   }
 /******************************************************************************************************************************/
- function Agent_monitor_format_datetime ( value )
-  { if (!value || value === "0000-00-00 00:00:00") return("-");
-    return(value);
+ function Agent_monitor_render ()
+  { var agent = AgentMonitor_agent;
+    if (!agent) return;
+    var alive = AGENT_is_alive(agent);
+    var heartbeat = AGENT_heartbeat_display(agent.heartbeat_time);
+    $("#idAgentMonitorServerHostname").text(agent.server_hostname || "-");
+    $("#idAgentMonitorStatus").text(agent.agent_status || "-");
+    $("#idAgentMonitorHeartbeat").html(
+        Badge(alive ? "success" : "danger", "Dernier heartbeat : "+heartbeat, alive ? "UP" : "DOWN")+
+        " <span class='ms-2'>"+htmlEncode(heartbeat)+"</span>" );
+    if (agent.mqtt_local_connected) $("#idAgentMonitorMqttLocal").html( Badge("success", "Connecté", "Connecté") );
+                                  else $("#idAgentMonitorMqttLocal").html( Badge("danger", "Déconnecté", "Déconnecté") );
+    $("#idAgentMonitorStartTime").text( AGENT_datetime_display(agent.start_time) );
+    AgentMonitor_alive = alive;
   }
 /******************************************************************************************************************************/
  function Agent_monitor_refresh_status ()
@@ -25,19 +37,20 @@
           $("#idAgentMonitorHeartbeat").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
           $("#idAgentMonitorStartTime").text("-");
-          Show_shell_error("Aucun agent trouvé pour '"+techId+"'.");
-          return;
-        }
+        AgentMonitor_agent = null;
+        AgentMonitor_alive = null;
+        Show_shell_error("Aucun agent trouvé pour '"+techId+"'.");
+        return;
+      }
 
-       $("#idAgentMonitorServerHostname").text(agent.server_hostname || "-");
-       $("#idAgentMonitorStatus").text(agent.agent_status || "-");
-       if (agent.is_alive) $("#idAgentMonitorHeartbeat").html( Badge("success", "Agent actif", "UP") );
-                    else $("#idAgentMonitorHeartbeat").html( Badge("danger", "Agent inactif", "DOWN") );
-       if (agent.mqtt_local_connected) $("#idAgentMonitorMqttLocal").html( Badge("success", "Connecté", "Connecté") );
-                                     else $("#idAgentMonitorMqttLocal").html( Badge("danger", "Déconnecté", "Déconnecté") );
-       $("#idAgentMonitorStartTime").text( Agent_monitor_format_datetime(agent.start_time) );
+     if (Agent_monitor_get_tech_id() !== techId) return;
+     AgentMonitor_agent = AGENT_heartbeat_load(agent);
+     Agent_monitor_render();
      }, function ()
-     { $("#idAgentMonitorServerHostname").text("Inconnu");
+     { if (Agent_monitor_get_tech_id() !== techId) return;
+     AgentMonitor_agent = null;
+     AgentMonitor_alive = null;
+     $("#idAgentMonitorServerHostname").text("Inconnu");
        $("#idAgentMonitorStatus").html( Badge("secondary", "Status inconnu", "N/A") );
        $("#idAgentMonitorHeartbeat").html( Badge("secondary", "Etat inconnu", "N/A") );
        $("#idAgentMonitorMqttLocal").html( Badge("secondary", "Etat inconnu", "N/A") );
@@ -63,8 +76,19 @@
     Agent_monitor_refresh_curves();
   }
 /******************************************************************************************************************************/
- function Agent_monitor_tick ()
-  { Agent_monitor_refresh_status();
+ function Agent_monitor_on_live ( type, msg )
+  { if (type === "RECONNECT") { Agent_monitor_refresh_status(); return; }
+    if (!AgentMonitor_agent) return;
+    if (type === "HEARTBEAT" || type === "STATUS")
+     { if (!msg || msg.agent_tech_id !== AgentMonitor_agent.agent_tech_id) return;
+       AGENT_live_apply(AgentMonitor_agent);
+       if (type === "STATUS") AgentMonitor_agent.agent_status = msg.status || "-";
+       Agent_monitor_render();
+     }
+    else if (type === "TICK")
+     { var alive = AGENT_is_alive(AgentMonitor_agent);
+       if (alive !== AgentMonitor_alive) Agent_monitor_render();
+     }
   }
 /******************************************************************************************************************************/
  function Load_page ()
@@ -77,29 +101,15 @@
     $("#idAgentMonitorPeriod").replaceWith ( Select ( "idAgentMonitorPeriod", null, PeriodeTableau, "BY_HOUR_ON_2_WEEKS" ) );
     $("#idAgentMonitorPeriod").off("change").on("change", Agent_monitor_refresh_curves );
 
-    Load_mqtt();
-    Mqtt_set_handler ( "AGENT", function ( type, msg )
-     { if (!msg || msg.agent_tech_id !== techId) return;
-       if (type === "STATUS") $("#idAgentMonitorStatus").text( msg.status || "-" );
-       else if (type === "HEARTBEAT")
-        { $("#idAgentMonitorHeartbeat").html( Badge("success", "Agent actif", "UP") );
-          if (msg.mqtt_local_connected) $("#idAgentMonitorMqttLocal").html( Badge("success", "Connecté", "Connecté") );
-                                       else $("#idAgentMonitorMqttLocal").html( Badge("danger", "Déconnecté", "Déconnecté") );
-        }
-     });
-    Mqtt_subscribe ( "AGENT/STATUS" );
-    Mqtt_subscribe ( "AGENT/HEARTBEAT" );
+    AGENT_live_subscribe ( Agent_monitor_on_live );
 
     Agent_monitor_refresh_status();
     Agent_monitor_refresh_curves();
 
-    if (AgentMonitorTimer) clearInterval(AgentMonitorTimer);
-    AgentMonitorTimer = setInterval( Agent_monitor_tick, 10000 );
     window.Unload_page = function ()
-     { if (AgentMonitorTimer) { clearInterval(AgentMonitorTimer); AgentMonitorTimer = null; }
-       Mqtt_unsubscribe ( "AGENT/STATUS" );
-       Mqtt_unsubscribe ( "AGENT/HEARTBEAT" );
-       Mqtt_unset_handler ( "AGENT" );
+     { AGENT_live_unsubscribe ( Agent_monitor_on_live );
+       AGENT_Header_unload();
+       AgentMonitor_agent = null;
      };
   }
 /******************************************************************************************************************************/
