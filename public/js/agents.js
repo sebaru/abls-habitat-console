@@ -106,14 +106,13 @@
     if (typeof $ === "undefined" || !$.fn.dataTable ||
         !$.fn.dataTable.isDataTable('#idTableAGENT')) return;
     var table = $('#idTableAGENT').DataTable();
-    if (type === "HEARTBEAT" || type === "STATUS")
+    if (type === "STATUS")
      { if (!msg || !msg.agent_tech_id) return;
        var rows = table.rows ( function (index, data) { return(data.agent_tech_id === msg.agent_tech_id); } );
        if (!rows.count()) return;
        rows.every ( function ()
         { var item = this.data();
           AGENT_live_apply(item);
-          if (type === "STATUS") item.agent_status = msg.status || "-";
           this.data(item);
           AGENT_live_states[item.agent_tech_id] = AGENT_etat(item);
         });
@@ -218,7 +217,7 @@
               { if (type === "filter" || type === "sort") return( AGENT_etat(item) );
                 var alive = AGENT_is_alive(item);
                 var ioBadge = Badge( (alive ? "success" : (item.enable ? "danger" : "secondary")),
-                                     "Dernier heartbeat : "+AGENT_heartbeat_display(item.heartbeat_time), (alive ? "UP" : "DOWN") );
+                                     AGENT_state_tooltip(item), (alive ? "UP" : "DOWN") );
                 var mqttLocalBadge = Badge( (alive && item.mqtt_local_connected) ? "success" : "secondary", "MQTT Local", "MQTT Local" );
                 return( ioBadge + " " + mqttLocalBadge );
               },

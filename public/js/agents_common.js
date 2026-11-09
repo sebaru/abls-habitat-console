@@ -126,6 +126,10 @@
      }
     if (live.mqtt_local_connected === undefined || live.mqtt_received_ms === undefined)
      live.mqtt_local_connected = !!agent.mqtt_local_connected;
+    if (live.status_received_ms === undefined)                                  /* Un STATUS MQTT reçu prime sur le REST */
+     { if (agent.agent_status !== undefined) live.agent_status = agent.agent_status;
+       if (agent.agent_alive  !== undefined) live.agent_alive  = !!agent.agent_alive;
+     }
     AGENT_live_agents[id] = live;
     AGENT_live_apply ( agent );
     return(agent);
@@ -138,11 +142,14 @@
     if (live.heartbeat_ms !== undefined) agent.heartbeat_ms = live.heartbeat_ms;
     if (live.heartbeat_time !== undefined) agent.heartbeat_time = live.heartbeat_time;
     if (live.mqtt_local_connected !== undefined) agent.mqtt_local_connected = live.mqtt_local_connected;
+    if (live.agent_status !== undefined) agent.agent_status = live.agent_status;
+    if (live.agent_alive !== undefined) agent.agent_alive = live.agent_alive;
   }
 
  function AGENT_is_alive ( agent )
   { if (!agent) return(false);
     AGENT_live_apply(agent);
+    if (agent.agent_alive !== undefined && !agent.agent_alive) return(false);
     var heartbeat_ms = (typeof agent.heartbeat_ms === "number") ? agent.heartbeat_ms :
                        (AGENT_parse_datetime(agent.heartbeat_time) || {}).getTime();
     return (typeof heartbeat_ms === "number" && Date.now() - heartbeat_ms < AGENT_HEARTBEAT_TIMEOUT_MS);
@@ -158,18 +165,32 @@
     return (date ? date.toLocaleString() : "Aucun heartbeat reçu");
   }
 
+ function AGENT_state_tooltip ( agent )
+  { if (agent) AGENT_live_apply(agent);
+    var heartbeat = "Dernier heartbeat : "+AGENT_heartbeat_display(agent ? agent.heartbeat_time : null);
+    if (!agent || agent.agent_alive === undefined || agent.agent_alive) return(heartbeat);
+    if (agent.agent_status === "dead") return("Connexion perdue · "+heartbeat);
+    return("Arrêté : "+(agent.agent_status || "-")+" · "+heartbeat);
+  }
+
  function AGENT_live_dispatch ( type, msg )
   { AGENT_live_subscribers.slice().forEach ( function (callback) { callback(type, msg); } ); }
 
  function AGENT_live_on_message ( type, msg )
-  { if (!msg || !msg.agent_tech_id) return;
+  { if (type !== "STATUS" || !msg || !msg.agent_tech_id) return;
     var live = AGENT_live_agents[msg.agent_tech_id] || {};
-    if (type === "HEARTBEAT")
-     { live.heartbeat_ms = Date.now();
+    var now = Date.now();
+    if (msg.status !== undefined) live.agent_status = msg.status;
+    if (typeof msg.alive === "boolean") live.agent_alive = msg.alive;
+    if (msg.heartbeat_time !== undefined)                        /* Horloge navigateur : insensible au décalage avec l'API */
+     { live.heartbeat_ms = now;
        live.heartbeat_time = msg.heartbeat_time;
-       live.mqtt_local_connected = !!msg.mqtt_local_connected;
-       live.mqtt_received_ms = live.heartbeat_ms;
      }
+    if (msg.mqtt_local_connected !== undefined)
+     { live.mqtt_local_connected = !!msg.mqtt_local_connected;
+       live.mqtt_received_ms = now;
+     }
+    live.status_received_ms = now;
     AGENT_live_agents[msg.agent_tech_id] = live;
     AGENT_live_dispatch ( type, msg );
   }
@@ -179,8 +200,10 @@
     AGENT_live_online = true;
     AGENT_live_was_connected = true;
     Mqtt_subscribe ( "AGENT/STATUS" );
-    Mqtt_subscribe ( "AGENT/HEARTBEAT" );
-    if (reconnect) AGENT_live_dispatch ( "RECONNECT", null );
+    if (reconnect)                                     /* STATUS manqués pendant la coupure : le REST redevient la référence */
+     { AGENT_live_agents = {};
+       AGENT_live_dispatch ( "RECONNECT", null );
+     }
   }
 
  function AGENT_live_on_offline ()
@@ -202,7 +225,6 @@
     if (AGENT_live_online)
      { AGENT_live_was_connected = true;
        Mqtt_subscribe ( "AGENT/STATUS" );
-       Mqtt_subscribe ( "AGENT/HEARTBEAT" );
      }
     AGENT_live_timer = setInterval ( AGENT_live_tick, 1000 );
   }
@@ -215,7 +237,6 @@
        MQTT_Client.removeListener ( "close", AGENT_live_on_offline );
      }
     Mqtt_unsubscribe ( "AGENT/STATUS" );
-    Mqtt_unsubscribe ( "AGENT/HEARTBEAT" );
     Mqtt_unset_handler ( "AGENT" );
     AGENT_live_online = false;
     AGENT_live_was_connected = false;
@@ -329,10 +350,9 @@
      { if (type === "RECONNECT")
         { AGENT_Header_refresh ( classe, agent_tech_id ); return; }
        if (!AGENT_header_agent) return;
-       if (type === "HEARTBEAT" || type === "STATUS")
+       if (type === "STATUS")
         { if (!msg || msg.agent_tech_id !== agent_tech_id) return;
           AGENT_live_apply ( AGENT_header_agent );
-          if (type === "STATUS") AGENT_header_agent.agent_status = msg.status || "-";
           AGENT_Header_render ( classe );
           AGENT_header_alive = AGENT_is_alive ( AGENT_header_agent );
         }
@@ -360,8 +380,7 @@
   { var agent = AGENT_header_agent;
     if (!agent) return;
     var alive = AGENT_is_alive(agent);
-    var heartbeat = AGENT_heartbeat_display(agent.heartbeat_time);
-    var badges = Badge ( alive ? "success" : (agent.enable ? "danger" : "secondary"), "Dernier heartbeat : "+heartbeat, alive ? "UP" : "DOWN" );
+    var badges = Badge ( alive ? "success" : (agent.enable ? "danger" : "secondary"), AGENT_state_tooltip(agent), alive ? "UP" : "DOWN" );
     if (!agent.enable) badges += " " + Badge ( "secondary", "Agent désactivé", "Désactivé" );
     $('#idAgentHeaderBadges').html(badges);
     $('#idAgentHeaderInfo').text ( (agent.description || "-") + " · serveur " + (agent.server_hostname || "-") +

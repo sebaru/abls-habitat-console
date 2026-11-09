@@ -31,8 +31,7 @@ function SERVERCONF_Render ()
    var server = SERVERCONF_server;
    var alive = AGENT_is_alive(server);
    var heartbeat = AGENT_heartbeat_display(server.heartbeat_time);
-   $('#idSERVERCONFStatus').html(alive ? Badge('success', 'Dernier heartbeat : '+heartbeat, 'UP')
-                                       : Badge('danger', 'Dernier heartbeat : '+heartbeat, 'DOWN'));
+   $('#idSERVERCONFStatus').html(Badge(alive ? 'success' : 'danger', AGENT_state_tooltip(server), alive ? 'UP' : 'DOWN'));
    $('#idSERVERCONFHeartbeat').text(heartbeat);
    SERVERCONF_alive = alive;
  }
@@ -40,7 +39,7 @@ function SERVERCONF_Render ()
 function SERVERCONF_on_live ( type, msg )
  { if (type === 'RECONNECT') { SERVERCONF_Refresh(); return; }
    if (!SERVERCONF_server) return;
-   if (type === 'HEARTBEAT' || type === 'STATUS')
+   if (type === 'STATUS')
     { if (!msg || msg.agent_tech_id !== SERVERCONF_server.agent_tech_id) return;
       AGENT_live_apply(SERVERCONF_server);
       SERVERCONF_Render();

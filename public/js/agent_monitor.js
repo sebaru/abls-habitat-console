@@ -18,7 +18,7 @@
     $("#idAgentMonitorServerHostname").text(agent.server_hostname || "-");
     $("#idAgentMonitorStatus").text(agent.agent_status || "-");
     $("#idAgentMonitorHeartbeat").html(
-        Badge(alive ? "success" : "danger", "Dernier heartbeat : "+heartbeat, alive ? "UP" : "DOWN")+
+        Badge(alive ? "success" : "danger", AGENT_state_tooltip(agent), alive ? "UP" : "DOWN")+
         " <span class='ms-2'>"+htmlEncode(heartbeat)+"</span>" );
     if (agent.mqtt_local_connected) $("#idAgentMonitorMqttLocal").html( Badge("success", "Connecté", "Connecté") );
                                   else $("#idAgentMonitorMqttLocal").html( Badge("danger", "Déconnecté", "Déconnecté") );
@@ -79,10 +79,9 @@
  function Agent_monitor_on_live ( type, msg )
   { if (type === "RECONNECT") { Agent_monitor_refresh_status(); return; }
     if (!AgentMonitor_agent) return;
-    if (type === "HEARTBEAT" || type === "STATUS")
+    if (type === "STATUS")
      { if (!msg || msg.agent_tech_id !== AgentMonitor_agent.agent_tech_id) return;
        AGENT_live_apply(AgentMonitor_agent);
-       if (type === "STATUS") AgentMonitor_agent.agent_status = msg.status || "-";
        Agent_monitor_render();
      }
     else if (type === "TICK")
