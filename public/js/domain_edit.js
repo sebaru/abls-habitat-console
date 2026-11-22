@@ -60,7 +60,6 @@
          git_repo_url  : $("#idDomainGitRepoURL").val(),
          git_repo_token: $("#idDomainGitRepoToken").val(),
          mistral_api_key: $("#idDomainMistralAPIKey").val(),
-         github_models_token: $("#idDomainGithubModelsToken").val(),
          ia_provider   : $("#idDomainIAProvider").val(),
          ia_model      : $("#idDomainIAModel").val(),
          syn_main_libelle: $("#idDomainSynMainLibelle").val(),
@@ -113,8 +112,6 @@
        $("#idDomainGitRepoURL").val( Response.git_repo_url );
        $("#idDomainGitRepoToken").val( "" );
        $("#idDomainMistralAPIKey").val( "" );
-      $("#idDomainGithubModelsToken").val( "" );
-      $("#idDomainGithubModelsToken").attr( "placeholder", Response.has_github_models_token ? "Jeton enregistré, laisser vide pour le conserver" : "GitHub token avec accès Models en lecture" );
       $("#idDomainMistralAPIKey").attr( "placeholder", Response.has_mistral_api_key ? "Clé enregistrée, laisser vide pour la conserver" : "Mistral API Key" );
       $("#idDomainIAProvider").val( Response.ia_provider || "mistral" );
       $("#idDomainIAModel").val( Response.ia_model || "" );
