@@ -30,6 +30,8 @@ Mixed controls must fit their container (`mw-100` for bounded widths), and modal
 
 Check action heights, wrapping, dropdowns and disabled/loading states on narrow and wide screens when changing these controls.
 
+The user menu in the top navigation shows the user's initials; hovering or focusing it reveals their full name.
+
 ## Installation with apache Httpd
 
 Make sure apache, php and composer packages are installed. Then follow these command lines:
