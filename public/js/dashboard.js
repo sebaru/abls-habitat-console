@@ -38,10 +38,6 @@
        $("#idCacheErrors").text(Response.cache_errors);
        $("#idCacheHitRatio").text(Response.cache_hit_ratio.toFixed(1));
        $("#idCacheGeneration").text(Response.cache_generation);
-       $("#idMasterCacheHits").text(Response.master_cache_hits);
-       $("#idMasterCacheMisses").text(Response.master_cache_misses);
-       $("#idMasterCacheErrors").text(Response.master_cache_errors);
-       $("#idMasterCacheHitRatio").text(Response.master_cache_hit_ratio.toFixed(1));
      });
 
     Charger_une_courbe ( "idCourbeDlsTourParSec", "SYS", "TOUR_PAR_SEC", "BY_10_MINUTE_ON_3_DAYS", "AVG" );

@@ -37,6 +37,11 @@
     API_Status_Set_badge ( "idApiStatusMqtt",    Response.mqtt_connected,   "Connecté", "Déconnecté", "text-bg-danger" );
     API_Status_Set_badge ( "idApiStatusDbCache", Response.db_cache_enabled, "Actif",    "Désactivé",  "text-bg-warning" );
 
+    $('#idApiStatusMasterCacheHits').val     ( Response.master_cache_hits );
+    $('#idApiStatusMasterCacheMisses').val   ( Response.master_cache_misses );
+    $('#idApiStatusMasterCacheErrors').val   ( Response.master_cache_errors );
+    $('#idApiStatusMasterCacheHitRatio').val ( Response.master_cache_hit_ratio.toFixed(1) );
+
     $('#idApiStatusIdpUrl').val   ( Response.idp_url );
     $('#idApiStatusIdpRealm').val ( Response.idp_realm );
     $('#idApiStatusWhisperUrl').val ( Response.whisper_url );

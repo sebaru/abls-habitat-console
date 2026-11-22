@@ -109,6 +109,30 @@
 
   <div class="col-12 col-lg-6">
    <div class="card h-100">
+     <div class="card-header"> <i class="fas fa-database text-primary"></i> <label>Cache master</label> </div>
+     <div class="card-body">
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Hits</label>
+         <div class="col-7"><input id="idApiStatusMasterCacheHits" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Misses</label>
+         <div class="col-7"><input id="idApiStatusMasterCacheMisses" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Erreurs</label>
+         <div class="col-7"><input id="idApiStatusMasterCacheErrors" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">% de hits</label>
+         <div class="col-7"><input id="idApiStatusMasterCacheHitRatio" type="text" disabled class="form-control"></div>
+       </div>
+     </div>
+   </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+   <div class="card h-100">
      <div class="card-header"> <i class="fas fa-network-wired text-primary"></i> <label>Pool HTTP</label> </div>
      <div class="card-body">
        <div class="mb-1">Threads occupés : <strong id="idApiStatusHttpBusyText">-</strong></div>
