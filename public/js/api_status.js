@@ -39,6 +39,7 @@
 
     $('#idApiStatusIdpUrl').val   ( Response.idp_url );
     $('#idApiStatusIdpRealm').val ( Response.idp_realm );
+    $('#idApiStatusWhisperUrl').val ( Response.whisper_url );
 
     $('#idApiStatusNbrDomains').val ( Response.nbr_domains );
     $('#idApiStatusNbrIcons').val   ( Response.nbr_icons );
