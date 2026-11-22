@@ -17,7 +17,8 @@
 
  function Dls_IA_append_message ( role, text )
   { var message = document.createElement("div");
-    message.className = "mb-2 p-2 rounded " + (role == "user" ? "bg-primary-subtle ms-4" : "bg-light me-4");
+    message.className = "mb-2 p-2 rounded " + (role == "user" ? "bg-primary-subtle ms-4" :
+                                               role == "error" ? "bg-danger-subtle text-danger-emphasis me-4" : "bg-light me-4");
     message.textContent = text;
     document.getElementById("idDlsIAConversation").appendChild(message);
     message.scrollIntoView({ block: "nearest" });
@@ -85,8 +86,11 @@
        DlsIAHistory.push ( { role: "user", content: prompt }, { role: "assistant", content: reply } );
        DlsIAHistory = DlsIAHistory.slice(-20);
        $("#idDlsIASend").prop("disabled", false).html('<i class="fas fa-paper-plane"></i> Envoyer');
-     }, function()
-     { $("#idDlsIASend").prop("disabled", false).html('<i class="fas fa-paper-plane"></i> Envoyer');
+     }, function(xhr)
+     { var error;
+       try { error = JSON.parse(xhr.responseText).api_error; } catch (e) { error = undefined; }
+       Dls_IA_append_message ( "error", "Erreur IA : " + (error || ("HTTP " + xhr.status + " " + xhr.statusText)) );
+       $("#idDlsIASend").prop("disabled", false).html('<i class="fas fa-paper-plane"></i> Envoyer');
      } );
   }
 /********************************************* Appelé au chargement de la page ************************************************/
