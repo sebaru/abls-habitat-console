@@ -178,6 +178,7 @@
                }, null);
 
           if (Response.access_level>=6) $("#idHrefConsole").removeClass("d-none").attr("href", Response.console_url );
+          if (Response.access_level>=6) $("#idHrefApiStatus").removeClass("d-none");
           $("#idHrefHome").attr("href", Response.home_url );
           $("#idHrefProfil").attr("href", Response.console_url+"/user/me" );
           $("#idHrefVueCliente").attr("href", Response.home_url );

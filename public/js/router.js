@@ -60,6 +60,13 @@ var Router = (function () {
       breadcrumb: [ { label: 'Agents', href: null } ]
     },
     {
+      pattern:    /^\/api_status$/,
+      help:       'technicien/console/',
+      view:       'api_status',
+      script:     'api_status',
+      breadcrumb: [ { label: "Statut de l'API", href: null } ]
+    },
+    {
       pattern:    /^\/domain_maintenance$/,
       help:       'technicien/console/domaine/',
       view:       'domain_maintenance',

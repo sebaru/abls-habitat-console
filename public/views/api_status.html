@@ -1,0 +1,130 @@
+<div class="container px-3 px-lg-4">
+
+ <div class="row p-1 align-items-center">
+   <div class="col-auto"> <h3><i class="fas fa-heartbeat text-success"></i> Statut de l'API</h3> </div>
+   <div class="col-12 col-md-auto ms-md-auto d-flex flex-wrap gap-3 justify-content-end align-items-center">
+     <div class="form-check form-switch mb-0">
+       <input id="idApiStatusAutoRefresh" class="form-check-input" type="checkbox" checked>
+       <label class="form-check-label" for="idApiStatusAutoRefresh">Auto-refresh (5s)</label>
+     </div>
+     <button type="button" onclick="API_Status_Load()" class="btn btn-primary text-nowrap"><i class="fas fa-sync"></i> Rafraîchir</button>
+   </div>
+ </div>
+
+<hr>
+
+ <div class="row g-2">
+
+  <div class="col-12 col-lg-6">
+   <div class="card h-100">
+     <div class="card-header"> <i class="fas fa-id-card text-primary"></i> <label>Identité</label> </div>
+     <div class="card-body">
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Produit</label>
+         <div class="col-7"><input id="idApiStatusProduct" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Version</label>
+         <div class="col-7"><input id="idApiStatusVersion" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Éditeur</label>
+         <div class="col-7"><input id="idApiStatusVendor" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Documentation</label>
+         <div class="col-7"><a id="idApiStatusDocs" href="#" target="_blank" rel="noopener noreferrer"></a></div>
+       </div>
+     </div>
+   </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+   <div class="card h-100">
+     <div class="card-header"> <i class="fas fa-server text-primary"></i> <label>Fonctionnement</label> </div>
+     <div class="card-body">
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Démarrée le</label>
+         <div class="col-7"><input id="idApiStatusStartTime" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Uptime</label>
+         <div class="col-7"><input id="idApiStatusUptime" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Broker MQTT</label>
+         <div class="col-7"><span id="idApiStatusMqtt" class="badge text-bg-secondary">-</span></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Cache base de données</label>
+         <div class="col-7"><span id="idApiStatusDbCache" class="badge text-bg-secondary">-</span></div>
+       </div>
+     </div>
+   </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+   <div class="card h-100">
+     <div class="card-header"> <i class="fas fa-key text-primary"></i> <label>Authentification (IdP)</label> </div>
+     <div class="card-body">
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">URL</label>
+         <div class="col-7"><input id="idApiStatusIdpUrl" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Realm</label>
+         <div class="col-7"><input id="idApiStatusIdpRealm" type="text" disabled class="form-control"></div>
+       </div>
+     </div>
+   </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+   <div class="card h-100">
+     <div class="card-header"> <i class="fas fa-boxes text-primary"></i> <label>Contenu</label> </div>
+     <div class="card-body">
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Domaines</label>
+         <div class="col-7"><input id="idApiStatusNbrDomains" type="text" disabled class="form-control"></div>
+       </div>
+       <div class="row mb-2 align-items-center">
+         <label class="col-5 col-form-label text-end">Icônes</label>
+         <div class="col-7"><input id="idApiStatusNbrIcons" type="text" disabled class="form-control"></div>
+       </div>
+     </div>
+   </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+   <div class="card h-100">
+     <div class="card-header"> <i class="fas fa-network-wired text-primary"></i> <label>Pool HTTP</label> </div>
+     <div class="card-body">
+       <div class="mb-1">Threads occupés : <strong id="idApiStatusHttpBusyText">-</strong></div>
+       <div class="progress mb-3" role="progressbar" aria-label="Threads HTTP occupés">
+         <div id="idApiStatusHttpBusyBar" class="progress-bar" style="width: 0%"></div>
+       </div>
+       <div class="mb-1">File d'attente : <strong id="idApiStatusHttpQueueText">-</strong></div>
+       <div class="progress" role="progressbar" aria-label="File d'attente HTTP">
+         <div id="idApiStatusHttpQueueBar" class="progress-bar" style="width: 0%"></div>
+       </div>
+     </div>
+   </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+   <div class="card h-100">
+     <div class="card-header"> <i class="fas fa-coffee text-primary"></i> <label>Pool de compilation DLS</label> </div>
+     <div class="card-body">
+       <div class="mb-1">Threads occupés : <strong id="idApiStatusDlsBusyText">-</strong></div>
+       <div class="progress mb-3" role="progressbar" aria-label="Threads de compilation occupés">
+         <div id="idApiStatusDlsBusyBar" class="progress-bar" style="width: 0%"></div>
+       </div>
+       <div class="mb-1">Compilations en attente : <strong id="idApiStatusDlsQueueText">-</strong></div>
+     </div>
+   </div>
+  </div>
+
+ </div>
+
+<!-- Container -->
+</div>
