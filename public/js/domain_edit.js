@@ -63,7 +63,6 @@
          github_models_token: $("#idDomainGithubModelsToken").val(),
          ia_provider   : $("#idDomainIAProvider").val(),
          ia_model      : $("#idDomainIAModel").val(),
-         debug_dls     : $("#idDomainDebugDls").is(':checked'),
          syn_main_libelle: $("#idDomainSynMainLibelle").val(),
        };
 
@@ -109,7 +108,6 @@
        $("#idDomainDeleteButton")     .off("click").click( function () { Domain_Delete( vars[2] ); } )
                                       .prop("disabled", (Response.access_level < 9) );
        $("#idDomainDeleteText")       .prop("disabled", (Response.access_level < 9) );
-       $("#idDomainDebugDls").prop('checked', Response.debug_dls == 1 || Response.debug_dls === true);
        $("#idDomainNotif").val( Response.notif_info );
        $("#idDomainNotifWarning").val( Response.notif_warning );
        $("#idDomainGitRepoURL").val( Response.git_repo_url );
