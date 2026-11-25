@@ -31,6 +31,8 @@ Mixed controls must fit their container (`mw-100` for bounded widths), and modal
 Check action heights, wrapping, dropdowns and disabled/loading states on narrow and wide screens when changing these controls.
 
 The user menu in the top navigation shows the user's initials; hovering or focusing it reveals their full name.
+Keep the dropdown button and menu as siblings inside the tooltip container so Bootstrap's
+delegated click and keyboard handlers can find the menu. No custom click handler is needed.
 
 ## Installation with apache Httpd
 

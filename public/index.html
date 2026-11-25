@@ -297,23 +297,23 @@
       <a href="#" id="idHrefVueCliente" class="nav-link rounded align-self-lg-center" target="_blank"><i class="fas fa-home text-primary"></i> <span> Vue Cliente</span></a>
 
       <li class="nav-item dropdown">
-        <span id="navbarUSERTooltip" class="d-inline-block">
+        <div id="navbarUSERTooltip" class="d-inline-block">
           <button type="button" class="nav-link wtd-user-avatar ms-2" id="navbarUSER"
                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Compte utilisateur">
             <span id="idUsername">-</span>
           </button>
-        </span>
 
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUSER">
-          <a class="dropdown-item" href="#" id="idHrefProfil"><i class="fas fa-user text-info"></i> Mon Profil</a>
-          <a class="dropdown-item" href="#" id="idHrefAccount"><i class="fas fa-user text-info"></i> Mon Compte</a>
-          <a class="dropdown-item" href="/user/invite"><i class="fas fa-user-friends text-info"></i> Inviter</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/users"><i class="fas fa-users-cog text-info"></i> <span>Utilisateurs</span></a>
-          <a class="dropdown-item" href="/log"><i class="fas fa-clipboard-list text-warning"></i> <span>Audit Log</span></a>
-          <a class="dropdown-item d-none" href="/api_status" id="idHrefApiStatus"><i class="fas fa-heartbeat text-success"></i> <span>Statut API</span></a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" onclick="Logout()"><i class="fas fa-sign-out-alt text-danger"></i> <span>Sortir</span> </a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUSER">
+            <a class="dropdown-item" href="#" id="idHrefProfil"><i class="fas fa-user text-info"></i> Mon Profil</a>
+            <a class="dropdown-item" href="#" id="idHrefAccount"><i class="fas fa-user text-info"></i> Mon Compte</a>
+            <a class="dropdown-item" href="/user/invite"><i class="fas fa-user-friends text-info"></i> Inviter</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/users"><i class="fas fa-users-cog text-info"></i> <span>Utilisateurs</span></a>
+            <a class="dropdown-item" href="/log"><i class="fas fa-clipboard-list text-warning"></i> <span>Audit Log</span></a>
+            <a class="dropdown-item d-none" href="/api_status" id="idHrefApiStatus"><i class="fas fa-heartbeat text-success"></i> <span>Statut API</span></a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" onclick="Logout()"><i class="fas fa-sign-out-alt text-danger"></i> <span>Sortir</span> </a>
+          </div>
         </div>
       </li>
     </ul>
