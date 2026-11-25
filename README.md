@@ -18,6 +18,8 @@ Have a good day, Sebaru.
 **Console** is the priviledged user part of project.
 It permits to manage domains and user access, to handle synoptics, DLS modules, and set every connectors configuration and mappings.
 
+The API status page displays the Whisper speech recognition and Ollama server URLs returned by `/status`.
+
 ## Action buttons
 
 Page action bars use standard Bootstrap buttons with `text-nowrap flex-shrink-0`.
