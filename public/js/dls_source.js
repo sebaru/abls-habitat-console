@@ -3,6 +3,7 @@
  var DlsIAHistory = [];
  var DlsIAErrorlog = "";
  var DlsIAPromptAction = "chat";
+ var DlsIAAbort = null;
 
  function Go_to_messages ()
   { vars = window.location.pathname.split('/');
@@ -18,7 +19,7 @@
  function Dls_IA_append_message ( role, text )
   { var message = document.createElement("div");
     message.className = "mb-2 p-2 rounded " + (role == "user" ? "bg-primary-subtle ms-4" :
-                                               role == "error" ? "bg-danger-subtle text-danger-emphasis me-4" : "bg-light me-4");
+                                               role == "error" ? "bg-danger-subtle text-danger-emphasis me-4" : "bg-body-secondary text-body border me-4");
     message.textContent = text;
     document.getElementById("idDlsIAConversation").appendChild(message);
     message.scrollIntoView({ block: "nearest" });
@@ -60,9 +61,33 @@
     document.getElementById("idDlsIAPrompt").focus();
   }
 
+ function Dls_IA_set_busy ( busy )
+  { if (busy) $("#idDlsIASend").removeClass("btn-primary").addClass("btn-outline-danger").html('<i class="fas fa-stop"></i> Arrêter');
+         else $("#idDlsIASend").removeClass("btn-outline-danger").addClass("btn-primary").html('<i class="fas fa-paper-plane"></i> Envoyer');
+  }
+/******************************************* Découpe le flux Server-Sent Events ***********************************************/
+ function Dls_IA_parse_sse ( buffer )
+  { var events = [];
+    var blocks = buffer.replace(/\r\n?/g, "\n").split("\n\n");
+    var rest = blocks.pop();
+    blocks.forEach ( function (block)
+     { var name = "message", data = [];
+       block.split("\n").forEach ( function (line)
+        { if (line.startsWith("event:")) name = line.slice(6).trim();
+          else if (line.startsWith("data:")) data.push(line.slice(5).replace(/^ /, ""));
+        } );
+       if (data.length) events.push ( { event: name, data: data.join("\n") } );
+     } );
+    return { events: events, rest: rest };
+  }
+
+ function Dls_IA_click_send ()
+  { if (DlsIAAbort) { DlsIAAbort.abort(); return; }
+    Dls_IA_send ();
+  }
+
  function Dls_IA_send ( action, quick_message )
-  { if (!Dls || !SourceCode) return;
-    if ($("#idDlsIASend").prop("disabled")) return;
+  { if (!Dls || !SourceCode || DlsIAAbort) return;
     var prompt = quick_message || $("#idDlsIAPrompt").val().trim();
     if (!prompt) return;
     action = action || DlsIAPromptAction;
@@ -78,19 +103,85 @@
        errorlog: DlsIAErrorlog,
        history: DlsIAHistory.slice(-20),
      };
-    $("#idDlsIASend").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Envoi');
-    Send_to_API ( "POST", "/assistant/ia/chat", json_request, function(Response)
-     { var reply = Response.reply || "Aucune réponse textuelle.";
-       var message = Dls_IA_append_message ( "assistant", reply );
-       if (Response.sourcecode) Dls_IA_add_proposal ( message, Response.sourcecode );
-       DlsIAHistory.push ( { role: "user", content: prompt }, { role: "assistant", content: reply } );
-       DlsIAHistory = DlsIAHistory.slice(-20);
-       $("#idDlsIASend").prop("disabled", false).html('<i class="fas fa-paper-plane"></i> Envoyer');
-     }, function(xhr)
-     { var error;
-       try { error = JSON.parse(xhr.responseText).api_error; } catch (e) { error = undefined; }
-       Dls_IA_append_message ( "error", "Erreur IA : " + (error || ("HTTP " + xhr.status + " " + xhr.statusText)) );
-       $("#idDlsIASend").prop("disabled", false).html('<i class="fas fa-paper-plane"></i> Envoyer');
+    var controller = new AbortController();
+    var idle_timer = null, timed_out = false, finished = false;
+    var message = Dls_IA_append_message ( "assistant", "…" );
+    var text = "";
+    function rearm ()                                       /* L'API envoie un ping toutes les 10s: 60s de silence = coupure */
+     { clearTimeout ( idle_timer );
+       idle_timer = setTimeout ( function () { timed_out = true; controller.abort(); }, 60000 );
+     }
+    function fail ( error )
+     { finished = true;
+       if (!text) message.remove();
+       Dls_IA_append_message ( "error", "Erreur IA : " + error );
+     }
+    function handle ( event )
+     { var data;
+       try { data = JSON.parse(event.data); } catch (e) { return; }
+       if (event.event == "delta" && data.content)
+        { text += data.content;
+          message.textContent = text;
+          message.scrollIntoView({ block: "nearest" });
+        }
+       else if (event.event == "done")
+        { finished = true;
+          var reply = data.reply || "Aucune réponse textuelle.";
+          message.textContent = reply;
+          if (data.sourcecode) Dls_IA_add_proposal ( message, data.sourcecode );
+          DlsIAHistory.push ( { role: "user", content: prompt }, { role: "assistant", content: reply } );
+          DlsIAHistory = DlsIAHistory.slice(-20);
+        }
+       else if (event.event == "error") fail ( data.api_error || ("HTTP " + data.api_status) );
+     }
+
+    DlsIAAbort = controller;
+    Dls_IA_set_busy ( true );
+    rearm ();
+    fetch ( $ABLS_API + "/assistant/ia/chat",
+     { method: "POST",
+       headers: { "Content-Type": "application/json",
+                  "Authorization": "Bearer " + Token,
+                  "X-ABLS-DOMAIN": localStorage.getItem("domain_uuid") },
+       body: JSON.stringify(json_request),
+       signal: controller.signal,
+     } )
+    .then ( function (response)
+     { rearm ();
+       if (!(response.headers.get("Content-Type") || "").startsWith("text/event-stream"))
+        { return response.text().then ( function (body)
+           { var error;
+             try { error = JSON.parse(body).api_error; } catch (e) { error = undefined; }
+             fail ( error || ("HTTP " + response.status + " " + response.statusText) );
+           } );
+        }
+       var reader = response.body.getReader();
+       var decoder = new TextDecoder();
+       var buffer = "";
+       function pump ()
+        { return reader.read().then ( function (chunk)
+           { rearm ();
+             buffer += decoder.decode ( chunk.value || new Uint8Array(), { stream: !chunk.done } );
+             var parsed = Dls_IA_parse_sse ( chunk.done ? buffer + "\n\n" : buffer );
+             buffer = parsed.rest;
+             parsed.events.forEach ( handle );
+             if (chunk.done || finished) { reader.cancel().catch(function(){}); return; }
+             return pump ();
+           } );
+        }
+       return pump ();
+     } )
+    .then ( function ()
+     { if (!finished) fail ( "réponse interrompue" ); } )
+    .catch ( function (error)
+     { if (finished) return;
+       if (error.name == "AbortError") fail ( timed_out ? "pas de réponse depuis 60s" : "requête arrêtée" );
+       else fail ( "connexion impossible à l'API" );
+     } )
+    .finally ( function ()
+     { clearTimeout ( idle_timer );
+       DlsIAAbort = null;
+       Dls_IA_set_busy ( false );
      } );
   }
 /********************************************* Appelé au chargement de la page ************************************************/
